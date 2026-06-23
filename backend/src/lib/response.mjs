@@ -27,12 +27,21 @@ export function ok(event, body, extraHeaders) { return json(event, 200, body, ex
 export function badRequest(event, msg) { return json(event, 400, { ok: false, error: msg }); }
 export function unauthorized(event, msg = "unauthorized") { return json(event, 401, { ok: false, error: msg }); }
 
-// Parse a cookie value out of the Cookie header.
+// Read a cookie. HTTP API (payload format 2.0) delivers cookies in the
+// `event.cookies` ARRAY — not in event.headers.cookie — so check that first,
+// then fall back to the Cookie header for other integrations / local testing.
 export function getCookie(event, name) {
+  if (Array.isArray(event?.cookies)) {
+    for (const c of event.cookies) {
+      const idx = c.indexOf("=");
+      const k = (idx === -1 ? c : c.slice(0, idx)).trim();
+      if (k === name) return decodeURIComponent(c.slice(idx + 1));
+    }
+  }
   const header = event?.headers?.cookie || event?.headers?.Cookie || "";
   for (const part of header.split(";")) {
     const [k, ...v] = part.trim().split("=");
-    if (k === name) return decodeURIComponent(v.join("="));
+    if (k.trim() === name) return decodeURIComponent(v.join("="));
   }
   return null;
 }
