@@ -1,12 +1,17 @@
 ---
 import Base from "../layouts/Base.astro";
+const CERTIFY = "https://ai-certify.in/";
 ---
 <Base title="Training — Anvi Innovate">
   <span class="pill">Training</span>
-  <h1>Training modules — coming soon</h1>
-  <div class="card" style="max-width:720px;">
-    <p>We're building structured AI/ML and GenAI training <strong>in collaboration with ai-certify.in</strong>. Modules will cover foundations through applied LLM and prompt-engineering skills.</p>
-    <p class="muted">Candidates in a post-assessment cooldown retain full access to training while they prepare to retry.</p>
-    <a class="btn btn-primary" href="/candidates">Apply as a candidate</a>
+  <h1>Courses &amp; certification path</h1>
+  <div class="card" style="max-width:760px;">
+    <p>Our training and certification are delivered <strong>in collaboration with ai-certify.in</strong> — structured AI/ML and GenAI courses, from foundations through applied LLM and prompt-engineering skills, with a clear certification path.</p>
+    <p class="muted">Candidates in a post-assessment cooldown keep full access to training while they prepare to retry.</p>
+    <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:18px;">
+      <a class="btn btn-primary" href={CERTIFY} target="_blank" rel="noopener noreferrer">Access courses on ai-certify.in →</a>
+      <a class="btn btn-ghost" href={CERTIFY} target="_blank" rel="noopener noreferrer">View certification path →</a>
+    </div>
   </div>
+  <p class="muted" style="margin-top:20px;">Not applied yet? <a href="/candidates">Start your application</a> to unlock the assessment.</p>
 </Base>
