@@ -1,0 +1,30 @@
+---
+import Base from "../layouts/Base.astro";
+const groups = [
+  { h: "Candidates", items: [
+    ["How do I apply?", "Sign in with Google on the Apply page and submit your profile. No password needed — your first sign-in creates your account."],
+    ["What's the assessment like?", "30 multiple-choice questions across 10 AI/ML categories, 30 minutes, 85% to pass. Each attempt draws a unique set."],
+    ["What if I don't pass?", "A 30-day cooldown applies before you can retry. You keep access to training modules in the meantime."],
+    ["Do I need experience?", "No — both freshers and experienced candidates can apply. The assessment tests foundations, not job history."],
+  ]},
+  { h: "Clients", items: [
+    ["How do I hire?", "Submit the demand form with your skills, resource count, and timeline. We follow up to match assessed candidates."],
+    ["How are candidates vetted?", "Every deployable candidate has passed our 10-category assessment at 85% or above."],
+    ["What does it cost?", "We work on a resource and commission-on-output basis. Share your needs and we'll propose terms."],
+  ]},
+];
+---
+<Base title="FAQ — Anvi Innovate">
+  <h1>Frequently asked questions</h1>
+  {groups.map((g) => (
+    <section style="margin-top:24px;">
+      <h2>{g.h}</h2>
+      {g.items.map(([q, a]) => (
+        <details class="card" style="margin-bottom:12px;">
+          <summary style="font-weight:600; cursor:pointer;">{q}</summary>
+          <p class="muted" style="margin-bottom:0;">{a}</p>
+        </details>
+      ))}
+    </section>
+  ))}
+</Base>

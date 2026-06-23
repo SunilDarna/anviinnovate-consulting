@@ -1,0 +1,12 @@
+---
+import Base from "../../layouts/Base.astro";
+import CandidateForm from "../../components/CandidateForm.jsx";
+---
+<Base title="Apply — Anvi Innovate">
+  <span class="pill">For Candidates</span>
+  <h1>Candidate application</h1>
+  <p class="muted" style="max-width:680px;">Sign in with Google, tell us about your background, and unlock the AI/ML Foundations Assessment.</p>
+  <div style="max-width:720px; margin-top:24px;">
+    <CandidateForm client:load />
+  </div>
+</Base>

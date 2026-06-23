@@ -1,13 +1,63 @@
 ---
 import Base from "../layouts/Base.astro";
-import AuthStatus from "../components/AuthStatus.jsx";
 ---
-<Base title="Anvi Innovate — Skilled AI talent, on demand">
-  <AuthStatus slot="nav" client:load />
-  <h1>Skilled talent, on demand. Future-ready, from day one.</h1>
-  <p>Register with your Google account to apply, take the assessment, and track your status.</p>
-  <p style="display:flex; gap:12px; margin-top:24px;">
-    <a href="/login" style="background:#2563EB;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600;">Apply Now</a>
-    <a href="/clients" style="border:1px solid #475569;color:#0F172A;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600;">Hire Talent</a>
-  </p>
+<Base title="Anvi Innovate — Skilled AI talent, on demand" bg={true}>
+  <section style="text-align:center; padding:32px 0 12px;">
+    <span class="pill">AI/ML talent · trained · assessed · deployed</span>
+    <h1>Skilled talent, on demand.<br/>Future-ready, from day one.</h1>
+    <p class="muted" style="font-size:1.2rem; max-width:680px; margin:0 auto 28px;">
+      Anvi Innovate trains and assesses AI/ML resources, then deploys them to teams that need to move fast — from data annotation to LLM fine-tuning.
+    </p>
+    <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+      <a class="btn btn-primary" href="/candidates">Apply as a candidate</a>
+      <a class="btn btn-ghost" href="/clients">Hire talent</a>
+    </div>
+  </section>
+
+  <section class="grid" style="grid-template-columns:1fr 1fr; margin-top:64px;">
+    <div class="card">
+      <h3 style="margin-top:0;">For Clients</h3>
+      <ol class="muted" style="padding-left:18px;">
+        <li>Submit your demand — skills, count, timeline.</li>
+        <li>We match assessed, ready resources.</li>
+        <li>Deploy and scale on your terms.</li>
+      </ol>
+      <a class="btn btn-primary" href="/clients">Submit a demand</a>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0;">For Candidates</h3>
+      <ol class="muted" style="padding-left:18px;">
+        <li>Apply with your Google account.</li>
+        <li>Pass the AI/ML Foundations Assessment (85%).</li>
+        <li>Get trained and deployed to real projects.</li>
+      </ol>
+      <a class="btn btn-primary" href="/candidates">Start your application</a>
+    </div>
+  </section>
+
+  <section style="margin-top:64px;">
+    <h2>Why Anvi Innovate</h2>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="card"><h3>Resource-centric</h3><p class="muted">We supply people, not black-box services — embedded in your team, accountable to your outcomes.</p></div>
+      <div class="card"><h3>Future-ready skills</h3><p class="muted">Fresh AI/ML and GenAI training, validated by a rigorous 30-question, 10-category assessment.</p></div>
+      <div class="card"><h3>Fast to deploy</h3><p class="muted">Pre-assessed talent means days, not months, from demand to deployment.</p></div>
+    </div>
+  </section>
+
+  <section class="card" style="margin-top:48px; background:var(--ink); color:#fff;">
+    <h2 style="color:#fff;">A market that's compounding</h2>
+    <p style="font-size:1.1rem; max-width:760px;">
+      The global AI training dataset market is expected to reach <strong>USD 8.60 billion by 2030</strong>, growing at a
+      <strong>21.9% CAGR (2025–2030)</strong>. Anvi Innovate builds the skilled human layer that powers it.
+    </p>
+    <p class="muted" style="color:#94a3b8; font-size:13px;">Source: Grand View Research.</p>
+  </section>
+
+  <section style="text-align:center; margin-top:56px;">
+    <h2>Ready to start?</h2>
+    <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+      <a class="btn btn-primary" href="/candidates">Apply now</a>
+      <a class="btn btn-ghost" href="/clients">Hire talent</a>
+    </div>
+  </section>
 </Base>

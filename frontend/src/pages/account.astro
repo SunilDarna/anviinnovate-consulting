@@ -1,26 +1,27 @@
 ---
 import Base from "../layouts/Base.astro";
-import AuthStatus from "../components/AuthStatus.jsx";
 ---
 <Base title="Your account — Anvi Innovate">
-  <AuthStatus slot="nav" client:load />
   <h1>Your account</h1>
-  <p id="gate">Checking your session…</p>
+  <p id="gate" class="muted">Checking your session…</p>
   <div id="content" style="display:none;">
-    <p>You're signed in. Next steps:</p>
-    <p style="display:flex; gap:12px;">
-      <a href="/candidates/apply" style="background:#2563EB;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600;">Start your application</a>
-    </p>
+    <p>Welcome back, <strong id="who"></strong>. Here's where to go next:</p>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:16px;">
+      <div class="card"><h3 style="margin-top:0;">1 · Apply</h3><p class="muted">Submit or update your candidate profile.</p><a class="btn btn-ghost" href="/candidates/apply">Application</a></div>
+      <div class="card"><h3 style="margin-top:0;">2 · Assessment</h3><p class="muted">30 questions · 30 min · 85% to pass.</p><a class="btn btn-primary" href="/candidates/assessment">Take assessment</a></div>
+      <div class="card"><h3 style="margin-top:0;">3 · Training</h3><p class="muted">Upskill with ai-certify.in (coming soon).</p><a class="btn btn-ghost" href="/training">Training</a></div>
+    </div>
   </div>
   <script>
-    // Client-side gate: redirect to /login if no valid session.
     const BASE = import.meta.env.PUBLIC_API_BASE || "";
     fetch(`${BASE}/auth/me`, { credentials: "include" })
-      .then((r) => { if (!r.ok) location.href = "/login"; return r.json(); })
-      .then(() => {
+      .then((r) => { if (!r.ok) { location.href = "/login"; throw 0; } return r.json(); })
+      .then((d) => {
+        const who = d?.user?.name || d?.user?.email || "";
+        document.getElementById("who").textContent = who;
         document.getElementById("gate").style.display = "none";
         document.getElementById("content").style.display = "block";
       })
-      .catch(() => { location.href = "/login"; });
+      .catch(() => {});
   </script>
 </Base>

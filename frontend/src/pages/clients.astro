@@ -1,0 +1,29 @@
+---
+import Base from "../layouts/Base.astro";
+import ClientForm from "../components/ClientForm.jsx";
+---
+<Base title="Hire skilled AI/ML talent — Anvi Innovate">
+  <span class="pill">For Clients</span>
+  <h1>Hire skilled resources, ready to deploy</h1>
+  <p class="muted" style="font-size:1.15rem; max-width:720px;">
+    Tell us what you need — domain, number of resources, and timeline. We match pre-assessed AI/ML talent and get them working with your team fast.
+  </p>
+
+  <div class="grid" style="grid-template-columns:1.2fr 1fr; align-items:start; margin-top:32px;">
+    <ClientForm client:load />
+    <div class="card">
+      <h3 style="margin-top:0;">How it works</h3>
+      <ol class="muted" style="padding-left:18px;">
+        <li><strong>Submit demand</strong> — this form takes a minute.</li>
+        <li><strong>We match</strong> assessed candidates to your skills and timeline.</li>
+        <li><strong>Deploy</strong> — embed resources in your team and scale up or down.</li>
+      </ol>
+      <h3>Why teams choose us</h3>
+      <ul class="muted" style="padding-left:18px;">
+        <li>Every candidate passes a 10-category AI/ML assessment (85% bar).</li>
+        <li>Commission-on-tagging model — you pay for output.</li>
+        <li>In collaboration with ai-certify.in for ongoing upskilling.</li>
+      </ul>
+    </div>
+  </div>
+</Base>

@@ -189,6 +189,28 @@ Resources:
         - DomainName: !Sub "www.${DomainName}"
           HostedZoneId: !Ref HostedZoneId
 
+  # Resolve directory-style routes (/login -> /login/index.html) for the S3+OAC origin,
+  # which (unlike S3 website hosting) does not serve index documents for sub-paths.
+  RewriteFunction:
+    Type: AWS::CloudFront::Function
+    Properties:
+      Name: anvi-dir-index-rewrite
+      AutoPublish: true
+      FunctionConfig:
+        Comment: Append index.html for directory-style routes
+        Runtime: cloudfront-js-2.0
+      FunctionCode: |
+        function handler(event) {
+          var request = event.request;
+          var uri = request.uri;
+          if (uri.endsWith('/')) {
+            request.uri += 'index.html';
+          } else if (uri.lastIndexOf('.') < uri.lastIndexOf('/')) {
+            request.uri += '/index.html';
+          }
+          return request;
+        }
+
   OAC:
     Type: AWS::CloudFront::OriginAccessControl
     Properties:
@@ -223,6 +245,9 @@ Resources:
           Compress: true
           AllowedMethods: [GET, HEAD]
           CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6  # Managed-CachingOptimized
+          FunctionAssociations:
+            - EventType: viewer-request
+              FunctionARN: !GetAtt RewriteFunction.FunctionMetadata.FunctionARN
         CustomErrorResponses:
           - ErrorCode: 403
             ResponseCode: 404
