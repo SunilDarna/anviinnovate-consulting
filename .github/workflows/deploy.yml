@@ -21,30 +21,40 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
+      - uses: aws-actions/setup-sam@v2
 
-      # --- Backend: install deps + SAM deploy ---
+      # Resolve the hosted zone ID for the SAM parameter
+      - id: hz
+        run: |
+          HZID=$(aws route53 list-hosted-zones-by-name --dns-name anviinnovate.com \
+            --query 'HostedZones[0].Id' --output text | sed 's#/hostedzone/##')
+          echo "id=$HZID" >> "$GITHUB_OUTPUT"
+
+      # Backend + hosting + SES
       - run: npm install
         working-directory: backend
-      - uses: aws-actions/setup-sam@v2
       - run: sam build
         working-directory: infra
-      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --parameter-overrides HostedZoneId=${{ steps.hz.outputs.id }}
         working-directory: infra
 
-      # --- Capture API base URL from the stack output ---
-      - id: api
+      # Read stack outputs
+      - id: out
         run: |
-          URL=$(aws cloudformation describe-stacks --stack-name anviinnovate-backend \
-            --query "Stacks[0].Outputs[?OutputKey=='ApiBaseUrl'].OutputValue" --output text)
-          echo "base=$URL" >> "$GITHUB_OUTPUT"
+          API=$(aws cloudformation describe-stacks --stack-name anviinnovate --query "Stacks[0].Outputs[?OutputKey=='ApiBaseUrl'].OutputValue" --output text)
+          BUCKET=$(aws cloudformation describe-stacks --stack-name anviinnovate --query "Stacks[0].Outputs[?OutputKey=='SiteBucket'].OutputValue" --output text)
+          DIST=$(aws cloudformation describe-stacks --stack-name anviinnovate --query "Stacks[0].Outputs[?OutputKey=='DistributionId'].OutputValue" --output text)
+          echo "api=$API" >> "$GITHUB_OUTPUT"
+          echo "bucket=$BUCKET" >> "$GITHUB_OUTPUT"
+          echo "dist=$DIST" >> "$GITHUB_OUTPUT"
 
-      # --- Frontend: build (inject public env) + sync to S3 + invalidate ---
+      # Frontend build + upload
       - run: npm install
         working-directory: frontend
       - run: npm run build
         working-directory: frontend
         env:
           PUBLIC_GOOGLE_CLIENT_ID: ${{ secrets.PUBLIC_GOOGLE_CLIENT_ID }}
-          PUBLIC_API_BASE: ${{ steps.api.outputs.base }}
-      - run: aws s3 sync frontend/dist s3://anviinnovate-site-prod --delete
-      - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DIST_ID }} --paths "/*"
+          PUBLIC_API_BASE: ${{ steps.out.outputs.api }}
+      - run: aws s3 sync frontend/dist s3://${{ steps.out.outputs.bucket }} --delete
+      - run: aws cloudfront create-invalidation --distribution-id ${{ steps.out.outputs.dist }} --paths "/*"

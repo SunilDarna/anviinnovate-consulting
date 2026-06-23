@@ -1,9 +1,10 @@
 version = 0.1
 
 [default.deploy.parameters]
-stack_name = "anviinnovate-backend"
+stack_name = "anviinnovate"
 region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 resolve_s3 = true
 confirm_changeset = false
-parameter_overrides = "GoogleClientId=736690706364-54tc00o4sdod1d02vdalqc9slpa67ao5.apps.googleusercontent.com"
+# HostedZoneId is passed at deploy time (resolved from Route 53) by scripts/deploy.sh
+# and the CI workflow. GoogleClientId/DomainName/SiteBucketName use template defaults.

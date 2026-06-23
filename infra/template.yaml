@@ -1,18 +1,38 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
-Description: Anvi Innovate backend — HTTP API, Lambdas, DynamoDB single table (auth + leads + assessment).
+Description: >
+  Anvi Innovate — full stack: static hosting (S3 + CloudFront + OAC + ACM + Route53),
+  HTTP API + Lambdas, DynamoDB single table, and SES domain identity (DKIM/SPF/DMARC).
 
 Parameters:
   GoogleClientId:
     Type: String
+    Default: "736690706364-54tc00o4sdod1d02vdalqc9slpa67ao5.apps.googleusercontent.com"
     Description: Google OAuth Web client ID (public).
+  DomainName:
+    Type: String
+    Default: anviinnovate.com
+  HostedZoneId:
+    Type: String
+    Description: Route 53 hosted zone ID for DomainName (e.g. Z0123456ABCDEF). Passed at deploy time.
+  SiteBucketName:
+    Type: String
+    Default: anviinnovate-site-prod
   AllowedOrigins:
     Type: String
     Default: "https://anviinnovate.com,https://www.anviinnovate.com,http://localhost:4321"
+  FromEmail:
+    Type: String
+    Default: hello@anviinnovate.com
+    Description: SES From address (must be on the verified domain identity).
+  NotifyEmail:
+    Type: String
+    Default: hello@anviinnovate.com
+    Description: Internal recipient for new client-lead notifications.
 
 Globals:
   Function:
-    Runtime: nodejs20.x
+    Runtime: nodejs24.x
     Architectures: [arm64]
     MemorySize: 256
     Timeout: 10
@@ -20,12 +40,15 @@ Globals:
       Variables:
         TABLE_NAME: !Ref Table
         ALLOWED_ORIGINS: !Ref AllowedOrigins
-        COOKIE_DOMAIN: anviinnovate.com
+        COOKIE_DOMAIN: !Ref DomainName
         GOOGLE_CLIENT_ID: !Ref GoogleClientId
         GOOGLE_SECRET_PARAM: /anviinnovate/google/client_secret
         SESSION_KEY_PARAM: /anviinnovate/auth/session_jwt_secret
+        FROM_EMAIL: !Ref FromEmail
+        INTERNAL_NOTIFY_EMAIL: !Ref NotifyEmail
 
 Resources:
+  # ------------------------------------------------------------------ Data
   Table:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -49,6 +72,7 @@ Resources:
         AttributeName: ttl
         Enabled: true
 
+  # ------------------------------------------------------------------ API
   HttpApi:
     Type: AWS::Serverless::HttpApi
     Properties:
@@ -64,8 +88,8 @@ Resources:
   AuthGoogleFn:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.handler
-      CodeUri: ../backend/src/authGoogle/
+      Handler: src/authGoogle/index.handler
+      CodeUri: ../backend/
       Policies:
         - DynamoDBCrudPolicy: { TableName: !Ref Table }
         - SSMParameterReadPolicy: { ParameterName: anviinnovate/google/client_secret }
@@ -76,8 +100,8 @@ Resources:
   AuthMeFn:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.handler
-      CodeUri: ../backend/src/authMe/
+      Handler: src/authMe/index.handler
+      CodeUri: ../backend/
       Policies:
         - DynamoDBReadPolicy: { TableName: !Ref Table }
         - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
@@ -87,37 +111,39 @@ Resources:
   AuthLogoutFn:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.handler
-      CodeUri: ../backend/src/authLogout/
+      Handler: src/authLogout/index.handler
+      CodeUri: ../backend/
       Events:
         Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /auth/logout, Method: POST } }
 
   ClientLeadFn:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.handler
-      CodeUri: ../backend/src/clientLead/
+      Handler: src/clientLead/index.handler
+      CodeUri: ../backend/
       Policies:
         - DynamoDBCrudPolicy: { TableName: !Ref Table }
+        - SESCrudPolicy: { IdentityName: !Ref DomainName }
       Events:
         Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /client-lead, Method: POST } }
 
   CandidateApplyFn:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.handler
-      CodeUri: ../backend/src/candidateApply/
+      Handler: src/candidateApply/index.handler
+      CodeUri: ../backend/
       Policies:
         - DynamoDBCrudPolicy: { TableName: !Ref Table }
         - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
+        - SESCrudPolicy: { IdentityName: !Ref DomainName }
       Events:
         Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /candidate-apply, Method: POST } }
 
   AssessmentStartFn:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.handler
-      CodeUri: ../backend/src/assessmentStart/
+      Handler: src/assessmentStart/index.handler
+      CodeUri: ../backend/
       Policies:
         - DynamoDBCrudPolicy: { TableName: !Ref Table }
         - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
@@ -127,17 +153,216 @@ Resources:
   AssessmentSubmitFn:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.handler
-      CodeUri: ../backend/src/assessmentSubmit/
+      Handler: src/assessmentSubmit/index.handler
+      CodeUri: ../backend/
       Policies:
         - DynamoDBCrudPolicy: { TableName: !Ref Table }
         - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
+        - SESCrudPolicy: { IdentityName: !Ref DomainName }
       Events:
         Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /assessment/submit, Method: POST } }
+
+  # ------------------------------------------------------------------ Hosting
+  SiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref SiteBucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+
+  Certificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Ref DomainName
+      SubjectAlternativeNames:
+        - !Sub "www.${DomainName}"
+      ValidationMethod: DNS
+      DomainValidationOptions:
+        - DomainName: !Ref DomainName
+          HostedZoneId: !Ref HostedZoneId
+        - DomainName: !Sub "www.${DomainName}"
+          HostedZoneId: !Ref HostedZoneId
+
+  OAC:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: anvi-site-oac
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  Distribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        DefaultRootObject: index.html
+        Aliases:
+          - !Ref DomainName
+          - !Sub "www.${DomainName}"
+        ViewerCertificate:
+          AcmCertificateArn: !Ref Certificate
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2021
+        Origins:
+          - Id: S3Origin
+            DomainName: !GetAtt SiteBucket.RegionalDomainName
+            OriginAccessControlId: !Ref OAC
+            S3OriginConfig:
+              OriginAccessIdentity: ""
+        DefaultCacheBehavior:
+          TargetOriginId: S3Origin
+          ViewerProtocolPolicy: redirect-to-https
+          Compress: true
+          AllowedMethods: [GET, HEAD]
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6  # Managed-CachingOptimized
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 404
+            ResponsePagePath: /404.html
+          - ErrorCode: 404
+            ResponseCode: 404
+            ResponsePagePath: /404.html
+        PriceClass: PriceClass_100
+
+  SiteBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref SiteBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowCloudFrontOAC
+            Effect: Allow
+            Principal: { Service: cloudfront.amazonaws.com }
+            Action: s3:GetObject
+            Resource: !Sub "arn:aws:s3:::${SiteBucketName}/*"
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}"
+
+  # ------------------------------------------------------------------ DNS (site)
+  ApexA:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Ref DomainName
+      Type: A
+      AliasTarget:
+        DNSName: !GetAtt Distribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2  # CloudFront global alias zone
+        EvaluateTargetHealth: false
+  ApexAAAA:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Ref DomainName
+      Type: AAAA
+      AliasTarget:
+        DNSName: !GetAtt Distribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2
+        EvaluateTargetHealth: false
+  WwwA:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Sub "www.${DomainName}"
+      Type: A
+      AliasTarget:
+        DNSName: !GetAtt Distribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2
+        EvaluateTargetHealth: false
+  WwwAAAA:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Sub "www.${DomainName}"
+      Type: AAAA
+      AliasTarget:
+        DNSName: !GetAtt Distribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2
+        EvaluateTargetHealth: false
+
+  # ------------------------------------------------------------------ SES
+  EmailIdentity:
+    Type: AWS::SES::EmailIdentity
+    Properties:
+      EmailIdentity: !Ref DomainName
+      DkimAttributes:
+        SigningEnabled: true
+      MailFromAttributes:
+        MailFromDomain: !Sub "mail.${DomainName}"
+        BehaviorOnMxFailure: USE_DEFAULT_VALUE
+
+  DkimRecord1:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !GetAtt EmailIdentity.DkimDNSTokenName1
+      Type: CNAME
+      TTL: "1800"
+      ResourceRecords: [!GetAtt EmailIdentity.DkimDNSTokenValue1]
+  DkimRecord2:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !GetAtt EmailIdentity.DkimDNSTokenName2
+      Type: CNAME
+      TTL: "1800"
+      ResourceRecords: [!GetAtt EmailIdentity.DkimDNSTokenValue2]
+  DkimRecord3:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !GetAtt EmailIdentity.DkimDNSTokenName3
+      Type: CNAME
+      TTL: "1800"
+      ResourceRecords: [!GetAtt EmailIdentity.DkimDNSTokenValue3]
+  MailFromMX:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Sub "mail.${DomainName}"
+      Type: MX
+      TTL: "1800"
+      ResourceRecords:
+        - "10 feedback-smtp.us-east-1.amazonses.com"
+  MailFromSPF:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Sub "mail.${DomainName}"
+      Type: TXT
+      TTL: "1800"
+      ResourceRecords:
+        - '"v=spf1 include:amazonses.com ~all"'
+  DmarcRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Sub "_dmarc.${DomainName}"
+      Type: TXT
+      TTL: "1800"
+      ResourceRecords:
+        - '"v=DMARC1; p=none; rua=mailto:dmarc@anviinnovate.com"'
 
 Outputs:
   ApiBaseUrl:
     Description: HTTP API base URL — set as PUBLIC_API_BASE in the frontend build.
     Value: !Sub "https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com"
+  SiteBucket:
+    Value: !Ref SiteBucket
+  DistributionId:
+    Description: CloudFront distribution ID — used for cache invalidation in CI.
+    Value: !Ref Distribution
+  SiteUrl:
+    Value: !Sub "https://${DomainName}"
   TableName:
     Value: !Ref Table

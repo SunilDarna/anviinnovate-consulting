@@ -1,0 +1,1978 @@
+[
+  {
+    "id": "q0001",
+    "category": "Math & Statistics",
+    "question": "What does the mean of a dataset measure?",
+    "options": {
+      "A": "The most frequent value",
+      "B": "The middle value when sorted",
+      "C": "The arithmetic average of all values",
+      "D": "The spread of values"
+    },
+    "correct_answer": "C",
+    "explanation": "The mean is the sum of all values divided by the count (arithmetic average / central tendency)."
+  },
+  {
+    "id": "q0002",
+    "category": "Math & Statistics",
+    "question": "Which measure is most robust to outliers?",
+    "options": {
+      "A": "Mean",
+      "B": "Median",
+      "C": "Standard deviation",
+      "D": "Range"
+    },
+    "correct_answer": "B",
+    "explanation": "The median is the middle value and is unaffected by extreme outliers, unlike the mean."
+  },
+  {
+    "id": "q0003",
+    "category": "Math & Statistics",
+    "question": "What does variance quantify?",
+    "options": {
+      "A": "The central value",
+      "B": "The average squared deviation from the mean",
+      "C": "The most common value",
+      "D": "The correlation between variables"
+    },
+    "correct_answer": "B",
+    "explanation": "Variance is the average of squared differences from the mean, indicating spread."
+  },
+  {
+    "id": "q0004",
+    "category": "Math & Statistics",
+    "question": "What is the valid range of any probability value?",
+    "options": {
+      "A": "-1 to 1",
+      "B": "0 to 100",
+      "C": "0 to 1",
+      "D": "1 to infinity"
+    },
+    "correct_answer": "C",
+    "explanation": "A probability is always between 0 (impossible) and 1 (certain), inclusive."
+  },
+  {
+    "id": "q0005",
+    "category": "Math & Statistics",
+    "question": "What does Bayes' theorem compute?",
+    "options": {
+      "A": "The derivative of a function",
+      "B": "A posterior probability from a prior and likelihood",
+      "C": "The eigenvalues of a matrix",
+      "D": "The mean of a distribution"
+    },
+    "correct_answer": "B",
+    "explanation": "Bayes' theorem updates the posterior probability given a prior and the likelihood of new evidence."
+  },
+  {
+    "id": "q0006",
+    "category": "Math & Statistics",
+    "question": "A Pearson correlation of 0 between two variables indicates?",
+    "options": {
+      "A": "Perfect positive linear relationship",
+      "B": "No linear relationship",
+      "C": "Perfect negative relationship",
+      "D": "The variables are identical"
+    },
+    "correct_answer": "B",
+    "explanation": "A correlation of 0 means no linear relationship (a nonlinear one may still exist)."
+  },
+  {
+    "id": "q0007",
+    "category": "Math & Statistics",
+    "question": "In a normal distribution, ~what % of data falls within one standard deviation of the mean?",
+    "options": {
+      "A": "50%",
+      "B": "68%",
+      "C": "95%",
+      "D": "99.7%"
+    },
+    "correct_answer": "B",
+    "explanation": "By the 68-95-99.7 empirical rule, about 68% lies within one SD."
+  },
+  {
+    "id": "q0008",
+    "category": "Math & Statistics",
+    "question": "What is a derivative used for in gradient-based optimization?",
+    "options": {
+      "A": "Measuring data spread",
+      "B": "Indicating the rate of change/slope of a function",
+      "C": "Counting samples",
+      "D": "Normalizing features"
+    },
+    "correct_answer": "B",
+    "explanation": "The derivative gives the slope, telling gradient descent which direction reduces loss."
+  },
+  {
+    "id": "q0009",
+    "category": "Math & Statistics",
+    "question": "The dot product of two normalized vectors measures?",
+    "options": {
+      "A": "Their sum",
+      "B": "Their cosine similarity/alignment",
+      "C": "Their difference",
+      "D": "Their cross product"
+    },
+    "correct_answer": "B",
+    "explanation": "For unit vectors, the dot product equals the cosine of the angle between them."
+  },
+  {
+    "id": "q0010",
+    "category": "Math & Statistics",
+    "question": "What is the purpose of a p-value in hypothesis testing?",
+    "options": {
+      "A": "To measure effect size",
+      "B": "Probability of observing data at least as extreme assuming the null is true",
+      "C": "To compute the mean",
+      "D": "To prove the alternative hypothesis"
+    },
+    "correct_answer": "B",
+    "explanation": "A small p-value suggests evidence against the null hypothesis."
+  },
+  {
+    "id": "q0011",
+    "category": "Math & Statistics",
+    "question": "The standard deviation is?",
+    "options": {
+      "A": "The square of the variance",
+      "B": "The square root of the variance",
+      "C": "The mean of the data",
+      "D": "Always zero"
+    },
+    "correct_answer": "B",
+    "explanation": "Standard deviation is the square root of variance, in the same units as the data."
+  },
+  {
+    "id": "q0012",
+    "category": "Math & Statistics",
+    "question": "A matrix multiplied by its identity matrix yields?",
+    "options": {
+      "A": "The zero matrix",
+      "B": "The original matrix",
+      "C": "Its transpose",
+      "D": "Its inverse"
+    },
+    "correct_answer": "B",
+    "explanation": "Multiplying by the identity matrix returns the original matrix."
+  },
+  {
+    "id": "q0013",
+    "category": "Math & Statistics",
+    "question": "What is a conditional probability P(A|B)?",
+    "options": {
+      "A": "Probability of A and B together",
+      "B": "Probability of A given B has occurred",
+      "C": "Probability of A or B",
+      "D": "Probability of neither"
+    },
+    "correct_answer": "B",
+    "explanation": "P(A|B) is the probability of A occurring given that B has occurred."
+  },
+  {
+    "id": "q0014",
+    "category": "Math & Statistics",
+    "question": "Which describes the mode?",
+    "options": {
+      "A": "The average",
+      "B": "The middle value",
+      "C": "The most frequently occurring value",
+      "D": "The spread"
+    },
+    "correct_answer": "C",
+    "explanation": "The mode is the value that appears most often in a dataset."
+  },
+  {
+    "id": "q0015",
+    "category": "Math & Statistics",
+    "question": "Eigenvectors of a matrix are vectors that, when transformed, only?",
+    "options": {
+      "A": "Reverse completely",
+      "B": "Change direction randomly",
+      "C": "Are scaled (direction preserved)",
+      "D": "Become zero"
+    },
+    "correct_answer": "C",
+    "explanation": "An eigenvector's direction is preserved under the transformation; it is scaled by its eigenvalue."
+  },
+  {
+    "id": "q0016",
+    "category": "Core ML",
+    "question": "What best describes the bias-variance tradeoff?",
+    "options": {
+      "A": "Increasing both improves accuracy",
+      "B": "Reducing bias often increases variance and vice versa",
+      "C": "They are unrelated",
+      "D": "High bias always means high variance"
+    },
+    "correct_answer": "B",
+    "explanation": "Simple models = high bias/low variance; complex = low bias/high variance; balance minimizes total error."
+  },
+  {
+    "id": "q0017",
+    "category": "Core ML",
+    "question": "What is overfitting?",
+    "options": {
+      "A": "Poor on both train and test",
+      "B": "Learns training data incl. noise and generalizes poorly",
+      "C": "A model that is too simple",
+      "D": "Too few parameters"
+    },
+    "correct_answer": "B",
+    "explanation": "Overfitting fits noise, giving high train accuracy but poor test performance."
+  },
+  {
+    "id": "q0018",
+    "category": "Core ML",
+    "question": "What characterizes underfitting?",
+    "options": {
+      "A": "Excellent train and test",
+      "B": "High test but poor train",
+      "C": "Poor on both due to excessive simplicity",
+      "D": "Memorizing the training set"
+    },
+    "correct_answer": "C",
+    "explanation": "Underfitting (high bias) means the model is too simple to capture patterns."
+  },
+  {
+    "id": "q0019",
+    "category": "Core ML",
+    "question": "Primary purpose of L1/L2 regularization?",
+    "options": {
+      "A": "Increase complexity",
+      "B": "Penalize large weights to reduce overfitting",
+      "C": "Speed data loading",
+      "D": "Increase learning rate"
+    },
+    "correct_answer": "B",
+    "explanation": "Regularization adds a weight-magnitude penalty to discourage complexity."
+  },
+  {
+    "id": "q0020",
+    "category": "Core ML",
+    "question": "Main difference between supervised and unsupervised learning?",
+    "options": {
+      "A": "Supervised uses labeled data; unsupervised uses unlabeled",
+      "B": "Supervised is faster",
+      "C": "Unsupervised always uses neural nets",
+      "D": "Supervised can't classify"
+    },
+    "correct_answer": "A",
+    "explanation": "Supervised trains on labeled pairs; unsupervised finds structure without labels."
+  },
+  {
+    "id": "q0021",
+    "category": "Core ML",
+    "question": "Why split data into train and test sets?",
+    "options": {
+      "A": "Faster training",
+      "B": "Evaluate generalization on unseen data",
+      "C": "Increase dataset size",
+      "D": "Remove outliers"
+    },
+    "correct_answer": "B",
+    "explanation": "A held-out test set gives an unbiased estimate of performance on new data."
+  },
+  {
+    "id": "q0022",
+    "category": "Core ML",
+    "question": "Purpose of cross-validation?",
+    "options": {
+      "A": "Increase data permanently",
+      "B": "More reliable performance estimate by rotating train/val splits",
+      "C": "Auto-label data",
+      "D": "Reduce features"
+    },
+    "correct_answer": "B",
+    "explanation": "k-fold CV rotates folds for train/val, yielding a robust performance estimate."
+  },
+  {
+    "id": "q0023",
+    "category": "Core ML",
+    "question": "A hyperparameter differs from a parameter because it is?",
+    "options": {
+      "A": "Learned during training",
+      "B": "Set before training, not learned from data",
+      "C": "Identical",
+      "D": "Always an integer"
+    },
+    "correct_answer": "B",
+    "explanation": "Hyperparameters (e.g., learning rate) are configured before training; parameters (weights) are learned."
+  },
+  {
+    "id": "q0024",
+    "category": "Core ML",
+    "question": "In reinforcement learning, the agent maximizes?",
+    "options": {
+      "A": "Training loss",
+      "B": "Cumulative reward over time",
+      "C": "Number of states",
+      "D": "Data variance"
+    },
+    "correct_answer": "B",
+    "explanation": "An RL agent learns a policy maximizing expected long-term reward."
+  },
+  {
+    "id": "q0025",
+    "category": "Core ML",
+    "question": "Feature engineering is?",
+    "options": {
+      "A": "Building hardware",
+      "B": "Creating/transforming inputs to improve performance",
+      "C": "Selecting a loss function",
+      "D": "Tuning learning rate"
+    },
+    "correct_answer": "B",
+    "explanation": "Feature engineering crafts informative inputs to make patterns more learnable."
+  },
+  {
+    "id": "q0026",
+    "category": "Core ML",
+    "question": "A validation set is used to?",
+    "options": {
+      "A": "Train the final model only",
+      "B": "Tune hyperparameters and select models",
+      "C": "Replace the test set",
+      "D": "Store labels"
+    },
+    "correct_answer": "B",
+    "explanation": "The validation set guides hyperparameter tuning/model selection before final test evaluation."
+  },
+  {
+    "id": "q0027",
+    "category": "Core ML",
+    "question": "The \"curse of dimensionality\" refers to?",
+    "options": {
+      "A": "Too few features",
+      "B": "Problems that arise as feature count grows very large (sparsity, distance issues)",
+      "C": "Slow CPUs",
+      "D": "Small datasets only"
+    },
+    "correct_answer": "B",
+    "explanation": "High-dimensional spaces make data sparse and distances less meaningful."
+  },
+  {
+    "id": "q0028",
+    "category": "Core ML",
+    "question": "Ensemble learning improves performance by?",
+    "options": {
+      "A": "Using a single weak model",
+      "B": "Combining multiple models to reduce error",
+      "C": "Removing all features",
+      "D": "Increasing temperature"
+    },
+    "correct_answer": "B",
+    "explanation": "Ensembles aggregate models (bagging/boosting) to lower variance and/or bias."
+  },
+  {
+    "id": "q0029",
+    "category": "Core ML",
+    "question": "Data leakage occurs when?",
+    "options": {
+      "A": "Data is encrypted",
+      "B": "Information from outside the training set (e.g., test data) influences the model",
+      "C": "Files are too large",
+      "D": "The model is too small"
+    },
+    "correct_answer": "B",
+    "explanation": "Leakage inflates performance by letting the model see information it won't have at inference."
+  },
+  {
+    "id": "q0030",
+    "category": "Core ML",
+    "question": "Online (incremental) learning means the model?",
+    "options": {
+      "A": "Only trains once",
+      "B": "Updates continuously as new data arrives",
+      "C": "Needs the internet",
+      "D": "Can't be retrained"
+    },
+    "correct_answer": "B",
+    "explanation": "Online learning updates incrementally on streaming data rather than batch retraining."
+  },
+  {
+    "id": "q0031",
+    "category": "Supervised Learning",
+    "question": "Which is a classification example?",
+    "options": {
+      "A": "Predicting house price (continuous)",
+      "B": "Predicting whether an email is spam",
+      "C": "Grouping customers without labels",
+      "D": "Reducing dimensions"
+    },
+    "correct_answer": "B",
+    "explanation": "Classification predicts discrete categories; regression predicts continuous values."
+  },
+  {
+    "id": "q0032",
+    "category": "Supervised Learning",
+    "question": "Linear regression predicts?",
+    "options": {
+      "A": "A discrete class",
+      "B": "A continuous output as a linear combination of inputs",
+      "C": "Cluster assignments",
+      "D": "Principal components"
+    },
+    "correct_answer": "B",
+    "explanation": "It models a continuous target as weighted inputs plus a bias."
+  },
+  {
+    "id": "q0033",
+    "category": "Supervised Learning",
+    "question": "Logistic regression is primarily used for?",
+    "options": {
+      "A": "Regression of continuous values",
+      "B": "Classification by outputting class probabilities",
+      "C": "Clustering",
+      "D": "Dimensionality reduction"
+    },
+    "correct_answer": "B",
+    "explanation": "A sigmoid over a linear model yields probabilities — it's a classifier."
+  },
+  {
+    "id": "q0034",
+    "category": "Supervised Learning",
+    "question": "A decision tree makes predictions using?",
+    "options": {
+      "A": "Distance to centroids",
+      "B": "A series of feature-based if-then splits",
+      "C": "Matrix factorization",
+      "D": "Loss gradients"
+    },
+    "correct_answer": "B",
+    "explanation": "Trees split recursively on feature values, routing samples to leaf predictions."
+  },
+  {
+    "id": "q0035",
+    "category": "Supervised Learning",
+    "question": "A random forest improves over one tree by?",
+    "options": {
+      "A": "Using one very deep tree",
+      "B": "Averaging many trees on random subsets to reduce variance",
+      "C": "Removing all features",
+      "D": "Raising the learning rate"
+    },
+    "correct_answer": "B",
+    "explanation": "It's an ensemble of decorrelated trees, reducing variance/overfitting."
+  },
+  {
+    "id": "q0036",
+    "category": "Supervised Learning",
+    "question": "In kNN, a new point is classified by?",
+    "options": {
+      "A": "A linear boundary",
+      "B": "Majority label among its k closest training points",
+      "C": "Random assignment",
+      "D": "Gradient descent"
+    },
+    "correct_answer": "B",
+    "explanation": "kNN uses a majority vote of the k nearest neighbors by distance."
+  },
+  {
+    "id": "q0037",
+    "category": "Supervised Learning",
+    "question": "An SVM tries to find?",
+    "options": {
+      "A": "Cluster centroids",
+      "B": "A hyperplane maximizing the margin between classes",
+      "C": "Principal components",
+      "D": "A reward function"
+    },
+    "correct_answer": "B",
+    "explanation": "SVM maximizes the margin between the closest points (support vectors)."
+  },
+  {
+    "id": "q0038",
+    "category": "Supervised Learning",
+    "question": "The role of labeled data in supervised learning is?",
+    "options": {
+      "A": "Optional",
+      "B": "Provide the correct outputs the model learns to predict",
+      "C": "Only for clustering",
+      "D": "Reduce dimensionality"
+    },
+    "correct_answer": "B",
+    "explanation": "Labels are the ground-truth targets the model learns to map inputs to."
+  },
+  {
+    "id": "q0039",
+    "category": "Supervised Learning",
+    "question": "Which is a regression problem?",
+    "options": {
+      "A": "Cat vs dog images",
+      "B": "Predicting tomorrow's temperature in degrees",
+      "C": "Spam detection",
+      "D": "Digit identification"
+    },
+    "correct_answer": "B",
+    "explanation": "Predicting a continuous numeric value is regression."
+  },
+  {
+    "id": "q0040",
+    "category": "Supervised Learning",
+    "question": "The kernel trick lets SVMs?",
+    "options": {
+      "A": "Shrink the dataset",
+      "B": "Implicitly map data to higher dimensions for nonlinear separation",
+      "C": "Label data",
+      "D": "Speed gradient descent"
+    },
+    "correct_answer": "B",
+    "explanation": "Kernels compute high-dim inner products without explicit transformation, enabling nonlinear boundaries."
+  },
+  {
+    "id": "q0041",
+    "category": "Supervised Learning",
+    "question": "Gradient boosting builds models by?",
+    "options": {
+      "A": "Training trees fully independently",
+      "B": "Sequentially adding models that correct prior errors",
+      "C": "Random guessing",
+      "D": "Removing features"
+    },
+    "correct_answer": "B",
+    "explanation": "Boosting fits each new learner to the residual errors of the ensemble so far."
+  },
+  {
+    "id": "q0042",
+    "category": "Supervised Learning",
+    "question": "Naïve Bayes assumes features are?",
+    "options": {
+      "A": "Highly correlated",
+      "B": "Conditionally independent given the class",
+      "C": "Continuous only",
+      "D": "Always identical"
+    },
+    "correct_answer": "B",
+    "explanation": "Its \"naïve\" assumption is conditional independence of features given the label."
+  },
+  {
+    "id": "q0043",
+    "category": "Supervised Learning",
+    "question": "Multi-class classification means?",
+    "options": {
+      "A": "Two classes only",
+      "B": "More than two mutually exclusive classes",
+      "C": "No classes",
+      "D": "Continuous output"
+    },
+    "correct_answer": "B",
+    "explanation": "Multi-class problems choose among three or more exclusive categories."
+  },
+  {
+    "id": "q0044",
+    "category": "Supervised Learning",
+    "question": "A learning curve plots performance against?",
+    "options": {
+      "A": "The number of features only",
+      "B": "Training set size or epochs to diagnose bias/variance",
+      "C": "The color palette",
+      "D": "The vocabulary"
+    },
+    "correct_answer": "B",
+    "explanation": "Learning curves reveal underfitting/overfitting as data or training increases."
+  },
+  {
+    "id": "q0045",
+    "category": "Supervised Learning",
+    "question": "Which algorithm naturally outputs feature importances?",
+    "options": {
+      "A": "kNN",
+      "B": "Tree-based models (e.g., random forest)",
+      "C": "Linear SVM only",
+      "D": "PCA"
+    },
+    "correct_answer": "B",
+    "explanation": "Tree ensembles can rank features by how much they reduce impurity."
+  },
+  {
+    "id": "q0046",
+    "category": "Unsupervised Learning",
+    "question": "Goal of k-means clustering?",
+    "options": {
+      "A": "Predict labels",
+      "B": "Partition data into k groups minimizing within-cluster distance to centroids",
+      "C": "Reduce overfitting",
+      "D": "Maximize reward"
+    },
+    "correct_answer": "B",
+    "explanation": "k-means iteratively assigns points to nearest centroid and updates centroids to minimize within-cluster variance."
+  },
+  {
+    "id": "q0047",
+    "category": "Unsupervised Learning",
+    "question": "In k-means, 'k' is?",
+    "options": {
+      "A": "Number of features",
+      "B": "Number of clusters chosen in advance",
+      "C": "Number of iterations",
+      "D": "The learning rate"
+    },
+    "correct_answer": "B",
+    "explanation": "k is the predefined cluster count."
+  },
+  {
+    "id": "q0048",
+    "category": "Unsupervised Learning",
+    "question": "Primary purpose of PCA?",
+    "options": {
+      "A": "Classification",
+      "B": "Dimensionality reduction via directions of max variance",
+      "C": "Reinforcement learning",
+      "D": "Adding features"
+    },
+    "correct_answer": "B",
+    "explanation": "PCA projects onto orthogonal components capturing the most variance."
+  },
+  {
+    "id": "q0049",
+    "category": "Unsupervised Learning",
+    "question": "Which is an unsupervised task?",
+    "options": {
+      "A": "Spam classification",
+      "B": "Customer segmentation without labels",
+      "C": "House price prediction",
+      "D": "Sentiment classification"
+    },
+    "correct_answer": "B",
+    "explanation": "Segmentation groups by similarity without labels."
+  },
+  {
+    "id": "q0050",
+    "category": "Unsupervised Learning",
+    "question": "Hierarchical clustering produces?",
+    "options": {
+      "A": "A single flat partition only",
+      "B": "A tree-like dendrogram of nested clusters",
+      "C": "A regression line",
+      "D": "Principal components"
+    },
+    "correct_answer": "B",
+    "explanation": "A dendrogram represents nested groupings cut at any level."
+  },
+  {
+    "id": "q0051",
+    "category": "Unsupervised Learning",
+    "question": "A key property of PCA components?",
+    "options": {
+      "A": "Correlated with each other",
+      "B": "Orthogonal (uncorrelated), ordered by variance explained",
+      "C": "Class labels",
+      "D": "Always integers"
+    },
+    "correct_answer": "B",
+    "explanation": "Components are orthogonal and ordered by decreasing variance."
+  },
+  {
+    "id": "q0052",
+    "category": "Unsupervised Learning",
+    "question": "The elbow method helps determine?",
+    "options": {
+      "A": "Learning rate",
+      "B": "An appropriate number of clusters k",
+      "C": "Test accuracy",
+      "D": "Feature count"
+    },
+    "correct_answer": "B",
+    "explanation": "It picks the k where adding clusters yields diminishing error reduction."
+  },
+  {
+    "id": "q0053",
+    "category": "Unsupervised Learning",
+    "question": "Anomaly detection identifies?",
+    "options": {
+      "A": "Continuous values",
+      "B": "Points deviating significantly from the norm",
+      "C": "All data manually",
+      "D": "Maximum reward"
+    },
+    "correct_answer": "B",
+    "explanation": "It flags rare items that differ markedly from the majority."
+  },
+  {
+    "id": "q0054",
+    "category": "Unsupervised Learning",
+    "question": "DBSCAN differs from k-means because it?",
+    "options": {
+      "A": "Needs k upfront",
+      "B": "Groups by density, finds arbitrary shapes and noise",
+      "C": "Works only on labels",
+      "D": "Does regression"
+    },
+    "correct_answer": "B",
+    "explanation": "DBSCAN is density-based, needs no k, handles non-spherical clusters and noise."
+  },
+  {
+    "id": "q0055",
+    "category": "Unsupervised Learning",
+    "question": "Embeddings (unsupervised) aim to capture?",
+    "options": {
+      "A": "Random noise",
+      "B": "Semantic similarity by placing similar items close in vector space",
+      "C": "Class labels only",
+      "D": "The learning rate"
+    },
+    "correct_answer": "B",
+    "explanation": "Proximity in embedding space reflects semantic/contextual similarity."
+  },
+  {
+    "id": "q0056",
+    "category": "Unsupervised Learning",
+    "question": "t-SNE and UMAP are used mainly for?",
+    "options": {
+      "A": "Classification",
+      "B": "Visualizing high-dimensional data in 2D/3D",
+      "C": "Boosting",
+      "D": "Tokenization"
+    },
+    "correct_answer": "B",
+    "explanation": "They are nonlinear dimensionality-reduction techniques for visualization."
+  },
+  {
+    "id": "q0057",
+    "category": "Unsupervised Learning",
+    "question": "A centroid in k-means is?",
+    "options": {
+      "A": "A labeled point",
+      "B": "The mean position of points in a cluster",
+      "C": "The farthest point",
+      "D": "A support vector"
+    },
+    "correct_answer": "B",
+    "explanation": "Each centroid is the average of its assigned cluster's points."
+  },
+  {
+    "id": "q0058",
+    "category": "Unsupervised Learning",
+    "question": "Association rule mining (e.g., Apriori) finds?",
+    "options": {
+      "A": "Regression coefficients",
+      "B": "Frequent item co-occurrences (e.g., market-basket patterns)",
+      "C": "Cluster centroids",
+      "D": "Gradients"
+    },
+    "correct_answer": "B",
+    "explanation": "It discovers items that frequently appear together in transactions."
+  },
+  {
+    "id": "q0059",
+    "category": "Unsupervised Learning",
+    "question": "Silhouette score measures?",
+    "options": {
+      "A": "Model accuracy",
+      "B": "How well-separated and cohesive clusters are",
+      "C": "The learning rate",
+      "D": "Token count"
+    },
+    "correct_answer": "B",
+    "explanation": "It rates clustering quality by within- vs between-cluster distances."
+  },
+  {
+    "id": "q0060",
+    "category": "Unsupervised Learning",
+    "question": "Self-supervised learning is best described as?",
+    "options": {
+      "A": "Fully labeled supervision",
+      "B": "Generating labels from the data itself (e.g., next-token prediction)",
+      "C": "Random labeling",
+      "D": "No learning"
+    },
+    "correct_answer": "B",
+    "explanation": "It creates supervisory signals from unlabeled data (a backbone of LLM pretraining)."
+  },
+  {
+    "id": "q0061",
+    "category": "Model Evaluation",
+    "question": "The F1 score is?",
+    "options": {
+      "A": "Arithmetic mean of precision and recall",
+      "B": "Harmonic mean of precision and recall",
+      "C": "Product of accuracy and recall",
+      "D": "Their difference"
+    },
+    "correct_answer": "B",
+    "explanation": "F1 is the harmonic mean, penalizing imbalance between precision and recall."
+  },
+  {
+    "id": "q0062",
+    "category": "Model Evaluation",
+    "question": "Precision measures?",
+    "options": {
+      "A": "Of actual positives, how many were predicted positive",
+      "B": "Of predicted positives, how many are truly positive",
+      "C": "Total correct over all",
+      "D": "Area under ROC"
+    },
+    "correct_answer": "B",
+    "explanation": "Precision = TP/(TP+FP)."
+  },
+  {
+    "id": "q0063",
+    "category": "Model Evaluation",
+    "question": "Recall (sensitivity) measures?",
+    "options": {
+      "A": "Of predicted positives, how many correct",
+      "B": "Of actual positives, how many correctly identified",
+      "C": "Harmonic mean",
+      "D": "False positive rate"
+    },
+    "correct_answer": "B",
+    "explanation": "Recall = TP/(TP+FN)."
+  },
+  {
+    "id": "q0064",
+    "category": "Model Evaluation",
+    "question": "An ROC-AUC of 0.5 indicates?",
+    "options": {
+      "A": "Perfect classifier",
+      "B": "No better than random guessing",
+      "C": "Worse than random",
+      "D": "Perfect precision"
+    },
+    "correct_answer": "B",
+    "explanation": "AUC 0.5 means chance-level ranking."
+  },
+  {
+    "id": "q0065",
+    "category": "Model Evaluation",
+    "question": "Probabilistic interpretation of ROC-AUC?",
+    "options": {
+      "A": "Overall correctness",
+      "B": "P(random positive ranked above random negative)",
+      "C": "Recall at 0.5",
+      "D": "MSE"
+    },
+    "correct_answer": "B",
+    "explanation": "AUC is the probability a random positive scores higher than a random negative."
+  },
+  {
+    "id": "q0066",
+    "category": "Model Evaluation",
+    "question": "Why can accuracy mislead on imbalanced data?",
+    "options": {
+      "A": "It's always zero",
+      "B": "Predicting the majority class can score high while ignoring the rare class",
+      "C": "Can't be computed",
+      "D": "Equals recall"
+    },
+    "correct_answer": "B",
+    "explanation": "With imbalance, prefer precision/recall/F1 over accuracy."
+  },
+  {
+    "id": "q0067",
+    "category": "Model Evaluation",
+    "question": "A confusion matrix shows?",
+    "options": {
+      "A": "Feature correlations",
+      "B": "Counts of TP, FP, TN, FN",
+      "C": "The learning curve",
+      "D": "Principal components"
+    },
+    "correct_answer": "B",
+    "explanation": "It tabulates predicted vs actual classes."
+  },
+  {
+    "id": "q0068",
+    "category": "Model Evaluation",
+    "question": "A common regression metric is?",
+    "options": {
+      "A": "F1",
+      "B": "Mean Squared Error (MSE)",
+      "C": "Precision",
+      "D": "ROC-AUC"
+    },
+    "correct_answer": "B",
+    "explanation": "MSE averages squared prediction errors."
+  },
+  {
+    "id": "q0069",
+    "category": "Model Evaluation",
+    "question": "When is recall especially prioritized?",
+    "options": {
+      "A": "When false positives are costly",
+      "B": "When missing a positive is very costly (e.g., disease detection)",
+      "C": "When balanced",
+      "D": "For PCA"
+    },
+    "correct_answer": "B",
+    "explanation": "High recall minimizes false negatives."
+  },
+  {
+    "id": "q0070",
+    "category": "Model Evaluation",
+    "question": "R-squared indicates?",
+    "options": {
+      "A": "Number of features",
+      "B": "Proportion of variance in the target explained by the model",
+      "C": "Classification accuracy",
+      "D": "Learning rate"
+    },
+    "correct_answer": "B",
+    "explanation": "R² is the fraction of variance explained (up to 1 for a perfect fit)."
+  },
+  {
+    "id": "q0071",
+    "category": "Model Evaluation",
+    "question": "High precision but low recall means the model?",
+    "options": {
+      "A": "Catches all positives",
+      "B": "Is conservative — few false positives but misses many positives",
+      "C": "Has no errors",
+      "D": "Is random"
+    },
+    "correct_answer": "B",
+    "explanation": "It predicts positive rarely but accurately, missing many true positives."
+  },
+  {
+    "id": "q0072",
+    "category": "Model Evaluation",
+    "question": "A precision-recall curve is most informative when?",
+    "options": {
+      "A": "Classes are balanced",
+      "B": "Classes are highly imbalanced",
+      "C": "Doing regression",
+      "D": "Tokenizing"
+    },
+    "correct_answer": "B",
+    "explanation": "PR curves are preferred under strong class imbalance."
+  },
+  {
+    "id": "q0073",
+    "category": "Model Evaluation",
+    "question": "Mean Absolute Error (MAE) differs from MSE because it?",
+    "options": {
+      "A": "Squares errors",
+      "B": "Uses absolute errors, less sensitive to large outliers",
+      "C": "Is for classification",
+      "D": "Equals accuracy"
+    },
+    "correct_answer": "B",
+    "explanation": "MAE averages absolute errors and penalizes outliers less than MSE."
+  },
+  {
+    "id": "q0074",
+    "category": "Model Evaluation",
+    "question": "Specificity measures?",
+    "options": {
+      "A": "TP rate",
+      "B": "Of actual negatives, how many correctly identified (TN/(TN+FP))",
+      "C": "Precision",
+      "D": "F1"
+    },
+    "correct_answer": "B",
+    "explanation": "Specificity is the true negative rate."
+  },
+  {
+    "id": "q0075",
+    "category": "Model Evaluation",
+    "question": "Top-k accuracy counts a prediction correct if?",
+    "options": {
+      "A": "The single top class is right",
+      "B": "The true label is within the model's top k predictions",
+      "C": "All classes match",
+      "D": "k equals 1 only"
+    },
+    "correct_answer": "B",
+    "explanation": "It credits a hit if the correct class appears in the top k ranked outputs."
+  },
+  {
+    "id": "q0076",
+    "category": "Neural Networks",
+    "question": "Role of an activation function?",
+    "options": {
+      "A": "Store data",
+      "B": "Introduce non-linearity so the network models complex patterns",
+      "C": "Split the dataset",
+      "D": "Compute loss"
+    },
+    "correct_answer": "B",
+    "explanation": "Non-linearity lets networks learn beyond linear relationships."
+  },
+  {
+    "id": "q0077",
+    "category": "Neural Networks",
+    "question": "Gradient descent does what?",
+    "options": {
+      "A": "Increases loss",
+      "B": "Iteratively updates parameters to reduce loss",
+      "C": "Randomly initializes weights",
+      "D": "Removes outliers"
+    },
+    "correct_answer": "B",
+    "explanation": "It steps parameters opposite the gradient to minimize loss."
+  },
+  {
+    "id": "q0078",
+    "category": "Neural Networks",
+    "question": "Backpropagation is used to?",
+    "options": {
+      "A": "Load data",
+      "B": "Efficiently compute gradients via the chain rule",
+      "C": "Choose learning rate",
+      "D": "Normalize inputs"
+    },
+    "correct_answer": "B",
+    "explanation": "Backprop applies the chain rule backward to get per-weight gradients."
+  },
+  {
+    "id": "q0079",
+    "category": "Neural Networks",
+    "question": "ReLU outputs?",
+    "options": {
+      "A": "Values 0–1",
+      "B": "The input if positive, else 0",
+      "C": "Always 1",
+      "D": "The negative of input"
+    },
+    "correct_answer": "B",
+    "explanation": "ReLU = max(0, x)."
+  },
+  {
+    "id": "q0080",
+    "category": "Neural Networks",
+    "question": "The learning rate controls?",
+    "options": {
+      "A": "Number of layers",
+      "B": "The step size of parameter updates",
+      "C": "Batch size",
+      "D": "Number of epochs"
+    },
+    "correct_answer": "B",
+    "explanation": "Too high overshoots; too low converges slowly."
+  },
+  {
+    "id": "q0081",
+    "category": "Neural Networks",
+    "question": "Softmax produces?",
+    "options": {
+      "A": "A single binary value",
+      "B": "A probability distribution over classes summing to 1",
+      "C": "The gradient",
+      "D": "A negative number"
+    },
+    "correct_answer": "B",
+    "explanation": "Softmax turns logits into normalized positive probabilities for multi-class output."
+  },
+  {
+    "id": "q0082",
+    "category": "Neural Networks",
+    "question": "Dropout during training?",
+    "options": {
+      "A": "Increases learning rate",
+      "B": "Randomly deactivates neurons to reduce overfitting",
+      "C": "Adds layers",
+      "D": "Computes loss"
+    },
+    "correct_answer": "B",
+    "explanation": "Dropout prevents co-adaptation by zeroing random activations."
+  },
+  {
+    "id": "q0083",
+    "category": "Neural Networks",
+    "question": "An epoch is?",
+    "options": {
+      "A": "A single weight update",
+      "B": "One full pass through the training dataset",
+      "C": "The number of layers",
+      "D": "The learning rate"
+    },
+    "correct_answer": "B",
+    "explanation": "One epoch = one complete pass over all training data."
+  },
+  {
+    "id": "q0084",
+    "category": "Neural Networks",
+    "question": "Common loss for multi-class classification?",
+    "options": {
+      "A": "MSE",
+      "B": "Cross-entropy loss",
+      "C": "Hinge-only loss",
+      "D": "MAE"
+    },
+    "correct_answer": "B",
+    "explanation": "Cross-entropy compares predicted class probabilities to true labels."
+  },
+  {
+    "id": "q0085",
+    "category": "Neural Networks",
+    "question": "Which network specializes in image data?",
+    "options": {
+      "A": "RNN",
+      "B": "CNN",
+      "C": "Decision tree",
+      "D": "SVM"
+    },
+    "correct_answer": "B",
+    "explanation": "CNNs use convolutional filters to capture spatial/local patterns."
+  },
+  {
+    "id": "q0086",
+    "category": "Neural Networks",
+    "question": "The vanishing gradient problem refers to?",
+    "options": {
+      "A": "Gradients growing too large",
+      "B": "Gradients shrinking toward zero in deep nets, slowing learning",
+      "C": "Too few layers",
+      "D": "Missing data"
+    },
+    "correct_answer": "B",
+    "explanation": "Small gradients in deep/recurrent nets stall early-layer learning (mitigated by ReLU, residuals)."
+  },
+  {
+    "id": "q0087",
+    "category": "Neural Networks",
+    "question": "An RNN is designed for?",
+    "options": {
+      "A": "Static images",
+      "B": "Sequential data with temporal dependencies",
+      "C": "Tabular only",
+      "D": "Clustering"
+    },
+    "correct_answer": "B",
+    "explanation": "RNNs process sequences, maintaining a hidden state over time."
+  },
+  {
+    "id": "q0088",
+    "category": "Neural Networks",
+    "question": "Batch normalization helps by?",
+    "options": {
+      "A": "Removing layers",
+      "B": "Normalizing layer inputs to stabilize and speed training",
+      "C": "Labeling data",
+      "D": "Increasing temperature"
+    },
+    "correct_answer": "B",
+    "explanation": "BatchNorm reduces internal covariate shift, allowing higher learning rates."
+  },
+  {
+    "id": "q0089",
+    "category": "Neural Networks",
+    "question": "Weights are typically initialized?",
+    "options": {
+      "A": "All to zero",
+      "B": "Randomly (e.g., Xavier/He) to break symmetry",
+      "C": "All to one",
+      "D": "To the labels"
+    },
+    "correct_answer": "B",
+    "explanation": "Random init breaks symmetry so neurons learn different features."
+  },
+  {
+    "id": "q0090",
+    "category": "Neural Networks",
+    "question": "An optimizer like Adam improves on plain SGD by?",
+    "options": {
+      "A": "Removing gradients",
+      "B": "Using adaptive per-parameter learning rates with momentum",
+      "C": "Disabling backprop",
+      "D": "Increasing batch size only"
+    },
+    "correct_answer": "B",
+    "explanation": "Adam adapts learning rates per parameter and uses momentum for faster convergence."
+  },
+  {
+    "id": "q0091",
+    "category": "NLP",
+    "question": "Tokenization is?",
+    "options": {
+      "A": "Translating text",
+      "B": "Splitting text into smaller units (words/subwords)",
+      "C": "Removing punctuation",
+      "D": "Training a network"
+    },
+    "correct_answer": "B",
+    "explanation": "Tokens are the basic units fed to a model."
+  },
+  {
+    "id": "q0092",
+    "category": "NLP",
+    "question": "A word embedding represents?",
+    "options": {
+      "A": "A random number",
+      "B": "A dense vector capturing a word's meaning",
+      "C": "Spelling only",
+      "D": "A one-hot label"
+    },
+    "correct_answer": "B",
+    "explanation": "Embeddings place semantically similar words close together."
+  },
+  {
+    "id": "q0093",
+    "category": "NLP",
+    "question": "Stop-word removal?",
+    "options": {
+      "A": "Deletes rare words",
+      "B": "Removes common low-information words like 'the', 'is'",
+      "C": "Stems words",
+      "D": "Translates"
+    },
+    "correct_answer": "B",
+    "explanation": "It filters frequent, low-signal words."
+  },
+  {
+    "id": "q0094",
+    "category": "NLP",
+    "question": "Stemming vs lemmatization?",
+    "options": {
+      "A": "Identical",
+      "B": "Stemming crudely chops affixes; lemmatization maps to valid dictionary base forms",
+      "C": "Lemmatization removes vowels",
+      "D": "Stemming translates"
+    },
+    "correct_answer": "B",
+    "explanation": "Lemmatization uses morphology to return a proper lemma; stemming is heuristic."
+  },
+  {
+    "id": "q0095",
+    "category": "NLP",
+    "question": "Bag-of-words ignores?",
+    "options": {
+      "A": "Word counts",
+      "B": "Word order/grammar (uses frequency only)",
+      "C": "Vocabulary",
+      "D": "Document length"
+    },
+    "correct_answer": "B",
+    "explanation": "BoW discards order and syntax, keeping frequencies."
+  },
+  {
+    "id": "q0096",
+    "category": "NLP",
+    "question": "TF-IDF measures?",
+    "options": {
+      "A": "Only frequency in a document",
+      "B": "Importance weighting term frequency by rarity across the corpus",
+      "C": "Sentence sentiment",
+      "D": "Token count"
+    },
+    "correct_answer": "B",
+    "explanation": "TF-IDF boosts terms common in a doc but rare across the corpus."
+  },
+  {
+    "id": "q0097",
+    "category": "NLP",
+    "question": "Named entity recognition (NER) does?",
+    "options": {
+      "A": "Counts words",
+      "B": "Identifies/classifies entities (people, places, orgs)",
+      "C": "Translates",
+      "D": "Removes stop words"
+    },
+    "correct_answer": "B",
+    "explanation": "NER detects and categorizes named entities."
+  },
+  {
+    "id": "q0098",
+    "category": "NLP",
+    "question": "Sentiment analysis aims to?",
+    "options": {
+      "A": "Translate text",
+      "B": "Determine emotional tone/polarity",
+      "C": "Tokenize",
+      "D": "Remove punctuation"
+    },
+    "correct_answer": "B",
+    "explanation": "It classifies polarity (positive/negative/neutral)."
+  },
+  {
+    "id": "q0099",
+    "category": "NLP",
+    "question": "An n-gram is?",
+    "options": {
+      "A": "A single character",
+      "B": "A contiguous sequence of n tokens",
+      "C": "A network layer",
+      "D": "A type of embedding"
+    },
+    "correct_answer": "B",
+    "explanation": "E.g., bigrams are word pairs, capturing local context."
+  },
+  {
+    "id": "q0100",
+    "category": "NLP",
+    "question": "Subword tokenization (e.g., BPE) is useful because it?",
+    "options": {
+      "A": "Translates text",
+      "B": "Handles rare/OOV words by splitting into known subunits",
+      "C": "Removes rare words",
+      "D": "Eliminates embeddings"
+    },
+    "correct_answer": "B",
+    "explanation": "BPE reduces out-of-vocabulary problems and vocabulary size."
+  },
+  {
+    "id": "q0101",
+    "category": "NLP",
+    "question": "A language model's core task is to?",
+    "options": {
+      "A": "Cluster documents",
+      "B": "Assign probabilities to sequences / predict the next token",
+      "C": "Classify images",
+      "D": "Reduce dimensions"
+    },
+    "correct_answer": "B",
+    "explanation": "LMs model the probability of token sequences."
+  },
+  {
+    "id": "q0102",
+    "category": "NLP",
+    "question": "Word2Vec learns embeddings by?",
+    "options": {
+      "A": "Random assignment",
+      "B": "Predicting context words (or a word from context)",
+      "C": "Labeling sentiment",
+      "D": "Counting characters"
+    },
+    "correct_answer": "B",
+    "explanation": "Skip-gram/CBOW learn vectors by predicting neighboring words."
+  },
+  {
+    "id": "q0103",
+    "category": "NLP",
+    "question": "A \"context window\" in word embeddings refers to?",
+    "options": {
+      "A": "The screen size",
+      "B": "The number of surrounding words considered around a target word",
+      "C": "The model size",
+      "D": "The vocabulary"
+    },
+    "correct_answer": "B",
+    "explanation": "It's the span of neighboring tokens used to learn or apply context."
+  },
+  {
+    "id": "q0104",
+    "category": "NLP",
+    "question": "Perplexity in language modeling measures?",
+    "options": {
+      "A": "Training speed",
+      "B": "How well a model predicts a sample (lower is better)",
+      "C": "Model size",
+      "D": "Token count"
+    },
+    "correct_answer": "B",
+    "explanation": "Lower perplexity means the model is less \"surprised\" by the data."
+  },
+  {
+    "id": "q0105",
+    "category": "NLP",
+    "question": "Cosine similarity is commonly used in NLP to?",
+    "options": {
+      "A": "Train models",
+      "B": "Measure semantic similarity between embedding vectors",
+      "C": "Tokenize text",
+      "D": "Remove stop words"
+    },
+    "correct_answer": "B",
+    "explanation": "It compares the angle between vectors regardless of magnitude."
+  },
+  {
+    "id": "q0106",
+    "category": "GenAI & LLM",
+    "question": "Core training objective of most autoregressive LLMs?",
+    "options": {
+      "A": "Clustering documents",
+      "B": "Predicting the next token given previous tokens",
+      "C": "Classifying images",
+      "D": "Reducing dimensions"
+    },
+    "correct_answer": "B",
+    "explanation": "Autoregressive LLMs learn by next-token prediction at scale."
+  },
+  {
+    "id": "q0107",
+    "category": "GenAI & LLM",
+    "question": "A hallucination in LLMs is?",
+    "options": {
+      "A": "A hardware error",
+      "B": "Confident but factually incorrect/fabricated output",
+      "C": "A type of embedding",
+      "D": "A dataset"
+    },
+    "correct_answer": "B",
+    "explanation": "Fluent, confident output unsupported by facts/sources."
+  },
+  {
+    "id": "q0108",
+    "category": "GenAI & LLM",
+    "question": "Primary purpose of Retrieval-Augmented Generation (RAG)?",
+    "options": {
+      "A": "Train faster",
+      "B": "Ground responses in external retrieved knowledge, reducing hallucinations",
+      "C": "Compress the model",
+      "D": "Remove prompts"
+    },
+    "correct_answer": "B",
+    "explanation": "RAG supplies retrieved documents as context to ground outputs."
+  },
+  {
+    "id": "q0109",
+    "category": "GenAI & LLM",
+    "question": "The temperature parameter controls?",
+    "options": {
+      "A": "Model size",
+      "B": "Output randomness/diversity by scaling logits before softmax",
+      "C": "Number of layers",
+      "D": "Training speed"
+    },
+    "correct_answer": "B",
+    "explanation": "Higher temperature = more random; lower = more deterministic."
+  },
+  {
+    "id": "q0110",
+    "category": "GenAI & LLM",
+    "question": "A low temperature (~0) produces?",
+    "options": {
+      "A": "Highly random/creative output",
+      "B": "More deterministic, focused on highest-probability tokens",
+      "C": "Identical to the prompt",
+      "D": "Longer responses"
+    },
+    "correct_answer": "B",
+    "explanation": "Low temperature sharpens the distribution toward the likeliest tokens."
+  },
+  {
+    "id": "q0111",
+    "category": "GenAI & LLM",
+    "question": "RLHF is?",
+    "options": {
+      "A": "A clustering algorithm",
+      "B": "Training a reward model from human preferences, then RL-fine-tuning the model",
+      "C": "A tokenizer",
+      "D": "Dimensionality reduction"
+    },
+    "correct_answer": "B",
+    "explanation": "RLHF aligns outputs with human preferences via a learned reward model."
+  },
+  {
+    "id": "q0112",
+    "category": "GenAI & LLM",
+    "question": "Fine-tuning vs prompting?",
+    "options": {
+      "A": "Fine-tuning updates weights; prompting guides a fixed model via input text",
+      "B": "Identical",
+      "C": "Prompting requires retraining",
+      "D": "Fine-tuning never uses data"
+    },
+    "correct_answer": "A",
+    "explanation": "Fine-tuning changes weights; prompting steers a frozen model."
+  },
+  {
+    "id": "q0113",
+    "category": "GenAI & LLM",
+    "question": "'Pretraining' an LLM means?",
+    "options": {
+      "A": "Tuning on a small labeled set",
+      "B": "Initial large-scale self-supervised training on vast unlabeled text",
+      "C": "Deploying",
+      "D": "Evaluating"
+    },
+    "correct_answer": "B",
+    "explanation": "Pretraining learns general language from massive corpora self-supervised."
+  },
+  {
+    "id": "q0114",
+    "category": "GenAI & LLM",
+    "question": "A 'context window' in an LLM is?",
+    "options": {
+      "A": "Parameter count",
+      "B": "Max tokens the model can process at once",
+      "C": "Training duration",
+      "D": "Vocabulary size"
+    },
+    "correct_answer": "B",
+    "explanation": "It's the maximum input length the model attends to per pass."
+  },
+  {
+    "id": "q0115",
+    "category": "GenAI & LLM",
+    "question": "A GAN is composed of?",
+    "options": {
+      "A": "Encoder + decoder only",
+      "B": "A generator and a discriminator competing",
+      "C": "Two identical classifiers",
+      "D": "Retriever + reranker"
+    },
+    "correct_answer": "B",
+    "explanation": "Generator creates samples; discriminator judges real vs fake, trained adversarially."
+  },
+  {
+    "id": "q0116",
+    "category": "GenAI & LLM",
+    "question": "A diffusion model generates images by?",
+    "options": {
+      "A": "Clustering pixels",
+      "B": "Iteratively denoising from random noise",
+      "C": "Tokenizing text only",
+      "D": "Pruning weights"
+    },
+    "correct_answer": "B",
+    "explanation": "Diffusion models learn to reverse a noising process to synthesize data."
+  },
+  {
+    "id": "q0117",
+    "category": "GenAI & LLM",
+    "question": "\"Top-p\" (nucleus) sampling selects from?",
+    "options": {
+      "A": "All tokens equally",
+      "B": "The smallest set of tokens whose cumulative probability ≥ p",
+      "C": "Only the top token",
+      "D": "Random tokens"
+    },
+    "correct_answer": "B",
+    "explanation": "Nucleus sampling samples from the top-probability mass p."
+  },
+  {
+    "id": "q0118",
+    "category": "GenAI & LLM",
+    "question": "Parameter-efficient fine-tuning (e.g., LoRA) reduces cost by?",
+    "options": {
+      "A": "Retraining all weights",
+      "B": "Training small added low-rank adapter weights, freezing the base",
+      "C": "Deleting layers",
+      "D": "Increasing temperature"
+    },
+    "correct_answer": "B",
+    "explanation": "LoRA trains few extra parameters, keeping the base model frozen."
+  },
+  {
+    "id": "q0119",
+    "category": "GenAI & LLM",
+    "question": "\"Tokens\" billed by LLM APIs roughly correspond to?",
+    "options": {
+      "A": "Whole sentences",
+      "B": "Pieces of words (subword units)",
+      "C": "Characters only",
+      "D": "Paragraphs"
+    },
+    "correct_answer": "B",
+    "explanation": "Tokens are subword chunks; cost scales with token count."
+  },
+  {
+    "id": "q0120",
+    "category": "GenAI & LLM",
+    "question": "A foundation model is?",
+    "options": {
+      "A": "A small task-specific model",
+      "B": "A large model pretrained broadly and adaptable to many downstream tasks",
+      "C": "A database",
+      "D": "A tokenizer"
+    },
+    "correct_answer": "B",
+    "explanation": "Foundation models are broadly pretrained and adapted via fine-tuning/prompting."
+  },
+  {
+    "id": "q0121",
+    "category": "Prompt Engineering",
+    "question": "Prompt engineering is?",
+    "options": {
+      "A": "Building hardware",
+      "B": "Crafting/refining inputs to guide an LLM toward desired outputs",
+      "C": "Training from scratch",
+      "D": "Cleaning datasets"
+    },
+    "correct_answer": "B",
+    "explanation": "Designing inputs to elicit accurate, useful responses."
+  },
+  {
+    "id": "q0122",
+    "category": "Prompt Engineering",
+    "question": "Zero-shot prompting?",
+    "options": {
+      "A": "Many labeled examples",
+      "B": "Asking the model to do a task with no examples",
+      "C": "Fine-tuning",
+      "D": "Temperature 0"
+    },
+    "correct_answer": "B",
+    "explanation": "No demonstrations — relies on instructions alone."
+  },
+  {
+    "id": "q0123",
+    "category": "Prompt Engineering",
+    "question": "Few-shot prompting?",
+    "options": {
+      "A": "Few epochs",
+      "B": "Including a few examples in the prompt to demonstrate the task",
+      "C": "A small model",
+      "D": "Removing context"
+    },
+    "correct_answer": "B",
+    "explanation": "Examples let the model infer the desired pattern."
+  },
+  {
+    "id": "q0124",
+    "category": "Prompt Engineering",
+    "question": "Chain-of-thought prompting improves?",
+    "options": {
+      "A": "Image quality",
+      "B": "Reasoning by eliciting intermediate steps",
+      "C": "Tokenization speed",
+      "D": "Model size"
+    },
+    "correct_answer": "B",
+    "explanation": "Step-by-step reasoning often boosts complex-task performance."
+  },
+  {
+    "id": "q0125",
+    "category": "Prompt Engineering",
+    "question": "Clear context/instructions matter because they?",
+    "options": {
+      "A": "Add parameters",
+      "B": "Reduce ambiguity, improving relevance/accuracy",
+      "C": "Change architecture",
+      "D": "Are never needed"
+    },
+    "correct_answer": "B",
+    "explanation": "Specific instructions yield more relevant, accurate outputs."
+  },
+  {
+    "id": "q0126",
+    "category": "Prompt Engineering",
+    "question": "A 'system prompt' typically?",
+    "options": {
+      "A": "Shuts down the model",
+      "B": "Sets overall behavior/role/constraints",
+      "C": "Counts tokens",
+      "D": "Trains the model"
+    },
+    "correct_answer": "B",
+    "explanation": "It establishes persona, tone, and rules for responses."
+  },
+  {
+    "id": "q0127",
+    "category": "Prompt Engineering",
+    "question": "A technique to reduce hallucinations in prompting?",
+    "options": {
+      "A": "Answer only from provided context",
+      "B": "Maximize temperature",
+      "C": "Remove all instructions",
+      "D": "Shorter vocabularies"
+    },
+    "correct_answer": "A",
+    "explanation": "Grounding answers in supplied context limits fabrication."
+  },
+  {
+    "id": "q0128",
+    "category": "Prompt Engineering",
+    "question": "Specifying output format (e.g., JSON) achieves?",
+    "options": {
+      "A": "Training the model",
+      "B": "Structured, parseable output",
+      "C": "Bigger context window",
+      "D": "Deleting the prompt"
+    },
+    "correct_answer": "B",
+    "explanation": "Format hints produce easily-parsed structured responses."
+  },
+  {
+    "id": "q0129",
+    "category": "Prompt Engineering",
+    "question": "Risk of poorly chosen few-shot examples?",
+    "options": {
+      "A": "Faster inference",
+      "B": "Model imitates incorrect patterns/biases",
+      "C": "Smaller model",
+      "D": "Less vocabulary"
+    },
+    "correct_answer": "B",
+    "explanation": "The model generalizes from examples, including bad ones."
+  },
+  {
+    "id": "q0130",
+    "category": "Prompt Engineering",
+    "question": "Prompt injection is?",
+    "options": {
+      "A": "Adding layers",
+      "B": "Malicious input manipulating an LLM into ignoring its instructions",
+      "C": "A tokenizer",
+      "D": "A training method"
+    },
+    "correct_answer": "B",
+    "explanation": "Crafted input subverts the system's intended instructions."
+  },
+  {
+    "id": "q0131",
+    "category": "Transformers & Attention",
+    "question": "In self-attention, Query/Key/Value represent?",
+    "options": {
+      "A": "Three identical copies",
+      "B": "Projections: Query seeks info, Key advertises, Value carries content",
+      "C": "Loss/gradient/weights",
+      "D": "Three models"
+    },
+    "correct_answer": "B",
+    "explanation": "Attention weights from Q·K determine how Values are combined."
+  },
+  {
+    "id": "q0132",
+    "category": "Transformers & Attention",
+    "question": "Why divide Q·K by √(key dim) in scaled dot-product attention?",
+    "options": {
+      "A": "Add randomness",
+      "B": "Prevent large dot products from causing tiny softmax gradients",
+      "C": "Reduce vocabulary",
+      "D": "Normalize output to 1"
+    },
+    "correct_answer": "B",
+    "explanation": "Scaling keeps magnitudes moderate, avoiding vanishing gradients."
+  },
+  {
+    "id": "q0133",
+    "category": "Transformers & Attention",
+    "question": "Attention scores are turned into weights summing to 1 by?",
+    "options": {
+      "A": "ReLU",
+      "B": "Softmax",
+      "C": "Sigmoid",
+      "D": "Tanh"
+    },
+    "correct_answer": "B",
+    "explanation": "Softmax normalizes scaled scores into a distribution over values."
+  },
+  {
+    "id": "q0134",
+    "category": "Transformers & Attention",
+    "question": "Why do transformers need positional encoding?",
+    "options": {
+      "A": "Reduce size",
+      "B": "Self-attention is order-agnostic and needs token-position info",
+      "C": "Remove embeddings",
+      "D": "Increase temperature"
+    },
+    "correct_answer": "B",
+    "explanation": "Positional encodings inject sequence-order information."
+  },
+  {
+    "id": "q0135",
+    "category": "Transformers & Attention",
+    "question": "Key innovation of the transformer architecture?",
+    "options": {
+      "A": "Recurrent connections",
+      "B": "Relying entirely on attention instead of recurrence/convolution",
+      "C": "Only convolutions",
+      "D": "No embeddings"
+    },
+    "correct_answer": "B",
+    "explanation": "\"Attention Is All You Need\" replaced recurrence with self-attention."
+  },
+  {
+    "id": "q0136",
+    "category": "Transformers & Attention",
+    "question": "Benefit of multi-head attention?",
+    "options": {
+      "A": "One attention pattern",
+      "B": "Attend to multiple representation subspaces simultaneously",
+      "C": "Removes Values",
+      "D": "Smaller context"
+    },
+    "correct_answer": "B",
+    "explanation": "Multiple heads capture different relationship types in parallel."
+  },
+  {
+    "id": "q0137",
+    "category": "Transformers & Attention",
+    "question": "Self-attention advantage over RNNs for long sequences?",
+    "options": {
+      "A": "One token at a time",
+      "B": "Directly relates distant tokens and parallelizes",
+      "C": "Can't model dependencies",
+      "D": "Needs no training"
+    },
+    "correct_answer": "B",
+    "explanation": "Constant path length + parallel computation vs sequential RNNs."
+  },
+  {
+    "id": "q0138",
+    "category": "Transformers & Attention",
+    "question": "'Self-attention' specifically means?",
+    "options": {
+      "A": "Two different models",
+      "B": "Each token attends to all tokens in the same sequence (incl. itself)",
+      "C": "Only the first token",
+      "D": "External docs"
+    },
+    "correct_answer": "B",
+    "explanation": "Q, K, V all come from the same sequence."
+  },
+  {
+    "id": "q0139",
+    "category": "Transformers & Attention",
+    "question": "Standard self-attention's complexity scales?",
+    "options": {
+      "A": "Linearly",
+      "B": "Quadratically with sequence length",
+      "C": "Constant",
+      "D": "Independent of length"
+    },
+    "correct_answer": "B",
+    "explanation": "All-pairs interactions give O(n²) in sequence length."
+  },
+  {
+    "id": "q0140",
+    "category": "Transformers & Attention",
+    "question": "In an encoder-decoder transformer, cross-attention is?",
+    "options": {
+      "A": "Encoder-only attention",
+      "B": "Decoder queries attending to encoder keys/values",
+      "C": "Attention to noise",
+      "D": "Attention to the loss"
+    },
+    "correct_answer": "B",
+    "explanation": "Cross-attention lets the decoder incorporate encoded input info."
+  },
+  {
+    "id": "q0141",
+    "category": "AI Ethics",
+    "question": "Algorithmic bias is?",
+    "options": {
+      "A": "A hardware defect",
+      "B": "Systematic unfair outcomes, often from biased training data/design",
+      "C": "A loss function",
+      "D": "A faster method"
+    },
+    "correct_answer": "B",
+    "explanation": "Bias produces unfair discrimination, often from unrepresentative data."
+  },
+  {
+    "id": "q0142",
+    "category": "AI Ethics",
+    "question": "Why is interpretability/explainability important?",
+    "options": {
+      "A": "Speeds training",
+      "B": "Helps humans understand/trust decisions, esp. high-stakes",
+      "C": "Reduces size",
+      "D": "Raises temperature"
+    },
+    "correct_answer": "B",
+    "explanation": "Explainability enables trust, auditing, and debugging."
+  },
+  {
+    "id": "q0143",
+    "category": "AI Ethics",
+    "question": "A key privacy concern in training on personal data?",
+    "options": {
+      "A": "Trains too fast",
+      "B": "Models may memorize and leak sensitive info",
+      "C": "Too few features",
+      "D": "Too interpretable"
+    },
+    "correct_answer": "B",
+    "explanation": "Models can expose memorized data; mitigated by differential privacy."
+  },
+  {
+    "id": "q0144",
+    "category": "AI Ethics",
+    "question": "Fairness aims to ensure?",
+    "options": {
+      "A": "Fastest model",
+      "B": "Equitable treatment across groups without unjust discrimination",
+      "C": "Smallest model",
+      "D": "Max randomness"
+    },
+    "correct_answer": "B",
+    "explanation": "Outcomes shouldn't unjustly disadvantage protected groups."
+  },
+  {
+    "id": "q0145",
+    "category": "AI Ethics",
+    "question": "'Human in the loop' is valuable because it?",
+    "options": {
+      "A": "Always faster",
+      "B": "Provides oversight/accountability for consequential decisions",
+      "C": "Removes data need",
+      "D": "Increases hallucinations"
+    },
+    "correct_answer": "B",
+    "explanation": "Human oversight catches errors and ensures accountability."
+  },
+  {
+    "id": "q0146",
+    "category": "AI Ethics",
+    "question": "A deepfake is?",
+    "options": {
+      "A": "A network architecture",
+      "B": "AI-generated synthetic media imitating real people",
+      "C": "A dataset",
+      "D": "Regularization"
+    },
+    "correct_answer": "B",
+    "explanation": "Deepfakes raise misinformation and consent concerns."
+  },
+  {
+    "id": "q0147",
+    "category": "Data Preprocessing",
+    "question": "Feature scaling (normalization/standardization) is for?",
+    "options": {
+      "A": "Labeling",
+      "B": "Bringing features to comparable ranges so none dominates by scale",
+      "C": "Adding features",
+      "D": "Computing loss"
+    },
+    "correct_answer": "B",
+    "explanation": "Helps distance- and gradient-based methods converge fairly."
+  },
+  {
+    "id": "q0148",
+    "category": "Data Preprocessing",
+    "question": "One-hot encoding is used to?",
+    "options": {
+      "A": "Scale numeric data",
+      "B": "Convert categories into binary indicator columns",
+      "C": "Reduce dimensions",
+      "D": "Remove outliers"
+    },
+    "correct_answer": "B",
+    "explanation": "Represents categories numerically without implying order."
+  },
+  {
+    "id": "q0149",
+    "category": "Data Preprocessing",
+    "question": "Common strategy for missing values?",
+    "options": {
+      "A": "Delete the whole dataset",
+      "B": "Impute with mean/median/mode (or model-based)",
+      "C": "Learning rate 0",
+      "D": "Raise temperature"
+    },
+    "correct_answer": "B",
+    "explanation": "Imputation retains usable data."
+  },
+  {
+    "id": "q0150",
+    "category": "Data Preprocessing",
+    "question": "Why split data before fitting a scaler?",
+    "options": {
+      "A": "Slower training",
+      "B": "Avoid data leakage from the test set into preprocessing",
+      "C": "Reduce vocabulary",
+      "D": "Never needed"
+    },
+    "correct_answer": "B",
+    "explanation": "Fit the scaler on training data only to prevent leakage."
+  },
+  {
+    "id": "q0151",
+    "category": "Data Preprocessing",
+    "question": "Handling class imbalance (resampling) prevents?",
+    "options": {
+      "A": "Bigger model",
+      "B": "Bias toward the majority class",
+      "C": "Removing features",
+      "D": "Higher learning rate"
+    },
+    "correct_answer": "B",
+    "explanation": "Over/under-sampling helps the model learn the minority class."
+  },
+  {
+    "id": "q0152",
+    "category": "Data Preprocessing",
+    "question": "Data augmentation is?",
+    "options": {
+      "A": "Deleting data",
+      "B": "Generating modified copies (flips/rotations) to expand training data",
+      "C": "Reducing classes",
+      "D": "Tuning learning rate"
+    },
+    "correct_answer": "B",
+    "explanation": "Augmentation increases diversity and reduces overfitting."
+  }
+]
