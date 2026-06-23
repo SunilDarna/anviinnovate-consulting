@@ -6,7 +6,7 @@ import { ddb, TABLE } from "../lib/dynamo.mjs";
 import { verifySession } from "../lib/session.mjs";
 import { ok, json, badRequest, unauthorized, getCookie } from "../lib/response.mjs";
 import { sendEmail } from "../lib/ses.mjs";
-import { PASS_THRESHOLD, COOLDOWN_DAYS } from "../lib/config.mjs";
+import { PASS_THRESHOLD, COOLDOWN_DAYS, isCooldownBypassed } from "../lib/config.mjs";
 
 export const handler = async (event) => {
   if (event.requestContext?.http?.method === "OPTIONS") return ok(event, {});
@@ -48,7 +48,7 @@ export const handler = async (event) => {
   const expired = attempt.expiresAt && submittedAt > attempt.expiresAt;
 
   let cooldownUntil = null;
-  if (!pass) {
+  if (!pass && !isCooldownBypassed(claims.email)) {
     cooldownUntil = new Date(nowMs + COOLDOWN_DAYS * 86400 * 1000).toISOString();
     const cooldownTtl = Math.floor(nowMs / 1000) + COOLDOWN_DAYS * 86400;
     await ddb.send(new PutCommand({

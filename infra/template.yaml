@@ -29,6 +29,10 @@ Parameters:
     Type: String
     Default: hello@anviinnovate.com
     Description: Internal recipient for new client-lead notifications.
+  CooldownBypassEmails:
+    Type: String
+    Default: darnasunil@gmail.com
+    Description: TEMPORARY test mode — comma-separated emails that skip the assessment cooldown. Set "" to disable.
 
 Globals:
   Function:
@@ -46,6 +50,7 @@ Globals:
         SESSION_KEY_PARAM: /anviinnovate/auth/session_jwt_secret
         FROM_EMAIL: !Ref FromEmail
         INTERNAL_NOTIFY_EMAIL: !Ref NotifyEmail
+        COOLDOWN_BYPASS_EMAILS: !Ref CooldownBypassEmails
 
 Resources:
   # ------------------------------------------------------------------ Data

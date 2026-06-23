@@ -20,3 +20,11 @@ export const CORE_CATEGORIES = [
 ];
 
 export const TOTAL_QUESTIONS = CORE_CATEGORIES.length * QUESTIONS_PER_CATEGORY; // 30
+
+// TEMPORARY test mode: emails listed in COOLDOWN_BYPASS_EMAILS skip the
+// post-fail cooldown entirely (so they can retake the assessment repeatedly).
+// Remove the env var / this helper before go-live.
+const COOLDOWN_BYPASS = (process.env.COOLDOWN_BYPASS_EMAILS || "")
+  .split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
+export const isCooldownBypassed = (email) =>
+  !!email && COOLDOWN_BYPASS.includes(email.toLowerCase());

@@ -6,7 +6,7 @@ import { ddb, TABLE } from "../lib/dynamo.mjs";
 import { verifySession } from "../lib/session.mjs";
 import { ok, json, unauthorized, getCookie } from "../lib/response.mjs";
 import { buildAttempt } from "../lib/questions.mjs";
-import { EXAM_DURATION_SEC } from "../lib/config.mjs";
+import { EXAM_DURATION_SEC, isCooldownBypassed } from "../lib/config.mjs";
 
 export const handler = async (event) => {
   if (event.requestContext?.http?.method === "OPTIONS") return ok(event, {});
@@ -17,15 +17,18 @@ export const handler = async (event) => {
   const nowIso = new Date(nowMs).toISOString();
 
   // 1. Cooldown gate (compare timestamps; don't rely on TTL deletion timing).
-  const cool = await ddb.send(new GetCommand({
-    TableName: TABLE, Key: { PK: userId, SK: "COOLDOWN" },
-  }));
-  if (cool.Item?.cooldownUntil && cool.Item.cooldownUntil > nowIso) {
-    return json(event, 403, {
-      ok: false, error: "cooldown",
-      cooldownUntil: cool.Item.cooldownUntil,
-      message: `Your next attempt unlocks on ${cool.Item.cooldownUntil}.`,
-    });
+  //    Bypassed for test-mode accounts.
+  if (!isCooldownBypassed(claims.email)) {
+    const cool = await ddb.send(new GetCommand({
+      TableName: TABLE, Key: { PK: userId, SK: "COOLDOWN" },
+    }));
+    if (cool.Item?.cooldownUntil && cool.Item.cooldownUntil > nowIso) {
+      return json(event, 403, {
+        ok: false, error: "cooldown",
+        cooldownUntil: cool.Item.cooldownUntil,
+        message: `Your next attempt unlocks on ${cool.Item.cooldownUntil}.`,
+      });
+    }
   }
 
   // 2. Resume a still-valid in-flight attempt instead of reshuffling.
