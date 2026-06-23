@@ -60,8 +60,8 @@ export const handler = async (event) => {
   // Mark attempt submitted.
   await ddb.send(new UpdateCommand({
     TableName: TABLE, Key: { PK: userId, SK: `ATTEMPT#${b.attemptId}` },
-    UpdateExpression: "SET #s = :s, correct = :c, total = :t, scorePct = :p, pass = :pass, submittedAt = :sa, expired = :ex, submittedAnswers = :ans, cooldownUntil = :cu",
-    ExpressionAttributeNames: { "#s": "status" },
+    UpdateExpression: "SET #st = :s, correct = :c, #tot = :t, scorePct = :p, #pass = :pass, submittedAt = :sa, #exp = :ex, submittedAnswers = :ans, cooldownUntil = :cu",
+    ExpressionAttributeNames: { "#st": "status", "#tot": "total", "#pass": "pass", "#exp": "expired" },
     ExpressionAttributeValues: {
       ":s": "submitted", ":c": correct, ":t": total, ":p": scorePct, ":pass": pass,
       ":sa": submittedAt, ":ex": !!expired, ":ans": answers, ":cu": cooldownUntil,
