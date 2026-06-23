@@ -84,6 +84,25 @@ Resources:
         AllowMethods: [GET, POST, OPTIONS]
         AllowHeaders: [content-type]
         AllowCredentials: true
+      # Serve the API from api.anviinnovate.com so the session cookie
+      # (Domain=anviinnovate.com, SameSite=Lax) is same-site with the frontend.
+      Domain:
+        DomainName: !Sub "api.${DomainName}"
+        CertificateArn: !Ref ApiCertificate
+        EndpointConfiguration: REGIONAL
+        Route53:
+          HostedZoneId: !Ref HostedZoneId
+
+  # Regional cert for the API custom domain. CloudFormation auto-creates the DNS
+  # validation records because DomainValidationOptions provides the HostedZoneId.
+  ApiCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Sub "api.${DomainName}"
+      ValidationMethod: DNS
+      DomainValidationOptions:
+        - DomainName: !Sub "api.${DomainName}"
+          HostedZoneId: !Ref HostedZoneId
 
   AuthGoogleFn:
     Type: AWS::Serverless::Function
@@ -380,8 +399,11 @@ Resources:
 
 Outputs:
   ApiBaseUrl:
-    Description: HTTP API base URL — set as PUBLIC_API_BASE in the frontend build.
+    Description: Raw execute-api URL (fallback; cookies require the custom domain below).
     Value: !Sub "https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com"
+  ApiCustomUrl:
+    Description: Same-site API URL — set as PUBLIC_API_BASE so the session cookie works.
+    Value: !Sub "https://api.${DomainName}"
   SiteBucket:
     Value: !Ref SiteBucket
   DistributionId:

@@ -24,7 +24,7 @@ echo "==> SAM build + deploy (this provisions ACM + CloudFront — first run can
 
 echo "==> Reading stack outputs..."
 API=$(aws cloudformation describe-stacks --region $REGION --stack-name anviinnovate \
-  --query "Stacks[0].Outputs[?OutputKey=='ApiBaseUrl'].OutputValue" --output text)
+  --query "Stacks[0].Outputs[?OutputKey=='ApiCustomUrl'].OutputValue" --output text)
 BUCKET=$(aws cloudformation describe-stacks --region $REGION --stack-name anviinnovate \
   --query "Stacks[0].Outputs[?OutputKey=='SiteBucket'].OutputValue" --output text)
 DIST=$(aws cloudformation describe-stacks --region $REGION --stack-name anviinnovate \

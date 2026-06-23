@@ -41,7 +41,7 @@ jobs:
       # Read stack outputs
       - id: out
         run: |
-          API=$(aws cloudformation describe-stacks --stack-name anviinnovate --query "Stacks[0].Outputs[?OutputKey=='ApiBaseUrl'].OutputValue" --output text)
+          API=$(aws cloudformation describe-stacks --stack-name anviinnovate --query "Stacks[0].Outputs[?OutputKey=='ApiCustomUrl'].OutputValue" --output text)
           BUCKET=$(aws cloudformation describe-stacks --stack-name anviinnovate --query "Stacks[0].Outputs[?OutputKey=='SiteBucket'].OutputValue" --output text)
           DIST=$(aws cloudformation describe-stacks --stack-name anviinnovate --query "Stacks[0].Outputs[?OutputKey=='DistributionId'].OutputValue" --output text)
           echo "api=$API" >> "$GITHUB_OUTPUT"
