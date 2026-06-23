@@ -1,0 +1,15 @@
+{
+  "name": "anviinnovate-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Anvi Innovate serverless backend (Lambdas for auth, leads, candidate assessment).",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.600.0",
+    "@aws-sdk/lib-dynamodb": "^3.600.0",
+    "@aws-sdk/client-ses": "^3.600.0",
+    "@aws-sdk/client-ssm": "^3.600.0",
+    "google-auth-library": "^9.11.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

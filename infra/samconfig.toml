@@ -1,0 +1,9 @@
+version = 0.1
+
+[default.deploy.parameters]
+stack_name = "anviinnovate-backend"
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
+resolve_s3 = true
+confirm_changeset = false
+parameter_overrides = "GoogleClientId=736690706364-54tc00o4sdod1d02vdalqc9slpa67ao5.apps.googleusercontent.com"

@@ -1,0 +1,14 @@
+---
+import Base from "../layouts/Base.astro";
+import GoogleLogin from "../components/GoogleLogin.jsx";
+---
+<Base title="Sign in — Anvi Innovate">
+  <h1>Sign in or create your account</h1>
+  <p>Use your Google account to continue. The first time you sign in, we'll create your Anvi Innovate profile automatically — no password needed.</p>
+  <div style="margin-top:32px;">
+    <GoogleLogin client:load redirectTo="/account" />
+  </div>
+  <p style="margin-top:24px;color:#475569;font-size:14px;">
+    By continuing you agree to our <a href="/terms">Terms</a> and <a href="/privacy">Privacy Policy</a>.
+  </p>
+</Base>

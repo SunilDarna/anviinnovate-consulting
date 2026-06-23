@@ -1,0 +1,50 @@
+name: deploy
+on:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # --- Backend: install deps + SAM deploy ---
+      - run: npm install
+        working-directory: backend
+      - uses: aws-actions/setup-sam@v2
+      - run: sam build
+        working-directory: infra
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
+        working-directory: infra
+
+      # --- Capture API base URL from the stack output ---
+      - id: api
+        run: |
+          URL=$(aws cloudformation describe-stacks --stack-name anviinnovate-backend \
+            --query "Stacks[0].Outputs[?OutputKey=='ApiBaseUrl'].OutputValue" --output text)
+          echo "base=$URL" >> "$GITHUB_OUTPUT"
+
+      # --- Frontend: build (inject public env) + sync to S3 + invalidate ---
+      - run: npm install
+        working-directory: frontend
+      - run: npm run build
+        working-directory: frontend
+        env:
+          PUBLIC_GOOGLE_CLIENT_ID: ${{ secrets.PUBLIC_GOOGLE_CLIENT_ID }}
+          PUBLIC_API_BASE: ${{ steps.api.outputs.base }}
+      - run: aws s3 sync frontend/dist s3://anviinnovate-site-prod --delete
+      - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DIST_ID }} --paths "/*"

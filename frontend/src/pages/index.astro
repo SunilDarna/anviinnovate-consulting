@@ -1,0 +1,13 @@
+---
+import Base from "../layouts/Base.astro";
+import AuthStatus from "../components/AuthStatus.jsx";
+---
+<Base title="Anvi Innovate — Skilled AI talent, on demand">
+  <AuthStatus slot="nav" client:load />
+  <h1>Skilled talent, on demand. Future-ready, from day one.</h1>
+  <p>Register with your Google account to apply, take the assessment, and track your status.</p>
+  <p style="display:flex; gap:12px; margin-top:24px;">
+    <a href="/login" style="background:#2563EB;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600;">Apply Now</a>
+    <a href="/clients" style="border:1px solid #475569;color:#0F172A;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600;">Hire Talent</a>
+  </p>
+</Base>

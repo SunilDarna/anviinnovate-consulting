@@ -1,0 +1,143 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Anvi Innovate backend — HTTP API, Lambdas, DynamoDB single table (auth + leads + assessment).
+
+Parameters:
+  GoogleClientId:
+    Type: String
+    Description: Google OAuth Web client ID (public).
+  AllowedOrigins:
+    Type: String
+    Default: "https://anviinnovate.com,https://www.anviinnovate.com,http://localhost:4321"
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Architectures: [arm64]
+    MemorySize: 256
+    Timeout: 10
+    Environment:
+      Variables:
+        TABLE_NAME: !Ref Table
+        ALLOWED_ORIGINS: !Ref AllowedOrigins
+        COOKIE_DOMAIN: anviinnovate.com
+        GOOGLE_CLIENT_ID: !Ref GoogleClientId
+        GOOGLE_SECRET_PARAM: /anviinnovate/google/client_secret
+        SESSION_KEY_PARAM: /anviinnovate/auth/session_jwt_secret
+
+Resources:
+  Table:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: AnviInnovate
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - { AttributeName: PK, AttributeType: S }
+        - { AttributeName: SK, AttributeType: S }
+        - { AttributeName: GSI1PK, AttributeType: S }
+        - { AttributeName: GSI1SK, AttributeType: S }
+      KeySchema:
+        - { AttributeName: PK, KeyType: HASH }
+        - { AttributeName: SK, KeyType: RANGE }
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - { AttributeName: GSI1PK, KeyType: HASH }
+            - { AttributeName: GSI1SK, KeyType: RANGE }
+          Projection: { ProjectionType: ALL }
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowOrigins:
+          - https://anviinnovate.com
+          - https://www.anviinnovate.com
+          - http://localhost:4321
+        AllowMethods: [GET, POST, OPTIONS]
+        AllowHeaders: [content-type]
+        AllowCredentials: true
+
+  AuthGoogleFn:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      CodeUri: ../backend/src/authGoogle/
+      Policies:
+        - DynamoDBCrudPolicy: { TableName: !Ref Table }
+        - SSMParameterReadPolicy: { ParameterName: anviinnovate/google/client_secret }
+        - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
+      Events:
+        Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /auth/google, Method: POST } }
+
+  AuthMeFn:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      CodeUri: ../backend/src/authMe/
+      Policies:
+        - DynamoDBReadPolicy: { TableName: !Ref Table }
+        - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
+      Events:
+        Get: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /auth/me, Method: GET } }
+
+  AuthLogoutFn:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      CodeUri: ../backend/src/authLogout/
+      Events:
+        Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /auth/logout, Method: POST } }
+
+  ClientLeadFn:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      CodeUri: ../backend/src/clientLead/
+      Policies:
+        - DynamoDBCrudPolicy: { TableName: !Ref Table }
+      Events:
+        Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /client-lead, Method: POST } }
+
+  CandidateApplyFn:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      CodeUri: ../backend/src/candidateApply/
+      Policies:
+        - DynamoDBCrudPolicy: { TableName: !Ref Table }
+        - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
+      Events:
+        Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /candidate-apply, Method: POST } }
+
+  AssessmentStartFn:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      CodeUri: ../backend/src/assessmentStart/
+      Policies:
+        - DynamoDBCrudPolicy: { TableName: !Ref Table }
+        - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
+      Events:
+        Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /assessment/start, Method: POST } }
+
+  AssessmentSubmitFn:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      CodeUri: ../backend/src/assessmentSubmit/
+      Policies:
+        - DynamoDBCrudPolicy: { TableName: !Ref Table }
+        - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
+      Events:
+        Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /assessment/submit, Method: POST } }
+
+Outputs:
+  ApiBaseUrl:
+    Description: HTTP API base URL — set as PUBLIC_API_BASE in the frontend build.
+    Value: !Sub "https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com"
+  TableName:
+    Value: !Ref Table

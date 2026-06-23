@@ -1,0 +1,26 @@
+---
+import Base from "../layouts/Base.astro";
+import AuthStatus from "../components/AuthStatus.jsx";
+---
+<Base title="Your account — Anvi Innovate">
+  <AuthStatus slot="nav" client:load />
+  <h1>Your account</h1>
+  <p id="gate">Checking your session…</p>
+  <div id="content" style="display:none;">
+    <p>You're signed in. Next steps:</p>
+    <p style="display:flex; gap:12px;">
+      <a href="/candidates/apply" style="background:#2563EB;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600;">Start your application</a>
+    </p>
+  </div>
+  <script>
+    // Client-side gate: redirect to /login if no valid session.
+    const BASE = import.meta.env.PUBLIC_API_BASE || "";
+    fetch(`${BASE}/auth/me`, { credentials: "include" })
+      .then((r) => { if (!r.ok) location.href = "/login"; return r.json(); })
+      .then(() => {
+        document.getElementById("gate").style.display = "none";
+        document.getElementById("content").style.display = "block";
+      })
+      .catch(() => { location.href = "/login"; });
+  </script>
+</Base>
