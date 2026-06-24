@@ -147,7 +147,10 @@ Resources:
       CodeUri: ../backend/
       Policies:
         - DynamoDBCrudPolicy: { TableName: !Ref Table }
-        - SESCrudPolicy: { IdentityName: !Ref DomainName }
+        - Statement:
+            - Effect: Allow
+              Action: [ses:SendEmail, ses:SendRawEmail]
+              Resource: !Sub "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/*"
       Events:
         Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /client-lead, Method: POST } }
 
@@ -159,7 +162,10 @@ Resources:
       Policies:
         - DynamoDBCrudPolicy: { TableName: !Ref Table }
         - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
-        - SESCrudPolicy: { IdentityName: !Ref DomainName }
+        - Statement:
+            - Effect: Allow
+              Action: [ses:SendEmail, ses:SendRawEmail]
+              Resource: !Sub "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/*"
       Events:
         Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /candidate-apply, Method: POST } }
 
@@ -182,7 +188,10 @@ Resources:
       Policies:
         - DynamoDBCrudPolicy: { TableName: !Ref Table }
         - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
-        - SESCrudPolicy: { IdentityName: !Ref DomainName }
+        - Statement:
+            - Effect: Allow
+              Action: [ses:SendEmail, ses:SendRawEmail]
+              Resource: !Sub "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/*"
       Events:
         Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /assessment/submit, Method: POST } }
 
