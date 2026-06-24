@@ -83,17 +83,25 @@ export const handler = async (event) => {
   if (pass) {
     await sendEmail({
       to: claims.email,
-      subject: "You passed the Anvi Innovate AI/ML Foundations Assessment 🎉",
-      html: `<p>Congratulations, ${name} — you scored <b>${scorePct}%</b> and <b>passed</b> the Anvi Innovate AI/ML Foundations Assessment.</p>
-             <p>Our team will contact you with next steps for training and deployment.</p>`,
+      subject: "AI/ML Foundations Assessment — Result: Passed",
+      html: `<p>Dear ${name},</p>
+             <p>Congratulations. You have <b>passed</b> the Anvi Innovate AI/ML Foundations Assessment with a score of <b>${scorePct}%</b> (passing score: 85%).</p>
+             <p>Our team will be in touch shortly with the next steps for training and deployment.</p>
+             <p>We look forward to working with you.</p>
+             <p>Warm regards,<br/>The Anvi Innovate Team</p>`,
     });
   } else {
+    const retryLine = cooldownUntil
+      ? `<p>You are welcome to try again after <b>${COOLDOWN_DAYS} days</b>. Your next attempt unlocks on <b>${new Date(cooldownUntil).toDateString()}</b>.</p>`
+      : `<p>You are welcome to prepare and try the assessment again.</p>`;
     await sendEmail({
       to: claims.email,
-      subject: "Your Anvi Innovate Assessment result",
-      html: `<p>Hi ${name}, you scored <b>${scorePct}%</b>. The passing score is 85%.</p>
-             <p>We encourage you to prepare thoroughly and try again after <b>${COOLDOWN_DAYS} days</b> — your next attempt unlocks on <b>${cooldownUntil}</b>.</p>
-             <p>In the meantime, explore our upcoming Training Modules (coming soon, in collaboration with ai-certify.in).</p>`,
+      subject: "AI/ML Foundations Assessment — Result",
+      html: `<p>Dear ${name},</p>
+             <p>Thank you for completing the Anvi Innovate AI/ML Foundations Assessment. Your score was <b>${scorePct}%</b>; the passing score is 85%, so you have not cleared the assessment on this attempt.</p>
+             ${retryLine}
+             <p>In the meantime, we encourage you to prepare using our training and certification path, offered in collaboration with ai-certify.in.</p>
+             <p>Best regards,<br/>The Anvi Innovate Team</p>`,
     });
   }
 
