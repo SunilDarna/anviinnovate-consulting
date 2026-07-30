@@ -2,7 +2,8 @@
 import { randomUUID } from "node:crypto";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import { ddb, TABLE } from "../lib/dynamo.mjs";
-import { ok, badRequest } from "../lib/response.mjs";
+import { ok, badRequest, getCookie } from "../lib/response.mjs";
+import { verifySession } from "../lib/session.mjs";
 import { sendEmail } from "../lib/ses.mjs";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -26,7 +27,7 @@ export const handler = async (event) => {
   if (company.length < 2 || company.length > 120) errors.push("company");
   if (name.length < 2 || name.length > 80) errors.push("name");
   if (!EMAIL_RE.test(email)) errors.push("email");
-  if (phone.length < 5 || phone.length > 30) errors.push("phone");
+  if (phone && (phone.length < 5 || phone.length > 30)) errors.push("phone");
   if (skills.length < 2 || skills.length > 500) errors.push("skills");
   if (!Number.isInteger(resourceCount) || resourceCount < 1 || resourceCount > 999) errors.push("resourceCount");
   if (timeline && !TIMELINES.includes(timeline)) errors.push("timeline");
@@ -35,14 +36,19 @@ export const handler = async (event) => {
 
   const leadId = randomUUID();
   const createdAt = new Date().toISOString();
-  await ddb.send(new PutCommand({
-    TableName: TABLE,
-    Item: {
-      PK: `LEAD#${leadId}`, SK: "PROFILE", GSI1PK: "LEADS", GSI1SK: createdAt,
-      company, name, email, phone, skills, resourceCount,
-      timeline: timeline || "Flexible", notes, createdAt,
-    },
-  }));
+
+  // If the client is signed in, store the demand under their partition so it shows
+  // in their account and is editable. Otherwise keep it as an anonymous lead.
+  const claims = await verifySession(getCookie(event, "anvi_session"));
+  const base = {
+    company, name, email, phone, skills, resourceCount,
+    timeline: timeline || "Flexible", notes, status: "Open", createdAt,
+    GSI1PK: "LEADS", GSI1SK: createdAt,
+  };
+  const Item = claims
+    ? { PK: claims.sub, SK: `LEAD#${leadId}`, userId: claims.sub, ...base }
+    : { PK: `LEAD#${leadId}`, SK: "PROFILE", ...base };
+  await ddb.send(new PutCommand({ TableName: TABLE, Item }));
 
   // Confirmation to the client + internal notification (best-effort).
   await sendEmail({

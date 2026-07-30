@@ -1,63 +1,95 @@
 ---
 import Base from "../layouts/Base.astro";
 ---
-<Base title="Anvi Innovate — Skilled AI talent, on demand" bg={true}>
-  <section style="text-align:center; padding:32px 0 12px;">
-    <span class="pill">AI/ML talent · trained · assessed · deployed</span>
-    <h1>Skilled talent, on demand.<br/>Future-ready, from day one.</h1>
+<Base title="Anvi Innovate — Hire-train-deploy for AI/ML talent" bg={true}
+  description="Anvi Innovate sources, trains and assesses AI/ML talent, then deploys them to your team — hire-train-deploy, contract staffing and contract-to-hire from Hyderabad.">
+
+  <!-- Hero -->
+  <section style="text-align:center; padding:28px 0 8px;">
+    <span class="pill">Hire-train-deploy · contract staffing · C2H</span>
+    <h1 style="max-width:900px; margin-inline:auto;">Skilled AI/ML talent, trained and deployed to your team.</h1>
     <p class="muted" style="font-size:1.2rem; max-width:680px; margin:0 auto 28px;">
-      Anvi Innovate trains and assesses AI/ML resources, then deploys them to teams that need to move fast — from data annotation to LLM fine-tuning.
+      We source freshers and career-switchers, put them through structured GenAI training and a rigorous assessment, and deploy the ones who clear it — for annotation, RLHF, RAG and fine-tuning.
     </p>
     <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
-      <a class="btn btn-primary" href="/candidates">Apply as a candidate</a>
-      <a class="btn btn-ghost" href="/clients">Hire talent</a>
+      <a class="btn btn-primary" href="/clients">Hire talent</a>
+      <a class="btn btn-ghost" href="/candidates">Apply as a candidate</a>
     </div>
   </section>
 
-  <section class="grid" style="grid-template-columns:1fr 1fr; margin-top:64px;">
+  <!-- Pipeline -->
+  <section class="card" style="margin-top:48px; padding:28px 24px;">
+    <h2 style="text-align:center; margin-bottom:6px;">The hire-train-deploy pipeline</h2>
+    <p class="muted" style="text-align:center; margin-top:0;">One path from raw potential to a productive team member.</p>
+    <div class="grid" style="grid-template-columns:repeat(4,1fr); margin-top:22px;">
+      {[
+        ["Source", "Freshers & career-switchers with the aptitude to learn AI/ML."],
+        ["Train", "Structured GenAI curriculum, in collaboration with bxup.in."],
+        ["Assess", "10-category assessment, 85% to pass — no shortcuts."],
+        ["Deploy", "Embedded in your team as contract, C2H or HTD."],
+      ].map(([t, d], i) => (
+        <div style="position:relative;">
+          <div class="card" style="height:100%;">
+            <div style="width:34px; height:34px; border-radius:9px; background:var(--accent); color:#fff; display:grid; place-items:center; font-weight:700;">{i + 1}</div>
+            <h3 style="margin:.5em 0 .2em; font-size:1.05rem;">{t}</h3>
+            <p class="muted" style="margin:0; font-size:14px;">{d}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Two audiences -->
+  <section class="grid" style="grid-template-columns:1fr 1fr; margin-top:44px;">
     <div class="card">
-      <h3 style="margin-top:0;">For Clients</h3>
-      <ol class="muted" style="padding-left:18px;">
-        <li>Submit your demand — skills, count, timeline.</li>
-        <li>We match assessed, ready resources.</li>
-        <li>Deploy and scale on your terms.</li>
-      </ol>
-      <a class="btn btn-primary" href="/clients">Submit a demand</a>
+      <span class="pill">For Clients</span>
+      <h3 style="margin:.4em 0;">Assessed talent, ready to deploy</h3>
+      <ul class="muted" style="padding-left:18px;">
+        <li>Every candidate passes a 10-category AI/ML assessment (85% bar).</li>
+        <li>We share the category-level score sheet for each proposed candidate.</li>
+        <li>Contract staffing, contract-to-hire, and hire-train-deploy for volume roles.</li>
+      </ul>
+      <a class="btn btn-primary" href="/clients">Submit a hiring request</a>
     </div>
     <div class="card">
-      <h3 style="margin-top:0;">For Candidates</h3>
-      <ol class="muted" style="padding-left:18px;">
-        <li>Apply with your Google account.</li>
-        <li>Pass the AI/ML Foundations Assessment (85%).</li>
-        <li>Get trained and deployed to real projects.</li>
-      </ol>
+      <span class="pill">For Candidates</span>
+      <h3 style="margin:.4em 0;">Get paid to build AI — no prior AI experience needed</h3>
+      <ul class="muted" style="padding-left:18px;">
+        <li>Apply with Google, prove your foundations, get trained and deployed.</li>
+        <li>The exam tests fundamentals, not your CV. Freshers welcome.</li>
+        <li>You're never charged a fee at any stage.</li>
+      </ul>
       <a class="btn btn-primary" href="/candidates">Start your application</a>
     </div>
   </section>
 
-  <section style="margin-top:64px;">
-    <h2>Why Anvi Innovate</h2>
-    <div class="grid" style="grid-template-columns:repeat(3,1fr);">
+  <!-- Value props -->
+  <section style="margin-top:56px;">
+    <h2 style="text-align:center;">Why Anvi Innovate</h2>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:10px;">
       <div class="card"><h3>Resource-centric</h3><p class="muted">We supply people, not black-box services — embedded in your team, accountable to your outcomes.</p></div>
-      <div class="card"><h3>Future-ready skills</h3><p class="muted">Fresh AI/ML and GenAI training. Freshers who apply go through a rigorous assessment before they're deployed.</p></div>
-      <div class="card"><h3>Fast to deploy</h3><p class="muted">Pre-assessed talent means days, not months, from demand to deployment.</p></div>
+      <div class="card"><h3>Vetting you can audit</h3><p class="muted">A 10-category, 85%-pass assessment drawn fresh for every candidate. You see the score sheet.</p></div>
+      <div class="card"><h3>Fast to deploy</h3><p class="muted">Pre-assessed, pre-trained talent means days, not months, from demand to deployment.</p></div>
     </div>
   </section>
 
+  <!-- Market gap -->
   <section class="card" style="margin-top:48px; background:var(--ink); color:#fff;">
-    <h2 style="color:#fff;">A market that's compounding</h2>
+    <h2 style="color:#fff;">The skilled human layer behind AI</h2>
     <p style="font-size:1.1rem; max-width:760px;">
       The global AI training dataset market is expected to reach <strong>USD 8.60 billion by 2030</strong>, growing at a
-      <strong>21.9% CAGR (2025–2030)</strong>. Anvi Innovate builds the skilled human layer that powers it.
+      <strong>21.9% CAGR (2025–2030)</strong>. The bottleneck isn't compute — it's skilled, reliable people. That's what we build.
     </p>
     <p class="muted" style="color:#94a3b8; font-size:13px;">Source: Grand View Research.</p>
   </section>
 
+  <!-- CTA band -->
   <section style="text-align:center; margin-top:56px;">
     <h2>Ready to start?</h2>
-    <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
-      <a class="btn btn-primary" href="/candidates">Apply now</a>
-      <a class="btn btn-ghost" href="/clients">Hire talent</a>
+    <p class="muted" style="max-width:560px; margin-inline:auto;">Whether you're building a team or building your career in AI, there's a path here.</p>
+    <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:8px;">
+      <a class="btn btn-primary" href="/clients">Hire talent</a>
+      <a class="btn btn-ghost" href="/candidates">Apply now</a>
     </div>
   </section>
 </Base>

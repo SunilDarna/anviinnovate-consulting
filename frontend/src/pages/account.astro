@@ -1,27 +1,8 @@
 ---
 import Base from "../layouts/Base.astro";
+import AccountDashboard from "../components/AccountDashboard.jsx";
 ---
-<Base title="Your account — Anvi Innovate">
+<Base title="Your account — Anvi Innovate" description="Your Anvi Innovate account: application and assessment status, your hiring demands, and profile settings.">
   <h1>Your account</h1>
-  <p id="gate" class="muted">Checking your session…</p>
-  <div id="content" style="display:none;">
-    <p>Welcome back, <strong id="who"></strong>. Here's where to go next:</p>
-    <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:16px;">
-      <div class="card"><h3 style="margin-top:0;">1 · Apply</h3><p class="muted">Submit or update your candidate profile.</p><a class="btn btn-ghost" href="/candidates/apply">Application</a></div>
-      <div class="card"><h3 style="margin-top:0;">2 · Assessment</h3><p class="muted">30 questions · 30 min · 85% to pass.</p><a class="btn btn-primary" href="/candidates/assessment">Take assessment</a></div>
-      <div class="card"><h3 style="margin-top:0;">3 · Training</h3><p class="muted">Upskill with bxup.in (coming soon).</p><a class="btn btn-ghost" href="/training">Training</a></div>
-    </div>
-  </div>
-  <script>
-    const BASE = import.meta.env.PUBLIC_API_BASE || "";
-    fetch(`${BASE}/auth/me`, { credentials: "include" })
-      .then((r) => { if (!r.ok) { location.href = "/login"; throw 0; } return r.json(); })
-      .then((d) => {
-        const who = d?.user?.name || d?.user?.email || "";
-        document.getElementById("who").textContent = who;
-        document.getElementById("gate").style.display = "none";
-        document.getElementById("content").style.display = "block";
-      })
-      .catch(() => {});
-  </script>
+  <AccountDashboard client:only="react" />
 </Base>

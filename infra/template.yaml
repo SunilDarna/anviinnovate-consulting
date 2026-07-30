@@ -147,12 +147,47 @@ Resources:
       CodeUri: ../backend/
       Policies:
         - DynamoDBCrudPolicy: { TableName: !Ref Table }
+        - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
         - Statement:
             - Effect: Allow
               Action: [ses:SendEmail, ses:SendRawEmail]
               Resource: !Sub "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/*"
       Events:
         Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /client-lead, Method: POST } }
+
+  MeOverviewFn:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/meOverview/index.handler
+      CodeUri: ../backend/
+      Policies:
+        - DynamoDBReadPolicy: { TableName: !Ref Table }
+        - DynamoDBReadPolicy: { TableName: !Ref Table, IndexName: GSI1 }
+        - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
+      Events:
+        Get: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /me/overview, Method: GET } }
+
+  ProfileUpdateFn:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/profileUpdate/index.handler
+      CodeUri: ../backend/
+      Policies:
+        - DynamoDBCrudPolicy: { TableName: !Ref Table }
+        - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
+      Events:
+        Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /profile, Method: POST } }
+
+  ClientLeadUpdateFn:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/clientLeadUpdate/index.handler
+      CodeUri: ../backend/
+      Policies:
+        - DynamoDBCrudPolicy: { TableName: !Ref Table }
+        - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
+      Events:
+        Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /client-lead/update, Method: POST } }
 
   CandidateApplyFn:
     Type: AWS::Serverless::Function
