@@ -18,7 +18,9 @@ export default function AuthStatus() {
     window.location.href = "/";
   }
 
-  if (loading) return <span>…</span>;
+  // Render an invisible fixed-width placeholder until /auth/me resolves, so the
+  // header doesn't shift and no stray "…" flashes on every page.
+  if (loading) return <span aria-hidden="true" style={{ display: "inline-block", width: "1px" }} />;
   if (!user) return <a href="/login">Sign in</a>;
   return (
     <span style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>

@@ -1,17 +1,50 @@
 ---
 import Base from "../layouts/Base.astro";
-const CERTIFY = "https://ai-certify.in/";
+const CERTIFY = "https://bxup.in/";
+// The ten assessment categories double as the training tracks.
+const tracks = [
+  ["Math & Statistics", "Foundations", "Probability, distributions, linear algebra and the stats behind ML."],
+  ["Core ML", "Foundations", "Bias–variance, over/underfitting, regularization, train/validation/test."],
+  ["Supervised Learning", "Foundations", "Regression, classification, trees, ensembles, SVMs, kNN."],
+  ["Unsupervised Learning", "Foundations", "Clustering, PCA, embeddings, anomaly detection."],
+  ["Model Evaluation", "Foundations", "Precision/recall/F1, ROC-AUC, confusion matrices, regression metrics."],
+  ["Neural Networks", "Intermediate", "Activations, backprop, gradient descent, CNNs, RNNs, regularization."],
+  ["NLP", "Intermediate", "Tokenization, embeddings, TF-IDF, language modelling basics."],
+  ["GenAI & LLMs", "Applied", "Pretraining, RAG, temperature/sampling, RLHF, fine-tuning vs prompting."],
+  ["Prompt Engineering", "Applied", "Zero/few-shot, chain-of-thought, system prompts, guarding against injection."],
+  ["Transformers & Attention", "Applied", "Q-K-V attention, positional encoding, multi-head, encoder–decoder."],
+];
 ---
-<Base title="Training — Anvi Innovate">
+<Base title="Training — Anvi Innovate" description="Structured AI/ML and GenAI training mapped to the ten assessment categories, in collaboration with bxup.in. Foundations through applied LLM skills.">
   <span class="pill">Training</span>
   <h1>Courses &amp; certification path</h1>
-  <div class="card" style="max-width:760px;">
-    <p>Our training and certification are delivered <strong>in collaboration with ai-certify.in</strong> — structured AI/ML and GenAI courses, from foundations through applied LLM and prompt-engineering skills, with a clear certification path.</p>
-    <p class="muted">Candidates in a post-assessment cooldown keep full access to training while they prepare to retry.</p>
-    <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:18px;">
-      <a class="btn btn-primary" href={CERTIFY} target="_blank" rel="noopener noreferrer">Access courses on ai-certify.in →</a>
-      <a class="btn btn-ghost" href={CERTIFY} target="_blank" rel="noopener noreferrer">View certification path →</a>
-    </div>
+  <p class="muted" style="max-width:760px;">
+    Our training mirrors the ten categories on the AI/ML Foundations Assessment, so you always know exactly what to study.
+    Courses and certification are delivered <strong>in collaboration with bxup.in</strong> — foundations through applied LLM and prompt-engineering skills.
+  </p>
+  <div style="display:flex; gap:14px; flex-wrap:wrap; margin:18px 0 8px;">
+    <a class="btn btn-primary" href={CERTIFY} target="_blank" rel="noopener noreferrer">Enrol on bxup.in →</a>
+    <a class="btn btn-ghost" href={CERTIFY} target="_blank" rel="noopener noreferrer">View certification path →</a>
   </div>
+
+  <section style="margin-top:36px;">
+    <h2>Training tracks</h2>
+    <div class="grid" style="grid-template-columns:repeat(2,1fr);">
+      {tracks.map(([name, level, desc]) => (
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+            <h3 style="margin:0; font-size:1.05rem;">{name}</h3>
+            <span class="pill">{level}</span>
+          </div>
+          <p class="muted" style="margin:.5em 0 0; font-size:14px;">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <div class="card" style="margin-top:28px;">
+    <p style="margin:0;">Didn't clear the assessment? Your result screen highlights your two weakest categories and links straight to the matching tracks — so you know exactly where to focus before retrying.</p>
+  </div>
+
   <p class="muted" style="margin-top:20px;">Not applied yet? <a href="/candidates">Start your application</a> to unlock the assessment.</p>
 </Base>

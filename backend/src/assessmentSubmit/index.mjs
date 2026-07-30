@@ -40,6 +40,18 @@ export const handler = async (event) => {
   let correct = 0;
   for (const qid of ids) if (answers[qid] && answers[qid] === key[qid]) correct++;
 
+  // Per-category breakdown (clientQuestions already carry `category`) — a study
+  // plan for the candidate, no schema change or extra data needed.
+  const cats = {};
+  for (const q of attempt.clientQuestions || []) {
+    const c = q.category || "Other";
+    (cats[c] ||= { correct: 0, total: 0 }).total++;
+    if (answers[q.id] && answers[q.id] === key[q.id]) cats[c].correct++;
+  }
+  const byCategory = Object.entries(cats)
+    .map(([category, v]) => ({ category, correct: v.correct, total: v.total }))
+    .sort((a, b) => a.correct / a.total - b.correct / b.total);
+
   const score = total ? correct / total : 0;
   const scorePct = Math.round(score * 100);
   const pass = score >= PASS_THRESHOLD;
@@ -100,10 +112,10 @@ export const handler = async (event) => {
       html: `<p>Dear ${name},</p>
              <p>Thank you for completing the Anvi Innovate AI/ML Foundations Assessment. Your score was <b>${scorePct}%</b>; the passing score is 85%, so you have not cleared the assessment on this attempt.</p>
              ${retryLine}
-             <p>In the meantime, we encourage you to prepare using our training and certification path, offered in collaboration with ai-certify.in.</p>
+             <p>In the meantime, we encourage you to prepare using our training and certification path, offered in collaboration with bxup.in.</p>
              <p>Best regards,<br/>The Anvi Innovate Team</p>`,
     });
   }
 
-  return ok(event, { ok: true, score: scorePct, correct, total, pass, cooldownUntil, expired: !!expired });
+  return ok(event, { ok: true, score: scorePct, correct, total, pass, cooldownUntil, expired: !!expired, byCategory });
 };

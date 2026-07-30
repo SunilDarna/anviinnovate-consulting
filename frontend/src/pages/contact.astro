@@ -1,15 +1,31 @@
 ---
 import Base from "../layouts/Base.astro";
 ---
-<Base title="Contact — Anvi Innovate">
+<Base title="Contact — Anvi Innovate" description="Contact Anvi Innovate. Clients and candidates can reach us by email at hello@anviinnovate.com.">
   <span class="pill">Contact</span>
   <h1>Get in touch</h1>
-  <div class="card" style="max-width:560px;">
-    <p>Email us at <a href="mailto:hello@anviinnovate.com">hello@anviinnovate.com</a> and we'll get back to you shortly.</p>
-    <p class="muted" style="margin-bottom:0;">
-      <strong>Anvi Innovate</strong><br/>
-      Hyderabad, Telangana, India
-    </p>
+  <p class="muted" style="max-width:680px;">We handle all enquiries by email and reply within one business day. Pick the path that fits you.</p>
+
+  <div class="grid" style="grid-template-columns:1fr 1fr; margin-top:24px; align-items:start;">
+    <div class="card">
+      <h3 style="margin-top:0;">For companies &amp; clients</h3>
+      <p class="muted">Looking to hire assessed AI/ML talent? Tell us your role, volume, location and start date and we'll come back with a plan.</p>
+      <a class="btn btn-primary" href="/clients">Submit a hiring request</a>
+      <p class="muted" style="font-size:14px; margin-bottom:0;">Or email <a href="mailto:hello@anviinnovate.com">hello@anviinnovate.com</a>.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0;">For candidates</h3>
+      <p class="muted">Want to be trained, assessed and deployed on real AI/ML projects? This route is for applicants — apply and take the assessment.</p>
+      <a class="btn btn-ghost" href="/candidates/apply">Apply as a candidate</a>
+      <p class="muted" style="font-size:14px; margin-bottom:0;">Questions first? See the <a href="/faq">FAQ</a> or email <a href="mailto:hello@anviinnovate.com">hello@anviinnovate.com</a>.</p>
+    </div>
   </div>
-  <p class="muted" style="margin-top:20px;">Looking to hire? Use the <a href="/clients">client demand form</a>. Want to join? <a href="/candidates">Apply here</a>.</p>
+
+  <div class="card" style="margin-top:20px;">
+    <h3 style="margin-top:0;">Queries &amp; feedback</h3>
+    <p class="muted" style="margin-bottom:0;">For anything else — partnerships, press, or feedback about the site or assessment — email <a href="mailto:hello@anviinnovate.com">hello@anviinnovate.com</a>. We read every message.</p>
+    <p class="muted" style="margin-bottom:0; margin-top:12px;"><strong>Anvi Innovate</strong> · Hyderabad, Telangana, India</p>
+  </div>
+
+  <p class="muted" style="margin-top:20px; font-size:13px;">Anvi Innovate never charges candidates a fee at any stage. We contact you only from @anviinnovate.com addresses.</p>
 </Base>

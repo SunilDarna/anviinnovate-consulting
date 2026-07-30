@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "aicertify-preview",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd '/Users/sunildarna/Documents/anviinnovate.com-projects/aiupskill/AIUpskill.anviinnovate.com/app' && npx vite preview --port 4173 --strictPort"],
+      "port": 4173
+    },
+    {
+      "name": "flat3d-preview",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8734", "-d", "/private/tmp/claude-501/-Users-sunildarna-Documents-AI-Projects-All-anviinnovate-consulting-anviinnovate-consulting/b7b50a05-10f7-408e-99bf-cec2c825254f/scratchpad"],
+      "port": 8734
+    }
+  ]
+}
