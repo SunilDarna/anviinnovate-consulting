@@ -189,6 +189,23 @@ Resources:
       Events:
         Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /client-lead/update, Method: POST } }
 
+  ResumeUrlFn:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/resumeUrl/index.handler
+      CodeUri: ../backend/
+      Environment:
+        Variables:
+          RESUME_BUCKET: !Ref ResumeBucket
+      Policies:
+        - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
+        - Statement:
+            - Effect: Allow
+              Action: [s3:PutObject]
+              Resource: !Sub "arn:aws:s3:::${ResumeBucket}/resumes/*"
+      Events:
+        Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /candidate/resume-url, Method: POST } }
+
   CandidateApplyFn:
     Type: AWS::Serverless::Function
     Properties:
@@ -229,6 +246,32 @@ Resources:
               Resource: !Sub "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/*"
       Events:
         Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /assessment/submit, Method: POST } }
+
+  # ------------------------------------------------------------------ Resumes
+  ResumeBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "anviinnovate-resumes-${AWS::AccountId}"
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      CorsConfiguration:
+        CorsRules:
+          - AllowedMethods: [PUT]
+            AllowedOrigins:
+              - https://anviinnovate.com
+              - https://www.anviinnovate.com
+              - http://localhost:4321
+            AllowedHeaders: ["*"]
+            ExposedHeaders: [ETag]
+            MaxAge: 3000
+      LifecycleConfiguration:
+        Rules:
+          - Id: expire-old-resumes
+            Status: Enabled
+            ExpirationInDays: 730
 
   # ------------------------------------------------------------------ Hosting
   SiteBucket:

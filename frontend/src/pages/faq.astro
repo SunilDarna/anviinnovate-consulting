@@ -3,28 +3,24 @@ import Base from "../layouts/Base.astro";
 
 const groups = [
   { h: "Candidates", items: [
-    ["How do I apply?", "Sign in with Google on the Apply page and submit your profile. Your first sign-in creates your account — no password needed."],
-    ["Do I need prior AI experience?", "No. Freshers and career-switchers are welcome. The assessment tests AI/ML fundamentals, not your CV or job history."],
-    ["What is the assessment?", "30 multiple-choice questions drawn across 10 AI/ML categories (3 each), 30 minutes, 85% to pass. Every attempt draws a fresh, unique set."],
-    ["Is it proctored, and can I use notes?", "It is not video-proctored. It is a timed, closed assessment meant to reflect your own foundations — please complete it independently."],
-    ["What happens if I don't pass?", "You get a category-by-category breakdown showing where you lost marks, plus the matching training modules. A 30-day cooldown applies before you retry."],
-    ["Can I retake it, and how many times?", "Yes. You can retake after each 30-day cooldown, with no limit on the number of attempts."],
-    ["What does it pay and how am I paid?", "Compensation depends on the engagement and is shared with you before you start any project. You are never charged a fee at any stage of hiring."],
-    ["What if I pass but there's no project yet?", "You remain in our deployable pool and keep access to training. We reach out as suitable client projects come up."],
-    ["Will my answers be lost if my connection drops?", "No. Your answers save as you go and the timer runs server-side, so refreshing or briefly disconnecting won't lose your progress — but the clock keeps running."],
+    ["How do I join?", "Sign in with Google and create your candidate profile — your background, skills, preferences and resume. Your first sign-in creates your account; no password needed."],
+    ["Do I need prior AI experience?", "No. Freshers and career-switchers are welcome. We look for aptitude and train you in AI/ML and GenAI fundamentals."],
+    ["What formats can I upload my resume in?", "PDF, DOC or DOCX. Your resume is stored privately and shared only with prospective client engagements."],
+    ["How does training and certification work?", "Training and certification are delivered by our partner bxup.in — foundations through applied LLM and prompt-engineering skills. We link you to the right tracks."],
+    ["What happens after I create my profile?", "Our team reviews it and reaches out when a matching client AI/ML project comes up. You can update your profile any time from your account."],
+    ["Do you charge candidates any fee?", "Never. Anvi Innovate does not charge candidates at any stage, and we only contact you from @anviinnovate.com addresses."],
   ]},
   { h: "Clients", items: [
-    ["How do I hire talent?", "Submit the hiring request with your role, resource count, location and timeline. We reply within one business day to match assessed candidates."],
-    ["How are candidates vetted?", "Every deployable candidate has passed our 10-category AI/ML assessment at 85% or above. We share the category-level score sheet for each candidate we propose."],
-    ["What engagement models do you offer?", "Contract staffing, contract-to-hire (C2H), and hire-train-deploy for volume roles. We publish the commercial structure on request; we quote rates per engagement."],
+    ["How do I hire talent?", "Submit the hiring request with your role, resource count, location and timeline. We reply within one business day to match trained, ready talent."],
+    ["How quickly can talent be deployed?", "We keep pre-trained, screened talent ready, so deployment is typically a matter of days rather than months."],
+    ["What skills do your candidates cover?", "Applied AI and GenAI — data annotation, RLHF, RAG, model fine-tuning, prompt engineering, and core ML."],
+    ["What engagement models do you offer?", "Contract staffing, contract-to-hire (C2H), and hire-train-deploy for volume roles. We quote rates per engagement and share the commercial structure up front."],
     ["Is there a replacement guarantee?", "Yes — we offer a replacement window for deployed resources. Terms are confirmed in your engagement agreement."],
-    ["Which skills and areas do you cover?", "AI/ML and Generative AI work: data annotation, RLHF, RAG, fine-tuning, prompt engineering, and related foundations."],
   ]},
   { h: "Legal & data", items: [
     ["Are you an employer or an intermediary?", "We operate a hire-train-deploy and staffing model. Statutory responsibilities are set out in each client and associate agreement."],
-    ["What data do you keep about me, and can I delete it?", "We store your Google profile (name, email, picture), your application details, and your assessment attempts and scores. To request access or deletion under the DPDP Act, email hello@anviinnovate.com."],
+    ["What data do you keep, and can I delete it?", "For candidates: your Google profile, the details you enter, and your uploaded resume. To request access or deletion under the DPDP Act, email hello@anviinnovate.com."],
     ["How do you handle client and project data?", "Data handling, confidentiality and access controls are covered in a mutual NDA offered before engagement. Email hello@anviinnovate.com for our data-handling summary."],
-    ["Do you charge candidates any fee?", "Never. Anvi Innovate does not charge candidates at any stage of hiring, and we only contact you from @anviinnovate.com addresses."],
     ["How do I reach you?", "For any query or feedback — candidates, clients, partnerships or press — email hello@anviinnovate.com. We reply within one business day."],
   ]},
 ];
@@ -38,7 +34,7 @@ const faqLd = {
   }))),
 };
 ---
-<Base title="FAQ — Anvi Innovate" description="Answers for candidates and clients: how the AI/ML assessment works, pay, retakes, engagement models, data handling and DPDP, and how to reach us.">
+<Base title="FAQ — Anvi Innovate" description="Answers for candidates and clients: how to join, resume formats, training via bxup.in, hiring, deployment speed, engagement models, data handling and DPDP.">
   <h1>Frequently asked questions</h1>
   {groups.map((g) => (
     <section style="margin-top:24px;">

@@ -2,28 +2,36 @@
 import Base from "../layouts/Base.astro";
 import ClientForm from "../components/ClientForm.jsx";
 ---
-<Base title="Hire skilled AI/ML talent — Anvi Innovate">
-  <span class="pill">For Clients</span>
-  <h1>Hire skilled resources, ready to deploy</h1>
-  <p class="muted" style="font-size:1.15rem; max-width:720px;">
-    Tell us what you need — domain, number of resources, and timeline. We match pre-assessed AI/ML talent and get them working with your team fast.
+<Base title="Hire on-demand AI/ML talent — Anvi Innovate"
+  description="On-demand, trained AI/ML, GenAI and Applied AI talent — assessed fresh graduates ready for immediate deployment. Contract staffing, contract-to-hire and hire-train-deploy.">
+  <span class="pill">Talent on demand</span>
+  <h1>On-demand AI/ML talent, ready for immediate deployment</h1>
+  <p class="muted" style="font-size:1.15rem; max-width:740px;">
+    We have trained AI, ML, GenAI and Applied-AI fresh graduates available for immediate deployment. Tell us your requirement — skills, number of resources, and timeline — and we'll place ready talent on your team in days.
   </p>
 
-  <div class="grid" style="grid-template-columns:1.2fr 1fr; align-items:start; margin-top:32px;">
+  <div class="grid" style="grid-template-columns:1.2fr 1fr; align-items:start; margin-top:28px;">
     <ClientForm client:load />
-    <div class="card">
-      <h3 style="margin-top:0;">How it works</h3>
-      <ol class="muted" style="padding-left:18px;">
-        <li><strong>Submit demand</strong> — this form takes a minute.</li>
-        <li><strong>We match</strong> assessed candidates to your skills and timeline.</li>
-        <li><strong>Deploy</strong> — embed resources in your team and scale up or down.</li>
-      </ol>
-      <h3>Why teams choose us</h3>
-      <ul class="muted" style="padding-left:18px;">
-        <li>Every candidate passes a 10-category AI/ML assessment (85% bar).</li>
-        <li>Commission-on-tagging model — you pay for output.</li>
-        <li>In collaboration with bxup.in for ongoing upskilling.</li>
-      </ul>
+    <div>
+      <div class="card">
+        <h3 style="margin-top:0;">Why teams choose us</h3>
+        <ul class="muted" style="padding-left:18px; margin-bottom:0;">
+          <li><strong>Immediate deployment</strong> — pre-trained, screened talent, onboarded in days.</li>
+          <li><strong>Applied AI &amp; GenAI</strong> — RAG, RLHF, fine-tuning, annotation, prompt engineering.</li>
+          <li><strong>Fresh, motivated talent</strong> — freshers and career-switchers, screened for aptitude.</li>
+          <li><strong>Flexible engagement</strong> — contract staffing, contract-to-hire, hire-train-deploy.</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-top:16px;">
+        <h3 style="margin-top:0;">How it works</h3>
+        <ol class="muted" style="padding-left:18px; margin-bottom:0;">
+          <li>Tell us your need — this form takes a minute.</li>
+          <li>We match ready, trained talent to your requirement.</li>
+          <li>Deploy and scale up or down on your terms.</li>
+        </ol>
+      </div>
     </div>
   </div>
+
+  <p class="muted" style="margin-top:20px;">Prefer email? Write to <a href="mailto:hello@anviinnovate.com">hello@anviinnovate.com</a> — we reply within one business day.</p>
 </Base>

@@ -1,15 +1,8 @@
-// Account dashboard: profile (editable), candidate application + assessment status,
-// and client demands with inline status/detail editing. Powered by GET /me/overview.
+// Role-based account. Clients see a company profile + their demands; candidates
+// see their profile + skills/preferences/resume. No assessment.
 import { useEffect, useState } from "react";
 import { api } from "../lib/api.js";
 
-const CAND_STATUS = {
-  applied:         { label: "Applied", tone: "#2563EB", note: "Application received — we'll get back to you." },
-  in_progress:     { label: "Assessment in progress", tone: "#B45309", note: "You have an assessment in progress." },
-  passed:          { label: "Passed", tone: "#15803D", note: "You cleared the assessment. Our team will be in touch about deployment." },
-  cooldown:        { label: "Not passed", tone: "#DC2626", note: "You can retry after the cooldown." },
-  retry_available: { label: "Not passed", tone: "#B45309", note: "You can retake the assessment now." },
-};
 const LEAD_STATUS_TONE = { Open: "#2563EB", Filled: "#15803D", Cancelled: "#64748B" };
 const TIMELINES = ["Immediate", "2–4 wks", "1–3 mo", "Flexible"];
 
@@ -22,76 +15,97 @@ export default function AccountDashboard() {
   const [data, setData] = useState(null);
   const [err, setErr] = useState(false);
 
-  useEffect(() => {
+  function load() {
     api("/me/overview").then(({ ok, status, data }) => {
       if (status === 401) { window.location.href = "/login"; return; }
       if (ok) setData(data); else setErr(true);
     });
-  }, []);
+  }
+  useEffect(load, []);
+
+  async function chooseRole(role) {
+    await api("/profile", { method: "POST", body: { role } });
+    load();
+  }
 
   if (err) return <p style={{ color: "var(--error)" }}>Couldn't load your account. Please refresh.</p>;
   if (!data) return <p className="muted">Loading your account…</p>;
 
-  const { user, candidate, assessment, leads } = data;
-  const cs = candidate?.status ? CAND_STATUS[candidate.status] : null;
+  const { user } = data;
+
+  // First-time: no role chosen yet.
+  if (!user.role) return (
+    <div className="card" style={{ maxWidth: 640 }}>
+      <h3 style={{ marginTop: 0 }}>Welcome, {user.name || user.email}</h3>
+      <p className="muted">How will you use Anvi Innovate? You can focus on one at a time.</p>
+      <div className="grid" style={{ gridTemplateColumns: "1fr 1fr", marginTop: 8 }}>
+        <button className="card" onClick={() => chooseRole("client")} style={{ cursor: "pointer", textAlign: "left", border: "1px solid var(--border)" }}>
+          <h4 style={{ margin: 0 }}>I'm hiring</h4>
+          <p className="muted" style={{ margin: ".3em 0 0", fontSize: 14 }}>Request on-demand AI/ML talent for my team.</p>
+        </button>
+        <button className="card" onClick={() => chooseRole("candidate")} style={{ cursor: "pointer", textAlign: "left", border: "1px solid var(--border)" }}>
+          <h4 style={{ margin: 0 }}>I'm a candidate</h4>
+          <p className="muted" style={{ margin: ".3em 0 0", fontSize: 14 }}>Create my profile to get trained and deployed.</p>
+        </button>
+      </div>
+    </div>
+  );
 
   return (
     <div style={{ display: "grid", gap: 20 }}>
-      <ProfileCard user={user} />
-
-      {/* Candidate journey */}
-      <section className="card">
-        <h3 style={{ marginTop: 0 }}>Candidate</h3>
-        {cs ? (
-          <>
-            <p style={{ margin: "0 0 8px" }}><Badge tone={cs.tone}>{cs.label}</Badge></p>
-            <p className="muted" style={{ marginTop: 0 }}>{cs.note}</p>
-            {assessment?.latest && (
-              <p className="muted">Last assessment: <strong>{assessment.latest.scorePct}%</strong> ({assessment.latest.pass ? "pass" : "fail"}) · {assessment.attempts} attempt(s).</p>
-            )}
-            {assessment?.inCooldown && assessment.cooldownUntil && (
-              <p className="muted">Next attempt unlocks on <strong>{new Date(assessment.cooldownUntil).toLocaleDateString()}</strong>.</p>
-            )}
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 6 }}>
-              {(candidate.status === "applied" || candidate.status === "in_progress" || candidate.status === "retry_available") &&
-                <a className="btn btn-primary" href="/candidates/assessment">{candidate.status === "in_progress" ? "Resume assessment" : "Take assessment"}</a>}
-              <a className="btn btn-ghost" href="/candidates/apply">Update application</a>
-            </div>
-          </>
-        ) : (
-          <>
-            <p className="muted">You haven't applied as a candidate yet.</p>
-            <a className="btn btn-primary" href="/candidates/apply">Start your application</a>
-          </>
-        )}
-      </section>
-
-      {/* Client demands */}
-      <section className="card">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-          <h3 style={{ margin: 0 }}>Your demands {leads.length > 0 && <span className="muted" style={{ fontWeight: 400 }}>· {leads.length} total, {leads.filter(l => l.status === "Open").length} open</span>}</h3>
-          <a className="btn btn-primary" href="/clients">New demand</a>
-        </div>
-        {leads.length === 0 ? (
-          <p className="muted" style={{ marginBottom: 0 }}>You haven't submitted any hiring demands yet. <a href="/clients">Hire talent →</a></p>
-        ) : (
-          <div style={{ display: "grid", gap: 12, marginTop: 14 }}>
-            {leads.map((l) => <LeadRow key={l.leadId} lead={l} />)}
-          </div>
-        )}
-      </section>
-
-      {/* Quick links */}
-      <div className="grid" style={{ gridTemplateColumns: "repeat(3,1fr)" }}>
-        <a className="card" style={{ textDecoration: "none", color: "inherit" }} href="/candidates/assessment"><h4 style={{ margin: 0, color: "var(--ink)" }}>Assessment</h4><p className="muted" style={{ margin: ".3em 0 0", fontSize: 14 }}>30 questions · 85% to pass</p></a>
-        <a className="card" style={{ textDecoration: "none", color: "inherit" }} href="/training"><h4 style={{ margin: 0, color: "var(--ink)" }}>Training</h4><p className="muted" style={{ margin: ".3em 0 0", fontSize: 14 }}>Courses on bxup.in</p></a>
-        <a className="card" style={{ textDecoration: "none", color: "inherit" }} href="/faq"><h4 style={{ margin: 0, color: "var(--ink)" }}>FAQ</h4><p className="muted" style={{ margin: ".3em 0 0", fontSize: 14 }}>Pay, retakes, data</p></a>
-      </div>
+      <ProfileCard user={user} onSwitch={(r) => chooseRole(r)} />
+      {user.role === "client" ? <ClientPanel data={data} /> : <CandidatePanel data={data} />}
     </div>
   );
 }
 
-function ProfileCard({ user }) {
+function ClientPanel({ data }) {
+  const { leads } = data;
+  return (
+    <section className="card">
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+        <h3 style={{ margin: 0 }}>Your demands {leads.length > 0 && <span className="muted" style={{ fontWeight: 400 }}>· {leads.length} total, {leads.filter(l => l.status === "Open").length} open</span>}</h3>
+        <a className="btn btn-primary" href="/clients">New demand</a>
+      </div>
+      {leads.length === 0 ? (
+        <p className="muted" style={{ marginBottom: 0 }}>You haven't submitted any hiring demands yet. <a href="/clients">Request talent →</a></p>
+      ) : (
+        <div style={{ display: "grid", gap: 12, marginTop: 14 }}>
+          {leads.map((l) => <LeadRow key={l.leadId} lead={l} />)}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function CandidatePanel({ data }) {
+  const c = data.candidate;
+  return (
+    <section className="card">
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+        <h3 style={{ margin: 0 }}>Candidate profile</h3>
+        <a className="btn btn-ghost" href="/candidates/apply">{c ? "Edit profile" : "Create profile"}</a>
+      </div>
+      {!c ? (
+        <p className="muted" style={{ marginBottom: 0 }}>You haven't created your candidate profile yet. <a href="/candidates/apply">Create it →</a></p>
+      ) : (
+        <div style={{ marginTop: 12 }}>
+          <p style={{ margin: "0 0 10px" }}><Badge tone="#2563EB">Applied</Badge></p>
+          <p className="muted" style={{ marginTop: 0 }}>Your profile is with our team — we'll get back to you about deployment opportunities.</p>
+          <div className="muted" style={{ display: "grid", gap: 6 }}>
+            <div><strong>Experience:</strong> {c.education || "—"}{c.graduationYear ? ` · ${c.graduationYear}` : ""}</div>
+            {c.skills?.length > 0 && <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}><strong>Skills:</strong> {c.skills.map((s) => <span key={s} className="pill" style={{ fontWeight: 500 }}>{s}</span>)}</div>}
+            {c.preferences && <div><strong>Preferences:</strong> {c.preferences}</div>}
+            <div><strong>Resume:</strong> {c.hasResume ? (c.resumeName || "uploaded ✓") : <span>none yet — <a href="/candidates/apply">upload →</a></span>}</div>
+          </div>
+          <p className="muted" style={{ fontSize: 14, marginTop: 14, marginBottom: 0 }}>Upskill and certify with our partner <a href="https://bxup.in/" target="_blank" rel="noopener noreferrer">bxup.in</a>.</p>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function ProfileCard({ user, onSwitch }) {
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState({ displayName: user.displayName || "", phone: user.phone || "", company: user.company || "", linkedin: user.linkedin || "" });
   const [saving, setSaving] = useState(false);
@@ -114,7 +128,7 @@ function ProfileCard({ user }) {
           : <div style={{ width: 56, height: 56, borderRadius: "50%", background: "var(--ink)", color: "#fff", display: "grid", placeItems: "center", fontWeight: 700, fontSize: 22 }}>{(name || "?")[0].toUpperCase()}</div>}
         <div style={{ flex: 1, minWidth: 180 }}>
           <h2 style={{ margin: 0, fontSize: "1.4rem" }}>{name}</h2>
-          <p className="muted" style={{ margin: 0 }}>{user.email}</p>
+          <p className="muted" style={{ margin: 0 }}>{user.email} · <Badge tone={user.role === "client" ? "#2563EB" : "#15803D"}>{user.role === "client" ? "Client" : "Candidate"}</Badge></p>
         </div>
         {!editing && <button className="btn btn-ghost" onClick={() => setEditing(true)}>Edit profile</button>}
       </div>
@@ -125,13 +139,16 @@ function ProfileCard({ user }) {
           {user.phone && <div><strong>Phone:</strong> {user.phone}</div>}
           {user.linkedin && <div><strong>LinkedIn:</strong> <a href={user.linkedin} target="_blank" rel="noopener noreferrer">{user.linkedin}</a></div>}
           {saved && <div style={{ color: "var(--success)" }}>Profile updated ✓</div>}
+          <div style={{ marginTop: 8, fontSize: 13 }}>
+            Using Anvi Innovate as a {user.role}. <button onClick={() => onSwitch(user.role === "client" ? "candidate" : "client")} style={{ background: "none", border: "none", color: "var(--accent)", cursor: "pointer", padding: 0, font: "inherit" }}>Switch to {user.role === "client" ? "candidate" : "client"}</button>
+          </div>
         </div>
       ) : (
         <form onSubmit={save} style={{ marginTop: 12 }}>
           <div className="grid" style={{ gridTemplateColumns: "1fr 1fr" }}>
             <div><label htmlFor="p-name">Display name</label><input id="p-name" value={form.displayName} onChange={(e) => setForm({ ...form, displayName: e.target.value })} maxLength={80} /></div>
             <div><label htmlFor="p-phone">Phone</label><input id="p-phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} maxLength={30} /></div>
-            <div><label htmlFor="p-company">Company</label><input id="p-company" value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} maxLength={120} /></div>
+            <div><label htmlFor="p-company">Company{user.role === "client" ? " *" : ""}</label><input id="p-company" value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} maxLength={120} /></div>
             <div><label htmlFor="p-linkedin">LinkedIn</label><input id="p-linkedin" value={form.linkedin} onChange={(e) => setForm({ ...form, linkedin: e.target.value })} maxLength={200} /></div>
           </div>
           <div style={{ display: "flex", gap: 10, marginTop: 14 }}>

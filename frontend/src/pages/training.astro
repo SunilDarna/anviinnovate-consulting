@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 const CERTIFY = "https://bxup.in/";
-// The ten assessment categories double as the training tracks.
+// AI/ML skill areas that map to our training tracks.
 const tracks = [
   ["Math & Statistics", "Foundations", "Probability, distributions, linear algebra and the stats behind ML."],
   ["Core ML", "Foundations", "Bias–variance, over/underfitting, regularization, train/validation/test."],
@@ -15,12 +15,11 @@ const tracks = [
   ["Transformers & Attention", "Applied", "Q-K-V attention, positional encoding, multi-head, encoder–decoder."],
 ];
 ---
-<Base title="Training — Anvi Innovate" description="Structured AI/ML and GenAI training mapped to the ten assessment categories, in collaboration with bxup.in. Foundations through applied LLM skills.">
-  <span class="pill">Training</span>
+<Base title="Training & certification — Anvi Innovate" description="AI/ML and GenAI training and certification, delivered by our partner bxup.in — foundations through applied LLM and prompt-engineering skills.">
+  <span class="pill">Training &amp; certification</span>
   <h1>Courses &amp; certification path</h1>
   <p class="muted" style="max-width:760px;">
-    Our training mirrors the ten categories on the AI/ML Foundations Assessment, so you always know exactly what to study.
-    Courses and certification are delivered <strong>in collaboration with bxup.in</strong> — foundations through applied LLM and prompt-engineering skills.
+    Training and certification are delivered by our partner <strong>bxup.in</strong> — foundations through applied LLM and prompt-engineering skills. Below are the AI/ML skill areas the courses cover.
   </p>
   <div style="display:flex; gap:14px; flex-wrap:wrap; margin:18px 0 8px;">
     <a class="btn btn-primary" href={CERTIFY} target="_blank" rel="noopener noreferrer">Enrol on bxup.in →</a>
@@ -42,9 +41,5 @@ const tracks = [
     </div>
   </section>
 
-  <div class="card" style="margin-top:28px;">
-    <p style="margin:0;">Didn't clear the assessment? Your result screen highlights your two weakest categories and links straight to the matching tracks — so you know exactly where to focus before retrying.</p>
-  </div>
-
-  <p class="muted" style="margin-top:20px;">Not applied yet? <a href="/candidates">Start your application</a> to unlock the assessment.</p>
+  <p class="muted" style="margin-top:24px;">Ready to be deployed? <a href="/candidates/apply">Create your candidate profile</a>.</p>
 </Base>

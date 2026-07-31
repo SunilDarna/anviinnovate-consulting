@@ -1,26 +1,26 @@
 ---
 import Base from "../layouts/Base.astro";
 ---
-<Base title="Train. Get assessed. Get deployed. — Anvi Innovate">
+<Base title="Get trained and deployed on AI projects — Anvi Innovate"
+  description="Create your candidate profile, upload your resume and share your skills. Get matched to real AI/ML projects. Training and certification with bxup.in. Freshers welcome.">
   <span class="pill">For Candidates</span>
-  <h1>Train. Get assessed. Get deployed.</h1>
+  <h1>Get trained. Get deployed on real AI projects.</h1>
   <p class="muted" style="font-size:1.15rem; max-width:720px;">
-    Your domain expertise is the training data behind modern AI. Apply, prove your foundations, and get deployed to real AI/ML projects.
+    No prior AI experience needed. Create your profile, upload your resume and tell us your skills and preferences — we match you to client AI/ML projects. Upskill and certify with our partner bxup.in.
   </p>
   <div style="display:flex; gap:14px; flex-wrap:wrap; margin:24px 0 8px;">
-    <a class="btn btn-primary" href="/candidates/apply">Apply now</a>
-    <a class="btn btn-ghost" href="/candidates/assessment">About the assessment</a>
+    <a class="btn btn-primary" href="/candidates/apply">Create your profile</a>
+    <a class="btn btn-ghost" href="/training">Training &amp; certification</a>
   </div>
 
   <section style="margin-top:48px;">
-    <h2>The five steps</h2>
-    <div class="grid" style="grid-template-columns:repeat(5,1fr);">
+    <h2>Your path into AI</h2>
+    <div class="grid" style="grid-template-columns:repeat(4,1fr);">
       {[
-        ["1","Apply","Sign in with Google and submit your profile."],
-        ["2","Assess","30 questions, 30 minutes, 85% to pass."],
-        ["3","Train","Upskill with bxup.in modules."],
-        ["4","Deploy","Join real client projects."],
-        ["5","Grow","Earn and level up over time."],
+        ["1","Create your profile","Sign in with Google and tell us about yourself."],
+        ["2","Add skills & resume","Upload your resume (PDF/DOC) and share your skill preferences."],
+        ["3","Get matched","We match you to client AI/ML projects that fit your strengths."],
+        ["4","Train & certify","Upskill and get certified with our partner bxup.in."],
       ].map(([n,t,d]) => (
         <div class="card"><span class="pill">{n}</span><h3 style="margin:.4em 0;">{t}</h3><p class="muted" style="font-size:14px;">{d}</p></div>
       ))}
@@ -28,8 +28,8 @@ import Base from "../layouts/Base.astro";
   </section>
 
   <section class="card" style="margin-top:40px;">
-    <h3 style="margin-top:0;">What the assessment covers</h3>
-    <p class="muted">Ten core areas — Math & Statistics, Core ML, Supervised & Unsupervised Learning, Model Evaluation, Neural Networks, NLP, GenAI & LLMs, Prompt Engineering, and Transformers & Attention. Three questions are drawn from each, for a unique 30-question set every attempt.</p>
-    <a class="btn btn-primary" href="/candidates/apply">Start your application</a>
+    <h3 style="margin-top:0;">Skills we deploy for</h3>
+    <p class="muted">Applied AI and GenAI work — data annotation, RLHF, RAG, model fine-tuning, prompt engineering, and core ML. Tell us what you're strong at and what you'd like to grow into.</p>
+    <a class="btn btn-primary" href="/candidates/apply">Create your profile</a>
   </section>
 </Base>

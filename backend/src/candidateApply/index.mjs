@@ -1,7 +1,7 @@
-// POST /candidate-apply — requires an authenticated Google session.
-// Validates, stores the candidate profile linked to USER#<sub>, emails a confirmation.
-import { randomUUID } from "node:crypto";
-import { PutCommand } from "@aws-sdk/lib-dynamodb";
+// POST /candidate-apply — create/update the candidate profile for the signed-in user.
+// Stores skills, role preferences and an (optional) uploaded resume key. Upsert:
+// keyed by the user, so re-submitting updates the same profile.
+import { UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { ddb, TABLE } from "../lib/dynamo.mjs";
 import { verifySession } from "../lib/session.mjs";
 import { ok, badRequest, unauthorized, getCookie } from "../lib/response.mjs";
@@ -19,10 +19,12 @@ export const handler = async (event) => {
   try { b = JSON.parse(event.body || "{}"); } catch { return badRequest(event, "invalid json"); }
 
   const fullName = str(b.fullName), education = str(b.education);
-  const phone = str(b.phone), degree = str(b.degree), linkedin = str(b.linkedin);
+  const phone = str(b.phone), linkedin = str(b.linkedin), preferences = str(b.preferences);
+  const resumeKey = str(b.resumeKey), resumeName = str(b.resumeName);
   const gradYear = b.graduationYear ? Number.parseInt(b.graduationYear, 10) : null;
-  const skills = Array.isArray(b.skills) ? b.skills.map(str).filter(Boolean).slice(0, 50)
-    : str(b.skills) ? str(b.skills).split(",").map((s) => s.trim()).filter(Boolean) : [];
+  const skills = Array.isArray(b.skills)
+    ? b.skills.map(str).filter(Boolean).slice(0, 50)
+    : (str(b.skills) ? str(b.skills).split(",").map((s) => s.trim()).filter(Boolean) : []);
 
   const errors = [];
   if (fullName.length < 2 || fullName.length > 100) errors.push("fullName");
@@ -30,27 +32,42 @@ export const handler = async (event) => {
   if (gradYear !== null && (gradYear < 1970 || gradYear > 2100)) errors.push("graduationYear");
   if (errors.length) return badRequest(event, `invalid fields: ${errors.join(", ")}`);
 
-  const candId = randomUUID();
-  const createdAt = new Date().toISOString();
-  await ddb.send(new PutCommand({
+  const now = new Date().toISOString();
+  const isFirst = { firstApply: false };
+
+  // Upsert candidate profile under the user's partition (single profile per user).
+  await ddb.send(new UpdateCommand({
     TableName: TABLE,
-    Item: {
-      PK: `CAND#${candId}`, SK: "PROFILE",
-      GSI1PK: `EMAIL#${claims.email}`, GSI1SK: `CAND#${candId}`,
-      userId: claims.sub, // links to USER#<sub>
-      fullName, email: claims.email, phone,
-      education, graduationYear: gradYear, degree,
-      skills, linkedin, createdAt,
+    Key: { PK: claims.sub, SK: "CANDIDATE_PROFILE" },
+    UpdateExpression:
+      "SET fullName = :fn, email = :e, phone = :ph, education = :ed, graduationYear = :gy, " +
+      "linkedin = :li, skills = :sk, preferences = :pr, #st = :status, updatedAt = :now, " +
+      "createdAt = if_not_exists(createdAt, :now)" +
+      (resumeKey ? ", resumeKey = :rk, resumeName = :rn" : ""),
+    ExpressionAttributeNames: { "#st": "status" },
+    ExpressionAttributeValues: {
+      ":fn": fullName, ":e": claims.email, ":ph": phone, ":ed": education, ":gy": gradYear,
+      ":li": linkedin, ":sk": skills, ":pr": preferences, ":status": "applied", ":now": now,
+      ...(resumeKey ? { ":rk": resumeKey, ":rn": resumeName || "resume" } : {}),
     },
+  }));
+
+  // Also mark the user's role as candidate.
+  await ddb.send(new UpdateCommand({
+    TableName: TABLE, Key: { PK: claims.sub, SK: "PROFILE" },
+    UpdateExpression: "SET #r = if_not_exists(#r, :cand)",
+    ExpressionAttributeNames: { "#r": "role" },
+    ExpressionAttributeValues: { ":cand": "candidate" },
   }));
 
   await sendEmail({
     to: claims.email,
-    subject: "Application received — Anvi Innovate",
-    html: `<p>Hi ${fullName}, we've received your application to Anvi Innovate.</p>
-           <p><b>Next step:</b> take the AI/ML Foundations Assessment from your account dashboard.
-           It's 30 questions, 30 minutes, and you need 85% to pass.</p>`,
+    subject: "Profile received — Anvi Innovate",
+    html: `<p>Dear ${fullName},</p>
+           <p>Thank you — your candidate profile has been received. Our team will review it and get back to you about deployment opportunities.</p>
+           <p>To strengthen your foundations, explore courses and certifications with our partner <a href="https://bxup.in/">bxup.in</a>.</p>
+           <p>Best regards,<br/>The Anvi Innovate Team</p>`,
   });
 
-  return ok(event, { ok: true, candidateId: candId });
+  return ok(event, { ok: true, status: "applied" });
 };

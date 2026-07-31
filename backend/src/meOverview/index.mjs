@@ -1,5 +1,7 @@
-// GET /me/overview — everything the account dashboard needs in one call:
-// the user profile, candidate application + assessment status, and owned client demands.
+// GET /me/overview — role-based account data in one call:
+//  - user profile (incl. role)
+//  - candidate profile (skills, preferences, resume, status) — for candidates
+//  - owned client demands — for clients
 import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { ddb, TABLE } from "../lib/dynamo.mjs";
 import { verifySession } from "../lib/session.mjs";
@@ -11,7 +13,7 @@ export const handler = async (event) => {
   if (!claims) return unauthorized(event);
   const userId = claims.sub;
 
-  // One query over the user's partition returns PROFILE, ATTEMPT#*, RESULT#*, LEAD#*, COOLDOWN.
+  // One query over the user's partition returns PROFILE, CANDIDATE_PROFILE, LEAD#*.
   const part = await ddb.send(new QueryCommand({
     TableName: TABLE,
     KeyConditionExpression: "PK = :pk",
@@ -19,36 +21,13 @@ export const handler = async (event) => {
   }));
   const items = part.Items || [];
   const profile = items.find((i) => i.SK === "PROFILE") || {};
-  const attempts = items.filter((i) => i.SK.startsWith("ATTEMPT#"));
-  const results = items.filter((i) => i.SK.startsWith("RESULT#"))
-    .sort((a, b) => (a.SK < b.SK ? 1 : -1));
-  const cooldown = items.find((i) => i.SK === "COOLDOWN") || null;
+  const cand = items.find((i) => i.SK === "CANDIDATE_PROFILE") || null;
   const leads = items.filter((i) => i.SK.startsWith("LEAD#"))
     .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
 
-  // Candidate profile (by verified email via GSI1).
-  let candidate = null;
-  if (claims.email) {
-    const cq = await ddb.send(new QueryCommand({
-      TableName: TABLE, IndexName: "GSI1",
-      KeyConditionExpression: "GSI1PK = :e",
-      ExpressionAttributeValues: { ":e": `EMAIL#${claims.email}` },
-    }));
-    candidate = (cq.Items || []).find((i) => String(i.PK).startsWith("CAND#") && i.SK === "PROFILE") || null;
-  }
-
-  const latestResult = results[0] || null;
-  const nowIso = new Date().toISOString();
-  const inCooldown = !!(cooldown?.cooldownUntil && cooldown.cooldownUntil > nowIso);
-
-  // Derive a candidate status string for the UI.
-  let candidateStatus = null;
-  if (candidate || attempts.length || latestResult) {
-    if (latestResult?.pass) candidateStatus = "passed";
-    else if (latestResult) candidateStatus = inCooldown ? "cooldown" : "retry_available";
-    else if (attempts.some((a) => a.status === "in_progress")) candidateStatus = "in_progress";
-    else candidateStatus = "applied";
-  }
+  // Role: explicit on profile, else inferred (candidate if a candidate profile
+  // exists, client if they have demands), else null (prompt the user to choose).
+  const role = profile.role || (cand ? "candidate" : (leads.length ? "client" : null));
 
   return ok(event, {
     ok: true,
@@ -61,20 +40,16 @@ export const handler = async (event) => {
       phone: profile.phone || null,
       company: profile.company || null,
       linkedin: profile.linkedin || null,
+      role,
     },
-    candidate: candidate ? {
-      status: candidateStatus,
-      fullName: candidate.fullName, education: candidate.education,
-      skills: candidate.skills || [], createdAt: candidate.createdAt,
-    } : (candidateStatus ? { status: candidateStatus } : null),
-    assessment: {
-      attempts: attempts.length,
-      latest: latestResult ? {
-        scorePct: latestResult.scorePct, pass: latestResult.pass,
-        submittedAt: latestResult.submittedAt, cooldownUntil: latestResult.cooldownUntil || null,
-      } : null,
-      inCooldown, cooldownUntil: cooldown?.cooldownUntil || null,
-    },
+    candidate: cand ? {
+      status: cand.status || "applied",
+      fullName: cand.fullName, education: cand.education,
+      graduationYear: cand.graduationYear || null,
+      skills: cand.skills || [], preferences: cand.preferences || "",
+      resumeName: cand.resumeName || null, hasResume: !!cand.resumeKey,
+      linkedin: cand.linkedin || null, updatedAt: cand.updatedAt,
+    } : null,
     leads: leads.map((l) => ({
       leadId: l.SK.replace("LEAD#", ""),
       company: l.company, skills: l.skills, resourceCount: l.resourceCount,
