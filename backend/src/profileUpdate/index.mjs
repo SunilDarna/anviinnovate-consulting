@@ -22,11 +22,6 @@ export const handler = async (event) => {
     if (v.length > max) return badRequest(event, `${f} too long`);
     names[`#${f}`] = f; values[`:${f}`] = v || null; sets.push(`#${f} = :${f}`);
   }
-  // Role: client | candidate.
-  if (b.role !== undefined) {
-    if (!["client", "candidate"].includes(b.role)) return badRequest(event, "invalid role");
-    names["#role"] = "role"; values[":role"] = b.role; sets.push("#role = :role");
-  }
   if (!sets.length) return badRequest(event, "no fields to update");
 
   const res = await ddb.send(new UpdateCommand({

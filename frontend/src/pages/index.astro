@@ -2,167 +2,105 @@
 import Base from "../layouts/Base.astro";
 ---
 <Base title="Anvi Innovate — On-demand, deployment-ready AI/ML talent"
-  description="On-demand, trained AI/ML, GenAI and Applied AI talent — assessed fresh graduates ready for immediate deployment. Scale your AI team in days. Candidates: get trained and deployed on real projects.">
+  description="On-demand, trained AI/ML, GenAI and Applied AI talent — fresh graduates ready for immediate deployment. Contract staffing, contract-to-hire and hire-train-deploy from Hyderabad.">
 
   <style>
     .hero { position:relative; text-align:center; color:#fff; border-radius:24px; overflow:hidden;
       padding:56px 24px 60px; margin-top:8px;
       background:radial-gradient(1200px 500px at 50% -10%, #1e40af 0%, #0B1F3A 55%, #0B1F3A 100%); }
     .hero h1 { color:#fff; max-width:900px; margin:14px auto 16px; }
-    .hero p.sub { color:#c7d2fe; font-size:1.2rem; max-width:680px; margin:0 auto 26px; }
+    .hero p.sub { color:#c7d2fe; font-size:1.2rem; max-width:700px; margin:0 auto 26px; }
     .hero .pill { background:rgba(255,255,255,.12); color:#c7d2fe; }
-    .seg { display:inline-flex; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18);
-      border-radius:999px; padding:4px; gap:4px; }
-    .seg button { border:none; background:none; color:#c7d2fe; font:inherit; font-weight:600; cursor:pointer;
-      padding:9px 20px; border-radius:999px; transition:.15s; }
-    .seg button[aria-selected="true"] { background:#fff; color:var(--ink); }
     .btn-white { background:#fff; color:var(--ink); }
     .btn-white:hover { box-shadow:0 8px 22px rgba(0,0,0,.25); }
     .btn-outline-w { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.5); }
-    [data-audience]{ display:none; }
-    #home[data-view="clients"] [data-audience="clients"]{ display:block; }
-    #home[data-view="candidates"] [data-audience="candidates"]{ display:block; }
-    .cta-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
-    .stat { text-align:center; }
-    .stat b { display:block; font-family:"Space Grotesk",sans-serif; font-size:1.6rem; color:var(--ink); }
-    .icon { width:40px; height:40px; border-radius:10px; background:#EFF6FF; color:var(--accent); display:grid; place-items:center; }
+    .cta-row { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+    .icon { width:40px; height:40px; border-radius:10px; background:#EFF6FF; color:var(--accent); display:grid; place-items:center; font-weight:700; }
   </style>
 
-  <div id="home" data-view="clients">
-    <!-- HERO -->
-    <section class="hero">
-      <span class="pill">Talent on demand · AI · ML · GenAI · Applied AI</span>
-
-      <div data-audience="clients">
-        <h1>On-demand, trained AI/ML talent — ready for immediate deployment.</h1>
-        <p class="sub">Applied-AI, GenAI and ML-trained fresh graduates, assessed and deployment-ready. Scale your AI team in days, not months.</p>
-      </div>
-      <div data-audience="candidates">
-        <h1>Get trained. Get deployed on real AI projects.</h1>
-        <p class="sub">Create your profile, share your skills and resume — we match you to client AI/ML projects. Upskill and certify with bxup.in.</p>
-      </div>
-
-      <div class="seg" role="tablist" aria-label="Choose audience" style="margin-bottom:22px;">
-        <button role="tab" data-view="clients" aria-selected="true">I'm hiring</button>
-        <button role="tab" data-view="candidates" aria-selected="false">I'm a candidate</button>
-      </div>
-
-      <div data-audience="clients"><div class="cta-row">
-        <a class="btn btn-white" href="/clients">Request talent</a>
-        <a class="btn btn-outline-w" href="#how">How it works</a>
-      </div></div>
-      <div data-audience="candidates"><div class="cta-row">
-        <a class="btn btn-white" href="/candidates">Create your profile</a>
-        <a class="btn btn-outline-w" href="/training">Explore training</a>
-      </div></div>
-    </section>
-
-    <!-- CLIENTS -->
-    <div data-audience="clients">
-      <section class="grid" style="grid-template-columns:repeat(4,1fr); margin-top:36px;">
-        {[
-          ["Immediate deployment","Pre-assessed talent, onboarded to your team in days."],
-          ["Applied AI & GenAI","Trained in RAG, RLHF, fine-tuning, annotation and prompt engineering."],
-          ["Fresh, motivated talent","Freshers and career-switchers, screened for aptitude and rigor."],
-          ["Flexible engagement","Contract staffing, contract-to-hire, and hire-train-deploy."],
-        ].map(([t,d]) => (
-          <div class="card"><h3 style="margin:.1em 0 .3em; font-size:1.05rem;">{t}</h3><p class="muted" style="margin:0; font-size:14px;">{d}</p></div>
-        ))}
-      </section>
-
-      <section id="how" style="margin-top:56px;">
-        <h2 style="text-align:center;">Hire in three steps</h2>
-        <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:14px;">
-          {[
-            ["1","Tell us your need","Skills, number of resources, and timeline — one short form."],
-            ["2","We match ready talent","Trained, assessed candidates matched to your requirement."],
-            ["3","Deploy in days","Embed resources in your team and scale up or down."],
-          ].map(([n,t,d]) => (
-            <div class="card"><div class="icon" style="font-weight:700;">{n}</div><h3 style="margin:.5em 0 .2em; font-size:1.05rem;">{t}</h3><p class="muted" style="margin:0; font-size:14px;">{d}</p></div>
-          ))}
-        </div>
-        <div style="text-align:center; margin-top:24px;"><a class="btn btn-primary" href="/clients">Request talent now</a></div>
-      </section>
-
-      <section style="margin-top:56px;">
-        <h2 style="text-align:center;">Talent trained across the AI stack</h2>
-        <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:14px;">
-          {[
-            ["Data annotation & RLHF","Human feedback, labelling and evaluation at quality."],
-            ["RAG & LLM applications","Retrieval, embeddings, and applied GenAI workflows."],
-            ["Model fine-tuning","Dataset prep, LoRA/PEFT, evaluation and iteration."],
-            ["Prompt engineering","Structured prompting, guardrails, and output shaping."],
-            ["Core ML","Supervised/unsupervised modelling and evaluation."],
-            ["Applied AI ops","Pipelines, tooling and deployment support."],
-          ].map(([t,d]) => (
-            <div class="card"><h3 style="margin:0 0 .2em; font-size:1rem;">{t}</h3><p class="muted" style="margin:0; font-size:14px;">{d}</p></div>
-          ))}
-        </div>
-      </section>
+  <!-- HERO -->
+  <section class="hero">
+    <span class="pill">Talent on demand · AI · ML · GenAI · Applied AI</span>
+    <h1>On-demand, trained AI/ML talent — ready for immediate deployment.</h1>
+    <p class="sub">Applied-AI, GenAI and ML-trained fresh graduates, ready for your team. Tell us your requirement and we deploy in days, not months.</p>
+    <div class="cta-row">
+      <a class="btn btn-white" href="/clients">Request talent</a>
+      <a class="btn btn-outline-w" href="#how">How it works</a>
     </div>
+  </section>
 
-    <!-- CANDIDATES -->
-    <div data-audience="candidates">
-      <section style="margin-top:44px;">
-        <h2 style="text-align:center;">Your path into AI</h2>
-        <div class="grid" style="grid-template-columns:repeat(4,1fr); margin-top:14px;">
-          {[
-            ["1","Create your profile","Sign in with Google and tell us about yourself."],
-            ["2","Add skills & resume","Upload your resume and share your skill preferences."],
-            ["3","Get matched","We match you to client AI/ML projects that fit."],
-            ["4","Train & certify","Upskill and get certified with our partner bxup.in."],
-          ].map(([n,t,d]) => (
-            <div class="card"><div class="icon" style="font-weight:700;">{n}</div><h3 style="margin:.5em 0 .2em; font-size:1.05rem;">{t}</h3><p class="muted" style="margin:0; font-size:14px;">{d}</p></div>
-          ))}
-        </div>
-        <div style="text-align:center; margin-top:24px;">
-          <a class="btn btn-primary" href="/candidates">Create your profile</a>
-          <a class="btn btn-ghost" href="/training" style="margin-left:10px;">Training &amp; certification</a>
-        </div>
-      </section>
-      <section class="card" style="margin-top:32px;">
-        <h3 style="margin-top:0;">Why candidates choose us</h3>
-        <ul class="muted" style="padding-left:18px; margin-bottom:0;">
-          <li>No prior AI experience needed — freshers and career-switchers welcome.</li>
-          <li>Get deployed on real client AI/ML projects, not just training exercises.</li>
-          <li>You're never charged a fee at any stage.</li>
-        </ul>
-      </section>
+  <!-- Value props -->
+  <section class="grid" style="grid-template-columns:repeat(4,1fr); margin-top:36px;">
+    {[
+      ["Immediate deployment","Pre-trained, screened talent onboarded to your team in days."],
+      ["Applied AI & GenAI","Skilled in RAG, RLHF, fine-tuning, annotation and prompt engineering."],
+      ["Fresh, motivated talent","Fresh graduates and career-switchers, screened for aptitude and rigor."],
+      ["Flexible engagement","Contract staffing, contract-to-hire, and hire-train-deploy."],
+    ].map(([t,d]) => (
+      <div class="card"><h3 style="margin:.1em 0 .3em; font-size:1.05rem;">{t}</h3><p class="muted" style="margin:0; font-size:14px;">{d}</p></div>
+    ))}
+  </section>
+
+  <!-- How it works -->
+  <section id="how" style="margin-top:56px;">
+    <h2 style="text-align:center;">Hire in three steps</h2>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:14px;">
+      {[
+        ["1","Tell us your need","Skills, number of resources, and timeline — one short form."],
+        ["2","We match ready talent","Trained, screened talent matched to your requirement."],
+        ["3","Deploy in days","Embed resources in your team and scale up or down."],
+      ].map(([n,t,d]) => (
+        <div class="card"><div class="icon">{n}</div><h3 style="margin:.5em 0 .2em; font-size:1.05rem;">{t}</h3><p class="muted" style="margin:0; font-size:14px;">{d}</p></div>
+      ))}
     </div>
+    <div style="text-align:center; margin-top:24px;"><a class="btn btn-primary" href="/clients">Request talent now</a></div>
+  </section>
 
-    <!-- SHARED: market gap -->
-    <section class="card" style="margin-top:56px; background:var(--ink); color:#fff;">
-      <h2 style="color:#fff;">The skilled human layer behind AI</h2>
-      <p style="font-size:1.1rem; max-width:760px;">
-        The global AI training dataset market is expected to reach <strong>USD 8.60 billion by 2030</strong>, growing at a
-        <strong>21.9% CAGR (2025–2030)</strong>. The bottleneck isn't compute — it's skilled, reliable people. That's what we build and deploy.
-      </p>
-      <p class="muted" style="color:#94a3b8; font-size:13px;">Source: Grand View Research.</p>
-    </section>
+  <!-- Talent categories -->
+  <section style="margin-top:56px;">
+    <h2 style="text-align:center;">Talent across the AI stack</h2>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:14px;">
+      {[
+        ["Data annotation & RLHF","Human feedback, labelling and evaluation at quality."],
+        ["RAG & LLM applications","Retrieval, embeddings, and applied GenAI workflows."],
+        ["Model fine-tuning","Dataset prep, LoRA/PEFT, evaluation and iteration."],
+        ["Prompt engineering","Structured prompting, guardrails, and output shaping."],
+        ["Core ML","Supervised/unsupervised modelling and evaluation."],
+        ["Applied AI ops","Pipelines, tooling and deployment support."],
+      ].map(([t,d]) => (
+        <div class="card"><h3 style="margin:0 0 .2em; font-size:1rem;">{t}</h3><p class="muted" style="margin:0; font-size:14px;">{d}</p></div>
+      ))}
+    </div>
+  </section>
 
-    <!-- SHARED: CTA -->
-    <section style="text-align:center; margin-top:48px;">
-      <h2>Talent on demand, when you need it.</h2>
-      <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:8px;">
-        <a class="btn btn-primary" href="/clients">Request talent</a>
-        <a class="btn btn-ghost" href="/candidates">Join as a candidate</a>
-      </div>
-    </section>
-  </div>
+  <!-- Engagement models -->
+  <section class="card" style="margin-top:48px;">
+    <h2 style="margin-top:0;">Engagement models</h2>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr);">
+      <div><h3 style="font-size:1.05rem; margin:.2em 0;">Hire-train-deploy</h3><p class="muted" style="margin:0; font-size:14px;">We source, train and deploy AI/ML talent at volume for your programmes.</p></div>
+      <div><h3 style="font-size:1.05rem; margin:.2em 0;">Contract staffing</h3><p class="muted" style="margin:0; font-size:14px;">Embedded resources billed as a fixed monthly cost per resource.</p></div>
+      <div><h3 style="font-size:1.05rem; margin:.2em 0;">Contract-to-hire</h3><p class="muted" style="margin:0; font-size:14px;">Start on contract, convert to your payroll when it's working.</p></div>
+    </div>
+    <div style="margin-top:16px;"><a class="btn btn-ghost" href="/services/hire-train-deploy">See engagement models →</a></div>
+  </section>
 
-  <script is:inline>
-    (function () {
-      var home = document.getElementById("home");
-      var tabs = document.querySelectorAll(".seg button");
-      tabs.forEach(function (t) {
-        t.addEventListener("click", function () {
-          var v = t.getAttribute("data-view");
-          home.setAttribute("data-view", v);
-          tabs.forEach(function (x) { x.setAttribute("aria-selected", x === t ? "true" : "false"); });
-          try { history.replaceState(null, "", v === "candidates" ? "#candidates" : "#clients"); } catch (e) {}
-        });
-      });
-      if (location.hash === "#candidates") { document.querySelector('.seg button[data-view="candidates"]').click(); }
-    })();
-  </script>
+  <!-- Market gap -->
+  <section class="card" style="margin-top:48px; background:var(--ink); color:#fff;">
+    <h2 style="color:#fff;">The skilled human layer behind AI</h2>
+    <p style="font-size:1.1rem; max-width:760px;">
+      The global AI training dataset market is expected to reach <strong>USD 8.60 billion by 2030</strong>, growing at a
+      <strong>21.9% CAGR (2025–2030)</strong>. The bottleneck isn't compute — it's skilled, reliable people. That's what we train and deploy.
+    </p>
+    <p class="muted" style="color:#94a3b8; font-size:13px;">Source: Grand View Research.</p>
+  </section>
+
+  <!-- CTA -->
+  <section style="text-align:center; margin-top:48px;">
+    <h2>Talent on demand, when you need it.</h2>
+    <p class="muted" style="max-width:560px; margin-inline:auto;">Tell us your requirement — we'll reply within one business day.</p>
+    <div class="cta-row" style="margin-top:8px;">
+      <a class="btn btn-primary" href="/clients">Request talent</a>
+      <a class="btn btn-ghost" href="mailto:hello@anviinnovate.com">Email us</a>
+    </div>
+  </section>
 </Base>

@@ -2,26 +2,18 @@
 import Base from "../layouts/Base.astro";
 
 const groups = [
-  { h: "Candidates", items: [
-    ["How do I join?", "Sign in with Google and create your candidate profile — your background, skills, preferences and resume. Your first sign-in creates your account; no password needed."],
-    ["Do I need prior AI experience?", "No. Freshers and career-switchers are welcome. We look for aptitude and train you in AI/ML and GenAI fundamentals."],
-    ["What formats can I upload my resume in?", "PDF, DOC or DOCX. Your resume is stored privately and shared only with prospective client engagements."],
-    ["How does training and certification work?", "Training and certification are delivered by our partner bxup.in — foundations through applied LLM and prompt-engineering skills. We link you to the right tracks."],
-    ["What happens after I create my profile?", "Our team reviews it and reaches out when a matching client AI/ML project comes up. You can update your profile any time from your account."],
-    ["Do you charge candidates any fee?", "Never. Anvi Innovate does not charge candidates at any stage, and we only contact you from @anviinnovate.com addresses."],
-  ]},
-  { h: "Clients", items: [
+  { h: "Hiring", items: [
     ["How do I hire talent?", "Submit the hiring request with your role, resource count, location and timeline. We reply within one business day to match trained, ready talent."],
     ["How quickly can talent be deployed?", "We keep pre-trained, screened talent ready, so deployment is typically a matter of days rather than months."],
-    ["What skills do your candidates cover?", "Applied AI and GenAI — data annotation, RLHF, RAG, model fine-tuning, prompt engineering, and core ML."],
+    ["What skills do you cover?", "Applied AI and GenAI — data annotation, RLHF, RAG, model fine-tuning, prompt engineering, and core ML."],
     ["What engagement models do you offer?", "Contract staffing, contract-to-hire (C2H), and hire-train-deploy for volume roles. We quote rates per engagement and share the commercial structure up front."],
     ["Is there a replacement guarantee?", "Yes — we offer a replacement window for deployed resources. Terms are confirmed in your engagement agreement."],
+    ["How is your talent trained?", "Our talent is trained in modern AI, ML and GenAI in collaboration with our partner bxup.in, and screened for readiness before deployment."],
   ]},
-  { h: "Legal & data", items: [
+  { h: "Working with us", items: [
     ["Are you an employer or an intermediary?", "We operate a hire-train-deploy and staffing model. Statutory responsibilities are set out in each client and associate agreement."],
-    ["What data do you keep, and can I delete it?", "For candidates: your Google profile, the details you enter, and your uploaded resume. To request access or deletion under the DPDP Act, email hello@anviinnovate.com."],
     ["How do you handle client and project data?", "Data handling, confidentiality and access controls are covered in a mutual NDA offered before engagement. Email hello@anviinnovate.com for our data-handling summary."],
-    ["How do I reach you?", "For any query or feedback — candidates, clients, partnerships or press — email hello@anviinnovate.com. We reply within one business day."],
+    ["How do I reach you?", "For any query or feedback, email hello@anviinnovate.com. We reply within one business day."],
   ]},
 ];
 
@@ -34,7 +26,7 @@ const faqLd = {
   }))),
 };
 ---
-<Base title="FAQ — Anvi Innovate" description="Answers for candidates and clients: how to join, resume formats, training via bxup.in, hiring, deployment speed, engagement models, data handling and DPDP.">
+<Base title="FAQ — Anvi Innovate" description="Answers for clients: how to hire on-demand AI/ML talent, deployment speed, engagement models, replacement guarantee, and data handling.">
   <h1>Frequently asked questions</h1>
   {groups.map((g) => (
     <section style="margin-top:24px;">

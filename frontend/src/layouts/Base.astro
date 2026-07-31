@@ -8,11 +8,11 @@ const {
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, "https://anviinnovate.com").href;
 const nav = [
-  { href: "/clients", label: "For Clients" },
-  { href: "/candidates", label: "For Candidates" },
-  { href: "/training", label: "Training" },
+  { href: "/clients", label: "Hire talent" },
+  { href: "/services/hire-train-deploy", label: "Services" },
   { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
+  { href: "/contact", label: "Contact" },
 ];
 ---
 <!doctype html>
@@ -113,8 +113,7 @@ const nav = [
       <a class="logo" href="/"><img src="/favicon.svg" width="24" height="24" alt="" /> Anvi Innovate</a>
       <nav class="links">
         {nav.map((n) => <a class="link" href={n.href}>{n.label}</a>)}
-        <a class="btn btn-ghost" href="/clients">Hire Talent</a>
-        <a class="btn btn-primary" href="/candidates">Apply Now</a>
+        <a class="btn btn-primary" href="/clients">Request talent</a>
         <AuthStatus client:idle />
       </nav>
       <button id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
@@ -123,8 +122,7 @@ const nav = [
     </header>
     <nav id="mobileNav" aria-label="Mobile">
       {nav.map((n) => <a href={n.href}>{n.label}</a>)}
-      <a class="btn btn-ghost" href="/clients">Hire Talent</a>
-      <a class="btn btn-primary" href="/candidates">Apply Now</a>
+      <a class="btn btn-primary" href="/clients">Request talent</a>
     </nav>
     <main>
       <slot />
@@ -139,24 +137,18 @@ const nav = [
           <!-- TODO (needs real values): registered entity name, CIN, GST, registered office address -->
         </div>
         <div>
-          <h4>For Clients</h4>
-          <a href="/clients">Hire talent</a><br/>
-          <a href="/services/hire-train-deploy">Hire-train-deploy</a><br/>
-          <a href="/faq">Client FAQ</a><br/>
-          <a href="/contact">Contact</a>
+          <h4>Hire talent</h4>
+          <a href="/clients">Request talent</a><br/>
+          <a href="/services/hire-train-deploy">Engagement models</a><br/>
+          <a href="/faq">FAQ</a>
         </div>
         <div>
-          <h4>For Candidates</h4>
-          <a href="/candidates">Create profile</a><br/>
-          <a href="/training">Training &amp; certification</a><br/>
-          <a href="/faq">Candidate FAQ</a>
+          <h4>Company</h4>
+          <a href="/about">About</a><br/>
+          <a href="/contact">Contact</a><br/>
+          <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>
         </div>
-        <div style="grid-column:1 / -1; display:flex; flex-wrap:wrap; gap:0 16px; align-items:center;">
-          <a href="/about">About</a><a href="/faq">FAQ</a><a href="/contact">Contact</a>
-          <a href="/privacy">Privacy</a><a href="/terms">Terms</a>
-          <span style="margin-left:auto;">© {new Date().getFullYear()} Anvi Innovate · in collaboration with <a style="display:inline;padding:0;margin:0;" href="https://bxup.in/" target="_blank" rel="noopener noreferrer">bxup.in</a></span>
-        </div>
-        <p class="fraud">Anvi Innovate never charges candidates a fee at any stage of hiring. We contact you only from <b>@anviinnovate.com</b> addresses. Questions or feedback? Email <a style="display:inline;padding:0;margin:0;" href="mailto:hello@anviinnovate.com">hello@anviinnovate.com</a>.</p>
+        <p class="fraud" style="grid-column:1 / -1;">© {new Date().getFullYear()} Anvi Innovate. Questions or feedback? Email <a style="display:inline;padding:0;margin:0;" href="mailto:hello@anviinnovate.com">hello@anviinnovate.com</a> — we reply within one business day.</p>
       </div>
     </footer>
     <script is:inline>

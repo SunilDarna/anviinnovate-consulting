@@ -10,9 +10,9 @@ export default defineConfig({
   // Common URL variants -> canonical routes (generated as redirect pages).
   redirects: {
     "/register": "/login",
-    "/apply": "/candidates/apply",
-    "/jobs": "/candidates",
-    "/careers": "/candidates",
     "/hire": "/clients",
+    "/candidates": "/clients",
+    "/candidates/apply": "/clients",
+    "/training": "/clients",
   },
 });
