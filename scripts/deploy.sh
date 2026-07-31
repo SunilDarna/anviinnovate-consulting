@@ -35,7 +35,11 @@ echo "==> Building frontend with the live API URL..."
 ( cd frontend && npm install && PUBLIC_API_BASE="$API" npm run build )
 
 echo "==> Uploading site to S3 + invalidating CloudFront..."
-aws s3 sync frontend/dist "s3://$BUCKET" --delete
+# Hashed assets are content-addressed -> cache forever. HTML/fonts revalidate so
+# browsers pick up new deploys immediately (only a filename change busts an asset).
+aws s3 cp frontend/dist/_astro "s3://$BUCKET/_astro" --recursive --cache-control "public,max-age=31536000,immutable"
+aws s3 cp frontend/dist "s3://$BUCKET" --recursive --exclude "_astro/*" --cache-control "no-cache"
+aws s3 sync frontend/dist "s3://$BUCKET" --delete --size-only
 aws cloudfront create-invalidation --distribution-id "$DIST" --paths "/*" >/dev/null
 
 echo "==> Done. Site: https://$DOMAIN   API: $API"
