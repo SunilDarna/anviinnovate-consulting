@@ -56,21 +56,56 @@ import Base from "../layouts/Base.astro";
     <div style="text-align:center; margin-top:24px;"><a class="btn btn-primary" href="/clients">Request talent now</a></div>
   </section>
 
-  <!-- Talent categories -->
-  <section style="margin-top:56px;">
-    <h2 style="text-align:center;">Talent across the AI stack</h2>
-    <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:14px;">
+  <!-- Trained on real-world use cases -->
+  <section style="margin-top:64px;">
+    <div style="text-align:center; max-width:760px; margin-inline:auto;">
+      <span class="pill">Trained on 200+ real-world use cases</span>
+      <h2 style="margin-top:14px;">Trained on the job, not just theory</h2>
+      <p class="muted" style="font-size:1.1rem;">
+        Our talent upskills through our Applied-AI training program — role-based tracks built from <strong>200+ evidenced, real-world use cases</strong>, with task-level playbooks and hands-on labs. So they arrive ready to do the work, not just talk about it.
+      </p>
+    </div>
+
+    <h3 style="margin-top:36px;">Role tracks our talent trains across</h3>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:6px;">
       {[
-        ["Data annotation & RLHF","Human feedback, labelling and evaluation at quality."],
-        ["RAG & LLM applications","Retrieval, embeddings, and applied GenAI workflows."],
-        ["Model fine-tuning","Dataset prep, LoRA/PEFT, evaluation and iteration."],
-        ["Prompt engineering","Structured prompting, guardrails, and output shaping."],
-        ["Core ML","Supervised/unsupervised modelling and evaluation."],
-        ["Applied AI ops","Pipelines, tooling and deployment support."],
+        ["Software Engineering","Backend & full-stack, agentic workflows, shipping production LLM features — with verification as the core discipline."],
+        ["Data Engineering","Pipelines and the RAG data layer: chunking, embeddings, hybrid search, reranking and vector-database operations."],
+        ["Data Science & ML/AI","Classical ML to GenAI: RAG design, fine-tuning (LoRA→DPO), agents, and deep evals."],
+        ["DevOps / SRE / Platform","Ops with AI plus the platform-for-AI stack: LLM serving, inference gateways and agent guardrails."],
+        ["Security & AI Security","AI in the SOC, prompt-injection defense, RAG poisoning, agent permission scoping and AI governance."],
+        ["Cloud & Solutions Architecture","Managed-vs-custom RAG, agentic workloads, AI cost architecture across Bedrock, Azure AI and Vertex."],
+        ["Frontend & Mobile","Streaming chat UIs, generative UI, Figma-to-code and on-device AI."],
+        ["QA / AI Evaluation","Testing non-deterministic AI features, agent trajectories and LLM-as-judge in CI."],
+        ["Product & Analysis","Eval sets, failure modes, AI-feature metrics and requirements written around agents."],
       ].map(([t,d]) => (
         <div class="card"><h3 style="margin:0 0 .2em; font-size:1rem;">{t}</h3><p class="muted" style="margin:0; font-size:14px;">{d}</p></div>
       ))}
     </div>
+
+    <h3 style="margin-top:32px;">Skills &amp; tech stack</h3>
+    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;">
+      {["AI fluency & mindset","Prompt & context engineering","Verifying AI output","LLM APIs & structured outputs","RAG","Evals & LLM-as-judge","Agents & MCP","Fine-tuning (LoRA→DPO)","RLHF","Embeddings & vector search","Hybrid search & reranking","Data annotation","Cost & governance","Responsible AI"].map((s) => (
+        <span class="pill" style="font-weight:500;">{s}</span>
+      ))}
+    </div>
+    <p class="muted" style="margin-top:16px;">Our training and the <strong>Applied AI Professional</strong> credential are built from evidenced use cases across official sources, real job postings and named-company AI mandates — so skills map to what employers actually need.</p>
+  </section>
+
+  <!-- Market context -->
+  <section class="grid" style="grid-template-columns:repeat(4,1fr); margin-top:40px; text-align:center;">
+    {[
+      ["62%","Avg wage premium for AI skills","PwC AI Jobs Barometer 2026"],
+      ["90%","of developers now use AI at work","DORA 2025"],
+      ["4 of 5","fastest-growing US roles are AI roles","LinkedIn Jobs on the Rise 2026"],
+      ["+25%","India AI/ML hiring growth YoY","Naukri JobSpeak, Jun 2026"],
+    ].map(([n,l,src]) => (
+      <div class="card">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:1.8rem; font-weight:700; color:var(--ink);">{n}</div>
+        <p style="margin:.2em 0 .4em; font-size:14px;">{l}</p>
+        <p class="muted" style="margin:0; font-size:12px;">{src}</p>
+      </div>
+    ))}
   </section>
 
   <!-- Engagement models -->
