@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI Talent Academy — Detailed Roadmap, Curriculum, Government &amp; Go-to-Market Plan</title>
+<style>
+  :root{--ink:#0B1F3A;--accent:#2563EB;--surface:#f8fafc;--card:#fff;--text:#0f172a;--muted:#475569;
+    --border:#e2e8f0;--ok:#15803d;--warn:#b45309;--shadow:0 1px 3px rgba(15,23,42,.06),0 10px 30px rgba(15,23,42,.06)}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;background:var(--surface);color:var(--text);line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:40px 22px 72px}
+  header.rp{background:radial-gradient(1100px 460px at 18% -25%,#1e40af 0%,#0B1F3A 60%);color:#fff;border-radius:20px;padding:36px 32px;box-shadow:var(--shadow)}
+  header.rp .kicker{display:inline-block;background:rgba(255,255,255,.12);color:#c7d2fe;font-weight:600;font-size:13px;padding:5px 12px;border-radius:999px}
+  header.rp h1{margin:14px 0 8px;font-size:clamp(1.7rem,4vw,2.45rem);line-height:1.14;letter-spacing:-.02em}
+  header.rp p{margin:0;color:#c7d2fe;max-width:76ch}
+  header.rp .meta{margin-top:14px;font-size:12.5px;color:#93a7d6}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 6px}
+  .btn{border:1px solid transparent;background:var(--accent);color:#fff;font:inherit;font-weight:600;font-size:14px;padding:10px 16px;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-flex;gap:8px;align-items:center}
+  .btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--border)}
+  nav.toc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-top:16px;box-shadow:var(--shadow);font-size:14px}
+  nav.toc a{color:var(--accent);text-decoration:none;display:inline-block;margin:3px 14px 3px 0}
+  section{margin-top:40px}
+  h2{font-size:1.42rem;color:var(--ink);margin:0 0 4px;border-left:4px solid var(--accent);padding-left:12px}
+  h3{font-size:1.06rem;color:var(--ink);margin:24px 0 6px}
+  h4{font-size:.95rem;color:var(--ink);margin:16px 0 4px}
+  .lead{color:var(--muted);margin:10px 0 0;max-width:86ch}
+  .summary{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px}
+  @media(max-width:800px){.cards{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:var(--shadow)}
+  .stat b{display:block;font-size:1.5rem;color:var(--ink);letter-spacing:-.02em}
+  .stat span{font-size:13px}.stat small{display:block;color:var(--muted);font-size:11px;margin-top:6px}
+  .tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);background:var(--card);margin-top:12px}
+  table{border-collapse:collapse;width:100%;font-size:13px;min-width:700px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+  thead th{background:#f1f5f9;color:var(--ink);font-weight:700}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:nth-child(even){background:#fbfdff}
+  td.m,td.w{font-weight:700;color:var(--ink);white-space:nowrap}
+  code{background:#f1f5f9;padding:1px 5px;border-radius:4px;font-size:12px}
+  .chip{display:inline-block;background:#eff6ff;color:var(--accent);font-weight:600;font-size:11.5px;padding:2px 9px;border-radius:999px;margin:2px 3px 0 0}
+  .chip.g{background:#dcfce7;color:#166534}.chip.o{background:#fef3c7;color:#92400e}
+  .role{background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:20px 22px;margin-top:16px}
+  .callout{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:16px 18px;font-size:13.5px;color:#713f12}
+  .note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:14px 16px;font-size:13px;color:#1e3a8a;margin-top:12px}
+  .danger{background:#fef2f2;border:1px solid #fecaca;color:#7f1d1d}
+  ul.sources{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ul.sources li{font-size:12.5px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+  ul.sources a{color:var(--accent);text-decoration:none;word-break:break-all}
+  .tag{display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:1px 7px;margin-right:8px}
+  .tag.primary{background:#dcfce7;color:#166534}.tag.secondary{background:#e0e7ff;color:#3730a3}.tag.blog{background:#f1f5f9;color:#475569}
+  footer.rp{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color:var(--muted);font-size:12.5px}
+  @media print{body{background:#fff}.wrap{max-width:none;padding:0}.toolbar,nav.toc{display:none}
+    header.rp{background:#0B1F3A !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border-radius:0}
+    .tablewrap,.stat,.summary,.role,ul.sources li{box-shadow:none}section,.role{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="rp">
+  <span class="kicker">Detailed program roadmap · curriculum · government · go-to-market</span>
+  <h1>AI Talent Academy — Full Roadmap &amp; Curriculum Blueprint</h1>
+  <p>A build-ready plan to train fresh graduates and 3rd/4th-year students into job-ready AI professionals across six roles — with the complete 2026 production tech stack, NSQF/NCVET credential alignment, an India government funding playbook, and a go-to-market model with pricing benchmarks.</p>
+  <div class="meta">Prepared Aug 2026 for Anvi Innovate · sources: NQR/NCVET qualification files · MeitY–NASSCOM FutureSkills Prime · IndiaAI Mission · NSDC/PMKVY · DeepLearning.AI · roadmap.sh · 2026 LLM-stack &amp; hiring analyses</div>
+</header>
+
+<div class="toolbar">
+  <button class="btn" onclick="window.print()">⬇ Save as PDF / Print</button>
+</div>
+
+<nav class="toc">
+  <strong style="color:var(--ink)">Contents:</strong>
+  <a href="#s1">1 Market &amp; thesis</a><a href="#s2">2 Program architecture</a><a href="#s3">3 Foundations</a>
+  <a href="#s4">4 Core spine</a><a href="#s5">5 Role tracks (deep)</a><a href="#s6">6 Tech-stack atlas</a>
+  <a href="#s7">7 Assessment &amp; NSQF</a><a href="#s8">8 Government playbook</a><a href="#s9">9 Go-to-market</a>
+  <a href="#s10">10 Build plan</a><a href="#s11">11 Sources &amp; caveats</a>
+</nav>
+
+<!-- 1 -->
+<section id="s1">
+  <h2>1 · Market opportunity &amp; thesis</h2>
+  <div class="summary">
+    <strong>The gap.</strong> Per <strong>NASSCOM-Deloitte "Advancing India's AI Skills"</strong>, India's AI talent demand grows from ~600,000–650,000 (2022) to <strong>over 1.25 million by 2027 (~15% CAGR)</strong> while the AI software/services market grows <strong>25–35% CAGR</strong>. Bain frames it as <strong>~2.3M openings vs ~1.2M talent</strong> — a 1.5–2× shortfall.<br><br>
+    <strong>The thesis.</strong> Colleges produce graduates with theory but not <em>production</em> AI skills. The 2026 market hires for the ability to <strong>ship and evaluate</strong> AI systems under cost/latency/safety constraints. A structured, NSQF-aligned, project-heavy academy converts that gap into placed talent — monetised through <strong>hire-train-deploy</strong> (employer-funded), <strong>B2B corporate upskilling</strong>, and <strong>government-subsidised</strong> cohorts.
+  </div>
+  <div class="cards">
+    <div class="stat"><b>1.25M+</b><span>India AI talent demand by 2027</span><small>NASSCOM-Deloitte</small></div>
+    <div class="stat"><b>~15%</b><span>CAGR AI talent demand 2022–27</span><small>NASSCOM-Deloitte</small></div>
+    <div class="stat"><b>₹14,500</b><span>max learner cashback, FutureSkills Prime</span><small>MeitY–NASSCOM incentive</small></div>
+    <div class="stat"><b>Level 7</b><span>NSQF level, AI-ML Engineer QP</span><small>SSC/Q8113, IT-ITeS SSC</small></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section id="s2">
+  <h2>2 · Program architecture</h2>
+  <p class="lead">One spine, six exits. Every learner completes Foundations + Core AI, then specialises. Three delivery intensities from the same curriculum object — this is what makes the model scalable and fundable.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Variant</th><th>Audience</th><th>Duration</th><th>Weekly load</th><th>Funding route</th></tr></thead>
+    <tbody>
+      <tr><td class="m">Full-time residential/online</td><td>Final-year &amp; fresh graduates</td><td>24 weeks (~6 mo)</td><td>40 h</td><td>HTD (employer-paid) / fee / ISA</td></tr>
+      <tr><td class="m">Part-time cohort</td><td>3rd-year students, working freshers</td><td>36–48 weeks</td><td>10–15 h</td><td>Learner fee + FutureSkills Prime cashback</td></tr>
+      <tr><td class="m">Campus embedded</td><td>3rd/4th-year, in-college</td><td>2 semesters</td><td>6–8 h</td><td>College/AICTE partnership, CSR</td></tr>
+      <tr><td class="m">Corporate bridge</td><td>Client's new hires</td><td>6–10 weeks</td><td>40 h</td><td>B2B per-seat (client-funded)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Phase map (full-time, 24 weeks)</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Phase</th><th>Weeks</th><th>Focus</th><th>Gate to advance</th></tr></thead>
+    <tbody>
+      <tr><td class="m">P0 Foundations</td><td>1–6</td><td>Python, data, ML math, Git, SQL, LLM/prompt basics, Linux/CLI</td><td>Coding exam + quiz ≥70%</td></tr>
+      <tr><td class="m">P1 Classical ML</td><td>7–9</td><td>Supervised/unsupervised, feature engineering, evaluation, pipelines</td><td>Tabular ML project ≥70%</td></tr>
+      <tr><td class="m">P2 Deep Learning</td><td>10–12</td><td>NN, CNN, RNN/LSTM, attention &amp; Transformers, PyTorch</td><td>CNN + sequence model</td></tr>
+      <tr><td class="m">P3 GenAI &amp; LLMs</td><td>13–15</td><td>Transformers, embeddings, tokenization, prompting, LLM APIs, structured output</td><td>Shipped LLM app</td></tr>
+      <tr><td class="m">P4 RAG &amp; Agents</td><td>16–18</td><td>Chunking, vector DBs, hybrid search, reranking, agents/tools/MCP, guardrails, evals</td><td>RAG+agent w/ eval harness</td></tr>
+      <tr><td class="m">P5 Specialisation + LLMOps</td><td>19–22</td><td>Chosen role track + deployment, CI/CD, monitoring, cloud</td><td>Deployed role project</td></tr>
+      <tr><td class="m">P6 Capstone &amp; placement</td><td>23–24</td><td>Capstone, portfolio, GitHub, resume, mock interviews, NSQF assessment</td><td>Capstone defense + cert</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><strong>Gate policy:</strong> ≥70% to advance — deliberately matched to the <strong>NSQF pass bar (70% aggregate, 70% per technical NOS)</strong>, so internal assessment doubles as certification rehearsal.</div>
+</section>
+
+<!-- 3 -->
+<section id="s3">
+  <h2>3 · Shared foundations track (P0 · Weeks 1–6)</h2>
+  <p class="lead">Non-negotiable prerequisite for every role. No modeling starts until this is passed. ML-foundations content can be anchored to Andrew Ng's <em>Machine Learning Specialization</em> (DeepLearning.AI, beginner, ~95 h).</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Wk</th><th>Module</th><th>Topics</th><th>Stack</th><th>Lab</th><th>Assessment</th></tr></thead>
+    <tbody>
+      <tr><td class="w">1</td><td class="m">Dev environment &amp; Python I</td><td>Linux/CLI, venv/uv, syntax, control flow, functions, errors</td><td><code>Python 3.11+</code> <code>uv/pip</code> <code>VS Code</code> <code>bash</code></td><td>10 katas; build a CLI utility</td><td>Auto-graded challenge</td></tr>
+      <tr><td class="w">2</td><td class="m">Python II &amp; Git</td><td>OOP, modules, typing, testing; clone/branch/commit/merge/PR, code review</td><td><code>pytest</code> <code>Git</code> <code>GitHub</code> <code>ruff</code></td><td>Portfolio repo + first PR</td><td>PR review rubric</td></tr>
+      <tr><td class="w">3</td><td class="m">Data handling</td><td>NumPy arrays, Pandas, cleaning, EDA, visualisation</td><td><code>NumPy</code> <code>Pandas</code> <code>Matplotlib</code> <code>Seaborn</code></td><td>EDA on a real open dataset</td><td>Notebook rubric</td></tr>
+      <tr><td class="w">4</td><td class="m">Math &amp; statistics for ML</td><td>Vectors/matrices, derivatives &amp; gradients, probability, distributions, hypothesis testing</td><td><code>NumPy</code> <code>SciPy</code></td><td>Implement gradient descent from scratch</td><td>Quiz + derivation set</td></tr>
+      <tr><td class="w">5</td><td class="m">SQL &amp; data access</td><td>SELECT/JOIN/GROUP BY/window functions, schema design, ETL basics, APIs</td><td><code>PostgreSQL</code> <code>SQLAlchemy</code> <code>requests</code></td><td>Query a sample DB; build an ingest script</td><td>SQL challenge set</td></tr>
+      <tr><td class="w">6</td><td class="m">LLM &amp; prompt fundamentals</td><td>Tokens, context windows, temperature/sampling, prompt patterns, structured outputs, cost basics</td><td><code>OpenAI API</code> <code>Anthropic API</code> <code>Pydantic</code></td><td>Prompt-driven doc Q&amp;A script</td><td><strong>P0 gate exam</strong> + mini-project</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 4 -->
+<section id="s4">
+  <h2>4 · Core AI spine (P1–P4 · Weeks 7–18)</h2>
+  <p class="lead">Shared by all six tracks. Anchors: DeepLearning.AI <em>Deep Learning Specialization</em> (~129 h; CNN/RNN/LSTM/Transformers) and <em>Generative AI with LLMs</em> (DeepLearning.AI + AWS, ~13 h).</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Wk</th><th>Module</th><th>Topics</th><th>Stack</th><th>Deliverable</th></tr></thead>
+    <tbody>
+      <tr><td class="w">7–8</td><td class="m">Classical ML</td><td>Linear/logistic regression, trees, random forest, gradient boosting, clustering, PCA</td><td><code>scikit-learn</code> <code>XGBoost</code> <code>LightGBM</code></td><td>Predictive model + eval report</td></tr>
+      <tr><td class="w">9</td><td class="m">Evaluation &amp; feature engineering</td><td>Cross-validation, precision/recall/F1, ROC-AUC, leakage, imbalance, pipelines, SHAP</td><td><code>scikit-learn</code> <code>SHAP</code> <code>Optuna</code></td><td><strong>P1 gate:</strong> tabular project</td></tr>
+      <tr><td class="w">10–11</td><td class="m">Deep learning</td><td>Perceptron→MLP, backprop, optimisers, regularisation, CNNs, RNN/LSTM</td><td><code>PyTorch</code> <code>torchvision</code> <code>W&amp;B</code></td><td>Image classifier + sequence model</td></tr>
+      <tr><td class="w">12</td><td class="m">Attention &amp; Transformers</td><td>Q-K-V attention, multi-head, positional encoding, encoder/decoder, pretraining objectives</td><td><code>PyTorch</code> <code>Hugging Face Transformers</code></td><td><strong>P2 gate:</strong> fine-tune a small transformer</td></tr>
+      <tr><td class="w">13–14</td><td class="m">GenAI &amp; LLM application</td><td>Model families &amp; routing, tokenization/cost, sampling params, prompt patterns, function calling, structured outputs, streaming</td><td><code>OpenAI</code> <code>Anthropic</code> <code>Pydantic</code> <code>FastAPI</code> <code>LiteLLM</code></td><td>LLM app with validated outputs</td></tr>
+      <tr><td class="w">15</td><td class="m">Responsible &amp; secure AI</td><td>Prompt injection, jailbreaks, PII handling, refusal/guardrails, bias, DPDP Act basics</td><td><code>guardrails</code> <code>presidio</code></td><td><strong>P3 gate:</strong> hardened LLM app</td></tr>
+      <tr><td class="w">16–17</td><td class="m">RAG</td><td>Ingestion &amp; parsing, chunking strategy, embedding selection, vector stores, top-k, hybrid (BM25+dense), reranking, citations</td><td><code>LangChain</code> <code>LlamaIndex</code> <code>pgvector</code> <code>Qdrant</code> <code>Chroma</code> <code>Unstructured</code></td><td>RAG service with citations</td></tr>
+      <tr><td class="w">18</td><td class="m">Agents &amp; evaluation</td><td>Tool use, function calling, MCP, state machines, multi-step planning, memory; eval sets, LLM-as-judge, retrieval vs generation metrics, tracing</td><td><code>LangGraph</code> <code>CrewAI</code> <code>RAGAS</code> <code>DeepEval</code> <code>LangSmith</code></td><td><strong>P4 gate:</strong> RAG+agent with eval harness</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><strong>The differentiator to teach hard:</strong> wiring <strong>eval suites into CI/CD that block deployment when scores regress</strong>. 2026 analyses identify this as what separates practitioners from beginners — and it is exactly what fresher curricula omit.</div>
+</section>
+
+<!-- 5 -->
+<section id="s5">
+  <h2>5 · Role specialisation tracks (P5 · Weeks 19–22)</h2>
+  <p class="lead">Four weeks of role depth + LLMOps, then the role capstone. Each track lists exact stack, weekly topics, labs, capstone and hiring-manager exit criteria.</p>
+
+  <div class="role">
+    <h3>① AI Engineer — anchor track (highest 2026 demand)</h3>
+    <p class="lead"><strong>Scope:</strong> applies <em>pre-trained</em> models and existing AI tools to build production features — not building models from scratch (roadmap.sh; model-training appears in only ~6% of AI-Engineer JDs).</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Wk</th><th>Topics</th><th>Deep stack</th><th>Lab</th></tr></thead>
+      <tbody>
+        <tr><td class="w">19</td><td>Advanced RAG: query rewriting, multi-hop, hybrid + rerank tuning, chunk-size experiments, grounded citations</td><td><code>LlamaIndex</code> <code>Cohere Rerank</code> <code>bge-reranker</code> <code>pgvector</code></td><td>Raise recall@k on a fixed corpus</td></tr>
+        <tr><td class="w">20</td><td>Agentic systems: LangGraph state machines, checkpoints/durable state, tool design, MCP servers, human-in-loop</td><td><code>LangGraph</code> <code>MCP</code> <code>CrewAI</code></td><td>Multi-step agent with retry + HITL</td></tr>
+        <tr><td class="w">21</td><td>Cost, latency &amp; reliability: model routing, caching, streaming, batching, fallbacks, rate limits, token budgets</td><td><code>LiteLLM</code> <code>Portkey/OpenRouter</code> <code>Redis</code></td><td>Cut cost/query 50% at equal quality</td></tr>
+        <tr><td class="w">22</td><td>Ship it: FastAPI service, Docker, CI/CD with eval gates, tracing &amp; observability, guardrails in prod</td><td><code>FastAPI</code> <code>Docker</code> <code>GitHub Actions</code> <code>LangSmith</code> <code>RAGAS</code></td><td>Deploy with eval-gated pipeline</td></tr>
+      </tbody>
+    </table></div>
+    <p class="lead"><strong>Capstone:</strong> <em>Enterprise knowledge assistant</em> — RAG over a document corpus with grounded citations, an agent with tools, guardrails (refusal, output validation, escalation), a stated cost/latency budget, and <strong>independent retrieval-vs-generation evaluation</strong>; deployed as API + UI.<br>
+    <strong>Job-ready exit:</strong> ships RAG/agent end-to-end, eval-driven; 3–4 GenAI apps on GitHub; can whiteboard RAG/agent design and defend cost/latency/safety trade-offs.</p>
+  </div>
+
+  <div class="role">
+    <h3>② GenAI / LLM Engineer — highest-paid specialisation</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Wk</th><th>Topics</th><th>Deep stack</th><th>Lab</th></tr></thead>
+      <tbody>
+        <tr><td class="w">19</td><td>Dataset engineering: instruction data, synthetic generation, dedup, contamination, train/eval splits</td><td><code>HF Datasets</code> <code>Argilla</code> <code>distilabel</code></td><td>Build a 5k-row instruction set</td></tr>
+        <tr><td class="w">20</td><td>Fine-tuning: full vs PEFT, LoRA/QLoRA, SFT, preference tuning (DPO), hyperparameters, catastrophic forgetting</td><td><code>PEFT</code> <code>TRL</code> <code>bitsandbytes</code> <code>Unsloth</code> <code>PyTorch</code></td><td>LoRA-tune an open model</td></tr>
+        <tr><td class="w">21</td><td>Serving &amp; inference optimisation: quantisation (GPTQ/AWQ), KV-cache reuse, continuous batching, paged attention, GPU utilisation</td><td><code>vLLM</code> <code>TGI</code> <code>SGLang</code> <code>TensorRT-LLM</code></td><td>Serve a model; benchmark tok/s &amp; cost</td></tr>
+        <tr><td class="w">22</td><td>Rigorous evaluation: golden datasets, LLM-as-judge, regression suites, A/B, drift</td><td><code>DeepEval</code> <code>RAGAS</code> <code>W&amp;B</code> <code>MLflow</code></td><td>Base vs tuned model eval report</td></tr>
+      </tbody>
+    </table></div>
+    <p class="lead"><strong>Capstone:</strong> domain-tuned LLM (e.g. support-ticket triage) — fine-tuned, self-served on vLLM, benchmarked against the base model on a golden dataset with cost/latency numbers.<br>
+    <strong>Job-ready exit:</strong> can fine-tune, serve and evaluate; explains quantisation/batching/KV-cache trade-offs.</p>
+  </div>
+
+  <div class="role">
+    <h3>③ MLOps / LLMOps Engineer — 9.8× posting growth</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Wk</th><th>Topics</th><th>Deep stack</th><th>Lab</th></tr></thead>
+      <tbody>
+        <tr><td class="w">19</td><td>Containers &amp; orchestration: Docker, images, K8s pods/deploys/services, autoscaling, GPU scheduling</td><td><code>Docker</code> <code>Kubernetes</code> <code>Helm</code></td><td>Deploy a model service on K8s</td></tr>
+        <tr><td class="w">20</td><td>Pipelines &amp; registry: experiment tracking, model registry, versioning, reproducibility, orchestration/DAGs</td><td><code>MLflow</code> <code>DVC</code> <code>Airflow</code> <code>Kubeflow</code> <code>Dagster</code></td><td>Automated retrain pipeline</td></tr>
+        <tr><td class="w">21</td><td>CI/CD for ML &amp; LLM: test pyramids, eval gates, canary/blue-green, rollback, IaC</td><td><code>GitHub Actions</code> <code>Terraform</code> <code>Argo</code></td><td>Pipeline that blocks on eval regression</td></tr>
+        <tr><td class="w">22</td><td>Monitoring: data/model drift, latency &amp; cost dashboards, alerting, LLM tracing, incident response</td><td><code>Prometheus</code> <code>Grafana</code> <code>Evidently</code> <code>LangSmith</code></td><td>Drift alarm + runbook</td></tr>
+      </tbody>
+    </table></div>
+    <p class="lead"><strong>Capstone:</strong> end-to-end ML platform — pipeline + registry + CI/CD with eval gates + drift monitoring + auto-retrain for a deployed model.<br>
+    <strong>Job-ready exit:</strong> can deploy, monitor and version models in production; cloud associate/ML cert recommended.</p>
+  </div>
+
+  <div class="role">
+    <h3>④ Data Scientist — strongest official growth signal (BLS +34% to 2034)</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Wk</th><th>Topics</th><th>Deep stack</th><th>Lab</th></tr></thead>
+      <tbody>
+        <tr><td class="w">19</td><td>Advanced statistics: inference, causal thinking, confounders, sampling, power</td><td><code>statsmodels</code> <code>SciPy</code></td><td>Design a valid study</td></tr>
+        <tr><td class="w">20</td><td>Experimentation: A/B tests, metrics design, guardrail metrics, sequential testing</td><td><code>statsmodels</code> <code>Python</code></td><td>Analyse an A/B dataset</td></tr>
+        <tr><td class="w">21</td><td>Advanced modeling &amp; interpretability: boosting, time series, SHAP, calibration, fairness</td><td><code>XGBoost</code> <code>Prophet</code> <code>SHAP</code> <code>Fairlearn</code></td><td>Explainable model report</td></tr>
+        <tr><td class="w">22</td><td>Communication: dashboards, storytelling, exec memo, decision framing</td><td><code>Plotly</code> <code>Streamlit</code> <code>Power BI/Tableau</code></td><td>Stakeholder presentation</td></tr>
+      </tbody>
+    </table></div>
+    <p class="lead"><strong>Capstone:</strong> business analytics case (e.g. churn/retention) — analysis + model + interpretability + dashboard + costed recommendation.<br>
+    <strong>Job-ready exit:</strong> frames a business problem, models it, communicates a decision; SQL fluency assumed.</p>
+  </div>
+
+  <div class="role">
+    <h3>⑤ Data / RAG Engineer — the retrieval data layer</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Wk</th><th>Topics</th><th>Deep stack</th><th>Lab</th></tr></thead>
+      <tbody>
+        <tr><td class="w">19</td><td>Ingestion at scale: connectors, parsing (PDF/HTML/tables), OCR, incremental sync, dedup</td><td><code>Unstructured</code> <code>LlamaParse</code> <code>Airflow</code> <code>Dagster</code></td><td>Ingest a messy heterogeneous corpus</td></tr>
+        <tr><td class="w">20</td><td>Chunking &amp; embeddings: semantic/recursive/parent-doc, metadata design, embedding model selection &amp; benchmarks</td><td><code>LangChain</code> <code>sentence-transformers</code> <code>OpenAI embeddings</code> <code>BGE</code></td><td>Chunking A/B on retrieval metrics</td></tr>
+        <tr><td class="w">21</td><td>Vector DB operations: indexes (HNSW/IVF), filtering, sharding, hybrid search, reranking, refresh &amp; TTL</td><td><code>pgvector</code> <code>Qdrant</code> <code>Weaviate</code> <code>Pinecone</code> <code>OpenSearch</code></td><td>Tune an index for latency + recall</td></tr>
+        <tr><td class="w">22</td><td>Warehouse &amp; transformation: modelling, dbt, data quality/contracts, lineage</td><td><code>dbt</code> <code>Snowflake/BigQuery</code> <code>Great Expectations</code></td><td>Quality-tested transformation layer</td></tr>
+      </tbody>
+    </table></div>
+    <p class="lead"><strong>Capstone:</strong> production retrieval platform — ingest → chunk → embed → hybrid search → rerank, with a retrieval-eval harness (recall@k, MRR, faithfulness) and scheduled refresh.<br>
+    <strong>Job-ready exit:</strong> builds and <em>measures</em> a retrieval layer; can defend chunking/embedding/index choices with numbers.</p>
+  </div>
+
+  <div class="role">
+    <h3>⑥ AI Solutions Architect — advanced track (for top performers)</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Wk</th><th>Topics</th><th>Deep stack</th><th>Lab</th></tr></thead>
+      <tbody>
+        <tr><td class="w">19</td><td>AI system design: managed vs custom RAG, build-vs-buy, reference architectures, non-functional requirements</td><td><code>AWS Bedrock</code> <code>Azure AI Foundry</code> <code>Vertex AI</code></td><td>Architecture decision record</td></tr>
+        <tr><td class="w">20</td><td>Scale &amp; resilience: multi-region, LLM quota/HA, fallback routing, capacity planning</td><td><code>API Gateway</code> <code>LiteLLM</code> <code>Terraform</code></td><td>HA design under quota limits</td></tr>
+        <tr><td class="w">21</td><td>AI cost architecture: unit economics, token budgets, caching tiers, right-sizing, FinOps</td><td>cloud pricing calculators</td><td>Cost model for 1M queries/mo</td></tr>
+        <tr><td class="w">22</td><td>Security &amp; governance: tenancy isolation, PII/data residency, DPDP Act, audit logging, model risk</td><td><code>IAM</code> <code>KMS</code> <code>guardrails</code></td><td>Security &amp; governance review</td></tr>
+      </tbody>
+    </table></div>
+    <p class="lead"><strong>Capstone:</strong> reference architecture + working reference implementation for an enterprise use case, with cost model, HA/scaling plan and governance review.<br>
+    <strong>Job-ready exit:</strong> designs and defends an AI system end-to-end; cloud architect/AI certification recommended.</p>
+  </div>
+</section>
+
+<!-- 6 -->
+<section id="s6">
+  <h2>6 · Deep tech-stack atlas (2026)</h2>
+  <p class="lead">The seven-layer production LLM stack, mapped to which track teaches it. Teach <em>one primary</em> per layer, <em>name</em> the alternatives — this keeps cohorts deep, not shallow-broad.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Layer</th><th>Teach primary</th><th>Also name</th><th>Taught in</th></tr></thead>
+    <tbody>
+      <tr><td class="m">Foundation models</td><td>Frontier APIs (OpenAI, Anthropic) + a strong open-weights model</td><td>Gemini, Llama-family, Mistral</td><td>Core P3</td></tr>
+      <tr><td class="m">Inference &amp; serving</td><td><code>vLLM</code></td><td>TGI, SGLang, TensorRT-LLM, Triton</td><td>GenAI/LLM Eng</td></tr>
+      <tr><td class="m">Orchestration</td><td><code>LangChain</code> + <code>LangGraph</code></td><td>LlamaIndex Workflows, CrewAI, AutoGen</td><td>Core P4, AI Eng</td></tr>
+      <tr><td class="m">Retrieval &amp; vector</td><td><code>pgvector</code> (teach) + <code>Qdrant</code></td><td>Pinecone, Weaviate, Chroma, OpenSearch</td><td>Core P4, Data/RAG</td></tr>
+      <tr><td class="m">Data &amp; ingestion</td><td><code>Unstructured</code> + <code>Airflow</code></td><td>LlamaParse, Dagster, dbt</td><td>Data/RAG, MLOps</td></tr>
+      <tr><td class="m">Gateway &amp; routing</td><td><code>LiteLLM</code></td><td>OpenRouter, Portkey</td><td>AI Eng</td></tr>
+      <tr><td class="m">LLMOps: eval &amp; observability</td><td><code>RAGAS</code> + <code>LangSmith</code></td><td>DeepEval, MLflow eval, Phoenix, Langfuse</td><td>Core P4 + all tracks</td></tr>
+      <tr><td class="m">Classical ML &amp; DL</td><td><code>scikit-learn</code>, <code>PyTorch</code></td><td>XGBoost/LightGBM, TensorFlow</td><td>Core P1–P2</td></tr>
+      <tr><td class="m">MLOps platform</td><td><code>MLflow</code> + <code>Docker</code> + <code>K8s</code></td><td>Kubeflow, DVC, W&amp;B, Evidently</td><td>MLOps track</td></tr>
+      <tr><td class="m">Cloud</td><td>One primary (AWS <em>or</em> Azure <em>or</em> GCP)</td><td>Bedrock / Azure AI / Vertex AI</td><td>P5 all tracks</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><strong>Stack-drift warning.</strong> This layer list is 2026-current and moves fast. Assign an owner to re-validate the atlas <strong>before every cohort</strong>; version the curriculum (e.g. <em>v2026.3</em>) so employers know exactly what a graduate was trained on.</div>
+</section>
+
+<!-- 7 -->
+<section id="s7">
+  <h2>7 · Assessment framework &amp; NSQF/NCVET alignment</h2>
+
+  <h3>7.1 Assessment instruments</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Level</th><th>Instrument</th><th>Weight</th><th>Measures</th></tr></thead>
+    <tbody>
+      <tr><td class="m">Module</td><td>Auto-graded quiz + coding challenge + lab rubric</td><td>20%</td><td>Recall + applied skill</td></tr>
+      <tr><td class="m">Phase gate</td><td>Graded project vs rubric (≥70% to advance)</td><td>30%</td><td>Integration</td></tr>
+      <tr><td class="m">Capstone</td><td>Problem framing · correctness · <strong>eval rigour</strong> · code quality · docs · deployment · defense</td><td>40%</td><td>End-to-end shipping</td></tr>
+      <tr><td class="m">Professional</td><td>Standups, code review, written comms, teamwork</td><td>10%</td><td>Generic NOS competencies</td></tr>
+    </tbody>
+  </table></div>
+  <p class="lead"><strong>AI-Engineer concept bank</strong> (from 2026 interview analysis) — use for quizzes and viva: RAG architecture · embeddings &amp; semantic similarity · tokenization/token counting · temperature &amp; calibration · quantisation trade-offs · context windows · continuous batching · KV-cache reuse · GPU utilisation · LLM-as-a-judge.</p>
+
+  <h3>7.2 NSQF mapping — anchor qualification</h3>
+  <p class="lead">The IT-ITeS Sector Skill Council (NASSCOM) publishes <strong>SSC/Q8113 "AI - Machine Learning Engineer"</strong> on the National Qualifications Register. Aligning to it makes the program nationally recognised and unlocks government funding rails.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Parameter</th><th>Value (QP v2.0)</th></tr></thead>
+    <tbody>
+      <tr><td class="m">QP code / version</td><td>SSC/Q8113, v2.0</td></tr>
+      <tr><td class="m">NSQF level</td><td><strong>7</strong></td></tr>
+      <tr><td class="m">Sector / sub-sector</td><td>IT-ITeS / Future Skills</td></tr>
+      <tr><td class="m">Occupation</td><td>Artificial Intelligence &amp; Big Data Analytics</td></tr>
+      <tr><td class="m">Awarding body</td><td>IT-ITeS Sector Skill Council (NASSCOM), Noida</td></tr>
+      <tr><td class="m">NCO alignment</td><td>NCO-2015/2512</td></tr>
+      <tr><td class="m">Entry requirement</td><td>Graduate (Engg/Tech/Statistics/Maths/CS); 2–3 yrs experience <em>recommended</em>; min age 21</td></tr>
+      <tr><td class="m">Pass criteria</td><td><strong>70% aggregate</strong> at QP level, and <strong>≥70% on each technical NOS</strong></td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Compulsory NOS → curriculum mapping</h4>
+  <div class="tablewrap"><table>
+    <thead><tr><th>NOS</th><th>Title</th><th>Weight</th><th>Theory/Practical</th><th>Covered by</th></tr></thead>
+    <tbody>
+      <tr><td class="m">SSC/N8121</td><td>Evaluate technical performance of algorithmic models</td><td>25%</td><td>30 / 70</td><td>P1 evaluation, P4 eval harness, all capstones</td></tr>
+      <tr><td class="m">SSC/N8122</td><td>Develop software code to support deployment of algorithmic models</td><td>25%</td><td>25 / 75</td><td>P5 LLMOps/deployment, MLOps track</td></tr>
+      <tr><td class="m">SSC/N9001</td><td>Manage your work to meet requirements</td><td>10%</td><td>25 / 75</td><td>Sprint cadence, project management</td></tr>
+      <tr><td class="m">SSC/N9002</td><td>Work effectively with colleagues</td><td>10%</td><td>20 / 80</td><td>Pair programming, code review</td></tr>
+      <tr><td class="m">SSC/N9004</td><td>Provide data/information in standard formats</td><td>—</td><td>—</td><td>Documentation, reporting, dashboards</td></tr>
+      <tr><td class="m">SSC/N9006</td><td>Build and maintain relationships in a workplace</td><td>—</td><td>—</td><td>Team projects, stakeholder simulations</td></tr>
+      <tr><td class="m">SSC/N9014</td><td>Maintain an inclusive, environmentally sustainable workplace</td><td>—</td><td>—</td><td>Professional-skills module</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note danger"><strong>Action required — verify currency.</strong> The QP v2.0 file lists <em>Last reviewed 14/04/2020, next review &amp; deactivation 14/04/2025</em>. Confirm the current live version/successor QP with the IT-ITeS SSC before printing any certificate claim. Also evaluate adjacent QPs: <em>AI-Machine Learning Developer</em>, <em>Certified AI Associate</em> (upskilling), and <em>Artificial Intelligence Application Developer</em> (NSQF 4.5, NIELIT) — the latter two are better fits for <strong>fresher</strong> entry criteria, since Q8113 nominally expects a graduate with 2–3 years' experience.</div>
+
+  <h3>7.3 Industry certification layering</h3>
+  <p class="lead">Stack a market-recognised certification onto each track — cheap credibility for both learners and employer clients.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Track</th><th>Recommended certification</th></tr></thead>
+    <tbody>
+      <tr><td class="m">AI Engineer</td><td>AWS Certified AI Practitioner / Azure AI Engineer Associate (AI-102)</td></tr>
+      <tr><td class="m">GenAI/LLM Engineer</td><td>NVIDIA DLI (GenAI/LLM), Databricks GenAI Engineer Associate</td></tr>
+      <tr><td class="m">MLOps</td><td>AWS ML Engineer Associate / Google Professional ML Engineer / CKA</td></tr>
+      <tr><td class="m">Data Scientist</td><td>Google Advanced Data Analytics / Databricks Data Analyst</td></tr>
+      <tr><td class="m">Data/RAG</td><td>Databricks Data Engineer Associate / SnowPro Core</td></tr>
+      <tr><td class="m">Solutions Architect</td><td>AWS Solutions Architect Associate + Bedrock/Vertex specialisation</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 8 -->
+<section id="s8">
+  <h2>8 · India government support &amp; funding playbook</h2>
+  <p class="lead">Four rails, in the order you should pursue them. Each has a different unlock: money, recognition, learners, or brand.</p>
+
+  <h3>Rail 1 — FutureSkills Prime (MeitY + NASSCOM) · learner subsidy</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>What</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td class="m">Model</td><td>Learners take NSQF/NOS-aligned courses on the FSP platform and claim government incentive on certified completion</td></tr>
+      <tr><td class="m">Incentive</td><td><strong>Deep-skill:</strong> ₹8,000 or 50% of fee (lower of). <strong>Foundation:</strong> ₹3,000 or 50%. <strong>Bridge:</strong> ₹3,000 or 50%. Total learner cashback up to <strong>₹14,500</strong></td></tr>
+      <tr><td class="m">Requirement</td><td>Content must be aligned to industry-defined job roles, <strong>NOS and NSQF</strong> — i.e. your §7.2 mapping is the entry ticket</td></tr>
+      <tr><td class="m">Your move</td><td>Apply as a <strong>content/training partner</strong>; get 2–3 courses NSQF-approved. Precedent: Red Hat had 6 courses NSQF-approved for GoI incentives; ExcelR, Intellipaat are partners</td></tr>
+      <tr><td class="m">Commercial effect</td><td>Cuts effective learner price ~50% → materially lifts conversion on paid cohorts</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Rail 2 — NSDC / PMKVY 4.0 via Skill India Digital · scale &amp; targets</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Step</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td class="m">1 · Become a Training Partner</td><td>Register the legal entity with NSDC (Training Partner = entity; Training Centre = each location, accredited separately)</td></tr>
+      <tr><td class="m">2 · Accredit centres on SMART</td><td>Skill Management &amp; Accreditation of Training Centres portal; <strong>accreditation + affiliation is the minimum to be PMKVY-eligible</strong></td></tr>
+      <tr><td class="m">3 · Get rated</td><td>Star rating matters — <strong>5-star centres are prioritised over 4-star</strong> for allocations</td></tr>
+      <tr><td class="m">4 · Receive targets</td><td>Targets allocated <strong>within 15 days of affiliation</strong></td></tr>
+      <tr><td class="m">Infrastructure</td><td>Owning premises is <strong>not</strong> mandatory — leased space is acceptable if it meets infra/safety/accessibility norms</td></tr>
+      <tr><td class="m">Outcome bar</td><td>~<strong>70% placement</strong> of certified candidates is commonly expected — align with your HTD pipeline</td></tr>
+      <tr><td class="m">Helpline</td><td>Centre Accreditation &amp; Affiliation: 1800-123-9626</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Rail 3 — IndiaAI Mission (MeitY) · brand, cohorts &amp; ecosystem</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>What</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td class="m">IndiaAI FutureSkills</td><td>Pillar supporting <strong>500 PhD, 5,000 PG and 8,000 UG</strong> scholars in AI — partner for delivery/mentorship</td></tr>
+      <tr><td class="m">Mass-literacy push</td><td>National ambition to equip ~10 million citizens with AI skills; programmes like <em>YuvaAI for ALL</em> run with private partners (e.g. Intellipaat)</td></tr>
+      <tr><td class="m">Existing partners</td><td>Microsoft, AWS, Cisco NetAcad, Salesforce — co-delivery/credit pathways are viable</td></tr>
+      <tr><td class="m">Your move</td><td>Position as a <strong>delivery/implementation partner</strong> for AI skilling in Telangana/AP; use the India-AI Impact Summit cycle (New Delhi, Feb 2026) for visibility</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Rail 4 — State missions, CSR &amp; campus</h3>
+  <p class="lead">State AI/skilling missions (Telangana is notably active), <strong>CSR funds</strong> from IT employers (skilling is a permitted CSR head), and AICTE/university MoUs for embedded final-year programs. These are the fastest to close and least bureaucratic — use them for your first cohorts while Rails 1–2 process.</p>
+  <div class="note"><strong>Sequencing recommendation:</strong> Rail 4 (fast pilot cohort) → Rail 1 (NSQF-align + FSP listing) → Rail 2 (NSDC/SMART accreditation) → Rail 3 (IndiaAI partnership). Rails 1–2 both require NSQF/NOS alignment, so do §7.2 <em>first</em> — it is the shared unlock.</div>
+</section>
+
+<!-- 9 -->
+<section id="s9">
+  <h2>9 · Go-to-market &amp; business model</h2>
+
+  <h3>9.1 Revenue models (run 2–3 in parallel)</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Model</th><th>Who pays</th><th>Pricing benchmark (India)</th><th>Fit</th></tr></thead>
+    <tbody>
+      <tr><td class="m">Hire-Train-Deploy</td><td>Employer</td><td>Employer pays a fee/markup per deployed resource; <em>no upfront cost to client</em> is the standard pitch</td><td><strong>Primary</strong> — matches Anvi's staffing model</td></tr>
+      <tr><td class="m">B2B corporate bridge</td><td>Client company</td><td>Per-seat, 6–10 week fresher bridge programs</td><td>High margin, low CAC</td></tr>
+      <tr><td class="m">Paid cohort (B2C)</td><td>Learner</td><td>Job-focused bootcamps cluster <strong>₹40k–₹1L</strong>; online avg ₹40k–₹80k; premium players ₹2L–₹4.25L</td><td>Volume + brand; use FSP cashback</td></tr>
+      <tr><td class="m">Campus program</td><td>College / student</td><td>Per-student, embedded in 3rd/4th year</td><td>Pipeline for HTD</td></tr>
+      <tr><td class="m">Government-funded</td><td>PMKVY/state</td><td>Rate-per-candidate per QP norms</td><td>Scale + credibility</td></tr>
+      <tr><td class="m">ISA / deferred</td><td>Learner post-placement</td><td>% of salary post-placement</td><td>Use sparingly — collection risk</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><strong>Recommended mix for Anvi Innovate:</strong> lead with <strong>HTD</strong> (you already sell to clients — training becomes a supply engine, not a separate business), add <strong>campus partnerships</strong> for cheap candidate flow, and layer <strong>FutureSkills Prime</strong> subsidy onto a paid part-time cohort for brand + margin. Treat PMKVY as phase 2 once centres are accredited.</div>
+
+  <h3>9.2 Competitive pricing landscape</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Provider type</th><th>Indicative price</th><th>Duration</th></tr></thead>
+    <tbody>
+      <tr><td class="m">Online self-paced bootcamp</td><td>₹40,000–₹80,000</td><td>3–6 months</td></tr>
+      <tr><td class="m">Job-focused bootcamp (market centre)</td><td>₹40,000–₹1,00,000</td><td>3–6 months</td></tr>
+      <tr><td class="m">Premium cohort (e.g. Scaler-tier)</td><td>₹2,00,000–₹4,00,000</td><td>6–12 months</td></tr>
+      <tr><td class="m">University-linked (e.g. upGrad × IIIT-B)</td><td>~₹4,25,000</td><td>12+ months</td></tr>
+      <tr><td class="m">Great Learning MLOps-focused</td><td>~₹2,50,000</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+  <p class="lead"><strong>Positioning:</strong> price the paid cohort at <strong>₹75k–₹1.2L</strong> — above commodity self-paced, well below premium — and differentiate on <em>employer-validated outcomes</em> (you place them yourself) rather than brand spend. With FSP deep-skill cashback (₹8,000 or 50%), effective learner cost drops materially.</p>
+
+  <h3>9.3 Unit-economics template (fill with your real numbers)</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Line</th><th>Driver</th></tr></thead>
+    <tbody>
+      <tr><td class="m">Revenue / learner</td><td>Cohort fee, or HTD placement fee/markup over contract term</td></tr>
+      <tr><td class="m">CAC</td><td>Campus partnerships ≪ paid ads; target &lt;10% of revenue</td></tr>
+      <tr><td class="m">Delivery cost</td><td>Trainer hours ÷ cohort size · lab/cloud credits · assessment · platform</td></tr>
+      <tr><td class="m">Cloud/lab cost</td><td>Biggest variable in AI training — negotiate AWS/Azure/GCP education credits early</td></tr>
+      <tr><td class="m">Placement cost</td><td>Employer BD + interview coordination</td></tr>
+      <tr><td class="m">Key ratios</td><td>Cohort fill rate · completion % · <strong>placement % (target ≥70%, matches PMKVY norm)</strong> · gross margin/cohort</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>9.4 Proof assets to build in the first 6 months</h3>
+  <p class="lead">① One completed pilot cohort with real placement numbers · ② 3 employer logos or anonymised case studies ("Series-B fintech — 12 engineers deployed in 9 days") · ③ published curriculum version + NSQF mapping · ④ graduate portfolio gallery (GitHub) · ⑤ an outcomes report you can hand to government and clients.</p>
+</section>
+
+<!-- 10 -->
+<section id="s10">
+  <h2>10 · 12-month build &amp; launch plan</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Quarter</th><th>Curriculum</th><th>Government</th><th>Market</th></tr></thead>
+    <tbody>
+      <tr><td class="m">Q1</td><td>Build P0–P2 content, labs, assessment bank; hire 2 trainers; set up LMS + lab cloud</td><td>Map curriculum to NOS/NSQF (§7.2); confirm live QP version with IT-ITeS SSC</td><td>Sign 2 campus MoUs; recruit pilot cohort (25–30)</td></tr>
+      <tr><td class="m">Q2</td><td>Build P3–P4 (GenAI, RAG, agents) + eval harness; run pilot cohort</td><td>Apply as FutureSkills Prime content/training partner</td><td>Secure 2–3 employer HTD commitments; publish curriculum v1</td></tr>
+      <tr><td class="m">Q3</td><td>Build all six P5 tracks + capstone rubrics; graduate pilot; iterate on feedback</td><td>Begin NSDC TP registration + SMART centre accreditation</td><td>Place pilot cohort; capture outcome data; launch paid cohort #1</td></tr>
+      <tr><td class="m">Q4</td><td>Curriculum v2026.4 refresh (stack drift); train-the-trainer; scale to 2 parallel cohorts</td><td>Pursue PMKVY targets; approach IndiaAI/state mission with proof</td><td>Publish outcomes report; scale HTD; add corporate bridge product</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><strong>Critical path:</strong> NSQF/NOS mapping gates <em>both</em> FutureSkills Prime and PMKVY. Do it in Q1 even though the money arrives later — everything else waits on it.</div>
+</section>
+
+<!-- 11 -->
+<section id="s11">
+  <h2>11 · Sources, confidence &amp; caveats</h2>
+  <div class="callout">
+    <strong>High confidence (primary/official):</strong> NSQF qualification parameters, NOS codes, weightages and the 70% pass rule are read directly from the <strong>official NQR qualification-pack PDF (SSC/Q8113 v2.0)</strong>. NASSCOM-Deloitte talent numbers, FutureSkills Prime incentive amounts, NSDC/SMART accreditation process and IndiaAI FutureSkills scholar numbers come from official/authoritative reporting.<br><br>
+    <strong>Medium confidence (verify before committing):</strong> ① <strong>QP currency</strong> — v2.0 shows a 2025 deactivation date; confirm the successor with IT-ITeS SSC. ② <strong>Pricing and placement claims</strong> are vendor-reported marketing figures — treat as market signal, not audited data. ③ <strong>PMKVY placement norms and rate cards</strong> vary by scheme version and QP — confirm current PMKVY 4.0 norms with NSDC. ④ The <strong>2026 tech-stack layer list</strong> reflects current industry analyses and will drift within months.<br><br>
+    <strong>Design note:</strong> curriculum sequencing, durations and rubrics synthesise verified industry roadmaps (foundations → ML → DL → GenAI → RAG/agents → MLOps → capstone) with standard instructional design; the AI Engineer track is the most heavily evidenced, other tracks apply the same validated structure.
+  </div>
+  <ul class="sources">
+    <li><span class="tag primary">PRIMARY</span> National Qualifications Register — <em>QP SSC/Q8113 AI-Machine Learning Engineer v2.0</em> (NSQF L7, NOS, weightage, 70% rule) · <a href="https://nqr.gov.in/sites/default/files/QP_SSC_Q8113_v2.0_AI%20Machine%20Learning%20Engineer.pdf">nqr.gov.in</a></li>
+    <li><span class="tag primary">PRIMARY</span> NQR — adjacent QPs: <a href="https://www.nqr.gov.in/qualification/file/Q%20File-English-AI-Machine%20Learning%20Developer.pdf">AI-ML Developer</a> · <a href="https://nqr.gov.in/sites/default/files/QFile%20-Certified%20AI%20Associate_0.pdf">Certified AI Associate</a> · <a href="https://nqr.gov.in/qualification/file/QF_Artificial%20Intelligence%20Application%20Developer.pdf">AI Application Developer (NIELIT, L4.5)</a></li>
+    <li><span class="tag primary">PRIMARY</span> NCVET — NSQF notification &amp; framework · <a href="https://ncvet.gov.in/national-skills-qualification-framework/nsqf-notification/">ncvet.gov.in</a></li>
+    <li><span class="tag primary">PRIMARY</span> FutureSkills Prime (MeitY–NASSCOM) — about &amp; partner model · <a href="https://www.futureskillsprime.in/about-us/">futureskillsprime.in</a>; incentive structure reported by <a href="https://www.dqindia.com/nasscom-and-meity-launch-futureskills-prime-incentive-program-for-online-courses-in-artificial-intelligence-and-other-technologies/">DataQuest</a>; NSQF-approved partner precedent <a href="https://www.redhat.com/en/services/training-and-certification/futureskillsprime">Red Hat</a></li>
+    <li><span class="tag primary">PRIMARY</span> NSDC — become a partner / Training Partner &amp; SMART accreditation · <a href="https://nsdcindia.org/become-partner">nsdcindia.org</a> · <a href="https://smart.nsdcindia.org/faqs.aspx">smart.nsdcindia.org</a> · <a href="https://www.pmkvyofficial.org/BecomeaTrainingProvider">pmkvyofficial.org</a></li>
+    <li><span class="tag primary">PRIMARY</span> IndiaAI Mission (MeitY) — pillars &amp; FutureSkills · <a href="https://indiaai.gov.in/">indiaai.gov.in</a></li>
+    <li><span class="tag secondary">SECONDARY</span> NASSCOM-Deloitte "Advancing India's AI Skills" — talent demand 600–650K → 1.25M by 2027 · <a href="https://www.deloitte.com/in/en/about/press-room/bridging-the-ai-talent-gap-to-boost-indias-tech-and-economic-impact-deloitte-nasscom-report.html">deloitte.com</a></li>
+    <li><span class="tag secondary">SECONDARY</span> roadmap.sh AI Engineer (role scope) · <a href="https://roadmap.sh/ai-engineer">roadmap.sh</a> · DeepLearning.AI course anchors · <a href="https://www.deeplearning.ai/courses">deeplearning.ai</a></li>
+    <li><span class="tag blog">INDUSTRY</span> 2026 LLM stack layers &amp; LLMOps (vLLM/TGI/SGLang, LangGraph, vector DBs, RAGAS/DeepEval/LangSmith) · <a href="https://futureagi.com/blog/llm-application-tech-stack-2025/">Future AGI</a> · <a href="https://machinelearningmastery.com/the-roadmap-for-mastering-llmops-in-2026/">MLMastery LLMOps 2026</a> · <a href="https://www.yottalabs.ai/post/best-llm-inference-engines-in-2026-vllm-tensorrt-llm-tgi-and-sglang-compared">inference engines compared</a></li>
+    <li><span class="tag blog">INDUSTRY</span> India AI course pricing benchmarks · <a href="https://www.scaler.com/blog/ai-machine-learning-course-fees/">Scaler</a> · <a href="https://onrol.in/ai-course-fees-india/">ONROL</a> — and hire-train-deploy model · <a href="https://mthree.com/insights/what-is-the-hire-train-deploy-model/">mthree</a> · <a href="https://www.quesscorp.com/it-solutions/hire-deploy-train/">Quess</a></li>
+  </ul>
+</section>
+
+<footer class="rp">
+  Method: sequential targeted research across five areas (per-role curriculum &amp; stack · curriculum standards/credentialing · India government funding rails · go-to-market/pricing · employer alignment), with the NSQF qualification pack parsed directly from the official NQR PDF. Curriculum design synthesises verified sequencing with standard instructional design. Figures and stacks are Aug-2026-current; re-validate the tech-stack atlas and QP version before each cohort. Prepared for Anvi Innovate — internal planning document.
+</footer>
+
+</div>
+</body>
+</html>

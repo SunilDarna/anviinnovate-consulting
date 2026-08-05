@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI Talent Academy — Zero-to-Hero Curriculum &amp; Program Blueprint</title>
+<style>
+  :root{
+    --ink:#0B1F3A;--accent:#2563EB;--accent2:#0891b2;--surface:#f8fafc;--card:#fff;
+    --text:#0f172a;--muted:#475569;--border:#e2e8f0;--ok:#15803d;--warn:#b45309;--pink:#be185d;
+    --shadow:0 1px 3px rgba(15,23,42,.06),0 10px 30px rgba(15,23,42,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;background:var(--surface);color:var(--text);line-height:1.6}
+  .wrap{max-width:1060px;margin:0 auto;padding:40px 22px 72px}
+  header.report{background:radial-gradient(1100px 460px at 18% -25%,#1e40af 0%,#0B1F3A 60%);color:#fff;border-radius:20px;padding:36px 32px;box-shadow:var(--shadow)}
+  header.report .kicker{display:inline-block;background:rgba(255,255,255,.12);color:#c7d2fe;font-weight:600;font-size:13px;padding:5px 12px;border-radius:999px}
+  header.report h1{margin:14px 0 8px;font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.14;letter-spacing:-.02em}
+  header.report p{margin:0;color:#c7d2fe;max-width:74ch}
+  header.report .meta{margin-top:14px;font-size:13px;color:#93a7d6}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 6px}
+  .btn{border:1px solid transparent;background:var(--accent);color:#fff;font:inherit;font-weight:600;font-size:14px;padding:10px 16px;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-flex;gap:8px;align-items:center}
+  .btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--border)}
+  section{margin-top:38px}
+  h2{font-size:1.4rem;color:var(--ink);margin:0 0 4px;border-left:4px solid var(--accent);padding-left:12px}
+  h3{font-size:1.08rem;color:var(--ink);margin:22px 0 6px}
+  .lead{color:var(--muted);margin:10px 0 0;max-width:82ch}
+  .summary{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
+  .summary strong{color:var(--ink)}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px}
+  @media(max-width:760px){.cards{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:var(--shadow)}
+  .stat b{display:block;font-size:1.6rem;color:var(--ink);letter-spacing:-.02em}
+  .stat span{font-size:13px}.stat small{display:block;color:var(--muted);font-size:11px;margin-top:6px}
+  .tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);background:var(--card);margin-top:12px}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:680px}
+  th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--border);vertical-align:top}
+  thead th{background:#f1f5f9;color:var(--ink);font-weight:700}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:nth-child(even){background:#fbfdff}
+  td.m{font-weight:700;color:var(--ink);white-space:nowrap}
+  .phase{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:6px;background:var(--ink);color:#fff;font-weight:700;font-size:11px}
+  .chip{display:inline-block;background:#eff6ff;color:var(--accent);font-weight:600;font-size:11.5px;padding:2px 9px;border-radius:999px;margin:2px 3px 0 0}
+  .role{background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:20px 22px;margin-top:16px}
+  .role .tophead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .role h3{margin:0;font-size:1.15rem}
+  .role .rank{font-size:12px;font-weight:700;color:#fff;background:var(--accent);border-radius:6px;padding:2px 8px}
+  .kv{display:grid;grid-template-columns:130px 1fr;gap:6px 14px;margin-top:12px;font-size:13.5px}
+  .kv dt{color:var(--muted);font-weight:600}
+  .kv dd{margin:0}
+  .callout{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:16px 18px;font-size:13.5px;color:#713f12}
+  .note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:14px 16px;font-size:13px;color:#1e3a8a;margin-top:12px}
+  ul.sources{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ul.sources li{font-size:13px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+  ul.sources a{color:var(--accent);text-decoration:none;word-break:break-all}
+  .tag{display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:1px 7px;margin-right:8px}
+  .tag.primary{background:#dcfce7;color:#166534}.tag.secondary{background:#e0e7ff;color:#3730a3}.tag.blog{background:#f1f5f9;color:#475569}
+  footer.report{margin-top:42px;padding-top:18px;border-top:1px solid var(--border);color:var(--muted);font-size:12.5px}
+  @media print{
+    body{background:#fff}.wrap{max-width:none;padding:0}.toolbar{display:none}
+    header.report{background:#0B1F3A !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border-radius:0}
+    .tablewrap,.stat,.summary,.role,ul.sources li{box-shadow:none}
+    section,.role{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="report">
+    <span class="kicker">Program blueprint · research-backed &amp; cited</span>
+    <h1>AI Talent Academy — Zero-to-Hero Curriculum</h1>
+    <p>An end-to-end training program that takes fresh graduates and 3rd/4th-year students from foundations to job-ready for the most in-demand 2026 AI roles — a shared foundations track that branches into six role specializations, with labs, assessments, capstones and portfolio projects.</p>
+    <div class="meta">Compiled Aug 2026 · grounded in DeepLearning.AI · roadmap.sh · Scaler · Dataquest · UPenn Career Services · IBM/FourthBrain capstones · NASSCOM-Deloitte "Advancing India's AI Skills"</div>
+  </header>
+
+  <div class="toolbar">
+    <button class="btn" onclick="window.print()">⬇ Save as PDF / Print</button>
+    <a class="btn secondary" href="#blueprint">Program blueprint</a>
+    <a class="btn secondary" href="#roles">Role tracks</a>
+  </div>
+
+  <section>
+    <div class="summary">
+      <strong>The opportunity.</strong> Per the <strong>NASSCOM-Deloitte "Advancing India's AI Skills" report</strong>, India's AI talent demand roughly doubles from <strong>~600,000–650,000 (2022) to over 1.25 million by 2027 (~15% CAGR)</strong> while the AI software/services market grows <strong>25–35% CAGR</strong> — a clear demand-supply gap a training company can fill (Bain frames it as ~2.3M openings vs ~1.2M talent by 2027). <strong>The design principle</strong> (validated by two independent industry roadmaps): a shared foundations track, then role branches, sequenced <em>foundations → classical ML → deep learning → GenAI/LLMs/RAG → MLOps/deployment → capstone</em>. "Job-ready" is defined as <em>able to apply with a portfolio to show</em> — not expert-level — so every track ends in a documented, end-to-end capstone plus a multi-project portfolio.
+    </div>
+    <div class="cards">
+      <div class="stat"><b>1.25M+</b><span>India AI talent demand by 2027</span><small>NASSCOM-Deloitte (from ~600–650K in 2022)</small></div>
+      <div class="stat"><b>~15%</b><span>CAGR, AI talent demand 2022–27</span><small>NASSCOM-Deloitte</small></div>
+      <div class="stat"><b>6 mo</b><span>full-time (or 9–12 mo part-time)</span><small>Scaler 6-mo · Dataquest 8–12 mo @ 10–15 h/wk</small></div>
+      <div class="stat"><b>19+</b><span>portfolio projects across the path</span><small>Dataquest job-ready benchmark</small></div>
+    </div>
+  </section>
+
+  <!-- BLUEPRINT -->
+  <section id="blueprint">
+    <h2>1 · Program blueprint</h2>
+    <p class="lead">Two phases everyone shares (Foundations + Core AI), then a role specialization, then MLOps + capstone. Full-time = 6 months (~24 weeks, ~40 h/wk); part-time = 9–12 months (10–15 h/wk). Each phase is a hard prerequisite for the next.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Phase</th><th>Weeks (FT)</th><th>Focus</th><th>Exit checkpoint</th></tr></thead>
+      <tbody>
+        <tr><td class="m"><span class="phase">0</span> Common Foundations</td><td>1–6</td><td>Python, data libs, ML math &amp; stats, Git/GitHub, SQL, LLM &amp; prompt fundamentals</td><td>Foundations exam (coding + quiz) + mini-project</td></tr>
+        <tr><td class="m"><span class="phase">A</span> Classical ML</td><td>7–9</td><td>Supervised/unsupervised ML, scikit-learn, feature engineering, evaluation, pipelines</td><td>Tabular ML project + eval report</td></tr>
+        <tr><td class="m"><span class="phase">B</span> Deep Learning</td><td>10–12</td><td>Neural nets, backprop, CNNs, RNN/LSTM, Transformers intro, PyTorch</td><td>Train a CNN + an RNN; framework comparison</td></tr>
+        <tr><td class="m"><span class="phase">C</span> GenAI &amp; LLMs</td><td>13–15</td><td>Transformer architecture, embeddings, tokenization, prompting patterns, LLM APIs, structured outputs</td><td>Ship an LLM app with structured outputs</td></tr>
+        <tr><td class="m"><span class="phase">D</span> RAG &amp; Agents</td><td>16–18</td><td>Chunking, embeddings, vector DBs, retrieval + reranking, agents/tools/MCP, guardrails, evals</td><td>Production RAG + agent with retrieval &amp; generation evals</td></tr>
+        <tr><td class="m"><span class="phase">E</span> Role Specialization + MLOps</td><td>19–22</td><td>Chosen role track deep-dive + deployment (Docker, FastAPI, CI/CD, monitoring, cloud)</td><td>Role project deployed as an API/service</td></tr>
+        <tr><td class="m"><span class="phase">F</span> Capstone &amp; Job Readiness</td><td>23–24</td><td>End-to-end capstone, portfolio polish, GitHub, resume, mock interviews</td><td>Capstone defense + portfolio review + mock interview</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note"><strong>Gate policy:</strong> a checkpoint pass (recommend ≥70–80%) is required to advance — this mirrors the "assessment before deployment" screening model and keeps cohorts at a consistent bar.</div>
+  </section>
+
+  <!-- FOUNDATIONS -->
+  <section>
+    <h2>2 · Shared foundations track (Phase 0 · Weeks 1–6)</h2>
+    <p class="lead">Common to every role. No modeling begins until Python + data libraries + ML math + metrics + Git are in place. Anchorable to Andrew Ng's <em>Machine Learning Specialization</em> (DeepLearning.AI, beginner, ~95h / ~10 wk) for the ML-foundations portion.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Module</th><th>Topics</th><th>Hands-on lab</th><th>Assessment</th></tr></thead>
+      <tbody>
+        <tr><td class="m">F1 · Python &amp; dev setup</td><td>Syntax, control flow, functions, OOP, virtualenv/uv, VS Code, CLI, debugging</td><td>5 coding katas; build a CLI tool</td><td>Auto-graded Python challenge</td></tr>
+        <tr><td class="m">F2 · Data handling</td><td>NumPy, Pandas, data cleaning, EDA, Matplotlib/Seaborn</td><td>EDA on a real dataset (retail/health/Kaggle)</td><td>Notebook rubric</td></tr>
+        <tr><td class="m">F3 · Math &amp; stats for ML</td><td>Linear algebra (vectors/matrices), calculus basics, probability &amp; statistics, evaluation metrics, overfitting</td><td>Implement gradient descent from scratch</td><td>Quiz + derivation set</td></tr>
+        <tr><td class="m">F4 · Git, GitHub &amp; collaboration</td><td>clone/branch/commit/merge, pull requests, code review, READMEs</td><td>Set up portfolio repo; submit a PR</td><td>PR review checklist</td></tr>
+        <tr><td class="m">F5 · SQL &amp; data access</td><td>SELECT/JOIN/GROUP BY, schema design, basic ETL</td><td>Query a sample DB; build a small pipeline</td><td>SQL challenge set</td></tr>
+        <tr><td class="m">F6 · LLM &amp; prompt fundamentals</td><td>Tokens, context windows, prompting patterns, calling OpenAI/Anthropic APIs, structured outputs</td><td>Prompt-based Q&amp;A script via an LLM API</td><td>Prompt-craft rubric</td></tr>
+      </tbody>
+    </table></div>
+    <p class="lead"><strong>Foundations stack:</strong>
+      <span class="chip">Python 3.11+</span><span class="chip">NumPy</span><span class="chip">Pandas</span><span class="chip">Matplotlib/Seaborn</span><span class="chip">scikit-learn (intro)</span><span class="chip">Git/GitHub</span><span class="chip">SQL</span><span class="chip">OpenAI / Anthropic API</span><span class="chip">Jupyter/Colab</span>
+    </p>
+  </section>
+
+  <!-- CORE SPINE -->
+  <section>
+    <h2>3 · Core AI spine (Phases A–D · Weeks 7–18)</h2>
+    <p class="lead">Shared by all tracks; role tracks later deepen the relevant phase. Deep-learning anchor: DeepLearning.AI <em>Deep Learning Specialization</em> (intermediate, ~129h, CNN/RNN/LSTM/Transformers). GenAI anchor: <em>Generative AI with LLMs</em> (DeepLearning.AI + AWS, ~13h).</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Phase</th><th>Key topics</th><th>Tech stack</th><th>Project</th></tr></thead>
+      <tbody>
+        <tr><td class="m"><span class="phase">A</span> Classical ML</td><td>Regression, classification, clustering, trees/ensembles, feature engineering, cross-validation, model eval, pipelines</td><td>scikit-learn, XGBoost, Pandas</td><td>End-to-end predictive model + evaluation report</td></tr>
+        <tr><td class="m"><span class="phase">B</span> Deep Learning</td><td>Neural nets, backprop, optimizers, CNNs, RNN/LSTM, attention &amp; Transformers, regularization</td><td>PyTorch (primary), TensorFlow (exposure)</td><td>Image classifier (CNN) + text model (RNN/Transformer)</td></tr>
+        <tr><td class="m"><span class="phase">C</span> GenAI &amp; LLMs</td><td>Transformer internals, embeddings, tokenization, prompting patterns, temperature/sampling, LLM APIs, structured outputs, fine-tuning intro</td><td>Hugging Face, OpenAI/Anthropic APIs, Pydantic</td><td>LLM-powered app with structured, validated outputs</td></tr>
+        <tr><td class="m"><span class="phase">D</span> RAG &amp; Agents</td><td>Chunking strategy, embeddings, vector stores, top-k retrieval, hybrid search + reranking, agents/tools/function-calling/MCP, guardrails, evals (RAGAS, LLM-as-judge), observability</td><td>LangChain, LlamaIndex, ChromaDB/Pinecone/pgvector, LangGraph/CrewAI, LangSmith/Phoenix</td><td>Production RAG assistant + agent with independent retrieval &amp; generation evals</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- ROLE TRACKS -->
+  <section id="roles">
+    <h2>4 · Role specialization tracks (Phase E · Weeks 19–22)</h2>
+    <p class="lead">Students pick one. Each adds role-specific depth on top of the shared spine, a role-specific tech stack, and a role capstone. AI Engineer is the anchor (highest 2026 demand and the most thoroughly evidenced); Solutions Architect is an advanced track for stronger grads.</p>
+
+    <div class="role">
+      <div class="tophead"><h3>① AI Engineer <span class="rank">Anchor · highest demand</span></h3></div>
+      <dl class="kv">
+        <dt>Scope</dt><dd>Apply <em>pre-trained</em> models &amp; tools to build production AI features — not build models from scratch (roadmap.sh; model-training in only ~6% of AI-Engineer JDs).</dd>
+        <dt>Added depth</dt><dd>RAG optimization, agents &amp; tool use, guardrails (refusal logic, output validation, escalation), evals/observability, inference cost &amp; latency, model routing, deployment.</dd>
+        <dt>Tech stack</dt><dd><span class="chip">Python</span><span class="chip">OpenAI/Anthropic APIs</span><span class="chip">LangChain</span><span class="chip">LlamaIndex</span><span class="chip">LangGraph/CrewAI</span><span class="chip">ChromaDB/Pinecone/pgvector</span><span class="chip">FastAPI</span><span class="chip">Docker</span><span class="chip">LangSmith/Phoenix</span></dd>
+        <dt>Capstone</dt><dd><strong>Enterprise knowledge assistant</strong> — RAG over a document corpus with grounded citations, an agent with tools, guardrails, a cost/latency budget, and independent retrieval-vs-generation eval; deployed as an API + simple UI.</dd>
+        <dt>Job-ready</dt><dd>Ships a RAG/agent system end-to-end, eval-driven; 3–4 GenAI apps on GitHub; interview prep on RAG/agent system design, evaluation, and cost/latency constraints.</dd>
+      </dl>
+    </div>
+
+    <div class="role">
+      <div class="tophead"><h3>② GenAI / LLM Engineer <span class="rank">Highest-paid specialization</span></h3></div>
+      <dl class="kv">
+        <dt>Added depth</dt><dd>Fine-tuning (LoRA/QLoRA/DPO), dataset engineering, parameter-efficient tuning, model serving &amp; inference optimization (vLLM, quantization, KV-cache, batching), rigorous evals.</dd>
+        <dt>Tech stack</dt><dd><span class="chip">Hugging Face Transformers</span><span class="chip">PEFT/TRL</span><span class="chip">PyTorch</span><span class="chip">vLLM</span><span class="chip">Weights &amp; Biases</span><span class="chip">Datasets</span></dd>
+        <dt>Capstone</dt><dd><strong>Domain-tuned LLM</strong> — fine-tune an open model (e.g., for support-ticket handling or a domain chatbot), serve it, and evaluate vs the base model on a golden dataset.</dd>
+        <dt>Job-ready</dt><dd>Can build/fine-tune and serve models; a fine-tuning project with before/after eval; understands quantization &amp; inference trade-offs.</dd>
+      </dl>
+    </div>
+
+    <div class="role">
+      <div class="tophead"><h3>③ MLOps Engineer <span class="rank">9.8× posting growth</span></h3></div>
+      <dl class="kv">
+        <dt>Added depth</dt><dd>Containerization, CI/CD, model registry &amp; versioning, orchestration/pipelines, monitoring &amp; drift detection, Kubernetes, cloud deployment, cost/observability.</dd>
+        <dt>Tech stack</dt><dd><span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">MLflow</span><span class="chip">FastAPI</span><span class="chip">GitHub Actions/CI-CD</span><span class="chip">Airflow/Kubeflow</span><span class="chip">Prometheus/Grafana</span><span class="chip">AWS/GCP/Azure</span></dd>
+        <dt>Capstone</dt><dd><strong>End-to-end ML platform</strong> — a pipeline with CI/CD, model registry, automated retraining, and production monitoring (data + model drift) for a deployed model.</dd>
+        <dt>Job-ready</dt><dd>Can deploy, monitor and version models in production; an automated pipeline repo; a cloud ML/associate certification is a plus.</dd>
+      </dl>
+    </div>
+
+    <div class="role">
+      <div class="tophead"><h3>④ Data Scientist <span class="rank">BLS +34% to 2034</span></h3></div>
+      <dl class="kv">
+        <dt>Added depth</dt><dd>Advanced statistics, experimentation &amp; A/B testing, feature engineering, model interpretability (SHAP), data storytelling &amp; visualization, business framing.</dd>
+        <dt>Tech stack</dt><dd><span class="chip">scikit-learn</span><span class="chip">XGBoost</span><span class="chip">statsmodels</span><span class="chip">SHAP</span><span class="chip">Pandas</span><span class="chip">SQL</span><span class="chip">Plotly / Power BI / Tableau</span></dd>
+        <dt>Capstone</dt><dd><strong>Business analytics case</strong> — end-to-end analysis + predictive model + interpretability + a decision-ready dashboard and recommendation (e.g., churn/retention).</dd>
+        <dt>Job-ready</dt><dd>Can frame a business problem, model it, and communicate results; a portfolio of analyses + one deployed model + a dashboard.</dd>
+      </dl>
+    </div>
+
+    <div class="role">
+      <div class="tophead"><h3>⑤ Data / RAG Engineer <span class="rank">The RAG data layer</span></h3></div>
+      <dl class="kv">
+        <dt>Added depth</dt><dd>Data pipelines, chunking strategy, embedding selection, hybrid (dense+sparse) search, reranking, vector-DB operations at scale, data quality &amp; freshness.</dd>
+        <dt>Tech stack</dt><dd><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Airflow / dbt</span><span class="chip">pgvector / Pinecone / Weaviate</span><span class="chip">embedding models</span><span class="chip">LangChain / LlamaIndex</span></dd>
+        <dt>Capstone</dt><dd><strong>Production RAG pipeline</strong> — ingest → chunk → embed → hybrid search → rerank, with a retrieval-quality evaluation harness and refresh scheduling (e.g., legal/enterprise doc search).</dd>
+        <dt>Job-ready</dt><dd>Can build and evaluate a production retrieval layer; a pipeline repo with retrieval metrics (recall@k, MRR, faithfulness).</dd>
+      </dl>
+    </div>
+
+    <div class="role">
+      <div class="tophead"><h3>⑥ AI Solutions Architect <span class="rank">Advanced track</span></h3></div>
+      <dl class="kv">
+        <dt>Added depth</dt><dd>System design for AI, managed-vs-custom RAG, agentic workload patterns, multi-region/HA under LLM quotas, AI cost architecture, security &amp; governance, build-vs-buy across clouds.</dd>
+        <dt>Tech stack</dt><dd><span class="chip">AWS Bedrock</span><span class="chip">Azure AI</span><span class="chip">Google Vertex AI</span><span class="chip">architecture patterns</span><span class="chip">IaC (Terraform basics)</span><span class="chip">API gateways / guardrails</span></dd>
+        <dt>Capstone</dt><dd><strong>Reference architecture</strong> — design doc + reference implementation for an enterprise AI use case, with a cost model, scaling/HA plan, and a security/governance review.</dd>
+        <dt>Job-ready</dt><dd>Can design and justify an AI system end-to-end; an architecture portfolio + one reference build; a cloud architect/AI certification recommended.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ASSESSMENT -->
+  <section>
+    <h2>5 · Assessment &amp; checkpoint framework</h2>
+    <p class="lead">Every module is graded on three instruments; every phase has a checkpoint; the program ends with a capstone defense. Capstones are a mandatory, documented, end-to-end graduation requirement (FourthBrain/IBM model).</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Level</th><th>Instrument</th><th>What it measures</th></tr></thead>
+      <tbody>
+        <tr><td class="m">Module</td><td>Auto-graded quiz (concepts) + coding challenge (skills) + lab rubric</td><td>Knowledge recall + applied skill</td></tr>
+        <tr><td class="m">Phase checkpoint</td><td>Graded project against a rubric; ≥70–80% to advance</td><td>Integration of the phase's skills</td></tr>
+        <tr><td class="m">Capstone</td><td>Rubric: problem framing · correctness · <strong>eval rigor</strong> · code quality · docs · deployment · presentation</td><td>End-to-end shipping capability</td></tr>
+        <tr><td class="m">Exit / job-ready</td><td>Portfolio review + mock interview (role-specific: RAG/agent design, evals, cost/latency)</td><td>Market readiness</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note"><strong>Concept bank for AI-Engineer assessments</strong> (from 2026 interview analysis): RAG architecture · embeddings &amp; semantic similarity · tokenization/token-counting · temperature/calibration · quantization trade-offs · context windows · continuous batching · KV-cache reuse · GPU utilization · LLM-as-a-judge evaluation.</div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section>
+    <h2>6 · Project bank — real-world &amp; simulated</h2>
+    <p class="lead">Portfolio target: <strong>3–5 projects per track + a capstone</strong> on GitHub. Mix real/open-source contributions (portfolio credibility) with simulated "made-up" projects (controlled scope, resume-ready).</p>
+    <h3>Real-world / open-source</h3>
+    <p class="lead">Kaggle competitions · contribute to Hugging Face / LangChain / LlamaIndex issues · build on open datasets (government, retail, healthcare, geospatial) · reproduce a paper's result · fix/enhance an open-source RAG template.</p>
+    <h3>Simulated capstone projects (portfolio-ready, per role)</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Role</th><th>Simulated capstone</th><th>Demonstrates</th></tr></thead>
+      <tbody>
+        <tr><td class="m">AI Engineer</td><td>Enterprise HR/policy assistant (RAG + agent + guardrails + citations)</td><td>End-to-end RAG/agent, evals, guardrails, deployment</td></tr>
+        <tr><td class="m">GenAI/LLM Engineer</td><td>Fine-tuned support-ticket triage / domain chatbot, served + evaluated</td><td>Fine-tuning, serving, before/after eval</td></tr>
+        <tr><td class="m">MLOps Engineer</td><td>Fraud-detection model with CI/CD, registry, drift monitoring, auto-retrain</td><td>Production ML lifecycle</td></tr>
+        <tr><td class="m">Data Scientist</td><td>Telecom churn prediction + retention dashboard + recommendation</td><td>Modeling + interpretability + business communication</td></tr>
+        <tr><td class="m">Data/RAG Engineer</td><td>Legal/enterprise document search with hybrid retrieval + reranking + eval harness</td><td>Production retrieval layer + retrieval metrics</td></tr>
+        <tr><td class="m">Solutions Architect</td><td>Multi-tenant GenAI platform reference architecture + cost model</td><td>System design, cost/HA, governance</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- READINESS + CREDENTIALS -->
+  <section>
+    <h2>7 · "Job-ready" definition &amp; credentials</h2>
+    <p class="lead"><strong>Job-ready ≠ expert.</strong> It means: a candidate can apply for the role with a portfolio to show. Per-role exit criteria:</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Deliverable</th><th>Standard</th></tr></thead>
+      <tbody>
+        <tr><td class="m">Portfolio</td><td>3–5 projects + 1 capstone, documented on GitHub with READMEs and, where relevant, a live demo</td></tr>
+        <tr><td class="m">Capstone</td><td>End-to-end, eval-driven, deployed; defended before reviewers</td></tr>
+        <tr><td class="m">Interview prep</td><td>Role-specific mock interviews (system design, evals, cost/latency for AI roles)</td></tr>
+        <tr><td class="m">Resume &amp; profile</td><td>Targeted resume + LinkedIn/GitHub optimized to the role</td></tr>
+        <tr><td class="m">Optional credential</td><td>Cloud/AI cert (AWS ML, Google ML, Azure AI) and/or NASSCOM FutureSkills Prime for India hiring credibility</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note"><strong>Course anchors to license or mirror:</strong> DeepLearning.AI <em>ML Specialization</em> (foundations) · <em>Deep Learning Specialization</em> (DL) · <em>Generative AI with LLMs</em> (+AWS) · fast.ai <em>Practical Deep Learning</em> · Hugging Face <em>LLM/NLP course</em> · roadmap.sh <em>AI Engineer</em> · NASSCOM <em>FutureSkills Prime</em> (India credentialing rails).</div>
+  </section>
+
+  <!-- CAVEATS + SOURCES -->
+  <section>
+    <h2>8 · Confidence, caveats &amp; sources</h2>
+    <div class="callout">
+      <strong>Evidence strength:</strong> 24 of 25 researched claims confirmed via 3-vote adversarial verification. Market sizing and course benchmarks rest on <strong>primary sources</strong> (NASSCOM-Deloitte, DeepLearning.AI, IBM/Coursera, government portals). Sequencing and tech-stack specifics draw on reputable edtech roadmaps (Scaler, Dataquest) and roadmap.sh — industry convention, heavily cross-corroborated, but not a single canonical standard.<br><br>
+      <strong>Caveats:</strong> the AI Engineer track is the most thoroughly evidenced; the other five tracks apply the same validated structure/stack with role-specific design (synthesis). The 2026 tech stack (LangChain/LangGraph/CrewAI, vector DBs, inference techniques) and interview focus <strong>drift fast</strong> — re-check before each cohort. Market figures are forward projections from industry bodies with a skilling-advocacy interest.
+    </div>
+    <ul class="sources">
+      <li><span class="tag primary">PRIMARY</span> NASSCOM-Deloitte — "Advancing India's AI Skills" (market &amp; talent gap) · <a href="https://www.deloitte.com/in/en/about/press-room/bridging-the-ai-talent-gap-to-boost-indias-tech-and-economic-impact-deloitte-nasscom-report.html">deloitte.com</a> · <a href="https://indiaai.gov.in/article/india-s-ai-talent-pool-to-grow-to-1-25-million-by-2027-nasscom-deloitte-india-report">indiaai.gov.in</a></li>
+      <li><span class="tag primary">PRIMARY</span> DeepLearning.AI — ML Specialization, Deep Learning Specialization, Generative AI with LLMs (course anchors &amp; durations) · <a href="https://www.deeplearning.ai/courses">deeplearning.ai/courses</a></li>
+      <li><span class="tag secondary">SECONDARY</span> roadmap.sh — AI Engineer role scope &amp; roadmap · <a href="https://roadmap.sh/ai-engineer">roadmap.sh/ai-engineer</a></li>
+      <li><span class="tag secondary">SECONDARY</span> UPenn Career Services — 2026 AI Engineer interview guide (job-ready competencies, concept bank) · <a href="https://careerservices.upenn.edu/blog/2026/06/25/45-ai-engineer-interview-questions-answers-2026-guide/">careerservices.upenn.edu</a></li>
+      <li><span class="tag primary">PRIMARY</span> FourthBrain (Andrew Ng / AI Fund) &amp; IBM AI Capstone (capstone requirement &amp; rubric) · <a href="https://fourthbrain.ai/capstones/">fourthbrain.ai</a> · <a href="https://www.coursera.org/learn/ai-deep-learning-capstone">coursera.org</a></li>
+      <li><span class="tag blog">EDTECH</span> Scaler &amp; Dataquest — 6-month phased sequencing, tech stack, job-ready portfolio (19 projects) · <a href="https://www.scaler.com/blog/ai-engineer-roadmap-master-genai-llms-deep-learning/">scaler.com</a> · <a href="https://www.dataquest.io/blog/ai-engineer-roadmap/">dataquest.io</a></li>
+    </ul>
+  </section>
+
+  <footer class="report">
+    Research method: multi-source fan-out → 22 sources fetched → 93 claims extracted → 24 confirmed / 1 refuted via 3-vote adversarial verification. Curriculum design synthesizes verified sequencing, stacks and job-ready criteria with standard instructional design. Durations and stacks are 2026-current and should be refreshed per cohort. Prepared for internal program planning — Anvi Innovate.
+  </footer>
+
+</div>
+</body>
+</html>

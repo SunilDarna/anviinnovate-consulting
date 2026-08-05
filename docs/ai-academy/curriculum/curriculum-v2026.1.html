@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Anvi Innovate AI Academy — Complete Curriculum (NSQF-Aligned)</title>
+<style>
+  :root{--ink:#0B1F3A;--accent:#2563EB;--surface:#f8fafc;--card:#fff;--text:#0f172a;--muted:#475569;
+    --border:#e2e8f0;--ok:#15803d;--warn:#b45309;--shadow:0 1px 3px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.05)}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;background:var(--surface);color:var(--text);line-height:1.55;font-size:15px}
+  .wrap{max-width:1120px;margin:0 auto;padding:36px 20px 70px}
+  header.rp{background:radial-gradient(1100px 460px at 18% -25%,#1e40af 0%,#0B1F3A 60%);color:#fff;border-radius:18px;padding:34px 30px;box-shadow:var(--shadow)}
+  header.rp .kicker{display:inline-block;background:rgba(255,255,255,.12);color:#c7d2fe;font-weight:600;font-size:12.5px;padding:5px 12px;border-radius:999px}
+  header.rp h1{margin:13px 0 8px;font-size:clamp(1.6rem,3.6vw,2.3rem);line-height:1.15;letter-spacing:-.02em}
+  header.rp p{margin:0;color:#c7d2fe;max-width:80ch;font-size:14.5px}
+  header.rp .meta{margin-top:13px;font-size:12px;color:#93a7d6}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 4px}
+  .btn{border:none;background:var(--accent);color:#fff;font:inherit;font-weight:600;font-size:14px;padding:10px 16px;border-radius:9px;cursor:pointer}
+  nav.toc{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px 17px;margin-top:14px;box-shadow:var(--shadow);font-size:13.5px}
+  nav.toc a{color:var(--accent);text-decoration:none;display:inline-block;margin:3px 13px 3px 0}
+  section{margin-top:34px}
+  h2{font-size:1.32rem;color:var(--ink);margin:0 0 4px;border-left:4px solid var(--accent);padding-left:11px}
+  h3{font-size:1.02rem;color:var(--ink);margin:22px 0 5px;padding-bottom:3px;border-bottom:1px solid var(--border)}
+  h4{font-size:.92rem;color:var(--ink);margin:14px 0 4px}
+  .lead{color:var(--muted);margin:9px 0 0;max-width:92ch;font-size:14px}
+  .box{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:11px;padding:16px 18px;box-shadow:var(--shadow);font-size:14px}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+  @media(max-width:820px){.cards{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:14px;box-shadow:var(--shadow)}
+  .stat b{display:block;font-size:1.35rem;color:var(--ink)}
+  .stat span{font-size:12.5px}.stat small{display:block;color:var(--muted);font-size:10.5px;margin-top:5px}
+  .tw{overflow-x:auto;border:1px solid var(--border);border-radius:11px;box-shadow:var(--shadow);background:var(--card);margin-top:11px}
+  table{border-collapse:collapse;width:100%;font-size:12.5px;min-width:640px}
+  th,td{text-align:left;padding:8px 11px;border-bottom:1px solid var(--border);vertical-align:top}
+  thead th{background:#f1f5f9;color:var(--ink);font-weight:700}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:nth-child(even){background:#fbfdff}
+  td.c{font-weight:700;color:var(--ink);white-space:nowrap}
+  code{background:#f1f5f9;padding:1px 5px;border-radius:4px;font-size:11.5px}
+  .sub{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:17px 19px;margin-top:14px}
+  .sub .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:2px solid var(--accent);padding-bottom:7px;margin-bottom:10px}
+  .sub .hd h3{margin:0;border:none;padding:0;font-size:1.05rem}
+  .pill{font-size:11px;font-weight:700;color:#fff;background:var(--accent);border-radius:5px;padding:2px 8px}
+  .pill.g{background:var(--ok)}.pill.o{background:var(--warn)}.pill.d{background:#334155}
+  dl.kv{display:grid;grid-template-columns:126px 1fr;gap:4px 12px;margin:8px 0 0;font-size:13px}
+  dl.kv dt{color:var(--muted);font-weight:600}dl.kv dd{margin:0}
+  .scn{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 13px;font-size:12.5px;color:#14532d;margin-top:9px}
+  .scn b{color:#166534}
+  .note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px 15px;font-size:13px;color:#1e3a8a;margin-top:11px}
+  .warn{background:#fffbeb;border:1px solid #fde68a;color:#713f12}
+  .danger{background:#fef2f2;border:1px solid #fecaca;color:#7f1d1d}
+  ul.tight{margin:5px 0;padding-left:19px;font-size:13px}ul.tight li{margin:2px 0}
+  ul.src{list-style:none;padding:0;margin:11px 0 0;display:grid;gap:7px}
+  ul.src li{font-size:12px;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 11px}
+  ul.src a{color:var(--accent);text-decoration:none;word-break:break-all}
+  footer.rp{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);color:var(--muted);font-size:12px}
+  @media print{
+    body{background:#fff;font-size:10.5px}.wrap{max-width:none;padding:0}.toolbar,nav.toc{display:none}
+    header.rp{background:#0B1F3A !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border-radius:0}
+    .tw,.stat,.box,.sub,ul.src li{box-shadow:none}
+    table{font-size:9px;min-width:0}th,td{padding:4px 6px}
+    .sub,section{break-inside:avoid-page}h2{break-after:avoid}
+    @page{margin:12mm}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="rp">
+  <span class="kicker">Complete curriculum document · NSQF-aligned · industry-validated</span>
+  <h1>Anvi Innovate AI Academy<br>Full End-to-End Curriculum</h1>
+  <p>A complete, government-mappable and IT-industry-aligned AI/ML training curriculum taking learners from zero to deployment-ready across six specialisation tracks. Every subject, module, topic, lab, real-world work scenario, assessment instrument and hour allocation is specified.</p>
+  <div class="meta">Curriculum version 2026.1 · Prepared August 2026 · Mapped to QP <strong>SSC/Q8113</strong> (IT-ITeS SSC / NASSCOM, NSQF Level 7) and NSQF Model Curriculum v3.0 (480 h) · Extended to 960 h for industry readiness</div>
+</header>
+
+<div class="toolbar"><button class="btn" onclick="window.print()">⬇ Save as PDF / Print</button></div>
+
+<nav class="toc"><strong style="color:var(--ink)">Contents: </strong>
+<a href="#p1">1 Identity &amp; compliance</a><a href="#p2">2 Governing standards</a><a href="#p3">3 Architecture &amp; hours</a>
+<a href="#p4">4 Catalogue</a><a href="#p5">5 Foundations</a><a href="#p6">6 Core AI</a><a href="#p7">7 Applied GenAI</a>
+<a href="#p8">8 Role tracks</a><a href="#p9">9 Professional &amp; statutory</a><a href="#p10">10 Capstone &amp; OJT</a>
+<a href="#p11">11 Work scenarios</a><a href="#p12">12 Assessment &amp; NOS matrix</a><a href="#p13">13 Lab infrastructure</a>
+<a href="#p14">14 Trainer &amp; delivery</a><a href="#p15">15 Compliance checklist</a><a href="#p16">16 Sources</a>
+</nav>
+
+<!-- 1 -->
+<section id="p1">
+  <h2>1 · Programme identity &amp; compliance summary</h2>
+  <div class="tw"><table>
+    <tbody>
+      <tr><td class="c">Programme name</td><td>Anvi Innovate AI Academy — Applied AI Professional Programme</td></tr>
+      <tr><td class="c">Curriculum version</td><td>2026.1 (re-validated per cohort)</td></tr>
+      <tr><td class="c">Anchor qualification</td><td><strong>SSC/Q8113 — AI-Machine Learning Engineer</strong>, NSQF Level 7</td></tr>
+      <tr><td class="c">Awarding body</td><td>IT-ITeS Sector Skill Council (NASSCOM)</td></tr>
+      <tr><td class="c">NCO alignment</td><td>NCO-2015 / 2512</td></tr>
+      <tr><td class="c">Sector / Sub-sector</td><td>IT-ITeS / Future Skills · Occupation: Artificial Intelligence &amp; Big Data Analytics</td></tr>
+      <tr><td class="c">Statutory core</td><td>480 h per NSQF Model Curriculum v3.0 (144 Theory + 246 Practical + 90 OJT)</td></tr>
+      <tr><td class="c">Total programme</td><td><strong>960 h</strong> (480 h statutory core fully embedded + 480 h industry extension)</td></tr>
+      <tr><td class="c">Duration</td><td>24 weeks full-time @ 40 h/week · 44 weeks part-time @ ~22 h/week</td></tr>
+      <tr><td class="c">Entry (academy)</td><td>Final-year student or graduate — Engineering / Technology / Statistics / Mathematics / Computer Science / allied; English reading comprehension; basic computer literacy</td></tr>
+      <tr><td class="c">Pass standard</td><td><strong>70% aggregate; ≥70% on every technical NOS module</strong> (matches QP rule)</td></tr>
+      <tr><td class="c">Exit tracks</td><td>AI Engineer · GenAI/LLM Engineer · MLOps/LLMOps Engineer · Data Scientist · Data &amp; RAG Engineer · AI Solutions Architect</td></tr>
+      <tr><td class="c">Award</td><td>Academy certificate + NSQF-aligned assessment through SSC-approved assessment agency + role certification of record</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note danger"><strong>Compliance actions before first cohort:</strong> (1) Confirm the currently live version of SSC/Q8113 and Model Curriculum v3.0 with IT-ITeS SSC — the published QP v2.0 carries review/deactivation dating of 2025 and MC v3.0 shows validity to 22/09/2025. (2) Q8113 nominally expects a graduate with 2–3 years' experience; for pure freshers, register learners additionally against a fresher-appropriate QP (e.g. <em>Certified AI Associate</em> or <em>AI Application Developer</em>, NSQF 4.5, NIELIT) and use Q8113 as the aspirational exit standard. (3) Engage an SSC-empanelled assessment agency before enrolment.</div>
+</section>
+
+<!-- 2 -->
+<section id="p2">
+  <h2>2 · Governing standards — the compliance spine</h2>
+  <p class="lead">The curriculum is built <em>around</em> the National Occupational Standards, not retrofitted to them. Every NOS performance criterion below is delivered by a named module in §5–§10 and assessed by a named instrument in §12.</p>
+
+  <h3>2.1 Compulsory NOS and statutory weightage</h3>
+  <div class="tw"><table>
+    <thead><tr><th>NOS</th><th>Title</th><th>Theory</th><th>Practical</th><th>Total</th><th>QP weight</th><th>Delivered by</th></tr></thead>
+    <tbody>
+      <tr><td class="c">SSC/N8121</td><td>Evaluate technical performance of algorithmic models</td><td>30</td><td>70</td><td>100</td><td><strong>25%</strong></td><td>C02, C05, G04, all capstones</td></tr>
+      <tr><td class="c">SSC/N8122</td><td>Develop software code to support deployment of algorithmic models</td><td>25</td><td>75</td><td>100</td><td><strong>25%</strong></td><td>C05, R3, all track projects</td></tr>
+      <tr><td class="c">SSC/N9001</td><td>Manage your work to meet requirements</td><td>25</td><td>75</td><td>100</td><td>10%</td><td>P01, sprint cadence</td></tr>
+      <tr><td class="c">SSC/N9002</td><td>Work effectively with colleagues</td><td>20</td><td>80</td><td>100</td><td>10%</td><td>P01, pair programming, code review</td></tr>
+      <tr><td class="c">SSC/N9004</td><td>Provide data/information in standard formats</td><td colspan="3">per SSC criteria</td><td>—</td><td>P01, documentation &amp; reporting standard</td></tr>
+      <tr><td class="c">SSC/N9006</td><td>Build and maintain relationships in a workplace</td><td colspan="3">per SSC criteria</td><td>—</td><td>P01, team projects, stakeholder simulation</td></tr>
+      <tr><td class="c">SSC/N9014</td><td>Maintain an inclusive, environmentally sustainable workplace</td><td>10 h</td><td>20 h</td><td>30 h</td><td>—</td><td>P02</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>2.2 SSC/N8121 — performance criteria → delivery map</h3>
+  <div class="tw"><table>
+    <thead><tr><th>PC</th><th>Performance criterion (verbatim)</th><th>Module</th><th>Assessed by</th></tr></thead>
+    <tbody>
+      <tr><td class="c">PC1</td><td>Define technical specifications and limitations of the system running the algorithmic model</td><td>C02 M1</td><td>Spec document + viva</td></tr>
+      <tr><td class="c">PC2</td><td>Define the data flows and evaluate the data structures in the algorithmic model</td><td>C02 M1</td><td>Data-flow diagram assessment</td></tr>
+      <tr><td class="c">PC3</td><td>Evaluate the speed, runtime and memory interdependencies of the algorithmic model</td><td>C02 M2</td><td>Profiling lab report</td></tr>
+      <tr><td class="c">PC4</td><td>Evaluate the parallel programming constraints of the system</td><td>C02 M3</td><td>Parallelism practical</td></tr>
+      <tr><td class="c">PC5</td><td>Modify and test the algorithmic model to fit speed, runtime and memory limitations</td><td>C02 M4</td><td>Optimisation practical (before/after metrics)</td></tr>
+      <tr><td class="c">PC6</td><td>Update documentation on the algorithmic model</td><td>C02 M5</td><td>Model card review</td></tr>
+      <tr><td class="c">PC7</td><td>Provide feedback on model performance to the team responsible for design/development</td><td>C02 M5</td><td>Structured feedback exercise</td></tr>
+    </tbody>
+  </table></div>
+  <p class="lead"><strong>Knowledge &amp; Understanding covered (KU1–KU15):</strong> system purpose and aims; organisational policy for evaluating model performance, data sharing and documentation; data sources and access; escalation and stakeholder involvement; standard templates and tools; interpreting technical specifications and system limits; algorithmic model families; data flows and structures; speed/runtime/memory dependency analysis; parallel computing architectures <strong>SISD, SIMD, MISD, MIMD</strong>; performance measurement methodology including <strong>Big-O notation</strong>; anomaly identification and referral; operating in <strong>Linux/Ubuntu/Windows</strong> environments. <strong>Generic Skills (GS1–GS4):</strong> deciding suitable courses of action; planning and organising own work to deadlines; referring anomalies to supervisor; checking work is complete and error-free.</p>
+
+  <h3>2.3 SSC/N8122 — performance criteria → delivery map</h3>
+  <div class="tw"><table>
+    <thead><tr><th>PC</th><th>Performance criterion (verbatim)</th><th>Module</th><th>Assessed by</th></tr></thead>
+    <tbody>
+      <tr><td class="c">PC1</td><td>Define technical specifications and limitations of the autonomous system</td><td>C05 M1</td><td>SRS document</td></tr>
+      <tr><td class="c">PC2</td><td>Evaluate the design of data flows and structures in the autonomous system</td><td>C05 M1</td><td>HLD review</td></tr>
+      <tr><td class="c">PC3</td><td>Evaluate the design of core algorithmic models in the autonomous system</td><td>C05 M2</td><td>Design critique</td></tr>
+      <tr><td class="c">PC4</td><td>Evaluate the parallel programming constraints of the autonomous system</td><td>C05 M2</td><td>Constraint analysis</td></tr>
+      <tr><td class="c">PC5</td><td>Integrate specifications, data flows, models and parallel constraints into reusable code</td><td>C05 M3</td><td>Code artefact + reuse review</td></tr>
+      <tr><td class="c">PC6</td><td>Create documentation on developed software code for relevant stakeholders</td><td>C05 M3</td><td>Docs rubric</td></tr>
+      <tr><td class="c">PC7</td><td>Validate developed code with relevant stakeholders</td><td>C05 M3</td><td>Walkthrough/demo</td></tr>
+      <tr><td class="c">PC8</td><td>Create and execute unit test cases to analyse the performance of the code</td><td>C05 M4</td><td>Test suite + coverage</td></tr>
+      <tr><td class="c">PC9</td><td>Evaluate the defects in the code and identify corrective actions</td><td>C05 M4</td><td>Defect log</td></tr>
+      <tr><td class="c">PC10</td><td>Implement corrective actions to optimise code performance</td><td>C05 M4</td><td>Refactor practical</td></tr>
+      <tr><td class="c">PC11</td><td>Submit tested and optimised code for approval by appropriate people</td><td>C05 M5</td><td>PR approval gate</td></tr>
+    </tbody>
+  </table></div>
+  <p class="lead"><strong>Scope elements to be taught explicitly:</strong> Software Requirements Specification (functional and non-functional requirements); High-Level Design (technical solution and rationale, assumptions, constraints, dependencies, interfaces); Low-Level Design (programming structures, coding standards, checklists). <strong>KU coverage (KU1–KU18)</strong> includes approval processes for code designs, code-generation and unit-testing tool ranges, component reuse determination, defect taxonomy and how recorded corrective actions improve future design.</p>
+</section>
+
+<!-- 3 -->
+<section id="p3">
+  <h2>3 · Programme architecture &amp; hour allocation</h2>
+  <div class="cards">
+    <div class="stat"><b>960 h</b><span>total programme</span><small>24 weeks full-time</small></div>
+    <div class="stat"><b>480 h</b><span>statutory core embedded</span><small>Model Curriculum v3.0</small></div>
+    <div class="stat"><b>~62%</b><span>practical &amp; project hours</span><small>practical-dominant by design</small></div>
+    <div class="stat"><b>90 h</b><span>mandatory OJT</span><small>industry immersion</small></div>
+  </div>
+
+  <h3>3.1 Semester structure</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Stage</th><th>Weeks</th><th>Subjects</th><th>Theory</th><th>Practical</th><th>Total</th><th>Gate</th></tr></thead>
+    <tbody>
+      <tr><td class="c">A · Foundations</td><td>1–6</td><td>F01–F08</td><td>90</td><td>150</td><td>240 h</td><td>Gate 1 — Foundations examination</td></tr>
+      <tr><td class="c">B · Core AI</td><td>7–12</td><td>C01–C05</td><td>96</td><td>144</td><td>240 h</td><td>Gate 2 — NOS 8121/8122 practical</td></tr>
+      <tr><td class="c">C · Applied GenAI</td><td>13–18</td><td>G01–G05</td><td>84</td><td>156</td><td>240 h</td><td>Gate 3 — RAG/agent system with evals</td></tr>
+      <tr><td class="c">D · Specialisation</td><td>19–22</td><td>One of R1–R6</td><td>48</td><td>112</td><td>160 h</td><td>Gate 4 — deployed track project</td></tr>
+      <tr><td class="c">E · Capstone</td><td>23–24</td><td>X01</td><td>10</td><td>70</td><td>80 h</td><td>Gate 5 — capstone defence</td></tr>
+      <tr><td class="c">Parallel</td><td>1–24</td><td>P01, P02</td><td>34</td><td>56</td><td>90 h</td><td>Continuous evaluation</td></tr>
+      <tr><td class="c">Post</td><td>25+</td><td>X02 OJT</td><td>—</td><td>—</td><td>90 h</td><td>Supervisor sign-off</td></tr>
+      <tr style="background:#eff6ff"><td class="c">TOTAL</td><td>24 wks</td><td>—</td><td><strong>362</strong></td><td><strong>688</strong></td><td><strong>1050 h</strong></td><td>incl. OJT</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>3.2 Statutory core embedding map</h3>
+  <p class="lead">Every hour of the government Model Curriculum is accounted for inside the academy programme.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Model Curriculum module (v3.0)</th><th>Statutory hours</th><th>Delivered inside</th></tr></thead>
+    <tbody>
+      <tr><td>Module 1 (Bridge): AI &amp; Big Data Analytics — An Introduction</td><td>4 T + 8 P = 12</td><td>F07</td></tr>
+      <tr><td>Module 2 (Bridge): Product Engineering Basics</td><td>8 T + 18 P = 26</td><td>F08</td></tr>
+      <tr><td>Module 3 (Bridge): Basic Statistical Concepts</td><td>8 T + 16 P = 24</td><td>F04</td></tr>
+      <tr><td>Module 4 (Bridge): Development Tools and Usage</td><td>10 T + 18 P = 28</td><td>F01, F02, F06</td></tr>
+      <tr><td>Module 5: Performance Evaluation of Algorithmic Models (SSC/N8121)</td><td>40 T + 50 P = 90</td><td><strong>C02</strong></td></tr>
+      <tr><td>Module 6: Code Development (SSC/N8122)</td><td>40 T + 80 P = 120</td><td><strong>C05</strong></td></tr>
+      <tr><td>Module 12: Inclusive &amp; environmentally sustainable workplaces (SSC/N9014)</td><td>10 T + 20 P = 30</td><td>P02</td></tr>
+      <tr><td>Employability Skills (DGT/VSQ/N0102), Modules 6–17</td><td>24 T + 36 P = 60</td><td>P01</td></tr>
+      <tr><td>On-the-Job Training (mandatory)</td><td>90</td><td>X02</td></tr>
+      <tr style="background:#eff6ff"><td><strong>Statutory total</strong></td><td><strong>144 T + 246 P + 90 OJT = 480 h</strong></td><td>Fully embedded</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 4 -->
+<section id="p4">
+  <h2>4 · Subject catalogue</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Code</th><th>Subject</th><th>Hours</th><th>Prerequisite</th><th>NOS</th></tr></thead>
+    <tbody>
+      <tr><td class="c">F01</td><td>Programming Foundations with Python</td><td>48</td><td>—</td><td>Bridge M4</td></tr>
+      <tr><td class="c">F02</td><td>Software Engineering, Git &amp; Collaboration</td><td>28</td><td>F01</td><td>Bridge M4, N9002</td></tr>
+      <tr><td class="c">F03</td><td>Data Handling, Wrangling &amp; Visualisation</td><td>36</td><td>F01</td><td>N9004</td></tr>
+      <tr><td class="c">F04</td><td>Mathematics &amp; Statistics for AI</td><td>40</td><td>—</td><td>Bridge M3</td></tr>
+      <tr><td class="c">F05</td><td>Databases &amp; SQL for AI Systems</td><td>28</td><td>F01</td><td>N9004</td></tr>
+      <tr><td class="c">F06</td><td>Linux, Networking &amp; Cloud Fundamentals</td><td>24</td><td>—</td><td>Bridge M4, KU15</td></tr>
+      <tr><td class="c">F07</td><td>AI &amp; Big Data Analytics — Industry Landscape</td><td>12</td><td>—</td><td>Bridge M1</td></tr>
+      <tr><td class="c">F08</td><td>Product Engineering &amp; SDLC Basics</td><td>24</td><td>—</td><td>Bridge M2</td></tr>
+      <tr><td class="c">C01</td><td>Classical Machine Learning</td><td>56</td><td>F01,F03,F04</td><td>KU9</td></tr>
+      <tr><td class="c">C02</td><td><strong>Model Evaluation &amp; Performance Engineering</strong></td><td>90</td><td>C01</td><td><strong>SSC/N8121</strong></td></tr>
+      <tr><td class="c">C03</td><td>Deep Learning</td><td>48</td><td>C01</td><td>KU9</td></tr>
+      <tr><td class="c">C04</td><td>Transformers &amp; Representation Learning</td><td>26</td><td>C03</td><td>KU9</td></tr>
+      <tr><td class="c">C05</td><td><strong>Software Code Development for Model Deployment</strong></td><td>120</td><td>F02,C01</td><td><strong>SSC/N8122</strong></td></tr>
+      <tr><td class="c">G01</td><td>Large Language Models &amp; Prompt Engineering</td><td>44</td><td>C04</td><td>—</td></tr>
+      <tr><td class="c">G02</td><td>Retrieval-Augmented Generation</td><td>56</td><td>G01,F05</td><td>—</td></tr>
+      <tr><td class="c">G03</td><td>AI Agents &amp; Tool Orchestration</td><td>48</td><td>G02</td><td>—</td></tr>
+      <tr><td class="c">G04</td><td>LLM Evaluation, Observability &amp; Cost</td><td>44</td><td>G02</td><td>SSC/N8121</td></tr>
+      <tr><td class="c">G05</td><td>Responsible AI, Security &amp; Data Governance</td><td>48</td><td>G01</td><td>N9014</td></tr>
+      <tr><td class="c">R1–R6</td><td>Role specialisation track (one)</td><td>160</td><td>Gate 3</td><td>N8121, N8122</td></tr>
+      <tr><td class="c">P01</td><td>Professional Practice &amp; Employability</td><td>60</td><td>—</td><td>N9001,N9002,N9004,N9006</td></tr>
+      <tr><td class="c">P02</td><td>Inclusive &amp; Sustainable Workplace</td><td>30</td><td>—</td><td>SSC/N9014</td></tr>
+      <tr><td class="c">X01</td><td>Capstone Project</td><td>80</td><td>Gate 4</td><td>All</td></tr>
+      <tr><td class="c">X02</td><td>On-the-Job Training / Industry Immersion</td><td>90</td><td>Gate 5</td><td>All</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 5 FOUNDATIONS -->
+<section id="p5">
+  <h2>5 · Stage A — Foundations (Weeks 1–6 · 240 h)</h2>
+
+  <div class="sub">
+    <div class="hd"><h3>F01 · Programming Foundations with Python</h3><span class="pill">48 h · 16 T / 32 P</span></div>
+    <dl class="kv"><dt>Prerequisite</dt><dd>None</dd><dt>Outcome</dt><dd>Writes tested, modular, idiomatic Python for data and AI workloads</dd></dl>
+    <h4>Modules &amp; topics</h4>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Interpreter, environments (<code>venv</code>/<code>uv</code>), package management, project layout, PEP 8, editors and debuggers</td><td>Provision a reproducible project skeleton with pinned dependencies</td><td>6</td></tr>
+      <tr><td class="c">M2</td><td>Types, strings, f-strings, collections (list/tuple/dict/set), comprehensions, slicing, mutability semantics</td><td>Data-transformation kata set (12 problems)</td><td>8</td></tr>
+      <tr><td class="c">M3</td><td>Control flow, functions, arguments/defaults, scope, closures, decorators, generators, iterators, context managers</td><td>Build a retry decorator and a streaming file reader</td><td>8</td></tr>
+      <tr><td class="c">M4</td><td>OOP: classes, inheritance, composition, dunder methods, dataclasses, protocols; module and package design</td><td>Design a plug-in class hierarchy for data loaders</td><td>8</td></tr>
+      <tr><td class="c">M5</td><td>Errors and exceptions, custom exceptions, logging, defensive programming, type hints, <code>mypy</code></td><td>Add typing and structured logging to an existing script</td><td>6</td></tr>
+      <tr><td class="c">M6</td><td>File and data I/O: CSV, JSON, JSONL, Parquet, YAML; HTTP with <code>requests</code>; pagination, retries, rate limits</td><td>Build a resilient API-ingest client with backoff</td><td>6</td></tr>
+      <tr><td class="c">M7</td><td>Testing with <code>pytest</code>: unit tests, fixtures, parametrisation, mocking, coverage; linting with <code>ruff</code></td><td>Achieve ≥80% coverage on the ingest client</td><td>6</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Real work scenario —</b> You inherit an undocumented data-pull script that fails silently every third night. Reproduce the failure, add structured logging and typed interfaces, write regression tests that capture the bug, fix it, and raise a pull request with a written root-cause note.</div>
+    <dl class="kv"><dt>Assessment</dt><dd>Auto-graded coding challenge (40) · lab portfolio rubric (40) · code-review participation (20)</dd></dl>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>F02 · Software Engineering, Git &amp; Collaboration</h3><span class="pill">28 h · 10 T / 18 P</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Version control model, repositories, commits, branching strategies (trunk-based, GitFlow), merge vs rebase, conflict resolution</td><td>Resolve a deliberately conflicted merge</td><td>7</td></tr>
+      <tr><td class="c">M2</td><td>Collaboration: pull requests, review etiquette, commit hygiene, semantic versioning, changelogs, issue tracking</td><td>Two-person PR exchange with mandatory review comments</td><td>7</td></tr>
+      <tr><td class="c">M3</td><td>Coding standards, checklists, low-level design conventions, docstrings, README and architecture documentation</td><td>Author a repository standard and enforce it via linting</td><td>7</td></tr>
+      <tr><td class="c">M4</td><td>CI basics: GitHub Actions, automated test and lint gates, branch protection, secrets handling</td><td>CI pipeline that blocks merge on test or lint failure</td><td>7</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Real work scenario —</b> A teammate's PR breaks the build and mixes three unrelated changes. Review it professionally, request specific changes, help split the commits, and get the pipeline green without a direct push to main.</div>
+    <dl class="kv"><dt>NOS</dt><dd>Supports SSC/N9002 (PC1–PC6), SSC/N8122 KU7–KU8</dd><dt>Assessment</dt><dd>PR review rubric · CI pipeline practical</dd></dl>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>F03 · Data Handling, Wrangling &amp; Visualisation</h3><span class="pill">36 h · 12 T / 24 P</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>NumPy: ndarray, dtypes, broadcasting, vectorisation, axis semantics, memory layout, random number generation</td><td>Replace loops with vectorised operations; benchmark speed-up</td><td>8</td></tr>
+      <tr><td class="c">M2</td><td>Pandas: Series/DataFrame, indexing, selection, joins/merges, group-by aggregation, reshaping, time series, categoricals</td><td>Join four heterogeneous sources into one analysis table</td><td>10</td></tr>
+      <tr><td class="c">M3</td><td>Data quality: missing values, duplicates, outliers, type coercion, encoding issues, validation rules, data contracts</td><td>Build a validation layer that quarantines bad rows</td><td>8</td></tr>
+      <tr><td class="c">M4</td><td>Exploratory data analysis workflow; visualisation with Matplotlib and Seaborn; chart selection; communicating uncertainty</td><td>Produce a decision-oriented EDA report</td><td>10</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Real work scenario —</b> Business reports a revenue dashboard is "wrong". Trace the discrepancy through the join logic, discover duplicate keys inflating totals, quantify the impact, correct the pipeline, and write the incident summary for a non-technical stakeholder.</div>
+    <dl class="kv"><dt>NOS</dt><dd>SSC/N9004 (PC1–PC6) · SSC/N8121 KU3, KU10</dd></dl>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>F04 · Mathematics &amp; Statistics for AI</h3><span class="pill">40 h · 18 T / 22 P — embeds statutory Bridge Module 3</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Linear algebra: vectors, matrices, matrix multiplication, transpose, inverse, identity, rank, eigenvalues and eigenvectors, norms, dot product and cosine similarity</td><td>Implement matrix operations and cosine similarity from first principles</td><td>10</td></tr>
+      <tr><td class="c">M2</td><td>Calculus for optimisation: derivatives, partial derivatives, chain rule, gradients, convexity, gradient descent and variants</td><td>Implement batch and stochastic gradient descent; visualise convergence</td><td>8</td></tr>
+      <tr><td class="c">M3</td><td>Descriptive statistics: measures of central tendency (mean, median, mode), dispersion, variance, standard deviation, skew, percentiles; statistical anomalies — missing values, bias, outliers</td><td>Statistical profile of a raw production dataset</td><td>8</td></tr>
+      <tr><td class="c">M4</td><td>Probability: sample spaces, conditional probability, Bayes' theorem, independence, distributions (normal, binomial, Poisson), CLT</td><td>Bayesian update exercise on a classification prior</td><td>7</td></tr>
+      <tr><td class="c">M5</td><td>Inferential statistics: sampling, confidence intervals, hypothesis testing, p-values, type I/II error, statistical power, correlation vs causation</td><td>Design and analyse a controlled comparison</td><td>7</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Real work scenario —</b> A stakeholder claims a new feature "lifted conversion by 12%". Determine whether the sample supports the claim, compute the confidence interval, identify the confound, and present a defensible verdict.</div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>F05 · Databases &amp; SQL for AI Systems</h3><span class="pill">28 h · 10 T / 18 P</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Relational model, keys, normalisation, schema design, data types, constraints, indexing fundamentals</td><td>Design a normalised schema for a transactional domain</td><td>7</td></tr>
+      <tr><td class="c">M2</td><td>SQL: SELECT, filtering, joins (inner/outer/self), aggregation, GROUP BY/HAVING, subqueries, CTEs, window functions</td><td>Analytical query set of 20 graded problems</td><td>9</td></tr>
+      <tr><td class="c">M3</td><td>Query performance: execution plans, index selection, cardinality, partitioning, avoiding N+1 access patterns</td><td>Reduce a slow query's runtime by an order of magnitude</td><td>6</td></tr>
+      <tr><td class="c">M4</td><td>Access from Python (<code>SQLAlchemy</code>, drivers, connection pooling); transactions and isolation; NoSQL and vector-store preview</td><td>Parameterised, pooled data-access layer</td><td>6</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Real work scenario —</b> A nightly aggregation job has grown from 4 minutes to 90 minutes. Read the execution plan, identify the missing composite index and the accidental cross join, fix both, and document the before/after.</div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>F06 · Linux, Networking &amp; Cloud Fundamentals</h3><span class="pill">24 h · 8 T / 16 P — satisfies SSC/N8121 KU15</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Linux/Ubuntu: filesystem, permissions, processes, package managers, shell scripting, SSH, cron, systemd basics; working across Linux and Windows</td><td>Automate a scheduled data job on a Linux VM</td><td>8</td></tr>
+      <tr><td class="c">M2</td><td>Networking: TCP/IP, DNS, HTTP/HTTPS, TLS, ports, firewalls, proxies, REST semantics, status codes, latency vs throughput</td><td>Diagnose a failing service call end to end</td><td>6</td></tr>
+      <tr><td class="c">M3</td><td>Cloud fundamentals: regions and availability zones, IAM and least privilege, compute, object storage, managed databases, secrets management, cost model</td><td>Provision least-privilege storage and compute for a workload</td><td>6</td></tr>
+      <tr><td class="c">M4</td><td>Containers introduction: images, layers, Dockerfile, registries, volumes, port mapping</td><td>Containerise a Python service</td><td>4</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Real work scenario —</b> A model service works locally but returns 502 in the cloud. Work down the stack — container port binding, security group, IAM permission, secret injection — and produce a runbook so the next engineer resolves it in minutes.</div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>F07 · AI &amp; Big Data Analytics — Industry Landscape</h3><span class="pill">12 h · 4 T / 8 P — statutory Bridge Module 1</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>AI, ML, deep learning and generative AI — definitions and boundaries; the AI project lifecycle; data-to-value chain</td><td>Map a business problem to an AI solution pattern</td><td>4</td></tr>
+      <tr><td class="c">M2</td><td>Industry use cases across BFSI, healthcare, retail, manufacturing, telecom and public services; build-vs-buy; failure patterns</td><td>Use-case teardown of a deployed industry system</td><td>4</td></tr>
+      <tr><td class="c">M3</td><td>Occupational roles in AI &amp; Big Data Analytics: AI engineer, ML engineer, data scientist, data engineer, MLOps, solutions architect, annotator — responsibilities, interfaces and career ladders</td><td>Role-mapping exercise against live job descriptions</td><td>4</td></tr>
+    </tbody></table></div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>F08 · Product Engineering &amp; SDLC Basics</h3><span class="pill">24 h · 8 T / 16 P — statutory Bridge Module 2</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>SDLC models; Agile and Scrum: sprints, backlog, estimation, stand-ups, retrospectives; Kanban and WIP limits</td><td>Run a two-week simulated sprint with ceremonies</td><td>7</td></tr>
+      <tr><td class="c">M2</td><td>Requirements engineering: eliciting requirements, user stories, acceptance criteria, functional vs non-functional requirements, traceability</td><td>Convert an ambiguous business ask into a written SRS</td><td>7</td></tr>
+      <tr><td class="c">M3</td><td>Design documentation: High-Level Design (solution rationale, assumptions, constraints, dependencies, interfaces) and Low-Level Design (structures, standards, checklists)</td><td>Produce HLD and LLD for a model-serving feature</td><td>6</td></tr>
+      <tr><td class="c">M4</td><td>Delivery: release planning, timelines, dependency management, risk registers, definition of done, stakeholder communication</td><td>Build a delivery plan with a risk register</td><td>4</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Real work scenario —</b> The client changes a requirement mid-sprint. Assess the impact on scope, timeline and dependencies, update the SRS and risk register, and communicate the revised commitment in writing.</div>
+    <div class="note"><strong>Gate 1 — Foundations Examination (Week 6):</strong> 90-minute closed-book theory paper (Python, statistics, SQL, Linux, SDLC) + 3-hour practical (ingest → clean → analyse → visualise → commit via PR) + repository review. Pass ≥70%.</div>
+  </div>
+</section>
+
+<!-- 6 CORE -->
+<section id="p6">
+  <h2>6 · Stage B — Core AI (Weeks 7–12 · 240 h)</h2>
+
+  <div class="sub">
+    <div class="hd"><h3>C01 · Classical Machine Learning</h3><span class="pill">56 h · 20 T / 36 P</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Learning paradigms: supervised, unsupervised, semi-supervised, reinforcement; problem framing; train/validation/test discipline; overfitting and underfitting; bias–variance decomposition</td><td>Construct leakage-free splits for a temporal dataset</td><td>8</td></tr>
+      <tr><td class="c">M2</td><td>Regression: linear, polynomial, regularisation (Ridge, Lasso, ElasticNet); assumptions and diagnostics; residual analysis</td><td>Regularisation sweep with learning curves</td><td>8</td></tr>
+      <tr><td class="c">M3</td><td>Classification: logistic regression, k-NN, naïve Bayes, support vector machines and kernels, decision boundaries, class imbalance handling</td><td>Imbalanced classification with resampling and thresholds</td><td>10</td></tr>
+      <tr><td class="c">M4</td><td>Trees and ensembles: decision trees, bagging, random forests, boosting (gradient boosting, XGBoost, LightGBM), stacking, feature importance</td><td>Tune a gradient-boosted model against a baseline</td><td>10</td></tr>
+      <tr><td class="c">M5</td><td>Unsupervised learning: k-means, hierarchical clustering, DBSCAN, silhouette analysis, PCA and dimensionality reduction, anomaly detection</td><td>Segment customers and justify cluster count</td><td>10</td></tr>
+      <tr><td class="c">M6</td><td>Feature engineering: encoding, scaling, binning, interactions, temporal features, target leakage, pipelines and column transformers, hyperparameter search</td><td>End-to-end reproducible pipeline object</td><td>10</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Real work scenario —</b> Your model scores 0.94 AUC offline and fails in production. Discover that a feature was computed using post-event information, rebuild the feature set with a strict point-in-time join, and requantify honest performance.</div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>C02 · Model Evaluation &amp; Performance Engineering <span class="pill g">STATUTORY</span></h3><span class="pill">90 h · 40 T / 50 P — SSC/N8121</span></div>
+    <p class="lead">Delivers Model Curriculum Module 5 in full. This subject carries <strong>25% of the QP assessment weight</strong> and must be passed at ≥70% independently.</p>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>PC</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td><strong>Define model parameters.</strong> Technical specifications and limitations of the host system: CPU/GPU architecture, cores, clock, cache hierarchy, RAM and VRAM ceilings, storage I/O, OS constraints. Data flows and data structures inside the model: tensors, batches, feature stores, serialisation formats, precision (fp32/fp16/int8). Interface contracts and schema definition</td><td>Author a formal specification sheet documenting host limits and the model's data-flow graph</td><td>PC1, PC2</td><td>18</td></tr>
+      <tr><td class="c">M2</td><td><strong>Runtime, speed and memory analysis.</strong> Algorithmic complexity and <strong>Big-O notation</strong>; time and space trade-offs; profiling (<code>cProfile</code>, <code>line_profiler</code>, <code>memory_profiler</code>, PyTorch profiler); latency percentiles (p50/p95/p99), throughput, cold start; memory leaks, fragmentation, garbage collection; batch-size versus memory curves</td><td>Profile a model end to end; produce a flame graph and a bottleneck report ranked by impact</td><td>PC3</td><td>20</td></tr>
+      <tr><td class="c">M3</td><td><strong>Parallel programming constraints.</strong> Flynn's taxonomy — <strong>SISD, SIMD, MISD, MIMD</strong>; threads versus processes; the Python GIL; multiprocessing, vectorisation, BLAS threading; GPU execution model, kernels, occupancy, memory bandwidth; data parallel versus model parallel; Amdahl's law; synchronisation, race conditions and deadlock</td><td>Parallelise an inference workload; measure scaling efficiency against Amdahl's prediction</td><td>PC4</td><td>18</td></tr>
+      <tr><td class="c">M4</td><td><strong>Optimise to fit constraints.</strong> Quantisation (post-training and quantisation-aware), pruning, knowledge distillation, operator fusion, graph optimisation, ONNX export, batching strategies, caching, mixed precision; accuracy-versus-resource trade-off analysis; regression testing after optimisation</td><td>Reduce model latency and memory to a stated budget while holding accuracy within tolerance; present the trade-off curve</td><td>PC5</td><td>20</td></tr>
+      <tr><td class="c">M5</td><td><strong>Document and feed back.</strong> Model cards, evaluation reports, versioned documentation, reproducibility metadata; anomaly identification and referral; structured performance feedback to the design and development team; organisational policy for documentation and data sharing; escalation paths</td><td>Publish a model card and deliver a formal performance-feedback review to the modelling team</td><td>PC6, PC7</td><td>14</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Real work scenario —</b> Production inference must run within 200 ms at p95 on a 4-core CPU instance with 8 GB RAM, but the current model averages 850 ms. Establish the baseline, profile to locate the bottleneck, apply quantisation and batching, verify accuracy remains within the agreed tolerance, document the change in the model card, and formally report the trade-off to the data-science team.</div>
+    <dl class="kv"><dt>Assessment</dt><dd>Theory 30 marks · Practical 70 marks, mirroring the statutory split. Practical is graded on measured before/after evidence, not narrative.</dd></dl>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>C03 · Deep Learning</h3><span class="pill">48 h · 16 T / 32 P</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Neurons, activation functions, feed-forward networks, loss functions, backpropagation derivation, computational graphs, autograd</td><td>Implement a 2-layer network and backprop manually, then in PyTorch</td><td>10</td></tr>
+      <tr><td class="c">M2</td><td>Training dynamics: initialisation, optimisers (SGD, momentum, RMSProp, Adam, AdamW), learning-rate schedules, batch size, gradient clipping, vanishing/exploding gradients</td><td>Diagnose and repair a non-converging training run</td><td>10</td></tr>
+      <tr><td class="c">M3</td><td>Regularisation and generalisation: dropout, batch/layer normalisation, weight decay, early stopping, data augmentation, transfer learning and fine-tuning</td><td>Transfer-learn a pretrained backbone to a small dataset</td><td>10</td></tr>
+      <tr><td class="c">M4</td><td>Convolutional networks: convolution, pooling, stride/padding, receptive field, classic architectures, image pipelines</td><td>Train and evaluate an image classifier with augmentation</td><td>10</td></tr>
+      <tr><td class="c">M5</td><td>Sequence models: RNN, LSTM, GRU, sequence-to-sequence, teacher forcing, limitations that motivate attention</td><td>Sequence model on time-series or text; compare to a transformer baseline</td><td>8</td></tr>
+    </tbody></table></div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>C04 · Transformers &amp; Representation Learning</h3><span class="pill">26 h · 10 T / 16 P</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Attention mechanism: query–key–value, scaled dot-product attention and the √d scaling rationale, softmax weighting, multi-head attention, self versus cross attention, causal masking</td><td>Implement scaled dot-product and multi-head attention from scratch</td><td>10</td></tr>
+      <tr><td class="c">M2</td><td>Transformer architecture: encoder and decoder stacks, residual connections, layer normalisation, feed-forward blocks, positional encoding (absolute, learned, rotary), quadratic complexity in sequence length</td><td>Assemble a minimal transformer block and verify shapes and gradients</td><td>8</td></tr>
+      <tr><td class="c">M3</td><td>Representation learning: tokenisation (BPE, WordPiece, SentencePiece), vocabulary, embeddings, contextual versus static embeddings, embedding geometry, cosine similarity, pretraining objectives (causal LM, masked LM)</td><td>Train a tokeniser; probe embedding similarity behaviour</td><td>8</td></tr>
+    </tbody></table></div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>C05 · Software Code Development for Model Deployment <span class="pill g">STATUTORY</span></h3><span class="pill">120 h · 40 T / 80 P — SSC/N8122</span></div>
+    <p class="lead">Delivers Model Curriculum Module 6 in full. Carries <strong>25% of QP assessment weight</strong>; must be passed at ≥70% independently.</p>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>PC</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td><strong>Define requirements.</strong> Software Requirements Specification: functional and non-functional requirements (latency, throughput, availability, security, cost); technical specifications and limitations of the target system; evaluating the design of data flows and data structures; interface and schema contracts; traceability matrix</td><td>Produce a complete SRS and reviewed data-flow design for a model-serving system</td><td>PC1, PC2</td><td>22</td></tr>
+      <tr><td class="c">M2</td><td><strong>Evaluate model and concurrency design.</strong> Reviewing core algorithmic model design for deployability; High-Level Design — technical solution and rationale, assumptions, constraints, dependencies, interfaces; parallel programming constraints of the target system; concurrency models, thread safety, statelessness, idempotency</td><td>Write and defend an HLD including a concurrency and constraint analysis</td><td>PC3, PC4</td><td>22</td></tr>
+      <tr><td class="c">M3</td><td><strong>Convert specifications into reusable code.</strong> Low-Level Design: programming structures, coding standards, checklists; modular and reusable component design; determining component reuse suitability; serving frameworks (<code>FastAPI</code>), request/response schemas (<code>Pydantic</code>), configuration and secrets, dependency injection, packaging, containerisation; code-generation tooling; stakeholder documentation and validation walkthroughs</td><td>Implement a documented, containerised, schema-validated inference service and validate it with stakeholders</td><td>PC5, PC6, PC7</td><td>34</td></tr>
+      <tr><td class="c">M4</td><td><strong>Unit testing and defect management.</strong> Test design and the test pyramid; unit test case creation and execution; fixtures, mocking, parametrisation, coverage measurement; performance and load testing; defect taxonomy, triage, root-cause analysis, corrective action; recording corrective actions to improve future design; refactoring for performance</td><td>Build a test suite with coverage gate; log, classify and remediate seeded defects; optimise the hot path</td><td>PC8, PC9, PC10</td><td>28</td></tr>
+      <tr><td class="c">M5</td><td><strong>Approval and release.</strong> Organisational approval process for code designs; pull-request and sign-off workflow; release notes and versioning; deployment readiness checklist; handover documentation</td><td>Submit optimised, tested code through a formal approval gate to release</td><td>PC11</td><td>14</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Real work scenario —</b> Data science delivers a notebook model that must go live in three weeks under a 99.5% availability target. Write the SRS and HLD, refactor the notebook into a tested, containerised, schema-validated service, load-test it, remediate the defects found, document it, and take it through code review and release approval.</div>
+    <dl class="kv"><dt>Assessment</dt><dd>Theory 25 · Practical 75, mirroring the statutory split. Deliverables: SRS, HLD, LLD, running service, test suite with coverage report, defect log, approved PR.</dd></dl>
+    <div class="note"><strong>Gate 2 (Week 12):</strong> combined NOS practical — profile and optimise a supplied model to a stated budget (N8121) and deliver it as a tested, documented, containerised service (N8122). Both assessed independently at ≥70%.</div>
+  </div>
+</section>
+
+<!-- 7 GENAI -->
+<section id="p7">
+  <h2>7 · Stage C — Applied Generative AI (Weeks 13–18 · 240 h)</h2>
+
+  <div class="sub">
+    <div class="hd"><h3>G01 · Large Language Models &amp; Prompt Engineering</h3><span class="pill">44 h · 16 T / 28 P</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>LLM landscape: pretraining, instruction tuning, alignment (RLHF/RLAIF), model families, proprietary versus open-weights, context windows, capability and limitation profiles, model selection criteria</td><td>Benchmark three models on one task for quality, latency and cost</td><td>8</td></tr>
+      <tr><td class="c">M2</td><td>Inference mechanics: tokenisation and token accounting, sampling parameters (temperature, top-p, top-k), stop sequences, determinism, max tokens, streaming, context-window management and truncation strategy</td><td>Token-budget calculator and sampling sensitivity study</td><td>8</td></tr>
+      <tr><td class="c">M3</td><td>Prompt engineering: zero-shot, few-shot, chain-of-thought, role and system prompts, delimiters, output contracts, self-consistency, decomposition, prompt templating and versioning, anti-patterns</td><td>Build a versioned prompt library with regression cases</td><td>10</td></tr>
+      <tr><td class="c">M4</td><td>Structured outputs and integration: JSON mode, schema enforcement with <code>Pydantic</code>, function/tool calling, validation and repair loops, error taxonomy, retries, idempotency, provider SDKs and gateways</td><td>Service returning strictly schema-valid structured output with repair</td><td>10</td></tr>
+      <tr><td class="c">M5</td><td>Hallucination: causes, detection, grounding strategies, refusal design, confidence signalling, citation requirements</td><td>Measure and reduce unsupported-claim rate on a fixed task set</td><td>8</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Real work scenario —</b> A customer-facing summariser occasionally invents policy numbers. Build a reproducible failure set, add grounding and schema validation, define refusal behaviour, and demonstrate a measured reduction in fabricated fields.</div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>G02 · Retrieval-Augmented Generation</h3><span class="pill">56 h · 18 T / 38 P</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>RAG architecture: why retrieval, indexing pipeline versus query pipeline, grounding and citation, failure modes, when RAG is the wrong tool</td><td>Baseline RAG implementation end to end</td><td>8</td></tr>
+      <tr><td class="c">M2</td><td>Ingestion and parsing: document loaders, PDF/HTML/DOCX/table extraction, OCR, layout preservation, metadata extraction, incremental sync, deduplication, refresh scheduling</td><td>Ingest a heterogeneous corpus including scanned and tabular documents</td><td>10</td></tr>
+      <tr><td class="c">M3</td><td>Chunking strategy: fixed, recursive, semantic, parent-document and hierarchical chunking; overlap; chunk size versus recall; metadata design for filtering</td><td>Controlled chunking experiment measured on retrieval metrics</td><td>10</td></tr>
+      <tr><td class="c">M4</td><td>Embeddings and vector stores: embedding model selection and benchmarking, dimensionality, normalisation; index types (flat, HNSW, IVF), distance metrics, filtering, hybrid metadata queries, upserts, sharding and scale</td><td>Build and tune a vector index for recall and latency</td><td>12</td></tr>
+      <tr><td class="c">M5</td><td>Retrieval quality: dense versus sparse (BM25), hybrid fusion, reranking (cross-encoder), query rewriting and expansion, multi-hop retrieval, top-k selection, context assembly and ordering</td><td>Raise recall@k and precision with hybrid search plus reranking</td><td>10</td></tr>
+      <tr><td class="c">M6</td><td>Generation layer: grounded prompting, citation enforcement, context-window packing, conflicting-source handling, answerability and abstention</td><td>Citation-enforced answering with abstention on insufficient evidence</td><td>6</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Real work scenario —</b> An internal policy assistant answers confidently from outdated documents. Add document versioning and recency metadata, implement hybrid retrieval with reranking, enforce citations, and prove the improvement with retrieval and answer metrics on a fixed evaluation set.</div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>G03 · AI Agents &amp; Tool Orchestration</h3><span class="pill">48 h · 16 T / 32 P</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Agent foundations: agent loop, reasoning and acting patterns, planning versus reactive execution, when an agent is unnecessary, cost and latency implications</td><td>Single-tool agent with explicit termination conditions</td><td>8</td></tr>
+      <tr><td class="c">M2</td><td>Tool design: tool schemas and descriptions, function calling, argument validation, side-effect classification, idempotency, tool errors and recovery, Model Context Protocol servers</td><td>Build and expose a tool set including a stateful external action</td><td>10</td></tr>
+      <tr><td class="c">M3</td><td>Orchestration frameworks: graph and state-machine execution, durable state and checkpointing, resumability, branching and conditional edges, subgraphs, multi-agent patterns (supervisor, hierarchical), handoffs</td><td>Stateful multi-step workflow that resumes after induced failure</td><td>12</td></tr>
+      <tr><td class="c">M4</td><td>Memory: short-term context, conversation summarisation, long-term memory stores, retrieval-backed memory, memory hygiene and privacy</td><td>Add scoped, expiring memory to an assistant</td><td>8</td></tr>
+      <tr><td class="c">M5</td><td>Control and safety: human-in-the-loop approval gates, permission scoping and least privilege for tools, loop and cost caps, timeouts, sandboxing, audit trails</td><td>Approval-gated agent with enforced spend and iteration ceilings</td><td>10</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Real work scenario —</b> An agent authorised to issue refunds must never act alone above a threshold. Implement permission scoping, a human approval gate, idempotent tool calls, cost caps and a complete audit trail; then demonstrate correct behaviour under retry and partial-failure conditions.</div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>G04 · LLM Evaluation, Observability &amp; Cost</h3><span class="pill">44 h · 16 T / 28 P — reinforces SSC/N8121</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Evaluation strategy: what to measure, offline versus online, golden datasets, dataset curation and maintenance, annotation guidelines, inter-annotator agreement, test-set contamination</td><td>Construct a governed golden dataset with an annotation guide</td><td>8</td></tr>
+      <tr><td class="c">M2</td><td>Retrieval metrics: recall@k, precision@k, MRR, NDCG, hit rate, context precision and recall — evaluated <strong>independently of generation</strong></td><td>Retrieval-only evaluation harness with dashboards</td><td>8</td></tr>
+      <tr><td class="c">M3</td><td>Generation metrics: faithfulness/groundedness, answer relevance, correctness, completeness, toxicity and safety; deterministic assertions; <strong>LLM-as-a-judge</strong> design, judge bias, calibration and human agreement</td><td>Build and calibrate a judge against human labels</td><td>10</td></tr>
+      <tr><td class="c">M4</td><td>Agent and multi-turn evaluation: trajectory evaluation, tool-call correctness, task completion, conversation quality, regression suites</td><td>Trajectory evaluation for the G03 agent</td><td>6</td></tr>
+      <tr><td class="c">M5</td><td>Observability: tracing and spans, prompt and version logging, latency and token dashboards, error taxonomies, sampling live traffic, user feedback capture, drift detection</td><td>Instrument a live pipeline with end-to-end tracing</td><td>6</td></tr>
+      <tr><td class="c">M6</td><td>Cost and performance engineering: token accounting, prompt compression, caching (exact and semantic), model routing and tiering, batching, streaming, budget alarms, unit economics per request</td><td>Halve cost per query at constant measured quality</td><td>6</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Real work scenario —</b> Leadership asks whether a prompt change may ship. Run the regression suite, separate retrieval from generation effects, quantify quality delta with confidence, report cost and latency impact, and issue a go/no-go recommendation with evidence.</div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>G05 · Responsible AI, Security &amp; Data Governance</h3><span class="pill">48 h · 18 T / 30 P</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>AI security: prompt injection (direct and indirect), jailbreaks, data exfiltration through tools and retrieval, RAG corpus poisoning, insecure output handling, supply-chain risk in models and packages, agent permission escalation</td><td>Red-team a deployed assistant and document exploit paths</td><td>12</td></tr>
+      <tr><td class="c">M2</td><td>Guardrails: input and output filtering, allow/deny policies, refusal design, output validation, escalation thresholds, content classification, defence in depth, fail-safe defaults</td><td>Implement layered guardrails and measure bypass rate before and after</td><td>10</td></tr>
+      <tr><td class="c">M3</td><td>Privacy and data protection: PII identification and redaction, data minimisation, retention and deletion, consent, purpose limitation, cross-border and residency considerations, <strong>Digital Personal Data Protection Act 2023</strong> obligations, audit logging</td><td>Build a PII-redaction and retention layer with an audit trail</td><td>10</td></tr>
+      <tr><td class="c">M4</td><td>Fairness and transparency: bias sources across data, labels and feedback loops; fairness metrics; disparate impact testing; explainability; model cards and datasheets; documentation duties</td><td>Bias audit of a deployed classifier with mitigation proposal</td><td>10</td></tr>
+      <tr><td class="c">M5</td><td>Governance and assurance: acceptable-use policy, model risk management, approval workflows, incident response for AI failures, human oversight design, vendor and third-party assessment</td><td>Draft an AI acceptable-use and incident-response policy</td><td>6</td></tr>
+    </tbody></table></div>
+    <div class="note"><strong>Gate 3 (Week 18):</strong> deliver a grounded RAG assistant with an agentic action, layered guardrails, and an evaluation harness reporting retrieval and generation metrics independently, plus a cost-per-query figure. Pass ≥70%.</div>
+  </div>
+</section>
+
+<!-- 8 ROLE TRACKS -->
+<section id="p8">
+  <h2>8 · Stage D — Role specialisation tracks (Weeks 19–22 · 160 h each)</h2>
+  <p class="lead">Each track is a full subject of four modules plus a track project. Learners take exactly one. All tracks assume Gates 1–3 passed.</p>
+
+  <div class="sub">
+    <div class="hd"><h3>R1 · AI Engineer</h3><span class="pill">160 h · 48 T / 112 P</span></div>
+    <dl class="kv"><dt>Role scope</dt><dd>Applies pre-trained models and existing AI tooling to build and operate production AI features; does not train foundation models</dd><dt>Stack</dt><dd><code>Python</code> <code>FastAPI</code> <code>LangChain</code> <code>LangGraph</code> <code>LlamaIndex</code> <code>pgvector</code> <code>Qdrant</code> <code>LiteLLM</code> <code>Redis</code> <code>Docker</code> <code>RAGAS</code> <code>LangSmith</code> <code>GitHub Actions</code></dd></dl>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Production RAG engineering: query understanding and rewriting, multi-hop and recursive retrieval, reranker selection and tuning, chunk and index experimentation methodology, freshness and invalidation, multi-tenant corpus isolation</td><td>Systematic retrieval-tuning study raising recall@k on a fixed corpus with documented method</td><td>40</td></tr>
+      <tr><td class="c">M2</td><td>Agentic feature delivery: workflow decomposition, tool contract design, durable state, retries and compensating actions, partial failure handling, human-in-the-loop checkpoints, multi-agent supervision</td><td>Multi-step agent with durable state, approval gate and full recovery behaviour</td><td>40</td></tr>
+      <tr><td class="c">M3</td><td>Reliability, cost and latency engineering: model routing and fallback chains, provider outage handling, semantic and exact caching, streaming, concurrency and backpressure, rate-limit management, token budgeting, unit economics, SLOs and error budgets</td><td>Reduce cost per query by ≥50% and p95 latency by ≥30% at held quality</td><td>40</td></tr>
+      <tr><td class="c">M4</td><td>Ship and operate: service packaging, configuration and secrets, CI/CD with <strong>evaluation gates that block regression</strong>, canary release and rollback, tracing and alerting, on-call runbooks, post-incident review</td><td>Deploy behind an eval-gated pipeline; force a regression and prove the gate blocks it</td><td>40</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Track project —</b> Enterprise knowledge assistant: RAG over a multi-format corpus with enforced citations, an agentic action with approval gate, layered guardrails, evaluation harness separating retrieval and generation, documented cost and latency budget, deployed via CI/CD with eval gates, tracing and a runbook.</div>
+    <dl class="kv"><dt>Exit standard</dt><dd>Ships a RAG/agent system end to end and defends design under cost, latency and safety constraints; 4+ repositories; interview-ready on RAG and agent system design, evaluation methodology and inference economics</dd></dl>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>R2 · GenAI / LLM Engineer</h3><span class="pill">160 h · 48 T / 112 P</span></div>
+    <dl class="kv"><dt>Role scope</dt><dd>Adapts, serves and evaluates language models; owns fine-tuning and inference performance</dd><dt>Stack</dt><dd><code>PyTorch</code> <code>Hugging Face Transformers</code> <code>Datasets</code> <code>PEFT</code> <code>TRL</code> <code>bitsandbytes</code> <code>vLLM</code> <code>TGI</code> <code>DeepEval</code> <code>Weights &amp; Biases</code> <code>MLflow</code></dd></dl>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Dataset engineering: task definition, instruction dataset construction, synthetic data generation and filtering, quality rubrics, deduplication and decontamination, train/validation/test hygiene, licensing and provenance, annotation operations</td><td>Construct, clean and document an instruction dataset with a held-out evaluation split</td><td>36</td></tr>
+      <tr><td class="c">M2</td><td>Adaptation techniques: prompt engineering versus RAG versus fine-tuning decision framework; supervised fine-tuning; parameter-efficient methods (LoRA, QLoRA) — rank, alpha, target modules; preference optimisation (DPO); catastrophic forgetting; hyperparameter selection; compute and memory planning</td><td>Fine-tune an open-weights model with a parameter-efficient method and version the artefact</td><td>44</td></tr>
+      <tr><td class="c">M3</td><td>Inference optimisation and serving: quantisation formats and quality impact, <strong>KV-cache</strong> mechanics and reuse, paged attention, <strong>continuous batching</strong>, speculative decoding, tensor parallelism, GPU memory budgeting and utilisation, throughput versus latency tuning, autoscaling and cold start</td><td>Serve the tuned model; benchmark tokens/second, p95 latency, memory and cost per million tokens against the baseline</td><td>44</td></tr>
+      <tr><td class="c">M4</td><td>Rigorous evaluation and release: task-specific benchmark design, base-versus-tuned comparison, statistical significance, safety and regression evaluation, model cards, staged rollout and rollback criteria</td><td>Publish a comparative evaluation report supporting a release decision</td><td>36</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Track project —</b> Domain-adapted language model: build the dataset, fine-tune with a parameter-efficient method, self-host on an optimised serving stack, and publish a benchmark report versus the base model covering quality, latency, memory and cost, with a documented release recommendation.</div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>R3 · MLOps / LLMOps Engineer</h3><span class="pill">160 h · 48 T / 112 P</span></div>
+    <dl class="kv"><dt>Role scope</dt><dd>Owns the path to production and the reliability of AI systems in operation</dd><dt>Stack</dt><dd><code>Docker</code> <code>Kubernetes</code> <code>Helm</code> <code>MLflow</code> <code>DVC</code> <code>Airflow</code> <code>Terraform</code> <code>GitHub Actions</code> <code>Prometheus</code> <code>Grafana</code> <code>Evidently</code></dd></dl>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Containerisation and orchestration: image design and minimisation, multi-stage builds, registries and scanning; Kubernetes objects (pod, deployment, service, ingress, config, secret), resource requests and limits, autoscaling, GPU scheduling, node pools, rollout strategies</td><td>Deploy a scalable, resource-bounded model service on Kubernetes with autoscaling</td><td>40</td></tr>
+      <tr><td class="c">M2</td><td>Reproducibility and lineage: experiment tracking, model registry and staging transitions, dataset and artefact versioning, deterministic environments, orchestration DAGs, scheduling, backfills, dependency and failure handling</td><td>Automated, versioned training-to-registry pipeline with scheduled retraining</td><td>40</td></tr>
+      <tr><td class="c">M3</td><td>Continuous delivery for AI: test strategy for ML and LLM systems, <strong>evaluation gates in CI/CD</strong>, infrastructure as code, environment promotion, canary and blue-green deployment, automated rollback, secrets and supply-chain security</td><td>Pipeline that automatically blocks promotion when evaluation scores regress</td><td>40</td></tr>
+      <tr><td class="c">M4</td><td>Operations and observability: metrics, logs and traces; data drift, concept drift and prediction drift; performance and cost dashboards; alerting and thresholds; SLO and error-budget management; incident response and post-mortems; capacity planning</td><td>Drift detection with alerting plus an incident runbook and simulated incident</td><td>40</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Track project —</b> Production ML platform: pipeline, registry, evaluation-gated CI/CD, canary deployment with automated rollback, drift monitoring and alerting, cost dashboard, and an operational runbook — demonstrated through an induced failure and recovery.</div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>R4 · Data Scientist</h3><span class="pill">160 h · 56 T / 104 P</span></div>
+    <dl class="kv"><dt>Role scope</dt><dd>Converts business questions into measured, defensible, decision-grade analysis and models</dd><dt>Stack</dt><dd><code>Python</code> <code>SQL</code> <code>scikit-learn</code> <code>XGBoost</code> <code>statsmodels</code> <code>SHAP</code> <code>Prophet</code> <code>Plotly</code> <code>Streamlit</code> <code>Power BI/Tableau</code></dd></dl>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Problem framing and metric design: translating business objectives into measurable targets, primary versus guardrail metrics, proxy-metric risk, baselines, cost of errors, decision thresholds, stakeholder alignment</td><td>Convert an ambiguous business objective into a measurable analytical plan</td><td>36</td></tr>
+      <tr><td class="c">M2</td><td>Inference and experimentation: sampling, estimation, confidence intervals, hypothesis testing, multiple comparisons, power and sample-size calculation, A/B test design and analysis, sequential testing pitfalls, quasi-experiments, confounding and causal reasoning</td><td>Design, power and analyse a controlled experiment; write the decision memo</td><td>44</td></tr>
+      <tr><td class="c">M3</td><td>Advanced modelling and interpretability: regularisation, ensembles, time-series forecasting and seasonality, survival and uplift concepts, calibration, feature attribution with SHAP, partial dependence, fairness assessment, model limitations</td><td>Build a calibrated, explained model with a documented limitations section</td><td>44</td></tr>
+      <tr><td class="c">M4</td><td>Communication and decision support: narrative structure, executive summaries, visual encoding principles, dashboard design, uncertainty communication, recommendation framing, handling challenge from stakeholders</td><td>Present findings and defend the recommendation to a challenging panel</td><td>36</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Track project —</b> End-to-end business analytics engagement: framing, data preparation, calibrated model with interpretability, decision dashboard, quantified recommendation with expected impact and uncertainty, delivered as a stakeholder presentation.</div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>R5 · Data &amp; RAG Engineer</h3><span class="pill">160 h · 48 T / 112 P</span></div>
+    <dl class="kv"><dt>Role scope</dt><dd>Builds and operates the data and retrieval layer that AI systems depend on</dd><dt>Stack</dt><dd><code>Python</code> <code>SQL</code> <code>Airflow</code> <code>dbt</code> <code>Unstructured</code> <code>pgvector</code> <code>Qdrant</code> <code>OpenSearch</code> <code>sentence-transformers</code> <code>Great Expectations</code></dd></dl>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Ingestion at scale: source connectors, batch versus streaming, change data capture, incremental and delta sync, complex document parsing (tables, forms, scans), OCR quality, deduplication, idempotent loads, backfill strategy</td><td>Production ingestion pipeline over a heterogeneous, frequently changing corpus</td><td>40</td></tr>
+      <tr><td class="c">M2</td><td>Transformation and modelling: dimensional modelling, transformation frameworks, testing and data contracts, data quality dimensions, lineage and cataloguing, schema evolution, PII handling in pipelines</td><td>Tested transformation layer with enforced data contracts and lineage</td><td>40</td></tr>
+      <tr><td class="c">M3</td><td>Retrieval engineering: embedding model selection and benchmarking, chunking experimentation, index type and parameter tuning (HNSW/IVF), metadata filtering, hybrid search fusion, reranking, freshness and TTL, multi-tenancy and access control in retrieval</td><td>Tune an index to meet stated recall and p95 latency targets</td><td>44</td></tr>
+      <tr><td class="c">M4</td><td>Operating the retrieval layer: retrieval evaluation harness, monitoring recall drift, corpus growth and re-embedding strategy, cost of storage and embedding, capacity planning, disaster recovery, corpus poisoning defence</td><td>Retrieval evaluation and monitoring suite with scheduled refresh</td><td>36</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Track project —</b> Production retrieval platform: ingestion of a multi-format changing corpus, tested transformation layer, tuned hybrid index with reranking, access-controlled multi-tenant retrieval, evaluation harness reporting recall@k, MRR and faithfulness, plus scheduled refresh and monitoring.</div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>R6 · AI Solutions Architect <span class="pill o">ADVANCED</span></h3><span class="pill">160 h · 64 T / 96 P</span></div>
+    <dl class="kv"><dt>Role scope</dt><dd>Designs AI systems that satisfy functional, economic, security and regulatory constraints</dd><dt>Entry</dt><dd>Gates 1–3 at ≥80% plus demonstrated communication competence</dd><dt>Stack</dt><dd>Cloud AI platforms (<code>Bedrock</code> / <code>Azure AI</code> / <code>Vertex AI</code>), <code>Terraform</code>, API gateways, <code>LiteLLM</code>, IAM/KMS</dd></dl>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Architecture method: requirements and constraint capture, quality attributes, trade-off analysis, architecture decision records, reference architectures, build-versus-buy, managed versus self-hosted, vendor lock-in and exit strategy</td><td>Produce an architecture decision record with a defended trade-off analysis</td><td>40</td></tr>
+      <tr><td class="c">M2</td><td>Designing for scale and resilience: capacity planning, throughput modelling, quota and rate-limit architecture, multi-region and failover, graceful degradation, fallback model chains, queueing and asynchronous patterns, disaster recovery objectives</td><td>Highly available design operating under provider quota limits, with failure-mode analysis</td><td>40</td></tr>
+      <tr><td class="c">M3</td><td>AI economics: cost drivers and modelling, token and inference economics, caching tiers, right-sizing, reserved versus on-demand, storage and egress, total cost of ownership, chargeback and FinOps practice, cost guardrails</td><td>Build a defensible cost model and TCO comparison for a stated workload volume</td><td>40</td></tr>
+      <tr><td class="c">M4</td><td>Security, compliance and governance architecture: tenancy isolation, network and identity design, encryption and key management, data residency and sovereignty, DPDP Act obligations, auditability, model risk governance, third-party assessment, security review process</td><td>Complete a security and governance design review against a control checklist</td><td>40</td></tr>
+    </tbody></table></div>
+    <div class="scn"><b>Track project —</b> Enterprise AI reference architecture with a working reference implementation: architecture decision records, scaling and resilience plan, quantified cost model, security and governance review, and an executive presentation defending the design.</div>
+    <div class="note"><strong>Gate 4 (Week 22):</strong> track project deployed and demonstrated, with documentation, measured evidence and a technical defence. Pass ≥70%.</div>
+  </div>
+</section>
+
+<!-- 9 PROFESSIONAL -->
+<section id="p9">
+  <h2>9 · Professional &amp; statutory subjects (parallel, Weeks 1–24)</h2>
+
+  <div class="sub">
+    <div class="hd"><h3>P01 · Professional Practice &amp; Employability</h3><span class="pill">60 h · 24 T / 36 P — statutory DGT/VSQ/N0102</span></div>
+    <div class="tw"><table><thead><tr><th>Module</th><th>Topics</th><th>NOS</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">Introduction to Employability Skills</td><td>World of work, employer expectations, workplace norms</td><td>—</td><td>1.5</td></tr>
+      <tr><td class="c">Constitutional Values — Citizenship</td><td>Rights and duties, civic responsibility, workplace ethics</td><td>—</td><td>1.5</td></tr>
+      <tr><td class="c">Becoming a Professional in the 21st Century</td><td>Professionalism, accountability, adaptability, lifelong learning</td><td>N9001</td><td>2.5</td></tr>
+      <tr><td class="c">Basic English Skills</td><td>Workplace reading, writing, speaking and listening; technical English</td><td>N9002, N9004</td><td>10</td></tr>
+      <tr><td class="c">Career Development &amp; Goal Setting</td><td>Career mapping, goal setting, self-assessment</td><td>—</td><td>2</td></tr>
+      <tr><td class="c">Communication Skills</td><td>Clear, concise and accurate communication; written reporting; active listening; conflict handling</td><td>N9002 PC1–PC3</td><td>5</td></tr>
+      <tr><td class="c">Diversity &amp; Inclusion</td><td>Respectful workplaces, inclusive behaviour, bias awareness</td><td>N9006, N9014</td><td>2.5</td></tr>
+      <tr><td class="c">Financial &amp; Legal Literacy</td><td>Personal finance, contracts, workplace legal basics, confidentiality</td><td>N9001 PC5</td><td>5</td></tr>
+      <tr><td class="c">Essential Digital Skills</td><td>Productivity tooling, collaboration platforms, digital hygiene, cyber-safety</td><td>N9004</td><td>10</td></tr>
+      <tr><td class="c">Entrepreneurship</td><td>Opportunity identification, value proposition, basic venture literacy</td><td>—</td><td>7</td></tr>
+      <tr><td class="c">Customer Service</td><td>Stakeholder and client orientation, expectation management</td><td>N9006</td><td>5</td></tr>
+      <tr><td class="c">Getting Ready for Apprenticeship &amp; Jobs</td><td>Résumé, portfolio, GitHub profile, mock interviews, offer navigation</td><td>—</td><td>8</td></tr>
+    </tbody></table></div>
+    <p class="lead"><strong>Additionally delivered against generic NOS:</strong> establishing and agreeing work requirements with appropriate people; effective time and resource use; correct treatment of confidential information; working within organisational policy (N9001). Integrating work with colleagues, passing on essential information, honouring commitments, raising and solving interpersonal problems (N9002). Agreeing, sourcing, verifying and formatting data and information; rule-based analysis; obtaining guidance where data is problematic (N9004). Building rapport, developing professional relationships and alliances, fostering respect, engaging influential contacts, seeking guidance (N9006).</p>
+    <div class="scn"><b>Real work scenario —</b> You are behind on a committed deliverable because an upstream dependency slipped. Renegotiate scope with the appropriate people in writing, inform affected colleagues, protect confidential client information in the communication, and record the revised commitment.</div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>P02 · Inclusive &amp; Environmentally Sustainable Workplace</h3><span class="pill">30 h · 10 T / 20 P — statutory SSC/N9014</span></div>
+    <div class="tw"><table><thead><tr><th>M</th><th>Topics &amp; performance criteria</th><th>Lab</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">M1</td><td>Optimising usage of electricity, energy, materials and water across tasks and activities; energy-aware computing; efficient resource scheduling; measuring consumption</td><td>Energy and resource audit of a training/compute workload with reduction plan</td><td>8</td></tr>
+      <tr><td class="c">M2</td><td>Segregating recyclable, non-recyclable and hazardous waste for disposal or efficient handling; e-waste policy and practice</td><td>Workplace waste segregation and e-waste disposal procedure</td><td>6</td></tr>
+      <tr><td class="c">M3</td><td>Understanding the organisation's diversity policy; using internal and external communication appropriately; complying with PwD-inclusive policies for an adaptable and equitable work environment</td><td>Review a workplace policy for inclusivity gaps and propose amendments</td><td>8</td></tr>
+      <tr><td class="c">M4</td><td>Improving through inclusive recruitment practices, PwD-friendly infrastructure and job design; advocating appropriate verbal and non-verbal communication, schemes and benefits; accessibility in digital products</td><td>Accessibility review of a delivered AI interface against inclusion criteria</td><td>8</td></tr>
+    </tbody></table></div>
+  </div>
+</section>
+
+<!-- 10 CAPSTONE -->
+<section id="p10">
+  <h2>10 · Stage E — Capstone and On-the-Job Training</h2>
+
+  <div class="sub">
+    <div class="hd"><h3>X01 · Capstone Project</h3><span class="pill">80 h · 10 T / 70 P</span></div>
+    <p class="lead">Mandatory for certification. Individually owned, industry-scoped, and defended before a panel including at least one external practitioner.</p>
+    <div class="tw"><table><thead><tr><th>Phase</th><th>Activity</th><th>Deliverable</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">1 · Scoping</td><td>Problem selection, stakeholder definition, success metrics, constraints (latency, cost, safety), risk register</td><td>Approved project charter and SRS</td><td>10</td></tr>
+      <tr><td class="c">2 · Design</td><td>High-level and low-level design, data flows, interface contracts, evaluation plan defined <em>before</em> building</td><td>HLD, LLD and evaluation plan</td><td>10</td></tr>
+      <tr><td class="c">3 · Build</td><td>Implementation in sprints with version control, code review and continuous integration</td><td>Working system in a reviewed repository</td><td>30</td></tr>
+      <tr><td class="c">4 · Evaluate</td><td>Execute the evaluation plan; measure quality, latency, cost; error analysis; iterate on evidence</td><td>Evaluation report with baseline comparison</td><td>14</td></tr>
+      <tr><td class="c">5 · Harden</td><td>Guardrails, security review, failure handling, observability, documentation, runbook</td><td>Hardened deployment and operations documentation</td><td>10</td></tr>
+      <tr><td class="c">6 · Defend</td><td>Written report, demonstration, panel defence covering design rationale and trade-offs</td><td>Report, demo and defence</td><td>6</td></tr>
+    </tbody></table></div>
+    <h4>Capstone assessment rubric (100 marks)</h4>
+    <div class="tw"><table><thead><tr><th>Criterion</th><th>Marks</th><th>Evidence required</th></tr></thead><tbody>
+      <tr><td class="c">Problem framing &amp; requirements</td><td>10</td><td>SRS with functional and non-functional requirements; measurable success criteria</td></tr>
+      <tr><td class="c">Design quality</td><td>15</td><td>HLD/LLD with rationale, assumptions, constraints, dependencies, interfaces</td></tr>
+      <tr><td class="c">Implementation correctness</td><td>20</td><td>Working system; tests passing; coverage evidence</td></tr>
+      <tr><td class="c">Evaluation rigour</td><td>20</td><td>Pre-declared metrics; baseline comparison; retrieval and generation separated where applicable; honest error analysis</td></tr>
+      <tr><td class="c">Engineering &amp; operations</td><td>15</td><td>Version control discipline, CI, containerisation, observability, runbook</td></tr>
+      <tr><td class="c">Safety, security &amp; governance</td><td>10</td><td>Guardrails, PII handling, threat consideration, documented limitations</td></tr>
+      <tr><td class="c">Communication &amp; defence</td><td>10</td><td>Report clarity, demonstration, quality of answers under questioning</td></tr>
+    </tbody></table></div>
+    <div class="note warn"><strong>Integrity rule:</strong> unverifiable or unreproducible results score zero on evaluation rigour. Every reported number must be reproducible from the repository by an assessor.</div>
+  </div>
+
+  <div class="sub">
+    <div class="hd"><h3>X02 · On-the-Job Training / Industry Immersion</h3><span class="pill">90 h — statutory mandatory OJT</span></div>
+    <div class="tw"><table><thead><tr><th>Component</th><th>Requirement</th><th>h</th></tr></thead><tbody>
+      <tr><td class="c">Induction</td><td>Host organisation orientation, tooling access, security and confidentiality briefing, working agreement</td><td>6</td></tr>
+      <tr><td class="c">Supervised delivery</td><td>Assigned to a live team backlog; tickets delivered under a named supervisor with code review</td><td>60</td></tr>
+      <tr><td class="c">Operational exposure</td><td>Stand-ups, sprint ceremonies, incident observation, release participation, stakeholder interaction</td><td>14</td></tr>
+      <tr><td class="c">Reflection &amp; assessment</td><td>Logbook, supervisor evaluation against NOS behaviours, exit review</td><td>10</td></tr>
+    </tbody></table></div>
+    <p class="lead"><strong>Evidence required:</strong> signed OJT logbook with dated entries; supervisor assessment against SSC/N9001, N9002, N9004 and N9006 behaviours; at least three merged contributions or equivalent documented deliverables; exit review record. Where a host placement is unavailable, an approved simulated industry environment must replicate ticket flow, code review, release process and supervision — and must be declared as such.</p>
+  </div>
+</section>
+
+<!-- 11 SCENARIOS -->
+<section id="p11">
+  <h2>11 · Real-time work scenario progression</h2>
+  <p class="lead">Scenarios escalate from single-task execution to ambiguous, multi-stakeholder ownership. Each is delivered as a timed workplace simulation with realistic artefacts — tickets, incomplete requirements, legacy code, production constraints and stakeholder pressure.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Level</th><th>Stage</th><th>Scenario type</th><th>What is deliberately imperfect</th><th>Competency proven</th></tr></thead>
+    <tbody>
+      <tr><td class="c">L1 Execute</td><td>A</td><td>Well-specified ticket with clear acceptance criteria</td><td>Nothing — baseline competence</td><td>Follows standards, delivers to specification</td></tr>
+      <tr><td class="c">L2 Diagnose</td><td>A–B</td><td>Defect report: system behaves incorrectly under specific conditions</td><td>Cause unknown; logs incomplete</td><td>Reproduces, isolates, fixes, regression-tests</td></tr>
+      <tr><td class="c">L3 Optimise</td><td>B</td><td>Working system that violates a stated performance or cost budget</td><td>Constraint is binding; naive fixes break accuracy</td><td>Profiles, quantifies trade-offs, optimises to budget (N8121)</td></tr>
+      <tr><td class="c">L4 Build</td><td>B–C</td><td>Model handed over as a notebook; must become a supported service</td><td>No specification, no tests, no error handling</td><td>Writes SRS/HLD/LLD, refactors, tests, deploys (N8122)</td></tr>
+      <tr><td class="c">L5 Integrate</td><td>C</td><td>Multi-component AI feature spanning retrieval, generation and tools</td><td>Sources conflict; upstream data changes mid-build</td><td>Systems thinking, interface contracts, evaluation design</td></tr>
+      <tr><td class="c">L6 Operate</td><td>C–D</td><td>Live incident: quality regression or outage in production</td><td>Under time pressure with partial information</td><td>Triage, mitigation, rollback, root cause, post-mortem</td></tr>
+      <tr><td class="c">L7 Decide</td><td>D</td><td>Stakeholder requests a change that trades quality against cost or timeline</td><td>No correct answer; requires defensible judgement</td><td>Evidence-based recommendation and written justification</td></tr>
+      <tr><td class="c">L8 Own</td><td>E</td><td>Ambiguous business objective with no defined solution</td><td>Requirements must be elicited; scope must be negotiated</td><td>End-to-end ownership from ambiguity to defended delivery</td></tr>
+    </tbody>
+  </table></div>
+  <h3>11.1 Standing simulation environment</h3>
+  <p class="lead">A permanent simulated organisation runs for the full programme duration: a ticket backlog, a code repository with review requirements, a staging and production environment, a rotating on-call roster from Stage C, scheduled releases, injected incidents, and role-played stakeholders (product owner, client, security reviewer, data protection officer). Learners accumulate a verifiable delivery history rather than isolated exercises.</p>
+</section>
+
+<!-- 12 ASSESSMENT -->
+<section id="p12">
+  <h2>12 · Assessment framework &amp; NOS coverage matrix</h2>
+
+  <h3>12.1 Instruments</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Instrument</th><th>Frequency</th><th>Format</th><th>Weight</th></tr></thead>
+    <tbody>
+      <tr><td class="c">Module quiz</td><td>Per module</td><td>Auto-graded objective, concept-bank driven</td><td>10%</td></tr>
+      <tr><td class="c">Coding challenge</td><td>Per module</td><td>Auto-graded, hidden test cases, time-boxed</td><td>10%</td></tr>
+      <tr><td class="c">Lab portfolio</td><td>Continuous</td><td>Rubric-graded artefacts in version control</td><td>15%</td></tr>
+      <tr><td class="c">Stage gate</td><td>5 gates</td><td>Theory paper + extended practical</td><td>25%</td></tr>
+      <tr><td class="c">Workplace simulation</td><td>8 scenarios</td><td>Observed performance against behavioural rubric</td><td>10%</td></tr>
+      <tr><td class="c">Capstone</td><td>Once</td><td>Project + report + panel defence</td><td>25%</td></tr>
+      <tr><td class="c">Professional conduct</td><td>Continuous</td><td>Punctuality, collaboration, code review, communication</td><td>5%</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>12.2 Progression rules</h3>
+  <ul class="tight">
+    <li>Every stage gate must be passed at <strong>≥70%</strong> before progression; two re-attempts permitted with mandatory remediation between attempts.</li>
+    <li>Statutory subjects <strong>C02 (SSC/N8121)</strong> and <strong>C05 (SSC/N8122)</strong> must each be passed at <strong>≥70% independently</strong>; they cannot be compensated by other marks.</li>
+    <li>Overall certification requires <strong>≥70% aggregate</strong>, completion of the capstone, and completion of 90 h OJT with supervisor sign-off.</li>
+    <li>Attendance minimum 80% of scheduled practical hours.</li>
+    <li>Plagiarism or unreproducible results in any graded artefact voids that assessment.</li>
+  </ul>
+
+  <h3>12.3 NOS coverage matrix</h3>
+  <div class="tw"><table>
+    <thead><tr><th>NOS</th><th>Taught in</th><th>Practised in</th><th>Assessed by</th><th>Evidence retained</th></tr></thead>
+    <tbody>
+      <tr><td class="c">SSC/N8121</td><td>C02 (90 h)</td><td>G04, R1–R6 projects, capstone</td><td>Gate 2 practical (30/70 theory/practical)</td><td>Specification sheet, profiling report, optimisation evidence, model card</td></tr>
+      <tr><td class="c">SSC/N8122</td><td>C05 (120 h)</td><td>R1–R6 projects, capstone</td><td>Gate 2 practical (25/75)</td><td>SRS, HLD, LLD, service repository, test suite, defect log, approved PR</td></tr>
+      <tr><td class="c">SSC/N9001</td><td>P01, F08</td><td>All sprints and simulations</td><td>Continuous + simulation rubric</td><td>Sprint records, commitments log, time and resource evidence</td></tr>
+      <tr><td class="c">SSC/N9002</td><td>P01, F02</td><td>Pair work, code review, team projects</td><td>Peer and trainer rubric</td><td>Review comments, collaboration log</td></tr>
+      <tr><td class="c">SSC/N9004</td><td>P01, F03, F05</td><td>All reporting and documentation</td><td>Documentation rubric</td><td>Reports and dashboards in agreed formats</td></tr>
+      <tr><td class="c">SSC/N9006</td><td>P01</td><td>Stakeholder simulations, OJT</td><td>Observed behaviour + supervisor report</td><td>Stakeholder interaction records</td></tr>
+      <tr><td class="c">SSC/N9014</td><td>P02 (30 h)</td><td>Lab operations throughout</td><td>Practical audit tasks</td><td>Resource audit, waste procedure, inclusion review</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>12.4 Technical concept bank for objective assessment</h3>
+  <p class="lead">Question banks are constructed against these concepts, which reflect current hiring-interview expectations: algorithmic complexity and Big-O; parallel architectures (SISD/SIMD/MISD/MIMD); Amdahl's law; profiling and latency percentiles; quantisation trade-offs; KV-cache reuse; continuous batching; GPU utilisation and memory budgeting; context windows and token accounting; temperature and sampling behaviour; embeddings and semantic similarity; chunking strategy effects; index types and distance metrics; hybrid retrieval and reranking; recall@k, MRR and NDCG; faithfulness and answer relevance; LLM-as-a-judge design and bias; agent tool-call correctness and trajectory evaluation; prompt injection and mitigation; PII redaction and DPDP obligations; drift types; CI evaluation gating; SRS/HLD/LLD content requirements; unit-test design and coverage; defect triage and corrective action.</p>
+</section>
+
+<!-- 13 LAB -->
+<section id="p13">
+  <h2>13 · Laboratory &amp; infrastructure specification</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Component</th><th>Specification</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td class="c">Learner workstation</td><td>Minimum 16 GB RAM, 4-core CPU, 256 GB SSD, stable broadband; Linux or Windows with WSL2</td><td>Local development across all stages</td></tr>
+      <tr><td class="c">Shared GPU capacity</td><td>Pooled GPU instances with scheduled allocation; sized for fine-tuning and serving workloads</td><td>C03, C04, R2 fine-tuning and inference benchmarking</td></tr>
+      <tr><td class="c">Cloud environment</td><td>Per-learner sandboxed cloud accounts with budget caps, least-privilege IAM and automatic teardown</td><td>F06, R1–R6 deployment, R3 orchestration</td></tr>
+      <tr><td class="c">Model access</td><td>Managed API access with per-learner keys and spend limits, plus self-hosted open-weights models</td><td>G01–G05, R1, R2</td></tr>
+      <tr><td class="c">Data stores</td><td>PostgreSQL with vector extension, a dedicated vector database, object storage, search engine</td><td>F05, G02, R5</td></tr>
+      <tr><td class="c">Platform</td><td>Version control with protected branches, CI runners, container registry, experiment tracking, tracing and evaluation platform</td><td>All stages; evidence retention</td></tr>
+      <tr><td class="c">Simulation environment</td><td>Ticketing system, staging and production namespaces, incident injection tooling, on-call rota</td><td>§11 workplace simulations</td></tr>
+      <tr><td class="c">Assessment platform</td><td>Proctored objective testing, auto-graded coding assessment with hidden tests, rubric capture, evidence archive</td><td>§12 assessment and audit</td></tr>
+      <tr><td class="c">Corpora</td><td>Licensed and open document corpora including scanned, tabular and multilingual content; synthetic PII sets for redaction practice</td><td>G02, G05, R5</td></tr>
+      <tr><td class="c">Accessibility</td><td>PwD-accessible premises, assistive technology, adjustable workstations, accessible digital materials</td><td>SSC/N9014 compliance</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><strong>Cost control:</strong> per-learner spend caps, automatic idle shutdown, quota-based GPU scheduling and cached model responses in graded exercises are mandatory — cloud and inference spend is the dominant variable cost in AI training delivery.</div>
+</section>
+
+<!-- 14 TRAINER -->
+<section id="p14">
+  <h2>14 · Trainer requirements &amp; delivery standards</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Item</th><th>Standard</th></tr></thead>
+    <tbody>
+      <tr><td class="c">Technical trainer</td><td>Graduate in Engineering/Technology/CS or allied, with a minimum of 3 years' industry experience in the subject area; demonstrated production delivery (repository or system evidence)</td></tr>
+      <tr><td class="c">Statutory-module trainer</td><td>Certified against the applicable Trainer QP; familiar with the QP, NOS and assessment criteria</td></tr>
+      <tr><td class="c">Trainer certification</td><td>Trainers delivering NSQF-aligned content must hold current Train-the-Trainer certification as required by the awarding body</td></tr>
+      <tr><td class="c">Ratio</td><td>Maximum 25 learners per trainer for theory; maximum 15 per trainer or assistant for practical; 1:8 for capstone mentoring</td></tr>
+      <tr><td class="c">Industry mentors</td><td>At least one practising industry mentor per track, contributing scenario design and capstone panel participation</td></tr>
+      <tr><td class="c">Content currency</td><td>Curriculum version reviewed and re-validated before every cohort; tech-stack atlas re-confirmed; deprecated tooling replaced with documented change log</td></tr>
+      <tr><td class="c">Session standard</td><td>Every practical session produces a committed artefact; every theory session states its NOS linkage and assessment relevance</td></tr>
+      <tr><td class="c">Learner support</td><td>Structured doubt-clearing hours, remediation pathway after failed gates, mental-health and grievance channel, mentor allocation</td></tr>
+      <tr><td class="c">Records</td><td>Attendance, assessment evidence, artefacts, feedback and OJT records retained per awarding-body audit requirements</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 15 COMPLIANCE -->
+<section id="p15">
+  <h2>15 · Compliance &amp; readiness checklist</h2>
+  <div class="tw"><table>
+    <thead><tr><th>#</th><th>Action</th><th>Owner</th><th>Blocking</th></tr></thead>
+    <tbody>
+      <tr><td class="c">1</td><td>Confirm current live version of QP SSC/Q8113 and Model Curriculum with IT-ITeS SSC; record version numbers</td><td>Academic head</td><td>Yes</td></tr>
+      <tr><td class="c">2</td><td>Select and register the fresher-appropriate companion QP; document dual-registration rationale</td><td>Academic head</td><td>Yes</td></tr>
+      <tr><td class="c">3</td><td>Complete NOS-to-module traceability matrix and have it reviewed against SSC assessment criteria</td><td>Curriculum lead</td><td>Yes</td></tr>
+      <tr><td class="c">4</td><td>Engage an SSC-empanelled assessment agency; agree assessment calendar and evidence formats</td><td>Operations</td><td>Yes</td></tr>
+      <tr><td class="c">5</td><td>Certify trainers against Trainer QP; record certificates</td><td>Operations</td><td>Yes</td></tr>
+      <tr><td class="c">6</td><td>Commission lab and cloud infrastructure with spend caps and accessibility provisions</td><td>Infrastructure</td><td>Yes</td></tr>
+      <tr><td class="c">7</td><td>Apply as FutureSkills Prime content/training partner; submit courses for NSQF approval to unlock learner incentives</td><td>Partnerships</td><td>No</td></tr>
+      <tr><td class="c">8</td><td>Register as NSDC Training Partner; accredit and affiliate training centres on the SMART portal; pursue star rating</td><td>Partnerships</td><td>No</td></tr>
+      <tr><td class="c">9</td><td>Secure OJT host organisations or commission the approved simulated industry environment</td><td>Placements</td><td>Yes</td></tr>
+      <tr><td class="c">10</td><td>Establish evidence-retention, audit and grievance procedures</td><td>Quality</td><td>Yes</td></tr>
+      <tr><td class="c">11</td><td>Run a pilot cohort; capture completion, assessment and placement data; publish an outcomes report</td><td>Programme director</td><td>No</td></tr>
+      <tr><td class="c">12</td><td>Schedule per-cohort curriculum re-validation and publish the change log</td><td>Curriculum lead</td><td>No</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 16 SOURCES -->
+<section id="p16">
+  <h2>16 · Standards referenced &amp; document control</h2>
+  <div class="box">
+    <strong>Directly sourced from official documents.</strong> The qualification parameters, all National Occupational Standards codes, verbatim performance criteria, knowledge-and-understanding items, generic skills, assessment mark allocations and the 70% pass rule in §2 are read directly from the official National Qualifications Register publication of <strong>QP SSC/Q8113 v2.0</strong>. The statutory hour structure in §3 (144 Theory + 246 Practical + 90 OJT = 480 h), the bridge-module breakdown and the Employability Skills module list are read directly from the corresponding <strong>NSQF Model Curriculum v3.0</strong>.<br><br>
+    <strong>Verify before the first cohort.</strong> QP v2.0 carries review and deactivation dating of 2025 and Model Curriculum v3.0 shows validity to 22/09/2025; the successor documents must be confirmed with the IT-ITeS Sector Skill Council. Model Curriculum v3.0 records the constituent NOS at NSQF Level 5 while the QP header states Level 7 — clarify the applicable level for certification claims.<br><br>
+    <strong>Industry content.</strong> Tooling, techniques and role scoping in §5–§8 reflect the production stack and hiring expectations current as of August 2026 and are expected to drift; §14 mandates re-validation before every cohort.
+  </div>
+  <ul class="src">
+    <li><span class="tag primary">PRIMARY</span> National Qualifications Register — <em>QP SSC/Q8113 v2.0, AI-Machine Learning Engineer</em> · <a href="https://nqr.gov.in/sites/default/files/QP_SSC_Q8113_v2.0_AI%20Machine%20Learning%20Engineer.pdf">nqr.gov.in</a></li>
+    <li><span class="tag primary">PRIMARY</span> NSQF <em>Model Curriculum v3.0 — AI-Machine Learning Engineer</em> (480 h structure) · <a href="https://www.sdiahmedabad.in/pdf/MC_STT/Machine-Learning-Engineer.pdf">Model Curriculum PDF</a></li>
+    <li><span class="tag primary">PRIMARY</span> NCVET — National Skills Qualification Framework notification · <a href="https://ncvet.gov.in/national-skills-qualification-framework/nsqf-notification/">ncvet.gov.in</a></li>
+    <li><span class="tag primary">PRIMARY</span> Companion qualifications for fresher entry — <a href="https://nqr.gov.in/sites/default/files/QFile%20-Certified%20AI%20Associate_0.pdf">Certified AI Associate</a> · <a href="https://nqr.gov.in/qualification/file/QF_Artificial%20Intelligence%20Application%20Developer.pdf">AI Application Developer (NIELIT, NSQF 4.5)</a> · <a href="https://www.nqr.gov.in/qualification/file/Q%20File-English-AI-Machine%20Learning%20Developer.pdf">AI-ML Developer</a></li>
+    <li><span class="tag primary">PRIMARY</span> FutureSkills Prime (MeitY–NASSCOM) · <a href="https://www.futureskillsprime.in/about-us/">futureskillsprime.in</a> — learner incentive structure reported by <a href="https://www.dqindia.com/nasscom-and-meity-launch-futureskills-prime-incentive-program-for-online-courses-in-artificial-intelligence-and-other-technologies/">DataQuest</a></li>
+    <li><span class="tag primary">PRIMARY</span> NSDC Training Partner registration and SMART centre accreditation · <a href="https://nsdcindia.org/become-partner">nsdcindia.org</a> · <a href="https://smart.nsdcindia.org/faqs.aspx">smart.nsdcindia.org</a></li>
+    <li><span class="tag secondary">SECONDARY</span> NASSCOM–Deloitte <em>Advancing India's AI Skills</em> (demand ~1.25 M by 2027) · <a href="https://www.deloitte.com/in/en/about/press-room/bridging-the-ai-talent-gap-to-boost-indias-tech-and-economic-impact-deloitte-nasscom-report.html">deloitte.com</a></li>
+    <li><span class="tag secondary">SECONDARY</span> Role scoping and learning-path benchmarks — <a href="https://roadmap.sh/ai-engineer">roadmap.sh AI Engineer</a> · <a href="https://www.deeplearning.ai/courses">DeepLearning.AI course catalogue</a></li>
+    <li><span class="tag blog">INDUSTRY</span> 2026 production LLM stack and LLMOps practice (serving, orchestration, retrieval, evaluation layers) · <a href="https://machinelearningmastery.com/the-roadmap-for-mastering-llmops-in-2026/">LLMOps roadmap</a> · <a href="https://www.yottalabs.ai/post/best-llm-inference-engines-in-2026-vllm-tensorrt-llm-tgi-and-sglang-compared">inference engine comparison</a></li>
+  </ul>
+
+  <h3>Document control</h3>
+  <div class="tw"><table><tbody>
+    <tr><td class="c">Version</td><td>2026.1</td></tr>
+    <tr><td class="c">Status</td><td>For internal approval and awarding-body submission preparation</td></tr>
+    <tr><td class="c">Prepared for</td><td>Anvi Innovate</td></tr>
+    <tr><td class="c">Review cycle</td><td>Before every cohort; mandatory technology re-validation and change log</td></tr>
+    <tr><td class="c">Next action</td><td>Complete §15 blocking items 1–6 and 9–10 prior to first enrolment</td></tr>
+  </tbody></table></div>
+</section>
+
+<footer class="rp">
+  Anvi Innovate AI Academy — Complete Curriculum, version 2026.1. Statutory content mapped to QP SSC/Q8113 and NSQF Model Curriculum v3.0 as published on the National Qualifications Register; version currency to be confirmed with the IT-ITeS Sector Skill Council before certification claims are made. Industry content reflects the production stack current as of August 2026 and is subject to scheduled re-validation.
+</footer>
+
+</div>
+</body>
+</html>
