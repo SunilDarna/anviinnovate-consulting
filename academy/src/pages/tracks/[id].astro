@@ -1,0 +1,56 @@
+---
+import Base from "../../layouts/Base.astro";
+import { tracks } from "../../data/curriculum.js";
+export function getStaticPaths() {
+  return tracks.map((t) => ({ params: { id: t.id }, props: { t } }));
+}
+const { t } = Astro.props;
+---
+<Base title={`${t.code} · ${t.name}`} description={t.scope} wide={true}>
+  <p style="margin:0 0 6px"><a href="/tracks" class="muted" style="text-decoration:none;font-size:13.5px">← Role tracks</a></p>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <span class="pill">{t.code}</span>
+    <span class="pill d">Stage D · {t.hours} h ({t.theory} T / {t.practical} P)</span>
+    {t.anchor && <span class="pill g">Anchor track</span>}
+    {t.advanced && <span class="pill o">Advanced</span>}
+  </div>
+  <h1 style="margin-top:12px">{t.name}</h1>
+  <p class="muted" style="font-size:1.05rem;max-width:80ch">{t.scope}</p>
+
+  {t.entry && <div class="warnbox" style="margin-top:14px"><strong>Entry requirement:</strong> {t.entry}</div>}
+
+  <section style="margin-top:24px">
+    <h2>Tech stack</h2>
+    <div>{t.stack.map((x) => <span class="chip">{x}</span>)}</div>
+  </section>
+
+  <section style="margin-top:26px">
+    <h2>Modules</h2>
+    {t.modules.map((m) => (
+      <div class="card" style="margin-top:12px">
+        <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap">
+          <h3 style="margin:0">{m.n} · {m.title}</h3>
+          <span class="muted" style="font-size:13px">{m.hours} h</span>
+        </div>
+        <div style="margin-top:9px">
+          <span class="muted" style="font-size:12px;font-weight:600">TOPICS</span>
+          <ul class="tight" style="font-size:13.5px">{m.topics.map((x) => <li>{x}</li>)}</ul>
+        </div>
+        <p style="margin:8px 0 0;font-size:13.5px"><strong>Lab:</strong> {m.lab}</p>
+        {m.content
+          ? <p style="margin:8px 0 0"><a href={m.content}>Open course material →</a></p>
+          : <p class="muted" style="margin:9px 0 0;font-size:12.5px">Course material for this module is in production.</p>}
+      </div>
+    ))}
+  </section>
+
+  <section style="margin-top:26px">
+    <h2>Track project</h2>
+    <div class="scn">{t.project}</div>
+  </section>
+
+  <section style="margin-top:26px">
+    <h2>Job-ready exit standard</h2>
+    <div class="note">{t.exit}</div>
+  </section>
+</Base>

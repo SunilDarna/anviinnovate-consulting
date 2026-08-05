@@ -1,0 +1,24 @@
+---
+import Base from "../../layouts/Base.astro";
+import { tracks } from "../../data/curriculum.js";
+---
+<Base title="Role specialisation tracks" wide={true}>
+  <h1>Role specialisation tracks</h1>
+  <p class="muted" style="max-width:80ch">Stage D. Each track is 160 hours of role depth across four modules plus a track project, taken to production standard. Learners choose one.</p>
+  <div class="grid" style="grid-template-columns:repeat(2,1fr);margin-top:20px">
+    {tracks.map((t) => (
+      <a class="card" href={`/tracks/${t.id}`} style="text-decoration:none;color:inherit">
+        <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline">
+          <h3 style="margin:0">{t.code} · {t.name}</h3>
+          <span class="muted" style="font-size:12.5px">{t.hours} h</span>
+        </div>
+        <p class="muted" style="font-size:13.5px;margin:8px 0 10px">{t.tagline}</p>
+        <div>{t.stack.slice(0, 6).map((x) => <span class="chip">{x}</span>)}{t.stack.length > 6 && <span class="chip">+{t.stack.length - 6}</span>}</div>
+        <div style="margin-top:10px">
+          {t.anchor && <span class="pill g">Anchor track</span>}
+          {t.advanced && <span class="pill o">Advanced</span>}
+        </div>
+      </a>
+    ))}
+  </div>
+</Base>

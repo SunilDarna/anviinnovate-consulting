@@ -1,0 +1,56 @@
+---
+import Base from "../layouts/Base.astro";
+import { assessmentInstruments, stages, meta } from "../data/curriculum.js";
+---
+<Base title="Assessment framework" wide={true}>
+  <h1>Assessment framework</h1>
+  <p class="muted" style="max-width:82ch">Continuous assessment, five stage gates and a defended capstone. The pass standard mirrors the qualification pack: {meta.passMark}% aggregate and {meta.passMark}% on every technical NOS independently.</p>
+
+  <section style="margin-top:24px">
+    <h2>Instruments</h2>
+    <div class="tw" style="margin-top:12px"><table>
+      <thead><tr><th>Instrument</th><th>Frequency</th><th>Format</th><th>Weight</th></tr></thead>
+      <tbody>{assessmentInstruments.map((i) => (
+        <tr><td><strong>{i.name}</strong></td><td>{i.frequency}</td><td class="muted">{i.format}</td><td>{i.weight}%</td></tr>
+      ))}</tbody>
+    </table></div>
+  </section>
+
+  <section style="margin-top:30px">
+    <h2>Stage gates</h2>
+    <div class="tw" style="margin-top:12px"><table>
+      <thead><tr><th>Stage</th><th>Weeks</th><th>Gate</th></tr></thead>
+      <tbody>{stages.map((s) => (<tr><td><strong>{s.id}</strong> {s.name}</td><td>{s.weeks}</td><td>{s.gate}</td></tr>))}</tbody>
+    </table></div>
+  </section>
+
+  <section style="margin-top:30px">
+    <h2>Progression rules</h2>
+    <div class="card">
+      <ul class="tight" style="font-size:14px;margin:0">
+        <li>Every stage gate must be passed at <strong>≥{meta.passMark}%</strong>; two re-attempts permitted with mandatory remediation between attempts.</li>
+        <li>Statutory subjects <strong>C02 (SSC/N8121)</strong> and <strong>C05 (SSC/N8122)</strong> must each be passed at <strong>≥{meta.passMark}% independently</strong> — they cannot be compensated by other marks.</li>
+        <li>Certification requires ≥{meta.passMark}% aggregate, a completed capstone, and {meta.ojtHours} hours of OJT with supervisor sign-off.</li>
+        <li>Attendance minimum 80% of scheduled practical hours.</li>
+        <li>Plagiarism or unreproducible results in any graded artefact voids that assessment.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section style="margin-top:30px">
+    <h2>Capstone rubric</h2>
+    <div class="tw" style="margin-top:12px"><table>
+      <thead><tr><th>Criterion</th><th>Marks</th><th>Evidence required</th></tr></thead>
+      <tbody>
+        <tr><td>Problem framing &amp; requirements</td><td>10</td><td>SRS with functional and non-functional requirements; measurable success criteria</td></tr>
+        <tr><td>Design quality</td><td>15</td><td>HLD/LLD with rationale, assumptions, constraints, dependencies, interfaces</td></tr>
+        <tr><td>Implementation correctness</td><td>20</td><td>Working system; tests passing; coverage evidence</td></tr>
+        <tr><td>Evaluation rigour</td><td>20</td><td>Pre-declared metrics; baseline comparison; retrieval and generation separated where applicable; honest error analysis</td></tr>
+        <tr><td>Engineering &amp; operations</td><td>15</td><td>Version control discipline, CI, containerisation, observability, runbook</td></tr>
+        <tr><td>Safety, security &amp; governance</td><td>10</td><td>Guardrails, PII handling, threat consideration, documented limitations</td></tr>
+        <tr><td>Communication &amp; defence</td><td>10</td><td>Report clarity, demonstration, quality of answers under questioning</td></tr>
+      </tbody>
+    </table></div>
+    <div class="warnbox" style="margin-top:14px"><strong>Integrity rule:</strong> unverifiable or unreproducible results score zero on evaluation rigour. Every reported number must be reproducible from the repository by an assessor.</div>
+  </section>
+</Base>

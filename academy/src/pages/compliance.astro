@@ -1,0 +1,65 @@
+---
+import Base from "../layouts/Base.astro";
+import { meta, nos, subjects } from "../data/curriculum.js";
+const statutorySubjects = subjects.filter((s) => s.statutory);
+---
+<Base title="Compliance & NSQF mapping" wide={true}>
+  <h1>Compliance &amp; NSQF mapping</h1>
+  <p class="muted" style="max-width:82ch">The curriculum is built around the National Occupational Standards rather than retrofitted to them. Every NOS is delivered by a named subject and assessed by a named instrument.</p>
+
+  <section style="margin-top:24px">
+    <h2>Anchor qualification</h2>
+    <div class="tw" style="margin-top:12px"><table><tbody>
+      <tr><td style="width:230px"><strong>Qualification Pack</strong></td><td>{meta.qp.code} — {meta.qp.title} (v{meta.qp.version})</td></tr>
+      <tr><td><strong>NSQF level</strong></td><td>{meta.qp.nsqfLevel}</td></tr>
+      <tr><td><strong>Awarding body</strong></td><td>{meta.qp.awardingBody}</td></tr>
+      <tr><td><strong>NCO alignment</strong></td><td>{meta.qp.nco}</td></tr>
+      <tr><td><strong>Sector / occupation</strong></td><td>{meta.qp.sector} · {meta.qp.occupation}</td></tr>
+      <tr><td><strong>Statutory core</strong></td><td>{meta.statutory.total} h (Model Curriculum v{meta.statutory.modelCurriculumVersion}): {meta.statutory.theory} theory + {meta.statutory.practical} practical + {meta.statutory.ojt} OJT</td></tr>
+      <tr><td><strong>Pass standard</strong></td><td>{meta.passMark}% aggregate; ≥{meta.passMark}% on each technical NOS</td></tr>
+    </tbody></table></div>
+  </section>
+
+  <section style="margin-top:30px">
+    <h2>National Occupational Standards coverage</h2>
+    <div class="tw" style="margin-top:12px"><table>
+      <thead><tr><th>NOS</th><th>Title</th><th>Type</th><th>Theory</th><th>Practical</th><th>QP weight</th><th>Delivered by</th></tr></thead>
+      <tbody>{nos.map((n) => (
+        <tr>
+          <td><strong>{n.code}</strong></td><td>{n.title}</td>
+          <td>{n.type === "technical" ? <span class="pill g">Technical</span> : <span class="pill d">Generic</span>}</td>
+          <td>{n.theory ?? "—"}</td><td>{n.practical ?? "—"}</td>
+          <td>{n.weight ? `${n.weight}%` : "—"}</td><td>{n.delivered}</td>
+        </tr>
+      ))}</tbody>
+    </table></div>
+  </section>
+
+  <section style="margin-top:30px">
+    <h2>Statutory subjects</h2>
+    <div class="grid" style="grid-template-columns:repeat(2,1fr);margin-top:12px">
+      {statutorySubjects.map((s) => (
+        <a class="card" href={`/curriculum/${s.code.toLowerCase()}`} style="text-decoration:none;color:inherit">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline">
+            <h3 style="margin:0">{s.code} · {s.name}</h3>
+            <span class="muted" style="font-size:12.5px">{s.hours} h</span>
+          </div>
+          <p class="muted" style="font-size:13px;margin:8px 0 0">{s.statutory}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section style="margin-top:30px">
+    <h2>Open compliance items</h2>
+    <div class="warnbox">
+      <strong>To confirm before the first cohort:</strong>
+      <ul class="tight" style="margin:8px 0 0">
+        <li>Confirm the current live version of QP {meta.qp.code} and the Model Curriculum with the IT-ITeS Sector Skill Council — the published QP v2.0 carries review and deactivation dating of 2025.</li>
+        <li>Resolve the NSQF level reference: the Model Curriculum records the constituent NOS at Level 5 while the QP header states Level {meta.qp.nsqfLevel}.</li>
+        <li>Register a fresher-appropriate companion qualification — {meta.qp.code} nominally expects a graduate with 2–3 years' experience.</li>
+        <li>Engage an SSC-empanelled assessment agency and certify trainers against the applicable Trainer QP.</li>
+      </ul>
+    </div>
+  </section>
+</Base>

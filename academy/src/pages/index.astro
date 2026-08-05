@@ -1,0 +1,91 @@
+---
+import Base from "../layouts/Base.astro";
+import { meta, stages, subjects, tracks } from "../data/curriculum.js";
+const totalSubjects = subjects.length;
+---
+<Base title="Curriculum portal">
+  <style>
+    .hero{background:radial-gradient(1000px 420px at 20% -20%,#1e40af 0%,#0B1F3A 60%);color:#fff;
+      border-radius:20px;padding:44px 32px;box-shadow:var(--shadow)}
+    .hero h1{color:#fff;max-width:20ch}
+    .hero p{color:#c7d2fe;max-width:62ch;font-size:1.08rem}
+    .hero .pill{background:rgba(255,255,255,.12);color:#c7d2fe}
+    .btn-white{background:#fff;color:var(--ink)}
+    .btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45)}
+    .stat b{display:block;font-size:1.7rem;color:var(--ink)}
+    .stat span{font-size:13px;color:var(--muted)}
+    .stagecard{text-decoration:none;color:inherit;display:block;transition:.15s}
+    .stagecard:hover{border-color:var(--accent);transform:translateY(-2px)}
+    .sid{width:32px;height:32px;border-radius:9px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px}
+  </style>
+
+  <section class="hero">
+    <span class="pill">NSQF-aligned · industry-validated · curriculum v{meta.version}</span>
+    <h1>From foundations to job-ready in AI.</h1>
+    <p>The complete Anvi Innovate AI Academy curriculum: {meta.totalHours} hours across {totalSubjects} subjects and {tracks.length} role specialisation tracks — every module, lab, work scenario and assessment specified, mapped to the national occupational standards.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
+      <a class="btn btn-white" href="/curriculum">Browse the curriculum</a>
+      <a class="btn btn-outline" href="/tracks">See role tracks</a>
+    </div>
+  </section>
+
+  <section class="grid" style="grid-template-columns:repeat(4,1fr);margin-top:26px">
+    <div class="card stat"><b>{meta.totalHours} h</b><span>total programme ({meta.taughtHours} taught + {meta.ojtHours} OJT)</span></div>
+    <div class="card stat"><b>{meta.weeksFullTime} wks</b><span>full-time · {meta.weeksPartTime} weeks part-time</span></div>
+    <div class="card stat"><b>Level {meta.qp.nsqfLevel}</b><span>NSQF · QP {meta.qp.code}</span></div>
+    <div class="card stat"><b>{meta.passMark}%</b><span>pass mark, and per technical NOS</span></div>
+  </section>
+
+  <section style="margin-top:44px">
+    <h2>Programme structure</h2>
+    <p class="muted">Six stages. Each gate must be passed before progression.</p>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:14px">
+      {stages.map((s) => (
+        <a class="card stagecard" href={`/curriculum#stage-${s.id}`}>
+          <div style="display:flex;gap:11px;align-items:center">
+            <span class="sid">{s.id}</span>
+            <div><h3 style="margin:0">{s.name}</h3><span class="muted" style="font-size:13px">Weeks {s.weeks} · {s.hours} h</span></div>
+          </div>
+          <p class="muted" style="font-size:13.5px;margin:11px 0 8px">{s.blurb}</p>
+          <span class="pill d">{s.gate}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section style="margin-top:44px">
+    <h2>Role specialisation tracks</h2>
+    <p class="muted">Learners take one in Stage D, then complete a capstone in that role.</p>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:14px">
+      {tracks.map((t) => (
+        <a class="card stagecard" href={`/tracks/${t.id}`}>
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline">
+            <h3 style="margin:0">{t.name}</h3>
+            <span class="pill d">{t.code}</span>
+          </div>
+          <p class="muted" style="font-size:13px;margin:8px 0 10px">{t.tagline}</p>
+          {t.anchor && <span class="pill g">Anchor track</span>}
+          {t.advanced && <span class="pill o">Advanced</span>}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="card" style="margin-top:44px;background:var(--ink);color:#fff">
+    <h2 style="color:#fff">Built on the national standard</h2>
+    <p style="max-width:70ch;margin-bottom:14px">
+      The curriculum is built around Qualification Pack <strong>{meta.qp.code} — {meta.qp.title}</strong> ({meta.qp.awardingBody}, NSQF Level {meta.qp.nsqfLevel}).
+      The statutory {meta.statutory.total}-hour core ({meta.statutory.theory} theory + {meta.statutory.practical} practical + {meta.statutory.ojt} OJT) is fully embedded,
+      and every performance criterion maps to a named module and a named assessment.
+    </p>
+    <a class="btn btn-white" href="/compliance">See the compliance mapping</a>
+  </section>
+
+  <section style="margin-top:40px">
+    <div class="note">
+      <strong>Course material is being added progressively.</strong> This portal currently publishes the full curriculum
+      specification — subjects, modules, topics, labs, scenarios, assessments and hour allocations. Lesson content,
+      recordings and lab repositories will attach to each module here as they are produced.
+    </div>
+  </section>
+</Base>

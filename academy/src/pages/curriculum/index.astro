@@ -1,0 +1,31 @@
+---
+import Base from "../../layouts/Base.astro";
+import { stages, subjects, subjectsByStage, meta } from "../../data/curriculum.js";
+---
+<Base title="Curriculum" wide={true}>
+  <h1>Curriculum</h1>
+  <p class="muted" style="max-width:80ch">{subjects.length} subjects across six stages, {meta.taughtHours} taught hours plus {meta.ojtHours} hours of on-the-job training. Click any subject for its full module breakdown, labs, work scenario and assessment.</p>
+
+  {stages.map((st) => (
+    <section id={`stage-${st.id}`} style="margin-top:38px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:2px solid var(--accent);padding-bottom:8px">
+        <h2 style="margin:0">Stage {st.id} · {st.name}</h2>
+        <span class="muted" style="font-size:13.5px">Weeks {st.weeks} · {st.hours} h · {st.gate}</span>
+      </div>
+      <p class="muted" style="font-size:14px">{st.blurb}</p>
+      <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+        {subjectsByStage(st.id).map((s) => (
+          <a class="card" href={`/curriculum/${s.code.toLowerCase()}`} style="text-decoration:none;color:inherit">
+            <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline">
+              <span class="pill">{s.code}</span>
+              <span class="muted" style="font-size:12.5px">{s.hours} h</span>
+            </div>
+            <h3 style="margin:10px 0 6px;font-size:1.02rem">{s.name}</h3>
+            <p class="muted" style="font-size:13px;margin:0">{s.modules.length} modules{s.outcome ? ` · ${s.outcome}` : ""}</p>
+            {s.statutory && <div style="margin-top:9px"><span class="pill g">Statutory</span></div>}
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+</Base>

@@ -1,0 +1,41 @@
+---
+import Base from "../layouts/Base.astro";
+import { scenarioLevels, subjects } from "../data/curriculum.js";
+const withScenarios = subjects.filter((s) => s.scenario);
+---
+<Base title="Real-world work scenarios" wide={true}>
+  <h1>Real-world work scenarios</h1>
+  <p class="muted" style="max-width:82ch">Scenarios escalate from single-task execution to ambiguous, multi-stakeholder ownership. Each is delivered as a timed workplace simulation with realistic artefacts — tickets, incomplete requirements, legacy code, production constraints and stakeholder pressure.</p>
+
+  <section style="margin-top:26px">
+    <h2>Progression</h2>
+    <div class="tw" style="margin-top:12px"><table>
+      <thead><tr><th>Level</th><th>Stage</th><th>Scenario type</th><th>Deliberately imperfect</th><th>Competency proven</th></tr></thead>
+      <tbody>{scenarioLevels.map((l) => (
+        <tr>
+          <td><strong>{l.level}</strong> {l.name}</td><td>{l.stage}</td><td>{l.type}</td>
+          <td class="muted">{l.imperfect}</td><td>{l.proves}</td>
+        </tr>
+      ))}</tbody>
+    </table></div>
+  </section>
+
+  <section style="margin-top:30px">
+    <h2>Standing simulation environment</h2>
+    <div class="note">A permanent simulated organisation runs for the full programme duration: a ticket backlog, a code repository with review requirements, staging and production environments, a rotating on-call roster from Stage C, scheduled releases, injected incidents, and role-played stakeholders (product owner, client, security reviewer, data protection officer). Learners accumulate a verifiable delivery history rather than isolated exercises.</div>
+  </section>
+
+  <section style="margin-top:30px">
+    <h2>Scenario per subject</h2>
+    <p class="muted" style="font-size:14px">Each subject carries its own workplace scenario.</p>
+    {withScenarios.map((s) => (
+      <div class="card" style="margin-top:12px">
+        <div style="display:flex;gap:9px;align-items:baseline;flex-wrap:wrap">
+          <span class="pill">{s.code}</span>
+          <a href={`/curriculum/${s.code.toLowerCase()}`} style="font-weight:600;text-decoration:none">{s.name}</a>
+        </div>
+        <div class="scn" style="margin-top:10px">{s.scenario}</div>
+      </div>
+    ))}
+  </section>
+</Base>

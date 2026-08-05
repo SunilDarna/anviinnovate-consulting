@@ -1,0 +1,73 @@
+---
+import Base from "../../layouts/Base.astro";
+import { subjects, stageOf } from "../../data/curriculum.js";
+export function getStaticPaths() {
+  return subjects.map((s) => ({ params: { code: s.code.toLowerCase() }, props: { s } }));
+}
+const { s } = Astro.props;
+const st = stageOf(s.stage);
+const totalModuleHours = s.modules.reduce((a, m) => a + (m.hours || 0), 0);
+---
+<Base title={`${s.code} · ${s.name}`} description={s.outcome || s.name} wide={true}>
+  <p style="margin:0 0 6px"><a href="/curriculum" class="muted" style="text-decoration:none;font-size:13.5px">← Curriculum</a></p>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <span class="pill">{s.code}</span>
+    <span class="pill d">Stage {s.stage} · {st?.name}</span>
+    <span class="pill d">{s.hours} h ({s.theory} T / {s.practical} P)</span>
+    {s.statutory && <span class="pill g">Statutory</span>}
+    {s.flagship && <span class="pill o">Carries 25% of QP weight</span>}
+  </div>
+  <h1 style="margin-top:12px">{s.name}</h1>
+  {s.outcome && <p class="muted" style="font-size:1.05rem;max-width:80ch">{s.outcome}</p>}
+
+  <div class="grid" style="grid-template-columns:repeat(4,1fr);margin-top:18px">
+    <div class="card"><span class="muted" style="font-size:12px">Prerequisite</span><div style="font-weight:600">{s.prereq || "—"}</div></div>
+    <div class="card"><span class="muted" style="font-size:12px">Modules</span><div style="font-weight:600">{s.modules.length}</div></div>
+    <div class="card"><span class="muted" style="font-size:12px">NOS</span><div style="font-weight:600">{s.nos ? s.nos.join(", ") : "—"}</div></div>
+    <div class="card"><span class="muted" style="font-size:12px">Statutory mapping</span><div style="font-weight:600;font-size:13px">{s.statutory || "—"}</div></div>
+  </div>
+
+  {s.stack && (
+    <section style="margin-top:26px">
+      <h2>Tech stack</h2>
+      <div>{s.stack.map((t) => <span class="chip">{t}</span>)}</div>
+    </section>
+  )}
+
+  <section style="margin-top:26px">
+    <h2>Modules</h2>
+    <p class="muted" style="font-size:13.5px">{s.modules.length} modules · {totalModuleHours} hours</p>
+    {s.modules.map((m) => (
+      <div class="card" style="margin-top:12px">
+        <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap">
+          <h3 style="margin:0">{m.n} · {m.title}</h3>
+          <span class="muted" style="font-size:13px">{m.hours} h{m.pc ? ` · ${m.pc}` : ""}</span>
+        </div>
+        {m.topics && (
+          <div style="margin-top:9px">
+            <span class="muted" style="font-size:12px;font-weight:600">TOPICS</span>
+            <ul class="tight" style="font-size:13.5px">{m.topics.map((t) => <li>{t}</li>)}</ul>
+          </div>
+        )}
+        {m.lab && <p style="margin:8px 0 0;font-size:13.5px"><strong>Lab:</strong> {m.lab}</p>}
+        {m.content
+          ? <p style="margin:8px 0 0"><a href={m.content}>Open course material →</a></p>
+          : <p class="muted" style="margin:9px 0 0;font-size:12.5px">Course material for this module is in production.</p>}
+      </div>
+    ))}
+  </section>
+
+  {s.scenario && (
+    <section style="margin-top:26px">
+      <h2>Real-world work scenario</h2>
+      <div class="scn">{s.scenario}</div>
+    </section>
+  )}
+
+  {s.assessment && (
+    <section style="margin-top:26px">
+      <h2>Assessment</h2>
+      <div class="note">{s.assessment}</div>
+    </section>
+  )}
+</Base>
