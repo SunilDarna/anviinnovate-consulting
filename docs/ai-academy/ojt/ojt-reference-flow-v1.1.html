@@ -1,0 +1,1242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>OJT Reference Flow v1.1 — Anvi Innovate AI Academy</title>
+<style>
+:root{--ink:#0B1F3A;--accent:#2563EB;--surface:#f8fafc;--card:#fff;--text:#0f172a;
+  --muted:#475569;--border:#e2e8f0;--ok:#15803d;--warn:#b45309;--danger:#b91c1c;
+  --you:#7c3aed;--mentor:#0891b2;--squad:#2563EB;--partner:#b45309;
+  --shadow:0 1px 3px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.05);--radius:12px}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,sans-serif;
+  background:var(--surface);color:var(--text);line-height:1.62;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+main{max-width:1180px;margin:0 auto;padding:44px 24px 90px}
+h1,h2,h3,h4{color:var(--ink);line-height:1.22;letter-spacing:-.02em}
+h1{font-size:2.3rem;margin:.1em 0 .2em}
+h2{font-size:1.55rem;margin:0 0 .35em;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:1.13rem;margin:0 0 .3em}
+h4{font-size:.98rem;margin:0 0 .25em}
+section{margin-top:52px}
+a{color:var(--accent)}
+p{max-width:88ch}
+.hero{background:radial-gradient(1100px 420px at 15% -25%,#1e40af 0%,#0B1F3A 62%);color:#fff;
+  border-radius:20px;padding:40px 34px;box-shadow:var(--shadow)}
+.hero h1{color:#fff}.hero p{color:#c7d2fe;max-width:76ch;font-size:1.05rem}
+.pill{display:inline-block;padding:3px 11px;border-radius:999px;background:#eff6ff;color:var(--accent);font-size:12px;font-weight:600;margin:0 4px 4px 0}
+.hero .pill{background:rgba(255,255,255,.13);color:#c7d2fe}
+.pill.g{background:#dcfce7;color:#166534}.pill.o{background:#fef3c7;color:#92400e}
+.pill.d{background:#f1f5f9;color:#334155}.pill.r{background:#fee2e2;color:#991b1b}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.muted{color:var(--muted)}
+.tw{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);background:var(--card);box-shadow:var(--shadow);margin-top:14px}
+table{border-collapse:collapse;width:100%;font-size:13.4px;min-width:600px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+thead th{background:#f1f5f9;font-weight:700;color:var(--ink)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:#fbfdff}
+code{background:#f1f5f9;padding:1px 6px;border-radius:5px;font-size:12.4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:13px 16px;font-size:13.6px;color:#1e3a8a;margin-top:14px}
+.warnbox{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:13px 16px;font-size:13.6px;color:#713f12;margin-top:14px}
+.dangerbox{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:13px 16px;font-size:13.6px;color:#7f1d1d;margin-top:14px}
+.okbox{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:13px 16px;font-size:13.6px;color:#14532d;margin-top:14px}
+ul.tight{margin:7px 0;padding-left:21px}ul.tight li{margin:4px 0}
+.lane{display:grid;grid-template-columns:118px 1fr;gap:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--card);box-shadow:var(--shadow);margin-top:16px}
+.lane .rowlabel{background:#f8fafc;border-right:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:12px 10px;font-weight:700;font-size:12px;letter-spacing:.03em;text-transform:uppercase;display:flex;align-items:center}
+.lane .rowcells{display:grid;grid-template-columns:1.05fr 1fr 1fr 1fr 1fr .85fr;border-bottom:1px solid var(--border)}
+.lane .rowcells > div{border-right:1px dashed var(--border);padding:11px 10px;font-size:12.6px;min-height:62px}
+.lane .rowcells > div:last-child{border-right:none}
+.lane .head{background:#f1f5f9;font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink)}
+.lane .head > div{min-height:0;padding:9px 10px}
+.blk{border-radius:7px;padding:6px 8px;font-size:12.2px;font-weight:600;margin-bottom:5px;display:block;line-height:1.35}
+.b-you{background:#f5f3ff;color:#5b21b6;border:1px solid #ddd6fe}
+.b-men{background:#ecfeff;color:#155e75;border:1px solid #a5f3fc}
+.b-sqd{background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe}
+.b-par{background:#fffbeb;color:#92400e;border:1px solid #fde68a}
+.b-idle{background:#f8fafc;color:#94a3b8;border:1px dashed var(--border);font-weight:500}
+pre.flow{background:#0b1220;color:#dbeafe;border-radius:12px;padding:20px 22px;overflow-x:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.4px;line-height:1.55;margin-top:16px;box-shadow:var(--shadow)}
+pre.flow b{color:#fde68a;font-weight:600}
+pre.flow i{color:#86efac;font-style:normal}
+.phase{border-left:4px solid var(--accent);padding-left:18px;margin-top:30px}
+.phase.p0{border-color:var(--you)}.phase.p5{border-color:var(--you)}
+.phase h3{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap}
+.gate{background:#0B1F3A;color:#fff;border-radius:10px;padding:12px 16px;font-size:13.4px;margin-top:12px}
+.gate strong{color:#fde68a}
+.who{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;letter-spacing:.03em;text-transform:uppercase}
+.w-you{background:#f5f3ff;color:#5b21b6}.w-men{background:#ecfeff;color:#155e75}
+.w-sqd{background:#eff6ff;color:#1e40af}.w-par{background:#fffbeb;color:#92400e}
+.u{display:inline-block;background:#0B1F3A;color:#fff;font-size:11px;font-weight:700;padding:1px 7px;border-radius:5px;margin:0 2px 2px 0;white-space:nowrap}
+.u.t3{background:#7c3aed}
+.vf{font-weight:700;font-size:12px}
+.vf.y{color:var(--ok)}.vf.n{color:var(--warn)}
+.printbtn{position:fixed;right:20px;bottom:20px;background:var(--accent);color:#fff;border:none;padding:12px 20px;
+  border-radius:999px;font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 8px 24px rgba(37,99,235,.35);z-index:99}
+.toc{columns:2;column-gap:32px;font-size:13.6px}
+@media(max-width:760px){.toc{columns:1}}
+.toc a{display:block;padding:3px 0;text-decoration:none}
+.chglog{font-size:13.4px;color:var(--muted)}
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+@media print{
+  .printbtn{display:none}body{background:#fff}main{max-width:none;padding:0}
+  section{break-inside:avoid-page}.card,.lane,.tw,pre.flow{break-inside:avoid}
+  h2{break-after:avoid}
+}
+</style>
+</head>
+<body>
+<button class="printbtn" onclick="window.print()">Save as PDF / Print</button>
+<main>
+
+<div class="hero">
+  <span class="pill">Tier 3 · Module P9 · Live Project / OJT</span>
+  <span class="pill">Reference flow v1.1</span>
+  <span class="pill">90 hours · 6 weeks</span>
+  <h1>OJT Reference Flow</h1>
+  <p><strong>Project: Scheme Setu</strong> — a grounded eligibility assistant for government welfare schemes,
+  built for a rural livelihood NGO by a squad of five students under supervision.</p>
+  <p>This document is the operating manual for one live project, end to end: every phase, every role,
+  every gate, every artifact, the complete technology stack traced back to the units that taught it, and an
+  explicit boundary between what the programme owner does and what the students do. It is written to be
+  cloned — swap the project, keep the machinery.</p>
+</div>
+
+<div class="note" style="margin-top:22px">
+  <strong>New in v1.1 —</strong> §14 Technology stack (layer-by-layer, with the core unit that taught each
+  component, and the 8 GB-laptop justification for every choice) · §15 Curriculum coverage map, including an
+  honest account of which units this project does <em>not</em> exercise · <strong>§16 Work distribution</strong>
+  — how 450 hours are split across five students, the rotation that stops one strong student carrying the squad,
+  and the five leadership roles · verification markers throughout distinguishing what was measured from what
+  must be confirmed at pre-flight.
+</div>
+
+<section>
+  <h2>Contents</h2>
+  <div class="toc">
+    <a href="#why">1 · Why this project was chosen</a>
+    <a href="#brief">2 · The brief</a>
+    <a href="#roles">3 · Roles and RACI</a>
+    <a href="#scope">4 · Scope boundary — yours vs students</a>
+    <a href="#lifecycle">5 · Lifecycle map (all six phases)</a>
+    <a href="#p0">6 · Phase 0 — Sourcing and de-risking</a>
+    <a href="#p1">7 · Phase 1 — Discovery</a>
+    <a href="#p2">8 · Phase 2 — Build the spine</a>
+    <a href="#p3">9 · Phase 3 — Make it correct</a>
+    <a href="#p4">10 · Phase 4 — Make it real</a>
+    <a href="#p5">11 · Phase 5 — Close-out</a>
+    <a href="#sprint">12 · The weekly operating loop</a>
+    <a href="#arch">13 · What the students actually build</a>
+    <a href="#stack"><strong>14 · Technology stack, layer by layer</strong></a>
+    <a href="#coverage"><strong>15 · Curriculum coverage map</strong></a>
+    <a href="#dist"><strong>16 · Work distribution across the squad</strong></a>
+    <a href="#safety">17 · Safety design (non-negotiable)</a>
+    <a href="#disrupt">18 · Injected disruptions</a>
+    <a href="#gates">19 · Gate failure handling</a>
+    <a href="#evidence">20 · Evidence pack the student leaves with</a>
+    <a href="#cost">21 · Time and cost model</a>
+    <a href="#contingency">22 · Contingency and kill criteria</a>
+    <a href="#clone">23 · Cloning this for any project</a>
+  </div>
+</section>
+
+<!-- ─────────────────────────── 1 ─────────────────────────── -->
+<section id="why">
+  <h2>1 · Why this project was chosen</h2>
+  <p>A live project earns its place if it forces the behaviours a self-paced course cannot produce.
+  This one does, on every axis:</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:24%">Property</th><th>How this project delivers it</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Real stakeholder</strong></td><td>An NGO field team with a real backlog of citizen queries. They push back, change their minds, and have opinions about the UI.</td></tr>
+      <tr><td><strong>Real consequences</strong></td><td>A wrong eligibility answer wastes a poor household's day and travel money. This forces genuine refusal design, citation discipline and human-in-the-loop — not decoration.</td></tr>
+      <tr><td><strong>Genuine ambiguity</strong></td><td>The brief says "help our coordinators answer scheme questions." It does not say how. Students must interview, scope and say no.</td></tr>
+      <tr><td><strong>Hostile data</strong></td><td>Government scheme PDFs: scanned pages, multi-column layouts, tables, regional languages, amendments that supersede earlier text.</td></tr>
+      <tr><td><strong>Runs on their hardware</strong></td><td>Whole thing fits on an 8 GB laptop — local embeddings, FAISS, a 3B model or a free-tier API. No paid infrastructure.</td></tr>
+      <tr><td><strong>Curriculum coverage</strong></td><td>Exercises 8 of the 12 core units hard. Full map in §15, including what it misses.</td></tr>
+      <tr><td><strong>Publishable</strong></td><td>Public-interest outcome, safe to open-source, good for admissions and for a government-funding narrative.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="warnbox"><strong>The one thing it is not:</strong> it is not greenfield-easy. Squads consistently
+  underestimate PDF parsing. That is deliberate — the phase plan front-loads it so the pain arrives in week 2
+  when there is still time, not week 6.</div>
+</section>
+
+<!-- ─────────────────────────── 2 ─────────────────────────── -->
+<section id="brief">
+  <h2>2 · The brief</h2>
+  <p>This is the entire document the squad receives on day one. One page. No solution, no architecture,
+  no tech stack. Writing this well is <span class="who w-you">your job</span> and it takes about two hours.</p>
+
+  <div class="card" style="margin-top:16px;border-left:4px solid var(--partner)">
+    <h3>Brief · SS-001 · Scheme eligibility support</h3>
+    <p class="muted" style="font-size:13px;margin-top:2px">Partner: [NGO name] · Sponsor: [Programme Director] · Squad: 5 · Window: 6 weeks / 90 h</p>
+    <h4 style="margin-top:16px">Situation</h4>
+    <p style="font-size:14px">We have 34 field coordinators across 6 districts. Each supports roughly 400 households.
+    Households ask which government schemes they qualify for. Coordinators answer from memory, from WhatsApp
+    forwards, and occasionally from a printout that may be two years old. We do not know how often they are wrong.
+    We believe it is often.</p>
+    <h4 style="margin-top:14px">What we want</h4>
+    <p style="font-size:14px">A coordinator, on a cheap Android phone with patchy signal, should be able to ask a
+    question in Telugu or English and get an answer they can trust, with the source, in under 30 seconds.</p>
+    <h4 style="margin-top:14px">What we can give you</h4>
+    <ul class="tight" style="font-size:14px">
+      <li>Roughly 60 scheme documents (PDF, mixed quality, some scanned)</li>
+      <li>Two coordinators for 3 hours a week for interviews and testing</li>
+      <li>A log of 300 real questions coordinators have asked our office</li>
+    </ul>
+    <h4 style="margin-top:14px">How we will judge it</h4>
+    <ul class="tight" style="font-size:14px">
+      <li>Our coordinators use it voluntarily after the project ends</li>
+      <li>It says "I don't know" instead of guessing</li>
+      <li>Our office staff can update it when a scheme changes, without calling anyone</li>
+    </ul>
+    <h4 style="margin-top:14px">Hard limits</h4>
+    <ul class="tight" style="font-size:14px">
+      <li>No household personal data leaves our premises</li>
+      <li>Running cost after handover must be under ₹2,000/month</li>
+      <li>It must never tell a household they are eligible. It tells a coordinator what the document says.</li>
+    </ul>
+  </div>
+
+  <div class="note"><strong>Why the brief withholds so much:</strong> the gap between this page and a working
+  system is where the learning lives. A brief that specifies the architecture converts a live project back
+  into a lab exercise.</div>
+</section>
+
+<!-- ─────────────────────────── 3 ─────────────────────────── -->
+<section id="roles">
+  <h2>3 · Roles and RACI</h2>
+  <div class="grid g4" style="margin-top:16px">
+    <div class="card"><span class="who w-you">You</span><h3 style="margin-top:8px">Programme Owner</h3>
+      <p class="muted" style="font-size:13px;margin:6px 0 0">Sources the partner, owns the contract, writes the brief, sets kill criteria, signs the certificate. ~34 h per project. Never in the squad's daily loop.</p></div>
+    <div class="card"><span class="who w-men">Mentor</span><h3 style="margin-top:8px">Supervisor / Trainer</h3>
+      <p class="muted" style="font-size:13px;margin:6px 0 0">Runs ceremonies, reviews every PR, coaches, injects the disruptions, writes the evaluation. ~48 h per squad. The only person the squad talks to daily.</p></div>
+    <div class="card"><span class="who w-sqd">Squad</span><h3 style="margin-top:8px">5 students, rotating lead</h3>
+      <p class="muted" style="font-size:13px;margin:6px 0 0">Own the solution end to end. 90 h each. Each student is Tech Lead for exactly one sprint.</p></div>
+    <div class="card"><span class="who w-par">Partner</span><h3 style="margin-top:8px">NGO stakeholder</h3>
+      <p class="muted" style="font-size:13px;margin:6px 0 0">Provides the problem, the corpus, real users, and acceptance. ~14 h total across 6 weeks. Attends 4 sessions.</p></div>
+  </div>
+
+  <h3 style="margin-top:30px">RACI</h3>
+  <p class="muted" style="font-size:13.5px">R = does the work · A = accountable, one per row · C = consulted · I = informed</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:34%">Decision or deliverable</th><th>You</th><th>Mentor</th><th>Squad</th><th>Partner</th></tr></thead>
+    <tbody>
+      <tr><td>Partner selection and MoU</td><td><strong>A/R</strong></td><td>C</td><td>I</td><td>C</td></tr>
+      <tr><td>Data-sharing agreement</td><td><strong>A/R</strong></td><td>I</td><td>I</td><td>R</td></tr>
+      <tr><td>The brief</td><td><strong>A/R</strong></td><td>C</td><td>I</td><td>C</td></tr>
+      <tr><td>Success criteria</td><td>A</td><td>C</td><td>I</td><td><strong>R</strong></td></tr>
+      <tr><td>Technical architecture</td><td>I</td><td>C</td><td><strong>A/R</strong></td><td>I</td></tr>
+      <tr><td>Scope inside the brief</td><td>I</td><td>C</td><td><strong>A/R</strong></td><td>C</td></tr>
+      <tr><td>Scope change to the brief</td><td><strong>A</strong></td><td>R</td><td>C</td><td>R</td></tr>
+      <tr><td>Code review approval</td><td>I</td><td><strong>A/R</strong></td><td>R</td><td>—</td></tr>
+      <tr><td>Go / no-go to field test</td><td>I</td><td><strong>A</strong></td><td>R</td><td>C</td></tr>
+      <tr><td>Acceptance of the deliverable</td><td>C</td><td>C</td><td>I</td><td><strong>A/R</strong></td></tr>
+      <tr><td>Student evaluation and grade</td><td>A</td><td><strong>R</strong></td><td>I</td><td>C</td></tr>
+      <tr><td>Post-handover maintenance</td><td><strong>A/R</strong></td><td>I</td><td>—</td><td>C</td></tr>
+      <tr><td>Publishing the artifact</td><td><strong>A</strong></td><td>I</td><td>R</td><td>C</td></tr>
+    </tbody>
+  </table></div>
+  <div class="warnbox"><strong>Two rows do most of the work.</strong> "Scope inside the brief" is <em>A</em> on the
+  squad — they must be allowed to make bad calls and live with them. "Scope change to the brief" is <em>A</em> on
+  you — otherwise a friendly partner will quietly triple the project.</div>
+</section>
+
+<!-- ─────────────────────────── 4 ─────────────────────────── -->
+<section id="scope">
+  <h2>4 · Scope boundary — yours vs the students'</h2>
+  <p>The single most common failure in OJT programmes is the boundary blurring: the owner starts solving
+  technical problems, or the students get handed commercial and legal risk they cannot carry. Keep this table on the wall.</p>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card" style="border-left:4px solid var(--you)">
+      <h3><span class="who w-you">Yours</span> — everything outside the code</h3>
+      <ul class="tight" style="font-size:13.6px">
+        <li>Finding and qualifying the partner</li>
+        <li>MoU, data-sharing agreement, IP and licence terms</li>
+        <li>Writing the brief and agreeing success criteria</li>
+        <li>Pre-flight feasibility — proving it is buildable on an 8 GB laptop <em>before</em> students see it</li>
+        <li>Confirming the corpus legally exists and can be used</li>
+        <li>Hiring, briefing and paying the mentor</li>
+        <li>Repo, CI, secrets, accounts, licences</li>
+        <li>Kill criteria and the decision to pull the plug</li>
+        <li>Handling partner escalation and scope creep</li>
+        <li>Who maintains it after handover</li>
+        <li>Certificates, references, publication</li>
+        <li>The fallback project if the partner disappears</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:4px solid var(--squad)">
+      <h3><span class="who w-sqd">Students'</span> — everything inside the code</h3>
+      <ul class="tight" style="font-size:13.6px">
+        <li>Interviewing the partner and resolving ambiguity</li>
+        <li>Deciding what is in and out of this 90 h</li>
+        <li>All architecture and technology choices</li>
+        <li>Building the golden evaluation set</li>
+        <li>Writing every line of code and every test</li>
+        <li>Reviewing each other's pull requests</li>
+        <li>Estimating, planning and re-planning sprints</li>
+        <li>Deciding what to cut when they run late</li>
+        <li>Running the field test with real coordinators</li>
+        <li>Handling the injected incident</li>
+        <li>Handover documentation and partner training</li>
+        <li>The postmortem and the demo</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="dangerbox"><strong>Never crosses the line to students:</strong> signing anything, holding
+  household personal data, direct commercial negotiation with the partner, paying for infrastructure,
+  or being the sole owner of a production system after they leave.</div>
+  <div class="okbox"><strong>Never crosses the line to you:</strong> technical decisions. If the squad picks
+  a worse retrieval strategy than you would have, that is the mentor's coaching problem, not your override.
+  The one exception is safety — see §17.</div>
+</section>
+
+<!-- ─────────────────────────── 5 ─────────────────────────── -->
+<section id="lifecycle">
+  <h2>5 · Lifecycle map</h2>
+  <p>Six phases. Two are yours and invisible to students; four are the 90 h they experience.</p>
+
+  <div class="lane">
+    <div class="rowlabel head" style="text-transform:uppercase">Phase</div>
+    <div class="rowcells head">
+      <div>Phase 0 · Pre-cohort<br><span style="font-weight:500">4–6 weeks before</span></div>
+      <div>Phase 1 · Week 1<br><span style="font-weight:500">Discovery · 15 h</span></div>
+      <div>Phase 2 · Weeks 2–3<br><span style="font-weight:500">Spine · 30 h</span></div>
+      <div>Phase 3 · Weeks 4–5<br><span style="font-weight:500">Correct · 30 h</span></div>
+      <div>Phase 4 · Week 6<br><span style="font-weight:500">Real · 15 h</span></div>
+      <div>Phase 5 · +1 week<br><span style="font-weight:500">Close-out</span></div>
+    </div>
+
+    <div class="rowlabel" style="color:#5b21b6">You</div>
+    <div class="rowcells">
+      <div><span class="blk b-you">Source partner</span><span class="blk b-you">MoU + data agreement</span><span class="blk b-you">Write brief</span><span class="blk b-you">Pre-flight build</span><span class="blk b-you">Set kill criteria</span></div>
+      <div><span class="blk b-you">Kick off with partner</span><span class="blk b-idle">then step back</span></div>
+      <div><span class="blk b-idle">1 h/wk oversight</span></div>
+      <div><span class="blk b-you">Rule on scope change</span></div>
+      <div><span class="blk b-idle">Attend final demo</span></div>
+      <div><span class="blk b-you">Sign off</span><span class="blk b-you">References</span><span class="blk b-you">Publish</span><span class="blk b-you">Maintenance call</span></div>
+    </div>
+
+    <div class="rowlabel" style="color:#155e75">Mentor</div>
+    <div class="rowcells">
+      <div><span class="blk b-men">Read brief, dry-run</span><span class="blk b-men">Prep repo + CI</span></div>
+      <div><span class="blk b-men">Facilitate interview</span><span class="blk b-men">Design review</span></div>
+      <div><span class="blk b-men">Standups, PR review</span><span class="blk b-men">Sprint 1 demo</span></div>
+      <div><span class="blk b-men">Inject scope change</span><span class="blk b-men">Standups, PR review</span></div>
+      <div><span class="blk b-men">Inject incident</span><span class="blk b-men">Go/no-go call</span></div>
+      <div><span class="blk b-men">Write evaluations</span></div>
+    </div>
+
+    <div class="rowlabel" style="color:#1e40af">Squad</div>
+    <div class="rowcells">
+      <div><span class="blk b-idle">not yet involved</span></div>
+      <div><span class="blk b-sqd">Interview partner</span><span class="blk b-sqd">Ambiguity log</span><span class="blk b-sqd">Design doc + risks</span></div>
+      <div><span class="blk b-sqd">Ingest corpus</span><span class="blk b-sqd">Baseline retrieval</span><span class="blk b-sqd">Golden eval set</span><span class="blk b-sqd">Thin slice working</span></div>
+      <div><span class="blk b-sqd">Hybrid + rerank</span><span class="blk b-sqd">Refusal + citations</span><span class="blk b-sqd">Telugu support</span><span class="blk b-sqd">Absorb scope change</span></div>
+      <div><span class="blk b-sqd">Deploy + observe</span><span class="blk b-sqd">Field test</span><span class="blk b-sqd">Handover docs</span><span class="blk b-sqd">Postmortem</span></div>
+      <div><span class="blk b-sqd">Portfolio write-up</span></div>
+    </div>
+
+    <div class="rowlabel" style="color:#92400e">Partner</div>
+    <div class="rowcells">
+      <div><span class="blk b-par">Scoping call</span><span class="blk b-par">Agree criteria</span><span class="blk b-par">Hand over corpus</span></div>
+      <div><span class="blk b-par">Kickoff interview (2 h)</span></div>
+      <div><span class="blk b-par">Sprint 1 demo (1 h)</span><span class="blk b-par">Help label eval set</span></div>
+      <div><span class="blk b-par">Sprint 2 demo (1 h)</span></div>
+      <div><span class="blk b-par">Field test (4 h)</span><span class="blk b-par">UAT</span></div>
+      <div><span class="blk b-par">Accept / reject</span></div>
+    </div>
+  </div>
+
+  <div class="note"><strong>Read the "You" lane carefully.</strong> Your entire load is front and back.
+  During the four live weeks you are almost absent — one hour a week. If you find yourself in the daily loop,
+  the mentor model has failed and the programme will not scale past two squads.</div>
+</section>
+
+<!-- ─────────────────────────── 6 ─────────────────────────── -->
+<section id="p0">
+  <h2>6 · Phase 0 — Sourcing and de-risking</h2>
+  <p class="muted"><span class="who w-you">You</span> · 4–6 weeks before the cohort · ~20 h · students see none of this</p>
+  <p>Phase 0 exists to guarantee one thing: <strong>on day one, the project is known to be doable.</strong>
+  Every hour skipped here costs the squad five.</p>
+
+  <div class="phase p0">
+    <h3>0.1 Source and qualify the partner <span class="pill d">6 h</span></h3>
+    <p>Qualification checklist — all five must be true, or decline:</p>
+    <div class="tw"><table>
+      <thead><tr><th style="width:30%">Test</th><th>Why it matters</th></tr></thead><tbody>
+        <tr><td>A named person will give 3 h/week</td><td>A partner who cannot attend demos will reject the deliverable at the end.</td></tr>
+        <tr><td>The data exists today</td><td>"We'll get you the documents" means you will still be waiting in week 4.</td></tr>
+        <tr><td>Real users are reachable</td><td>Without a field test the project is a lab exercise wearing a costume.</td></tr>
+        <tr><td>Failure is survivable</td><td>Never put students on something the partner's operations depend on.</td></tr>
+        <tr><td>They can say what "good" means</td><td>If they cannot, you must write it and get it signed.</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="phase p0">
+    <h3>0.2 Paperwork <span class="pill d">4 h</span></h3>
+    <ul class="tight">
+      <li><strong>MoU</strong> — this is a training engagement; the deliverable is provided as-is; no SLA; no liability.</li>
+      <li><strong>Data-sharing agreement</strong> — what data, where it may be stored, deletion date, no personal data.</li>
+      <li><strong>IP and licence</strong> — decide up front. Recommended: partner gets a perpetual free licence, code is open-sourced under Apache-2.0, students keep public credit.</li>
+      <li><strong>Photo and publication consent</strong> — you will want the story later.</li>
+    </ul>
+  </div>
+
+  <div class="phase p0">
+    <h3>0.3 Pre-flight build <span class="pill d">8 h — do not skip</span></h3>
+    <p>You or the mentor builds a deliberately ugly end-to-end version in one day. Not to give the students —
+    to prove the project is not impossible and to find the landmines. The three specific unknowns for this
+    project are listed in <a href="#preflight">§14.4</a>.</p>
+    <ul class="tight">
+      <li>Parse 5 of the worst PDFs. Do the scanned ones need OCR? Is Telugu text extractable or is it an image?</li>
+      <li>Does an embedding model that fits in 3 GB retrieve anything sensible on this corpus?</li>
+      <li>Does the free-tier LLM quota survive 300 eval questions per night?</li>
+      <li>Time the full index build on a low-end laptop. If it is over 20 minutes, the corpus needs pre-chunking by you.</li>
+    </ul>
+    <div class="dangerbox"><strong>Pre-flight is where you cancel.</strong> If the corpus turns out to be
+    scanned Telugu images with no usable OCR path, that is a six-week project on its own. Find that out now,
+    renegotiate the brief with the partner, and hand the squad a corpus that has a route through it.</div>
+  </div>
+
+  <div class="phase p0">
+    <h3>0.4 Set up the rails <span class="pill d">2 h</span></h3>
+    <ul class="tight">
+      <li>Repo with branch protection, no direct pushes to <code>main</code>, 1 peer + 1 mentor approval required</li>
+      <li>CI: lint, tests, and a nightly eval job that posts scores to the PR</li>
+      <li>Issue templates, a project board, a <code>DECISIONS.md</code> for architecture decision records</li>
+      <li>Secrets in a vault the students can read but not export</li>
+    </ul>
+  </div>
+
+  <div class="gate"><strong>Phase 0 exit gate.</strong> Signed MoU · corpus in hand and inspected ·
+  pre-flight prototype returns a sensible answer to at least one real question · repo and CI live ·
+  mentor briefed · kill criteria written down. Missing any one → do not start; run Anvi Labs instead.</div>
+</section>
+
+<!-- ─────────────────────────── 7 ─────────────────────────── -->
+<section id="p1">
+  <h2>7 · Phase 1 — Discovery</h2>
+  <p class="muted"><span class="who w-sqd">Squad</span> · Week 1 · 15 h · <strong>no production code is written this week</strong></p>
+
+  <pre class="flow">
+  Day 1                Day 2              Day 3-4              Day 5
+  ─────                ─────              ───────              ─────
+  <b>Kickoff (2 h)</b>        <b>Corpus autopsy</b>     <b>Design doc</b>          <b>DESIGN REVIEW</b>
+  Partner tells the    Open 15 PDFs by    HLD: components,     Mentor + you.
+  story. Squad only    hand. Classify.    data flow, model     Squad defends.
+  asks questions.      Count the awful.   choices, eval plan.  Approve / rework.
+       │                    │                   │                    │
+       ▼                    ▼                   ▼                    ▼
+  <b>Ambiguity log</b>       <b>Feasibility notes</b>  <b>Risk register</b>       <b>Sprint 1 plan</b>
+  ≥20 open questions   what breaks, what  incl. harm analysis  scoped, estimated,
+  written down         is out of scope    and mitigations      committed
+  </pre>
+
+  <h3 style="margin-top:26px">How the kickoff is run</h3>
+  <p>The mentor facilitates and enforces one rule: <strong>the squad may not propose a solution in this meeting.</strong>
+  Questions only. Students reflexively pitch an architecture in minute four; that habit is the thing being trained out.</p>
+  <ul class="tight">
+    <li>Partner narrates a normal working day for a coordinator, uninterrupted, 15 minutes</li>
+    <li>Squad asks questions for 60 minutes; one student is scribe and owns the ambiguity log</li>
+    <li>Partner walks through 10 real questions from their query log, explaining what a good answer looks like</li>
+    <li>Squad reads back their understanding; partner corrects it. This read-back catches most misunderstandings.</li>
+  </ul>
+
+  <h3 style="margin-top:26px">The design document</h3>
+  <p>Six sections, no more than eight pages. This is the P1 module (SRS/HLD/LLD) applied for real.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:22%">Section</th><th>Must answer</th></tr></thead><tbody>
+      <tr><td>Problem restated</td><td>In the squad's own words, with the ambiguities they resolved and how</td></tr>
+      <tr><td>Scope</td><td>What is in these 90 h, and an explicit <strong>out-of-scope list</strong> the partner has seen</td></tr>
+      <tr><td>Architecture</td><td>Components, data flow, why this retrieval strategy and not another</td></tr>
+      <tr><td>Evaluation plan</td><td>What metrics, what thresholds, how the golden set is built — <em>before</em> building</td></tr>
+      <tr><td>Risk register</td><td>Top 8 risks with likelihood, impact, mitigation, owner. Must include harm risks.</td></tr>
+      <tr><td>Sprint plan</td><td>Three sprints, with what gets cut first if they run late</td></tr>
+    </tbody></table></div>
+
+  <div class="gate"><strong>Gate 1 — Design review.</strong> Mentor approves or sends back. Approval requires:
+  an out-of-scope list the partner has seen · thresholds set before any code · a harm analysis that names the
+  refusal behaviour · a named first-cut item. <strong>No repository access to <code>main</code> until this passes.</strong></div>
+</section>
+
+<!-- ─────────────────────────── 8 ─────────────────────────── -->
+<section id="p2">
+  <h2>8 · Phase 2 — Build the spine</h2>
+  <p class="muted"><span class="who w-sqd">Squad</span> · Weeks 2–3 · 30 h · goal: <strong>ugly but end-to-end</strong></p>
+  <p>The target for sprint 1 is one thin vertical slice: a question goes in, a cited answer comes out, and a
+  score is computed. Quality is explicitly <em>not</em> the goal. Squads that polish retrieval before they have
+  an evaluation harness are the squads that fail Gate 3.</p>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h4>Workstream A — Corpus (2 students)</h4>
+      <ul class="tight" style="font-size:13.4px">
+        <li>Parse → normalise → chunk, with a fallback OCR path for scans</li>
+        <li>Every chunk carries: scheme ID, section, page, document version, publication date</li>
+        <li>Reproducible: <code>make index</code> rebuilds from raw PDFs, deterministically</li>
+        <li>Quality report: how many pages failed, and which</li>
+      </ul></div>
+    <div class="card"><h4>Workstream B — Golden set (2 students)</h4>
+      <ul class="tight" style="font-size:13.4px">
+        <li>80 questions sampled from the partner's 300-question log</li>
+        <li>Each labelled <em>with the partner</em>: correct answer, source page, or "not answerable from corpus"</li>
+        <li><strong>25% must be unanswerable</strong> — this is what tests refusal</li>
+        <li>Held in version control, never shown to the generation prompt</li>
+      </ul></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h4>Workstream C — Spine (1 student, the sprint's Tech Lead)</h4>
+    <p style="font-size:13.4px;margin:6px 0 0">Wires the thinnest possible path: retrieve top-k → stuff into a prompt →
+    generate with citations → return. Plus <code>make eval</code>, which runs all 80 questions and prints
+    recall@5, citation validity and refusal accuracy. Ugly is fine. Working is mandatory.</p></div>
+
+  <div class="okbox"><strong>Why the golden set is built in sprint 1, not sprint 3.</strong> Without it, every
+  later decision is taste. With it, "did reranking help?" has an answer. It is also the deliverable the partner
+  values most after handover, because it lets them verify changes themselves.</div>
+
+  <div class="gate"><strong>Gate 2 — Sprint 1 demo.</strong> Live, with the partner present, on the mentor's
+  machine not the author's. Must show: a real question answered with a working citation link · <code>make index</code>
+  and <code>make eval</code> running from a clean clone · a baseline score on the board. <strong>A demo that only
+  runs on one laptop fails.</strong></div>
+</section>
+
+<!-- ─────────────────────────── 9 ─────────────────────────── -->
+<section id="p3">
+  <h2>9 · Phase 3 — Make it correct</h2>
+  <p class="muted"><span class="who w-sqd">Squad</span> · Weeks 4–5 · 30 h · goal: <strong>move the numbers, honestly</strong></p>
+  <p>Now the squad has a baseline and a harness, every change is a hypothesis with a measurement.
+  The mentor's job this sprint is to refuse any PR whose description does not include a before/after number.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th style="width:28%">Work</th><th>Measured by</th><th>Typical target</th></tr></thead><tbody>
+      <tr><td>Hybrid retrieval (BM25 + vector, fused)</td><td>recall@5 on golden set</td><td>baseline → +12–20 pts</td></tr>
+      <tr><td>Cross-encoder reranking</td><td>recall@3, latency p95</td><td>gain vs. added seconds</td></tr>
+      <tr><td>Query rewriting for Telugu / colloquial input</td><td>recall@5 on the Telugu subset</td><td>close the gap to English</td></tr>
+      <tr><td>Refusal / abstention</td><td>refusal accuracy on the 25% unanswerable</td><td>&gt; 90%, and &lt; 5% false refusals</td></tr>
+      <tr><td>Citation enforcement</td><td>% of claims traceable to a retrieved chunk</td><td>100% or the answer is blocked</td></tr>
+      <tr><td>Version awareness</td><td>correct behaviour on superseded scheme text</td><td>cites the current version</td></tr>
+    </tbody></table></div>
+
+  <div class="warnbox"><strong>The scope change lands in week 4</strong> — see §18. It is mandatory, and the
+  squad's response to it is a graded outcome, not an inconvenience.</div>
+
+  <div class="gate"><strong>Gate 3 — Quality gate.</strong> All thresholds from the design doc met, or a written
+  argument for why the threshold was wrong, accepted by the mentor. An honest miss with analysis passes.
+  A silent miss fails. Scores are read from CI, never from a student's terminal.</div>
+</section>
+
+<!-- ─────────────────────────── 10 ─────────────────────────── -->
+<section id="p4">
+  <h2>10 · Phase 4 — Make it real</h2>
+  <p class="muted"><span class="who w-sqd">Squad</span> · Week 6 · 15 h · goal: <strong>someone who is not you uses it</strong></p>
+
+  <pre class="flow">
+  Mon                 Tue                  Wed                   Thu–Fri
+  ───                 ───                  ───                   ───────
+  <b>Deploy</b>              <b>INCIDENT INJECTED</b>    <b>Field test</b>            <b>Handover</b>
+  HF Spaces free /    Mentor breaks       3 real coordinators,  Runbook, update
+  partner laptop /    something at 10am.  1 hour, observed,     guide, training
+  ₹500 VPS.           No warning.         squad must not help.  session for the
+  Cost cap wired in.       │                    │               partner's staff.
+       │                   ▼                    ▼                    │
+  <b>Observability</b>       <b>Response + fix</b>       <b>Findings</b>              <b>Postmortem</b>
+  Logs, latency,      Diagnose, mitigate, What actually broke   Written, blameless,
+  cost, audit trail   communicate, fix,   in the hands of a     reviewed. Goes in
+  of every answer     write it up.        real user.            the evidence pack.
+  </pre>
+
+  <h3 style="margin-top:26px">The field test is the highest-value hour of the whole project</h3>
+  <p>Three coordinators, real questions, squad watching in silence. They may not explain, hint, or touch the
+  keyboard. Every time a coordinator hesitates, that hesitation is a finding. Expect the squad to discover that
+  their carefully-tuned retrieval is fine and their interface is unusable. That lesson does not exist in any lab.</p>
+
+  <h3 style="margin-top:22px">Handover — the part everyone forgets</h3>
+  <ul class="tight">
+    <li>Runbook: how to restart it, what the alerts mean, who to call</li>
+    <li><strong>Corpus update guide</strong> — the partner must be able to add a new scheme PDF without a developer. This was one of their three success criteria.</li>
+    <li>The golden set, and how to re-run <code>make eval</code> after an update</li>
+    <li>A 45-minute live training session with the partner's office staff, delivered by the squad</li>
+    <li>Known limitations, written plainly and handed over in writing</li>
+  </ul>
+
+  <div class="gate"><strong>Gate 4 — Acceptance.</strong> Partner signs the acceptance note ·
+  incident postmortem submitted · handover training delivered · deployed system reachable and inside the cost cap ·
+  repo clean with no secrets in history.</div>
+</section>
+
+<!-- ─────────────────────────── 11 ─────────────────────────── -->
+<section id="p5">
+  <h2>11 · Phase 5 — Close-out</h2>
+  <p class="muted"><span class="who w-you">You</span> + <span class="who w-men">Mentor</span> · the week after · ~8 h</p>
+  <div class="grid g2">
+    <div class="card"><h4>Mentor</h4><ul class="tight" style="font-size:13.4px">
+      <li>Per-student evaluation against the rubric (§20)</li>
+      <li>Reference letter draft, one per student, specific and evidence-based</li>
+      <li>Squad retro → feedback into the next brief</li>
+    </ul></div>
+    <div class="card"><h4>You</h4><ul class="tight" style="font-size:13.4px">
+      <li>Countersign evaluations; issue the OJT completion record</li>
+      <li><strong>Decide who maintains it.</strong> Options: partner takes it fully · next cohort adopts it as a brownfield project · you archive it and tell the partner plainly. Choose one and tell the partner in writing.</li>
+      <li>Publish: repo, case study, partner quote</li>
+      <li>Debrief the partner; ask for the next brief</li>
+    </ul></div>
+  </div>
+  <div class="dangerbox"><strong>The maintenance decision is a reputational risk, not an admin task.</strong>
+  An abandoned system that a real NGO started depending on is worse than never having built it. Decide before
+  the squad disperses, and put it in the acceptance note.</div>
+</section>
+
+<!-- ─────────────────────────── 12 ─────────────────────────── -->
+<section id="sprint">
+  <h2>12 · The weekly operating loop</h2>
+  <p>Identical in every sprint. The squad should be able to run it without being told by week 3.</p>
+  <pre class="flow">
+                        ┌──────────────── 2-WEEK SPRINT ────────────────┐
+                        │                                               │
+   <b>SPRINT PLANNING</b>  ──►  <b>DAILY STANDUP</b>  ──►  <b>BUILD</b>  ──►  <b>PULL REQUEST</b>     │
+   Mon wk1, 90 min       15 min, 9:00        in pairs      description must   │
+   Squad estimates.      Squad runs it.      rotating      state: what, why,  │
+   Mentor challenges     Mentor listens,     pairs, no     before/after       │
+   the estimate, does    speaks last, and    solo silos    numbers            │
+   not set it.           only if asked.                          │            │
+        ▲                                                       ▼            │
+        │                                             <b>REVIEW: 1 peer + 1 mentor</b>
+        │                                             No self-merge. CI green.│
+        │                                                       │            │
+        │                                                       ▼            │
+        │              <b>RETRO</b>  ◄────  <b>SPRINT DEMO</b>  ◄────  <b>MERGE to main</b>     │
+        │           45 min, squad     Fri wk2, partner        auto-deploys    │
+        └───────────  only. Mentor    present. Live, on       to staging      │
+                      absent for      the mentor's machine.                   │
+                      first 20 min.                                           │
+                        └───────────────────────────────────────────────────┘
+
+   <b>Weekly, outside the loop:</b>
+   · Mentor 1:1 with the rotating Tech Lead              (30 min)
+   · Mentor 1:1 with each other student, alternating     (20 min × 2)
+   · Owner checkpoint with mentor — status, risks only   (30 min)
+  </pre>
+
+  <h3 style="margin-top:24px">Rotating leadership</h3>
+  <p>Every student leads exactly once. Leading is the single highest-signal item on the evaluation, because it
+  is the only place a fresher can evidence <em>leading</em> rather than <em>doing</em> — so the project is
+  carved into <strong>five</strong> lead roles, not three, and nobody is left out. Full rotation and the
+  hour-by-hour work split are in <a href="#dist">§16</a>.</p>
+
+  <div class="note"><strong>Mentor discipline:</strong> speaks last at standup, absent for the first 20 minutes
+  of retro, never types in the squad's repo. The mentor's leverage is in PR review and 1:1s, not in the room.</div>
+</section>
+
+<!-- ─────────────────────────── 13 ─────────────────────────── -->
+<section id="arch">
+  <h2>13 · What the students actually build</h2>
+  <p>This is the shape a competent squad converges on. It is <strong>not</strong> given to them — it is here so
+  you and the mentor know what "on track" looks like. §14 names the technology behind each box.</p>
+  <pre class="flow">
+   ┌─────────────────────── BUILD TIME (offline, reproducible) ───────────────────────┐
+   │                                                                                  │
+   │  scheme PDFs ──► parse ──► OCR fallback ──► normalise ──► chunk ──► embed        │
+   │  (60 docs,       (text     (scanned pages)  (headers,     (500 tok,   (local,    │
+   │   versioned)      layer)                     tables)       overlap)    3 GB RAM) │
+   │                                                              │                   │
+   │                          metadata on every chunk ────────────┤                   │
+   │                          scheme_id · section · page ·        ▼                   │
+   │                          doc_version · published_on     ┌─────────┐              │
+   │                                                         │  INDEX  │              │
+   │                                                         │ FAISS + │              │
+   │                                                         │  BM25   │              │
+   │                                                         └────┬────┘              │
+   └──────────────────────────────────────────────────────────────┼──────────────────┘
+                                                                  │
+   ┌─────────────────────── QUERY TIME ────────────────────────────┼──────────────────┐
+   │                                                               │                  │
+   │  Coordinator ──► Web UI ──► API ──► <b>1 Query rewrite</b>              │                  │
+   │  (low-end        (mobile-  (Fast    te/en normalise,          │                  │
+   │   Android)        first)    API)    expand abbreviations      │                  │
+   │                                            │                  ▼                  │
+   │                                            └──► <b>2 Hybrid retrieve</b>              │
+   │                                                  BM25 ─┐                         │
+   │                                                        ├─► RRF fuse ─► rerank    │
+   │                                                 vector ┘                 │       │
+   │                                                                          ▼       │
+   │                                                              <b>3 Support check</b>     │
+   │                                                              enough evidence?    │
+   │                                                          ┌───────┴───────┐       │
+   │                                                         NO              YES      │
+   │                                                          │               │       │
+   │                                              <b>REFUSE + suggest</b>  <b>4 Generate</b>     │
+   │                                              "not in my sources,   grounded,     │
+   │                                               contact the office"  every claim   │
+   │                                                          │         cited         │
+   │                                                          └───────┬───────┘       │
+   │                                                                  ▼               │
+   │                                                          <b>5 Audit log</b>            │
+   │                                                    question, chunks, answer,     │
+   │                                                    latency, cost, coordinator    │
+   │                                                    feedback thumb                │
+   └──────────────────────────────────────────────────────────────────┼──────────────┘
+                                                                      │
+   ┌──────────────────────── EVAL (nightly in CI) ─────────────────────┼─────────────┐
+   │  80 golden questions ──► run pipeline ──► score ──► post to PR ◄──┘             │
+   │  recall@5 · citation validity · refusal accuracy · p95 latency · ₹/query        │
+   └────────────────────────────────────────────────────────────────────────────────┘
+  </pre>
+  <p class="muted" style="font-size:13.4px;margin-top:10px">Everything above runs on an 8 GB Windows laptop.
+  The only external dependency is a free-tier LLM API, and step 4 degrades to a local 3B model if the quota is exhausted —
+  which is exactly the incident injected in week 6.</p>
+</section>
+
+<!-- ═══════════════════════════ 14 · NEW ═══════════════════════════ -->
+<section id="stack">
+  <h2>14 · Technology stack, layer by layer</h2>
+  <p><strong>No new technology is introduced during OJT.</strong> Every component below was taught in a core
+  unit. The project tests whether a student can <em>combine</em> what they already know under real conditions —
+  not whether they can absorb a new framework in six weeks while a partner watches.</p>
+
+  <p style="margin-top:12px"><span class="u">U#</span> marks the core unit that taught it ·
+  <span class="u t3">P#</span> marks a Tier 3 module ·
+  <span class="vf y">✓</span> measured during curriculum research ·
+  <span class="vf n">○</span> to be confirmed at pre-flight (§14.4)</p>
+
+  <h3 style="margin-top:30px">14.1 The stack</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:15%">Layer</th><th style="width:26%">Tool</th><th>Why this one, on an 8 GB laptop</th><th style="width:11%">Taught in</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Environment</strong></td><td><code>uv</code>, Makefile, <code>.env</code></td><td>One-command setup — the module standard across the whole curriculum. <span class="vf y">✓</span></td><td><span class="u">U1</span><span class="u">U12</span></td></tr>
+      <tr><td><strong>PDF parse</strong></td><td>PyMuPDF (<code>fitz</code>), pdfplumber for tables</td><td>Pure wheels, no system dependencies, fast on text-layer PDFs. pdfplumber only where tables actually matter — it is far slower.</td><td><span class="u">U2</span></td></tr>
+      <tr><td><strong>OCR fallback</strong></td><td>Tesseract + <code>pytesseract</code>, <code>tel</code>/<code>hin</code> language data</td><td>The only free, offline OCR with Indic script support. Quality on these specific scans is the single biggest project risk. <span class="vf n">○</span></td><td><span class="u">U2</span></td></tr>
+      <tr><td><strong>Language ID</strong></td><td><code>langdetect</code> or fastText <code>lid</code></td><td>Tiny, CPU-only. Routes Telugu/Hindi/English queries and documents.</td><td><span class="u">U2</span></td></tr>
+      <tr><td><strong>Chunking</strong></td><td>Hand-written splitter (~60 lines)</td><td>They write it themselves. The metadata schema is the actual lesson, and a library hides it.</td><td><span class="u">U9</span></td></tr>
+      <tr><td><strong>Embeddings</strong></td><td><code>sentence-transformers</code> — multilingual-e5-small <em>or</em> paraphrase-multilingual-MiniLM-L12-v2</td><td>~470 MB, 384-dim, multilingual. Fits inside the ~3–3.5 GB of free RAM left after Windows and the iGPU. <span class="vf n">○</span> exact resident size</td><td><span class="u">U7</span></td></tr>
+      <tr><td><strong>Vector index</strong></td><td><code>faiss-cpu</code>, <code>IndexFlatIP</code></td><td>60 documents ≈ 8–15k chunks. A flat index is exact and instant at this size — IVF/HNSW would be premature optimisation, and saying so at the design review is a pass signal.</td><td><span class="u">U9</span></td></tr>
+      <tr><td><strong>Keyword index</strong></td><td><code>rank_bm25</code></td><td>Pure Python, no server, no Java. Fine at this corpus size. Essential for scheme names and numeric criteria that embeddings blur.</td><td><span class="u">U9</span></td></tr>
+      <tr><td><strong>Fusion</strong></td><td>Reciprocal Rank Fusion, hand-written</td><td>About 10 lines, no dependency. Typically the largest single quality jump in the project.</td><td><span class="u">U9</span></td></tr>
+      <tr><td><strong>Reranking</strong></td><td>Multilingual cross-encoder (<code>jina-reranker-v2-base-multilingual</code> class, ~280 MB)</td><td><em>Optional.</em> CPU latency is the trade they must measure against the 30-second requirement. BGE-reranker-v2-m3 is too large for this budget. <span class="vf n">○</span></td><td><span class="u">U9</span><span class="u">U11</span></td></tr>
+      <tr><td><strong>Generation</strong></td><td>Gemini API free tier</td><td>Available in India, no card required. <span class="vf y">✓</span></td><td><span class="u">U8</span></td></tr>
+      <tr><td><strong>Local fallback</strong></td><td>Ollama + <code>qwen2.5:3b</code> (1.9 GB)</td><td>Verified to run in the RAM budget. <code>gemma2:2b</code> (1.6 GB) is the smaller option; <code>llama3.1:8b</code> (4.9 GB) thrashes and must not be used. <strong>This fallback is the week-6 incident.</strong> <span class="vf y">✓</span></td><td><span class="u">U8</span></td></tr>
+      <tr><td><strong>API</strong></td><td>FastAPI + uvicorn, Pydantic models</td><td>The module standard; async suits an I/O-bound RAG path.</td><td><span class="u">U12</span></td></tr>
+      <tr><td><strong>UI</strong></td><td>Server-rendered Jinja + HTMX</td><td>Cheap Android on patchy signal. A React SPA is the wrong answer here and working that out is part of the assessment.</td><td><span class="u">U12</span></td></tr>
+      <tr><td><strong>Audit + feedback</strong></td><td>SQLite</td><td>No server, ships with Python, real SQL. Stores every question, retrieved chunk IDs, answer, latency, cost and thumb rating.</td><td><span class="u">U3</span></td></tr>
+      <tr><td><strong>Eval harness</strong></td><td><code>pytest</code> + scorers they write</td><td>RAGAS burns API quota and hides the metric behind an abstraction. Writing recall@k and citation validity by hand is 40 lines and they learn what the number means.</td><td><span class="u">U5</span><span class="u">U11</span></td></tr>
+      <tr><td><strong>CI</strong></td><td>GitHub Actions — lint, tests, nightly eval</td><td>Scores posted to the PR. This is the mechanism that makes Gate 3 objective rather than a conversation.</td><td><span class="u">U12</span><span class="u t3">P3</span></td></tr>
+      <tr><td><strong>Observability</strong></td><td><code>structlog</code> JSON logs, latency histogram, ₹/query counter</td><td>The partner set a ₹2,000/month cap. A cost counter is therefore a requirement, not a nicety.</td><td><span class="u">U11</span><span class="u">U12</span></td></tr>
+      <tr><td><strong>Deploy</strong></td><td>HF Spaces CPU Basic (free, 2 vCPU / 16 GB)</td><td>Free tier, and better hardware than the student's own laptop. Fallback: a ₹500/month VPS. <span class="vf y">✓</span></td><td><span class="u">U12</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="okbox"><strong>Total cost: ₹0.</strong> No Docker, no GPU, no cloud account requiring a card,
+  no paid API. The entire install footprint is Python wheels plus roughly 2.5 GB of model weights.
+  Docker and Kubernetes appear only in Tier 3 module P3, where a funded cohort and better hardware make them viable.</div>
+
+  <h3 style="margin-top:34px">14.2 Component map — every file, and where it was taught</h3>
+  <pre class="flow">
+  <b>BUILD TIME</b>
+    parse.py       PyMuPDF text layer; Tesseract when the page is an image     <i>← U2</i>
+    normalise.py   strip headers/footers, fix column order, extract tables     <i>← U2</i>
+    chunk.py       500-token windows + metadata on every chunk:                <i>← U9</i>
+                   scheme_id · section · page · doc_version · published_on
+    embed.py       sentence-transformers, batched, checkpointed, resumable     <i>← U7</i>
+    index.py       FAISS flat + BM25, both persisted;                          <i>← U9</i>
+                   `make index` rebuilds deterministically from raw PDFs
+
+  <b>QUERY TIME</b>
+    rewrite.py     te/hi/en normalise, expand local abbreviations              <i>← U8</i>
+    retrieve.py    BM25 ∥ vector → RRF fuse → optional cross-encoder rerank    <i>← U9</i>
+    support.py     is there enough evidence to answer at all? threshold call   <i>← U11</i>
+    generate.py    grounded prompt, every claim cited, blocked if uncited      <i>← U8, U9</i>
+    refuse.py      abstain path + "contact the office" suggestion              <i>← U8</i>
+    audit.py       SQLite write: question, chunks, answer, latency, cost, thumb<i>← U3, U11</i>
+
+  <b>EVAL</b>
+    golden.jsonl   80 partner-labelled questions, 25% deliberately unanswerable<i>← U5</i>
+    score.py       recall@5 · citation validity · refusal accuracy · p95 · ₹   <i>← U5, U11</i>
+    nightly.yml    GitHub Action, posts the score table to the PR              <i>← U12</i>
+  </pre>
+
+  <h3 style="margin-top:34px">14.3 Repository layout</h3>
+  <p>The shape a competent squad converges on by end of sprint 1. Mentors should expect roughly this and probe
+  deviations rather than correct them.</p>
+  <pre class="flow">
+  scheme-setu/
+  ├── Makefile                  <i># make setup / index / eval / run  — the one-command rule</i>
+  ├── pyproject.toml            <i># uv-managed, pinned</i>
+  ├── README.md                 <i># clone-to-running in under 10 minutes, or it fails Gate 2</i>
+  ├── DECISIONS.md              <i># architecture decision records — the P1 module, for real</i>
+  ├── docs/
+  │   ├── design.md             <i># the Gate 1 document</i>
+  │   ├── runbook.md            <i># handover: restart, alerts, who to call</i>
+  │   └── corpus-update.md      <i># how the NGO adds a scheme PDF without a developer</i>
+  ├── data/
+  │   ├── raw/                  <i># 60 PDFs — gitignored, checksummed, version-stamped</i>
+  │   └── index/                <i># built artifacts — gitignored, rebuilt by `make index`</i>
+  ├── src/
+  │   ├── ingest/               <i># parse · normalise · chunk · embed · index</i>
+  │   ├── query/                <i># rewrite · retrieve · support · generate · refuse</i>
+  │   ├── api/                  <i># FastAPI app + Jinja/HTMX templates</i>
+  │   └── obs/                  <i># audit · cost · structured logging</i>
+  ├── eval/
+  │   ├── golden.jsonl          <i># never shown to the generation prompt</i>
+  │   └── score.py
+  └── .github/workflows/
+      ├── ci.yml                <i># lint + tests on every PR</i>
+      └── nightly-eval.yml      <i># full eval suite, results posted to the PR</i>
+  </pre>
+
+  <h3 style="margin-top:34px" id="preflight">14.4 What pre-flight must confirm</h3>
+  <p>Four constraints were measured during curriculum research and can be relied on. Three are project-specific
+  unknowns, and finding out which way they fall is precisely what Phase 0's eight hours are for.</p>
+
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card" style="border-left:4px solid var(--ok)">
+      <h4><span class="vf y">✓ Measured</span></h4>
+      <ul class="tight" style="font-size:13.4px">
+        <li>Free RAM after Windows + integrated GPU: <strong>~3–3.5 GB</strong></li>
+        <li><code>qwen2.5:3b</code> at 1.9 GB fits; <code>gemma2:2b</code> at 1.6 GB fits; <code>llama3.1:8b</code> at 4.9 GB does not</li>
+        <li>Gemini API free tier is available in India, card-free</li>
+        <li>HF Spaces CPU Basic is 2 vCPU / 16 GB, free</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:4px solid var(--warn)">
+      <h4><span class="vf n">○ Confirm in Phase 0</span></h4>
+      <ul class="tight" style="font-size:13.4px">
+        <li><strong>Embedding and reranker resident size</strong> — load both on a real 8 GB machine <em>with the index also in RAM</em>. The figures above are approximate.</li>
+        <li><strong>Tesseract Telugu accuracy on these specific scans.</strong> If poor, the corpus route changes and the brief must be renegotiated before the squad ever sees it.</li>
+        <li><strong>Gemini free-tier limits</strong> against 80 eval questions nightly plus development traffic. If they do not hold, the local model becomes primary and the latency target must move.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="dangerbox">Any one of the three going the wrong way changes the project. All three are cheap to
+  test in a day and expensive to discover in week 3 — which is the entire argument for Phase 0.</div>
+</section>
+
+<!-- ═══════════════════════════ 15 · NEW ═══════════════════════════ -->
+<section id="coverage">
+  <h2>15 · Curriculum coverage map</h2>
+  <p>One OJT project cannot exercise the whole curriculum, and pretending otherwise is how programmes end up
+  claiming more than they deliver. This is what Scheme Setu actually touches.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th style="width:9%">Unit</th><th style="width:24%">Core unit</th><th style="width:13%">Exercised</th><th>How</th></tr></thead>
+    <tbody>
+      <tr><td><span class="u">U1</span></td><td>First working AI</td><td><span class="pill d">Assumed</span></td><td>Prerequisite knowledge, not re-tested</td></tr>
+      <tr><td><span class="u">U2</span></td><td>Python &amp; data for AI</td><td><span class="pill g">Heavy</span></td><td>The corpus pipeline is the hardest part of the whole project — parsing, OCR, normalisation, encoding, reproducibility</td></tr>
+      <tr><td><span class="u">U3</span></td><td>SQL &amp; data quality</td><td><span class="pill">Medium</span></td><td>Audit log schema, feedback queries, corpus quality report</td></tr>
+      <tr><td><span class="u">U4</span></td><td>Classical ML</td><td><span class="pill r">Not used</span></td><td><em>Optional stretch only:</em> a query router, or an "is this answerable" classifier trained on the golden set</td></tr>
+      <tr><td><span class="u">U5</span></td><td>Model evaluation</td><td><span class="pill g">Heavy</span></td><td>Golden set construction, thresholds fixed before code, honest reporting at Gate 3</td></tr>
+      <tr><td><span class="u">U6</span></td><td>Deep learning</td><td><span class="pill r">Not used</span></td><td>They consume models; they train none</td></tr>
+      <tr><td><span class="u">U7</span></td><td>Transformers &amp; embeddings</td><td><span class="pill">Medium</span></td><td>Model selection, dimension/latency trade, multilingual behaviour, batching under a RAM ceiling</td></tr>
+      <tr><td><span class="u">U8</span></td><td>LLMs &amp; prompting</td><td><span class="pill g">Heavy</span></td><td>Grounded prompting, citation enforcement, abstention, prompt versioning, fallback model behaviour</td></tr>
+      <tr><td><span class="u">U9</span></td><td>RAG</td><td><span class="pill g">Heavy</span></td><td>The spine of the system — chunking, metadata, hybrid retrieval, fusion, reranking</td></tr>
+      <tr><td><span class="u">U10</span></td><td>Agents &amp; tools</td><td><span class="pill o">Light</span></td><td>Only if they add multi-step lookup. Most squads should not, and saying so is the right answer</td></tr>
+      <tr><td><span class="u">U11</span></td><td>Evaluation &amp; observability</td><td><span class="pill g">Heavy</span></td><td>Nightly CI eval, retrieval vs generation attribution, latency, cost, audit trail</td></tr>
+      <tr><td><span class="u">U12</span></td><td>Ship it</td><td><span class="pill g">Heavy</span></td><td>Deploy, cost cap, CI gates, incident response, handover</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="warnbox"><strong>Eight of twelve units hard, two untouched.</strong> Training-side deep learning
+  is entirely absent — these students consume models rather than build them. Breadth is delivered by the 107
+  core scenarios; OJT is where a <em>subset</em> gets used under real conditions with a real user watching.
+  <strong>If you want the training-side units evidenced, that is a different brief.</strong> A dropout-risk model
+  for an education NGO inverts this map — heavy U4 and U5, no U9 at all. Vary the brief across squads and the
+  cohort as a whole covers everything.</div>
+
+  <h3 style="margin-top:30px">Tier 3 modules exercised alongside</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:11%">Module</th><th style="width:28%">Name</th><th style="width:13%">Exercised</th><th>Where</th></tr></thead><tbody>
+      <tr><td><span class="u t3">P1</span></td><td>Professional Engineering Practice</td><td><span class="pill g">Heavy</span></td><td>Design doc, ADRs, PR review, branch protection</td></tr>
+      <tr><td><span class="u t3">P2</span></td><td>Systems &amp; Performance</td><td><span class="pill o">Light</span></td><td>Only the latency/quality trade at reranking</td></tr>
+      <tr><td><span class="u t3">P3</span></td><td>Production Cloud &amp; MLOps</td><td><span class="pill">Partial</span></td><td>CI, eval gates, observability. <strong>No Docker or Kubernetes</strong> — this project deliberately stays free-tier</td></tr>
+      <tr><td><span class="u t3">P4</span></td><td>Enterprise AI Platforms</td><td><span class="pill r">Not used</span></td><td>Needs paid cloud; out of scope here</td></tr>
+      <tr><td><span class="u t3">P5</span></td><td>Serving at Scale</td><td><span class="pill r">Not used</span></td><td>34 coordinators is not scale</td></tr>
+      <tr><td><span class="u t3">P6</span></td><td>Team Delivery Simulation</td><td><span class="pill g">Heavy</span></td><td>Sprints, ceremonies, stakeholder, scope change, incident</td></tr>
+      <tr><td><span class="u t3">P7</span></td><td>Employability &amp; Communication</td><td><span class="pill">Medium</span></td><td>Partner demos, incident comms, the 45-minute training session they deliver</td></tr>
+      <tr><td><span class="u t3">P8</span></td><td>Inclusive Workplace</td><td><span class="pill o">Light</span></td><td>Accessibility of the coordinator interface; low-literacy users</td></tr>
+      <tr><td><span class="u t3">P9</span></td><td>Live Project / OJT</td><td><span class="pill g">This is it</span></td><td>The whole 90 h</td></tr>
+      <tr><td><span class="u t3">P10</span></td><td>Placement Readiness</td><td><span class="pill">Feeds it</span></td><td>Produces the evidence pack in §20</td></tr>
+    </tbody></table></div>
+</section>
+
+<!-- ═══════════════════════════ 16 · NEW ═══════════════════════════ -->
+<section id="dist">
+  <h2>16 · Work distribution across the squad</h2>
+  <p>450 student-hours across five people. Two goals pull against each other: a student needs to <strong>own</strong>
+  something long enough to go deep, and needs to <strong>touch</strong> enough areas to evidence more than one
+  unit. The resolution is: own a workstream in sprint 1, rotate for sprints 2–3, pair on everything, and lead
+  exactly once.</p>
+
+  <h3 style="margin-top:28px">16.1 What 90 hours actually contains</h3>
+  <p>Only a little over half of a student's OJT is building. Squads that plan as if all 90 h is coding miss
+  Gate 3 every time, so the mentor states this split at sprint-1 planning.</p>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card">
+      <div class="tw" style="box-shadow:none;margin-top:0"><table style="min-width:0">
+        <thead><tr><th>Activity</th><th style="text-align:right;width:22%">Hours</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Building</strong> — code, tests, debugging</td><td style="text-align:right"><strong>50</strong></td></tr>
+          <tr><td>Ceremonies — planning, standups, demos, retros, 1:1s</td><td style="text-align:right">12</td></tr>
+          <tr><td>Discovery &amp; documentation — interviews, design doc, ADRs, runbook</td><td style="text-align:right">10</td></tr>
+          <tr><td>Code review given to others</td><td style="text-align:right">8</td></tr>
+          <tr><td>Field test, handover training, postmortem</td><td style="text-align:right">10</td></tr>
+          <tr><td><strong>Total per student</strong></td><td style="text-align:right"><strong>90</strong></td></tr>
+        </tbody></table></div>
+    </div>
+    <div class="card">
+      <h4>Why this matters more than it looks</h4>
+      <p style="font-size:13.5px;margin-top:6px">Roughly <strong>56% is build time</strong>. The other 40 hours
+      are the difference between a student who has written code and a student an employer can put on a team.</p>
+      <p style="font-size:13.5px">The 8 hours of <em>reviewing other people's code</em> is the line most likely
+      to get silently dropped when a squad is behind. It is also the second-highest-weighted dimension a fresher
+      can actually control, and the one hiring managers probe hardest. The mentor protects it.</p>
+      <div class="note" style="margin-top:10px;font-size:13px">If a student's build hours run past ~60, they are
+      absorbing someone else's work. That is a distribution failure, not a strength — see §16.5.</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:34px">16.2 Five leadership roles, five students</h3>
+  <p>Three sprints would leave two students without a lead slot. Carving discovery and handover out as
+  first-class lead roles fixes that — and both genuinely need someone accountable.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:9%">Student</th><th style="width:22%">Lead role</th><th style="width:14%">When</th><th>What leading means here</th></tr></thead>
+    <tbody>
+      <tr><td><strong>A</strong></td><td>Discovery Lead</td><td>Week 1</td><td>Runs the kickoff agenda, owns the ambiguity log, assembles the design doc, presents it at Gate 1</td></tr>
+      <tr><td><strong>B</strong></td><td>Sprint 1 Tech Lead</td><td>Weeks 2–3</td><td>Owns the sprint commitment, breaks technical ties, presents the Gate 2 demo</td></tr>
+      <tr><td><strong>C</strong></td><td>Sprint 2 Tech Lead</td><td>Weeks 4–5</td><td>Owns the quality push, <strong>handles the scope change</strong> and the escalation, presents at Gate 3</td></tr>
+      <tr><td><strong>D</strong></td><td>Deploy &amp; Incident Lead</td><td>Week 6, Mon–Tue</td><td>Owns the deployment and the cost cap, is <strong>incident commander</strong> when the mentor breaks something</td></tr>
+      <tr><td><strong>E</strong></td><td>Handover Lead</td><td>Week 6, Wed–Fri</td><td>Runs the field test protocol, delivers the 45-minute partner training, owns the runbook</td></tr>
+    </tbody>
+  </table></div>
+  <div class="warnbox"><strong>Assign these in week 1 and publish them.</strong> The mentor assigns — not the
+  squad. Left to self-selection, the most confident student takes Sprint 1 Tech Lead and the quietest takes
+  nothing. Deliberately give a demanding slot (C or D) to a capable-but-quiet student; it is often the single
+  most valuable thing that happens to them in six weeks.</div>
+
+  <h3 style="margin-top:34px">16.3 Workstream rotation</h3>
+  <p>Sprint 1 assignments come from the mentor. Sprints 2–3 rotate so nobody spends six weeks in one corner of
+  the codebase — and so every student ends up with at least two units they can talk about in an interview.</p>
+  <pre class="flow">
+                  <b>SPRINT 1</b>              <b>SPRINT 2</b>              <b>SPRINT 3</b>
+                  weeks 2-3               weeks 4-5               week 6
+                  own it                  rotate                  converge
+   ┌──────────────────────────────────────────────────────────────────────────────┐
+   │ <b>A</b>  Corpus: parse + OCR   ──►  Multilingual query    ──►  Field test support   │
+   │                                  rewrite (te/hi)                             │
+   │ <b>B</b>  Corpus: chunk +       ──►  Version awareness +   ──►  Corpus update guide  │
+   │    metadata schema               superseded-doc logic         + partner training │
+   │ <b>C</b>  Golden set + scorers  ──►  Refusal design +      ──►  Regression testing   │
+   │                                  thresholds                                   │
+   │ <b>D</b>  Golden set + partner  ──►  Observability, cost   ──►  Deploy + incident    │
+   │    labelling                     counter, audit log           response          │
+   │ <b>E</b>  Spine: retrieve +     ──►  Hybrid + RRF +        ──►  Runbook + handover   │
+   │    generate                      reranking                                     │
+   └──────────────────────────────────────────────────────────────────────────────┘
+
+   <b>Pairing rota</b> — reshuffled each sprint so everyone works directly with everyone:
+      Sprint 1:   A-B     C-D     E + mentor
+      Sprint 2:   A-C     B-E     D + mentor
+      Sprint 3:   A-E     B-D     C + mentor
+  </pre>
+  <p class="muted" style="font-size:13.4px;margin-top:10px">The fifth student pairs with the mentor each sprint.
+  That is a deliberate coaching slot, rotated so every student gets one sprint of close supervision — and it is
+  where the mentor privately calibrates who is actually struggling.</p>
+
+  <h3 style="margin-top:34px">16.4 What each student ends up able to claim</h3>
+  <p>The rotation is designed backwards from this table. Every student leaves with at least two core units
+  evidenced by merged code, plus one leadership artifact.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:9%">Student</th><th style="width:26%">Units evidenced by code</th><th style="width:23%">Leadership artifact</th><th>Interview story they can tell</th></tr></thead>
+    <tbody>
+      <tr><td><strong>A</strong></td><td><span class="u">U2</span><span class="u">U7</span><span class="u">U8</span></td><td>Design doc, Gate 1 defence</td><td>"I owned the ingestion of 60 government PDFs, half of them scanned Telugu, and I ran the discovery that scoped the project."</td></tr>
+      <tr><td><strong>B</strong></td><td><span class="u">U2</span><span class="u">U9</span></td><td>Gate 2 demo, sprint commitment</td><td>"I designed the chunk metadata schema that made version-aware citation possible, and I led the sprint that got us end-to-end."</td></tr>
+      <tr><td><strong>C</strong></td><td><span class="u">U5</span><span class="u">U8</span><span class="u">U11</span></td><td>Scope-change negotiation, Gate 3</td><td>"I built the evaluation harness and designed the refusal behaviour — and I'm the one who told the partner what a mid-project scope change would cost."</td></tr>
+      <tr><td><strong>D</strong></td><td><span class="u">U3</span><span class="u">U11</span><span class="u">U12</span></td><td>Incident command, postmortem</td><td>"I deployed it and I was incident commander when our LLM quota died the day before the field test."</td></tr>
+      <tr><td><strong>E</strong></td><td><span class="u">U9</span><span class="u">U12</span></td><td>Field test, partner training</td><td>"I built the hybrid retrieval spine, then watched three real coordinators use it and rewrote the interface based on what I saw."</td></tr>
+    </tbody>
+  </table></div>
+  <div class="okbox">Those five sentences are the actual product of the 90 hours. If a student cannot say
+  something like their row by week 6, the distribution failed regardless of what shipped.</div>
+
+  <h3 style="margin-top:34px">16.5 The failure mode this exists to prevent</h3>
+  <p>In every student squad, one person is faster. Left alone they will absorb the work, the squad will ship
+  more, and four students will leave with nothing to show. <strong>A squad that ships impressively while four
+  members learn nothing is the worst outcome available</strong> — and it is easy to mistake for success.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:26%">Signal</th><th style="width:24%">What it means</th><th>Mentor intervention</th></tr></thead>
+    <tbody>
+      <tr><td>One student &gt;40% of merged lines</td><td>Absorption</td><td>Cap PR size. Reassign their next ticket to the pair, with them as reviewer only.</td></tr>
+      <tr><td>A student's PRs are all trivial</td><td>Being sidelined</td><td>Give them a Gate-critical ticket, paired with the mentor. Do not give them an easier one.</td></tr>
+      <tr><td>Reviews are all "LGTM"</td><td>Review theatre</td><td>Reject the review, not the PR. Require one substantive question per review.</td></tr>
+      <tr><td>Same two students always pair</td><td>Comfort clustering</td><td>Enforce the §16.3 rota. It exists for exactly this.</td></tr>
+      <tr><td>One student answers every standup question</td><td>Voice monopoly</td><td>Lead role rotates to a quieter student. Mentor asks others by name.</td></tr>
+      <tr><td>Squad ships early and smoothly</td><td>Often absorption, not excellence</td><td>Check per-student commit distribution before congratulating anyone.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 style="margin-top:34px">16.6 How the mentor tracks it — 10 minutes a week</h3>
+  <p>No tooling to build. A single table, updated at the Friday checkpoint, catches every signal above.</p>
+  <pre class="flow">
+   <b>SQUAD BALANCE · week 4</b>
+   ─────────────────────────────────────────────────────────────────────────
+   Student   PRs    Lines    Reviews   Substantive   Lead role   Flag
+             merged  (net)   given     review %      done
+   ─────────────────────────────────────────────────────────────────────────
+   A          7      +820      6          83%        ✓ wk1       —
+   B          5      +610      7          71%        ✓ wk2-3     —
+   C          6      +540      5          80%        wk4-5       —
+   D          2      +140      3          33%        wk6      <b>&lt; low output
+                                                            + shallow reviews</b>
+   E         11     +1,940     4          50%        wk6      <b>&lt; absorbing 43%</b>
+   ─────────────────────────────────────────────────────────────────────────
+   Action: E's next two tickets go to D with E as reviewer only.
+           Mentor pairs with D for sprint 3. Cap PRs at 300 lines.
+  </pre>
+  <p class="muted" style="font-size:13.4px;margin-top:10px">Lines merged is a weak proxy on its own and should
+  never be shown to students as a score — it rewards verbosity. It is used here only as a <em>distribution</em>
+  signal, read alongside review quality and read only by the mentor.</p>
+</section>
+
+<!-- ─────────────────────────── 17 ─────────────────────────── -->
+<section id="safety">
+  <h2>17 · Safety design — the one place you overrule the squad</h2>
+  <p>Everywhere else the squad's technical decisions stand. Here they do not. These constraints go into the
+  brief and the mentor enforces them at design review.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:30%">Rule</th><th>Reason</th></tr></thead><tbody>
+      <tr><td><strong>Never asserts eligibility.</strong> Output is "the scheme document states X (source, page)", plus which stated criteria appear met, unmet or unclear.</td><td>An eligibility verdict is a decision with legal and financial consequence. The system supplies evidence; the coordinator decides.</td></tr>
+      <tr><td><strong>Coordinator-facing only.</strong> Never deployed directly to households.</td><td>Keeps a trained human in the loop and matches the partner's own hard limit.</td></tr>
+      <tr><td><strong>Every claim cited, or the answer is blocked.</strong></td><td>Uncited output cannot be checked, and an unverifiable answer about entitlements is worse than no answer.</td></tr>
+      <tr><td><strong>Refuses outside the corpus.</strong> Refusal accuracy is a gate, not a nice-to-have.</td><td>The most likely harm is a confident answer about a scheme not in the documents.</td></tr>
+      <tr><td><strong>Corpus is version-stamped and dated.</strong> Answers show the document date.</td><td>Schemes change. Stale entitlement information sends people on wasted journeys.</td></tr>
+      <tr><td><strong>No household personal data, ever.</strong> Not in prompts, not in logs.</td><td>Partner's condition, and the students are not equipped to carry that risk.</td></tr>
+      <tr><td><strong>Every answer logged for audit.</strong></td><td>When something goes wrong the partner must be able to see what was said.</td></tr>
+    </tbody></table></div>
+  <div class="okbox">These seven rules are also the most transferable thing in the project. A student who has
+  shipped under them can talk credibly in an interview about grounding, abstention and human-in-the-loop —
+  which is exactly what an employer deploying GenAI is worried about.</div>
+</section>
+
+<!-- ─────────────────────────── 18 ─────────────────────────── -->
+<section id="disrupt">
+  <h2>18 · Injected disruptions</h2>
+  <p>Real projects change under you and break at bad times. Both events are scripted, mandatory, and graded.
+  The mentor delivers them in character and does not warn the squad.</p>
+
+  <div class="card" style="margin-top:16px;border-left:4px solid var(--warn)">
+    <h3>Disruption 1 · Scope change <span class="pill o">Week 4, Monday, at sprint planning</span></h3>
+    <p><strong>Script (mentor, relaying the partner):</strong> "Two districts we work in are majority Hindi-speaking.
+    Leadership wants Hindi as well as Telugu. Also, coordinators keep asking for it on WhatsApp rather than a website."</p>
+    <p><strong>What is being assessed:</strong> not whether they deliver it. Whether they:</p>
+    <ul class="tight" style="font-size:13.6px">
+      <li>Ask what the deadline pressure actually is before agreeing to anything</li>
+      <li>Separate the two asks — Hindi is a small change on an existing multilingual pipeline; WhatsApp is a new delivery channel with its own approval process</li>
+      <li>Quantify the trade: "we can do Hindi by cutting reranking; WhatsApp does not fit in 15 h and here is why"</li>
+      <li>Escalate to you rather than silently absorbing it</li>
+      <li>Update the design doc and get the change accepted in writing</li>
+    </ul>
+    <div class="warnbox">The failure mode to watch for is silent agreement. A squad that says "sure" and then
+    misses Gate 3 has learned the wrong thing unless the retro names it.</div>
+  </div>
+
+  <div class="card" style="margin-top:16px;border-left:4px solid var(--danger)">
+    <h3>Disruption 2 · Production incident <span class="pill r">Week 6, Tuesday, 10:00, unannounced</span></h3>
+    <p><strong>The break (mentor picks one, the day before the field test):</strong></p>
+    <ul class="tight" style="font-size:13.6px">
+      <li>Free-tier LLM quota exhausted — every request 429s <span class="muted">(most realistic; forces the Ollama fallback from §14.1)</span></li>
+      <li>The FAISS index file is corrupted and retrieval returns nothing</li>
+      <li>A partner staffer uploaded 12 new PDFs and p95 latency tripled</li>
+      <li>A <code>sentence-transformers</code> minor version bump silently changed embedding dimensions</li>
+    </ul>
+    <p><strong>Required response, in order — this is the graded sequence:</strong></p>
+    <pre class="flow" style="margin-top:10px">
+   <b>1 DETECT</b>    Did their own monitoring tell them, or did the mentor have to?
+        ▼          (If the mentor had to tell them, that is finding number one.)
+   <b>2 COMMUNICATE</b>  Message to the partner within 15 minutes. Plain language,
+        ▼              what is broken, what it means, when they will next update.
+   <b>3 MITIGATE</b>   Restore service, even degraded. Fallback model, cached answers,
+        ▼          or an honest maintenance banner. Service before root cause.
+   <b>4 DIAGNOSE</b>   Only now. Root cause, with evidence from logs.
+        ▼
+   <b>5 FIX + VERIFY</b>  Fix, run the eval suite, confirm no regression.
+        ▼
+   <b>6 POSTMORTEM</b>  Blameless. Timeline, root cause, what made it slow to detect,
+                   two concrete prevention actions. Reviewed at retro.
+    </pre>
+    <p class="muted" style="font-size:13.4px">Most squads jump straight to step 4. Being marked on the order,
+    not the fix, is the lesson.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────── 19 ─────────────────────────── -->
+<section id="gates">
+  <h2>19 · Gate failure handling</h2>
+  <p>Gates that cannot fail are not gates. But a failed gate must have a defined route forward, decided by
+  cause, not by sympathy.</p>
+  <pre class="flow">
+                             <b>GATE REVIEW</b>
+                                  │
+                 ┌────────────────┴────────────────┐
+               <b>PASS</b>                            <b>FAIL</b>
+                 │                                 │
+            proceed to            ┌────────────────┼────────────────┐
+            next phase            │                │                │
+                             <b>SCOPE</b>            <b>SKILL</b>            <b>EFFORT</b>
+                          too ambitious    capability gap    engagement gap
+                                │                │                │
+                                ▼                ▼                ▼
+                        Mentor + squad    Mentor runs a     Mentor 1:1 same
+                        cut scope with    worked example    day. Written
+                        the partner.      + pairs the       remediation plan.
+                        Re-gate in 2 days.students. Re-gate │
+                        Not a mark        in 3 days. Not a  ├─ improves → continue
+                        against them.     mark against them.└─ second fail → exit
+                                                              OJT, retake next
+                                                              cohort. Core and
+                                                              specialisation
+                                                              credits retained.
+  </pre>
+  <div class="note"><strong>Two of the three routes carry no penalty.</strong> Scope misjudgement and skill gaps
+  are the programme's job to fix — that is what supervision is for. Only sustained non-engagement removes a
+  student, and never on a first occurrence.</div>
+  <p style="margin-top:14px"><strong>Squad-level failure</strong> (the whole project is behind at Gate 3) is
+  handled by the mentor cutting scope with the partner, not by extending the window. Shipping something small
+  that works, on time, is the professional behaviour being trained. Six weeks is fixed.</p>
+</section>
+
+<!-- ─────────────────────────── 20 ─────────────────────────── -->
+<section id="evidence">
+  <h2>20 · Evidence pack the student leaves with</h2>
+  <p>This is what the whole 90 h is for. Everything here is verifiable by a stranger.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:26%">Artifact</th><th>What an employer learns from it</th><th style="width:17%">Verifiable?</th></tr></thead><tbody>
+      <tr><td>Public repo, their commits and PRs</td><td>They work in a shared codebase, incrementally, with review</td><td>Yes — clickable</td></tr>
+      <tr><td>PRs they reviewed on others' code</td><td>They can read code, not only write it</td><td>Yes</td></tr>
+      <tr><td>Design doc with their name on a section</td><td>They can think before coding and write it down</td><td>Yes</td></tr>
+      <tr><td>Tech Lead sprint report</td><td>They have led, estimated, and reported to a stakeholder</td><td>Yes</td></tr>
+      <tr><td>Evaluation report with honest numbers</td><td>They measure and they do not inflate</td><td>Yes</td></tr>
+      <tr><td>Incident postmortem</td><td>They stay useful when things break</td><td>Yes</td></tr>
+      <tr><td>Field test findings</td><td>They have watched a real user fail to use their software</td><td>Yes</td></tr>
+      <tr><td>5-minute demo recording</td><td>They can explain their work to a non-engineer</td><td>Yes</td></tr>
+      <tr><td>Partner acceptance note</td><td>A third party accepted their work</td><td>Yes — named org</td></tr>
+      <tr><td><strong>Supervisor reference</strong></td><td>A named professional vouches for them, with specifics</td><td><strong>Yes — the highest-value item</strong></td></tr>
+    </tbody></table></div>
+
+  <h3 style="margin-top:26px">Evaluation rubric</h3>
+  <p class="muted" style="font-size:13.5px">Mentor scores each 1–5 with a written evidence line. Weighted; 3.0 required to pass, with no dimension below 2.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:26%">Dimension</th><th style="width:9%">Weight</th><th>Evidence source</th></tr></thead><tbody>
+      <tr><td>Technical contribution</td><td>25%</td><td>Merged PRs, complexity, review comments received</td></tr>
+      <tr><td>Code review quality</td><td>10%</td><td>Reviews given — substance, not "LGTM"</td></tr>
+      <tr><td>Handling ambiguity</td><td>15%</td><td>Ambiguity log, questions at kickoff, scope-change response</td></tr>
+      <tr><td>Communication</td><td>15%</td><td>Standups, demo, partner training session, incident comms</td></tr>
+      <tr><td>Leadership (lead sprint)</td><td>15%</td><td>Sprint outcome, how they handled being behind</td></tr>
+      <tr><td>Reliability</td><td>10%</td><td>Commitments met, attendance, follow-through</td></tr>
+      <tr><td>Professional judgement</td><td>10%</td><td>Safety rules respected, escalated instead of guessing, honest numbers</td></tr>
+    </tbody></table></div>
+  <div class="warnbox"><strong>Note what is not weighted:</strong> whether the project succeeded. A squad can
+  hit a genuinely hard corpus and ship less than planned; individuals are still assessed on how they worked.
+  Grading students on partner outcomes teaches them to hide bad news.</div>
+</section>
+
+<!-- ─────────────────────────── 21 ─────────────────────────── -->
+<section id="cost">
+  <h2>21 · Time and cost model</h2>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h4>Time per project (squad of 5)</h4>
+      <div class="tw" style="box-shadow:none;margin-top:8px"><table style="min-width:0">
+        <tbody>
+          <tr><td>You — Phase 0</td><td style="text-align:right"><strong>20 h</strong></td></tr>
+          <tr><td>You — live weeks (1 h/wk)</td><td style="text-align:right">6 h</td></tr>
+          <tr><td>You — Phase 5</td><td style="text-align:right">8 h</td></tr>
+          <tr><td><strong>Your total</strong></td><td style="text-align:right"><strong>34 h</strong></td></tr>
+          <tr><td>Mentor — ~8 h/week × 6</td><td style="text-align:right"><strong>48 h</strong></td></tr>
+          <tr><td>Partner</td><td style="text-align:right">14 h</td></tr>
+          <tr><td>Students — 5 × 90 h</td><td style="text-align:right">450 h</td></tr>
+        </tbody></table></div>
+      <p class="muted" style="font-size:12.8px;margin-top:8px">A mentor at 8 h/week per squad can carry
+      <strong>two squads</strong> concurrently at 16 h/week. Three is possible but PR review quality degrades,
+      and PR review is where the learning happens.</p>
+    </div>
+    <div class="card"><h4>Cost per project</h4>
+      <div class="tw" style="box-shadow:none;margin-top:8px"><table style="min-width:0">
+        <tbody>
+          <tr><td>Mentor, 48 h @ ₹1,500</td><td style="text-align:right">₹72,000</td></tr>
+          <tr><td>Your time, 34 h (opportunity)</td><td style="text-align:right">—</td></tr>
+          <tr><td>Infrastructure (free tier + ₹500 VPS × 2 mo)</td><td style="text-align:right">₹1,000</td></tr>
+          <tr><td>Partner travel / field test</td><td style="text-align:right">₹3,000</td></tr>
+          <tr><td><strong>Total per squad of 5</strong></td><td style="text-align:right"><strong>≈ ₹76,000</strong></td></tr>
+          <tr><td><strong>Per student</strong></td><td style="text-align:right"><strong>≈ ₹15,200</strong></td></tr>
+        </tbody></table></div>
+      <p class="muted" style="font-size:12.8px;margin-top:8px">Mentor rate is the only variable that matters.
+      At ₹1,000/h it drops to ₹10,600/student; at ₹2,500/h it rises to ₹25,000. <strong>Illustrative rates —
+      set against your actual local market.</strong> Technology cost is ₹0 by design (§14.1).</p>
+    </div>
+  </div>
+  <div class="note">For a 100-student cohort: 20 squads · 20 projects · 10 mentors at 2 squads each ·
+  ≈ ₹15.2 lakh in mentor cost · 680 h of your own time. <strong>That last number is the real constraint</strong> —
+  it is why Anvi Labs matters: a simulated project has a Phase 0 of roughly 2 h instead of 20, because the
+  partner, corpus, brief and pre-flight already exist.</div>
+</section>
+
+<!-- ─────────────────────────── 22 ─────────────────────────── -->
+<section id="contingency">
+  <h2>22 · Contingency and kill criteria</h2>
+  <div class="tw"><table>
+    <thead><tr><th style="width:30%">Failure</th><th style="width:14%">When</th><th>Response</th></tr></thead><tbody>
+      <tr><td>Partner goes silent</td><td>Any time</td><td>Mentor plays proxy stakeholder using the brief and the query log. Project continues; the squad is told. Removes the dependency without wasting the work.</td></tr>
+      <tr><td>Corpus turns out unusable</td><td>Phase 0</td><td>Caught by pre-flight. Renegotiate the brief or decline. This is exactly what Phase 0 is for.</td></tr>
+      <tr><td>Corpus turns out unusable</td><td>Week 2</td><td>Pre-flight failed. Mentor supplies a pre-parsed subset within 24 h and the squad's scope narrows. Your cost, not theirs.</td></tr>
+      <tr><td>Free-tier LLM quota dies for real</td><td>Any time</td><td>Not an incident, a dependency failure. Switch to the Ollama path from §14.1 permanently and reset the latency threshold at the next gate.</td></tr>
+      <tr><td>Partner demands production support</td><td>Week 6</td><td>You handle it, not the squad. MoU already says as-is. Offer a paid engagement separately.</td></tr>
+      <tr><td>Squad is 2+ students down</td><td>Any time</td><td>Merge with another squad or cut to the thin slice. Never extend the window.</td></tr>
+      <tr><td>Real harm surfaces in the field test</td><td>Week 6</td><td>Stop the field test immediately, do not deploy, treat as the incident. Partner informed by you the same day.</td></tr>
+      <tr><td>Nothing is shippable at Gate 3</td><td>Week 5</td><td>Mentor cuts to the smallest honest deliverable — often "search with citations, no generation". Ship that. It is still real.</td></tr>
+    </tbody></table></div>
+
+  <div class="dangerbox"><strong>Kill criteria — written in Phase 0, before anyone is emotionally invested.</strong>
+  Kill the project if: no signed data agreement by day −7 · pre-flight cannot retrieve a sensible answer to a
+  single real question · the partner cannot name one person who will attend demos · the deliverable would sit on
+  the partner's critical path. When a project is killed, the squad runs <strong>Anvi Labs</strong> instead —
+  which is why Anvi Labs must exist before your first real project, not after.</div>
+</section>
+
+<!-- ─────────────────────────── 23 ─────────────────────────── -->
+<section id="clone">
+  <h2>23 · Cloning this for any project</h2>
+  <p>Everything above except §2, §13, §14 and §17 is project-independent. To run a different project, you change
+  five things and reuse the machinery.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:22%">Swap this</th><th style="width:11%">Effort</th><th>Notes</th></tr></thead><tbody>
+      <tr><td><strong>The brief</strong> (§2)</td><td>2 h</td><td>Same seven headings. Situation, want, what they give, how judged, hard limits.</td></tr>
+      <tr><td><strong>Pre-flight</strong> (§6.3, §14.4)</td><td>8 h</td><td>Always the same question: is this buildable on an 8 GB laptop in 90 h? Never skip.</td></tr>
+      <tr><td><strong>Stack + coverage map</strong> (§14, §15)</td><td>2 h</td><td>Pick from what the core units already taught. <strong>Introducing new technology during OJT is a design error</strong> — six weeks with a live partner is the worst possible time to learn a framework.</td></tr>
+      <tr><td><strong>Quality metrics</strong> (§9)</td><td>1 h</td><td>Whatever the domain measures. The <em>rule</em> — thresholds set before code, read from CI — never changes.</td></tr>
+      <tr><td><strong>Safety rules</strong> (§17)</td><td>2 h</td><td>Re-derive from harm analysis. Some projects need fewer; write them down regardless.</td></tr>
+      <tr><td>Everything else</td><td><strong>0 h</strong></td><td>Phases, gates, sprint loop, <strong>work distribution and the rotation (§16)</strong>, disruptions, rubric, evidence pack, RACI, contingency — all reused verbatim.</td></tr>
+    </tbody></table></div>
+  <div class="okbox"><strong>So the marginal cost of project number two is about 15 hours of your time.</strong>
+  The first one costs more because you are building the machinery, not the project. That ratio is the whole
+  argument for writing this down once.</div>
+  <div class="note"><strong>Deliberately vary the coverage map across squads.</strong> Scheme Setu is
+  retrieval-heavy and training-light. A dropout-risk model is the inverse. A forecasting or anomaly-detection
+  brief covers a third shape. Run three brief archetypes across a cohort and every core unit gets exercised by
+  someone — no single squad has to carry the whole curriculum.</div>
+</section>
+
+<footer>
+  <strong>OJT Reference Flow v1.1</strong> · Anvi Innovate AI Academy · Tier 3, Module P9 ·
+  Reference project: Scheme Setu (grounded scheme eligibility assistant).<br>
+  <span class="chglog"><strong>v1.1</strong> — added §14 Technology stack, §15 Curriculum coverage map and §16 Work distribution;
+  five leadership roles replacing three; verification markers throughout; §23 extended with stack-swap guidance. <strong>v1.0</strong> — initial release.</span><br>
+  Rates, hours and thresholds are planning estimates to be calibrated against the first live cohort.
+  Items marked ○ are unverified and must be confirmed at pre-flight.<br>
+  Hyderabad, Telangana, India · hello@anviinnovate.com
+</footer>
+
+</main>
+</body>
+</html>

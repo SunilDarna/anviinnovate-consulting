@@ -17,7 +17,8 @@ All documents are self-contained HTML (open in any browser; each has a built-in
 | [`strategy/program-roadmap-v1.0.html`](strategy/program-roadmap-v1.0.html) | 1.0 | Current | Programme roadmap: government funding rails, NSQF credentialing, go-to-market, pricing benchmarks, 12-month build plan |
 | [`strategy/curriculum-blueprint-v0.9.html`](strategy/curriculum-blueprint-v0.9.html) | 0.9 | Superseded by 2026.1 | Earlier high-level blueprint — retained for rationale history |
 | [`research/ai-jobs-demand-2026-v1.0.html`](research/ai-jobs-demand-2026-v1.0.html) | 1.0 | Current | Market research: most in-demand AI roles 2026, demand signals, salary bands, forecast to 2030 |
-| [`ojt/ojt-reference-flow-v1.0.html`](ojt/ojt-reference-flow-v1.0.html) | 1.0 | Current | **Tier 3 / Module P9 operating manual.** One live project (Scheme Setu) end to end: six phases, four gates, RACI, owner-vs-student scope boundary, sprint loop, injected disruptions, evaluation rubric, cost model. Written to be cloned for any project |
+| [`ojt/ojt-reference-flow-v1.1.html`](ojt/ojt-reference-flow-v1.1.html) | **1.1** | Current | **Tier 3 / Module P9 operating manual.** One live project (Scheme Setu) end to end: six phases, four gates, RACI, owner-vs-student scope boundary, **full technology stack traced to the units that taught it**, **curriculum coverage map**, **work distribution and rotation across five students**, sprint loop, injected disruptions, evaluation rubric, cost model. Written to be cloned for any project |
+| [`ojt/ojt-reference-flow-v1.0.html`](ojt/ojt-reference-flow-v1.0.html) | 1.0 | Superseded by 1.1 | Initial release — retained for history |
 
 ### Official source documents (compliance basis)
 
