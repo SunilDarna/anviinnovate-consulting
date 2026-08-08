@@ -1,0 +1,118 @@
+---
+import Base from "../../layouts/Base.astro";
+import data from "../../data/scenarios.json";
+import { caseForScenario } from "../../data/caseSlugs.js";
+import { sizeMeta, unitName } from "../../data/programme.js";
+
+export function getStaticPaths() {
+  const list = data.scenarios;
+  return list.map((s, i) => ({
+    params: { id: s.id.toLowerCase() },
+    props: { s, prev: list[i - 1] || null, next: list[i + 1] || null },
+  }));
+}
+const { s, prev, next } = Astro.props;
+const sm = sizeMeta[s.size];
+// The case study this scenario is built from, matched on the source URL.
+const source = caseForScenario(s);
+const siblings = data.scenarios.filter((x) => x.unit === s.unit && x.id !== s.id);
+---
+<Base
+  title={`${s.id} · ${s.title}`}
+  description={`${sm.label} scenario (${sm.dur}) in ${s.unit} ${unitName(s.unit)}, based on a verified production case study from ${s.org}.`}
+  wide={true}
+>
+  <p style="margin:0 0 8px">
+    <a href="/scenarios" class="muted" style="text-decoration:none;font-size:13.5px">← All 102 scenarios</a>
+  </p>
+  <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
+    <span class="sid">{s.id}</span>
+    <span class={`pill ${s.size}`}>{sm.label} · {sm.dur}</span>
+    <a class="pill d" href={`/scenarios#browse`} style="text-decoration:none">{s.unit} · {unitName(s.unit)}</a>
+  </div>
+  <h1 style="margin-top:10px">{s.title}</h1>
+
+  <div class="prov" style="margin-top:14px;max-width:90ch">
+    <b>Based on a real case:</b> {s.org} — {s.what}.
+    <a href={s.url} target="_blank" rel="noopener">read the primary source →</a>
+  </div>
+
+  <section style="margin-top:28px">
+    <h2>The situation</h2>
+    <p style="font-size:1.05rem;max-width:82ch">{s.situation}</p>
+  </section>
+
+  <div class="grid" style="grid-template-columns:1.25fr 1fr;margin-top:26px">
+    <div>
+      <section>
+        <h2>Definition of done</h2>
+        <p class="muted" style="font-size:13.5px">Observable outcomes. Not steps — how you get there is yours.</p>
+        <ul class="tight" style="font-size:14px">{s.done.map((d) => <li>{d}</li>)}</ul>
+      </section>
+
+      <section style="margin-top:26px">
+        <h2>How it is verified</h2>
+        <div class="note">{s.verify}</div>
+        <p class="muted" style="font-size:13px;margin-top:9px">
+          Runs locally with <code>make check</code>. Your dataset is seeded per student, and some acceptance
+          tests are never shown to you.
+        </p>
+      </section>
+
+      <section style="margin-top:26px">
+        <h2>Why this matters</h2>
+        <div class="fail">{s.matters}</div>
+      </section>
+    </div>
+
+    <div>
+      <div class="card">
+        <span class="lbl" style="margin-top:0">You are given</span>
+        <p style="font-size:13.6px;margin:4px 0 0">{s.given}</p>
+
+        <span class="lbl">Skills exercised</span>
+        <div>{s.skills.map((k) => <span class="chip">{k}</span>)}</div>
+
+        <span class="lbl">Effort</span>
+        <p style="font-size:13.6px;margin:4px 0 0">{sm.label} — {sm.dur}. {sm.blurb}</p>
+
+        <span class="lbl">Runs on</span>
+        <p style="font-size:13.6px;margin:4px 0 0">8 GB Windows laptop, CPU-only, free-tier services only.</p>
+      </div>
+
+      {source && (
+        <div class="card" style="margin-top:16px">
+          <span class="lbl" style="margin-top:0">What actually went wrong</span>
+          <p style="font-size:13.2px;margin:6px 0 0">{source.c.whatWentWrong}</p>
+          <p style="margin:12px 0 0"><a href={`/case-studies/${source.slug}`} style="font-size:13.5px">Full case study →</a></p>
+        </div>
+      )}
+
+      {siblings.length > 0 && (
+        <div class="card" style="margin-top:16px">
+          <span class="lbl" style="margin-top:0">Others in {s.unit}</span>
+          <ul class="tight" style="font-size:13.4px;margin-top:6px">
+            {siblings.slice(0, 12).map((x) => (
+              <li><a href={`/scenarios/${x.id.toLowerCase()}`} style="text-decoration:none">{x.id} · {x.title}</a></li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </div>
+
+  <div class="pager">
+    {prev ? (
+      <a href={`/scenarios/${prev.id.toLowerCase()}`}>
+        <span class="muted" style="font-size:12px">← Previous</span>
+        <div style="font-weight:600;font-size:14px;margin-top:3px">{prev.id} · {prev.title}</div>
+      </a>
+    ) : <span></span>}
+    {next ? (
+      <a href={`/scenarios/${next.id.toLowerCase()}`} style="text-align:right">
+        <span class="muted" style="font-size:12px">Next →</span>
+        <div style="font-weight:600;font-size:14px;margin-top:3px">{next.id} · {next.title}</div>
+      </a>
+    ) : <span></span>}
+  </div>
+</Base>

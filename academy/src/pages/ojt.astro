@@ -1,0 +1,154 @@
+---
+import Base from "../layouts/Base.astro";
+
+const phases = [
+  { n: "Phase 0", when: "4–6 weeks before", who: "Programme owner", hours: "~20 h", what: "Source and qualify the partner, MoU and data agreement, write the brief, and build a throwaway end-to-end prototype to prove the project is possible on a student laptop.", gate: "Signed MoU · corpus inspected · prototype answers one real question · kill criteria written" },
+  { n: "Phase 1", when: "Week 1 · 15 h", who: "Squad", hours: "15 h", what: "Interview the partner. No production code is written this week. Ambiguity log, corpus autopsy, design document, risk register.", gate: "Design review — needs an out-of-scope list the partner has seen, thresholds set before any code, and a named first-cut item. No access to main until it passes." },
+  { n: "Phase 2", when: "Weeks 2–3 · 30 h", who: "Squad", hours: "30 h", what: "Ugly but end to end. Corpus pipeline, the golden evaluation set built with the partner, and a thin vertical slice that answers one question with a citation.", gate: "Live demo with the partner present, run on the mentor's machine — not the author's" },
+  { n: "Phase 3", when: "Weeks 4–5 · 30 h", who: "Squad", hours: "30 h", what: "Move the numbers honestly. Every change is a hypothesis with a measurement. A scope change is injected in week 4 and how the squad handles it is graded.", gate: "Thresholds met, or a written argument for why the threshold was wrong. Scores read from CI, never from a student's terminal." },
+  { n: "Phase 4", when: "Week 6 · 15 h", who: "Squad", hours: "15 h", what: "Deploy, survive an unannounced incident, then field-test with three real users while the squad watches in silence. Handover documentation and a training session for the partner's staff.", gate: "Partner signs acceptance · incident postmortem submitted · handover training delivered" },
+  { n: "Phase 5", when: "The week after", who: "Owner + mentor", hours: "~8 h", what: "Per-student evaluation, reference letters, publication — and the decision everyone forgets: who maintains this now.", gate: "Evaluations countersigned · maintenance decided in writing" },
+];
+
+const evidence = [
+  ["Public repo with their commits and PRs", "They work in a shared codebase, incrementally, with review"],
+  ["PRs they reviewed on others' code", "They can read code, not only write it"],
+  ["Design doc they wrote and defended", "They can think before coding and write it down"],
+  ["Tech Lead sprint report", "They have led, estimated and reported to a stakeholder"],
+  ["Evaluation report with honest numbers", "They measure, and they do not inflate"],
+  ["Incident postmortem", "They stay useful when things break"],
+  ["Field test findings", "They have watched a real user fail to use their software"],
+  ["Partner acceptance note", "A third party accepted their work"],
+  ["Named supervisor reference", "The single most valuable item, and the one a self-paced course can never produce"],
+];
+---
+<Base
+  title="Live project & OJT"
+  description="Tier 3 module P9: a 90-hour supervised live project with a real external partner. Six phases, four hard gates, five leadership roles, and an evidence pack an employer can verify."
+  wide={true}
+>
+  <p style="margin:0 0 8px"><a href="/programme" class="muted" style="text-decoration:none;font-size:13.5px">← Programme structure</a></p>
+  <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
+    <span class="pill">Tier 3 · Module P9</span>
+    <span class="pill d">90 hours · 6 weeks</span>
+    <span class="pill d">Squad of 5 + mentor</span>
+  </div>
+  <h1 style="margin-top:10px">Live project &amp; OJT</h1>
+  <p class="muted" style="max-width:84ch;font-size:1.05rem">
+    A supervised project for a real external partner, with a real stakeholder who changes their mind, real data
+    that fights back, and real consequences if it is wrong. This is where the evidence an employer actually
+    reads gets produced.
+  </p>
+
+  <section style="margin-top:32px">
+    <h2>The scope boundary</h2>
+    <p class="muted">The most common failure in programmes like this is the boundary blurring — the owner starts solving technical problems, or students get handed commercial and legal risk they cannot carry.</p>
+    <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:14px">
+      <div class="card" style="border-left:4px solid #7c3aed">
+        <h3>The programme owns everything outside the code</h3>
+        <ul class="tight" style="font-size:13.5px">
+          <li>Finding and qualifying the partner</li>
+          <li>MoU, data-sharing agreement, IP and licence</li>
+          <li>Writing the brief and agreeing success criteria</li>
+          <li>Pre-flight: proving it is buildable before students see it</li>
+          <li>Kill criteria and the decision to pull the plug</li>
+          <li>Who maintains it after handover</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:4px solid var(--accent)">
+        <h3>Students own everything inside it</h3>
+        <ul class="tight" style="font-size:13.5px">
+          <li>Interviewing the partner and resolving ambiguity</li>
+          <li>Deciding what is in and out of these 90 hours</li>
+          <li>All architecture and technology choices</li>
+          <li>Building the golden evaluation set</li>
+          <li>Reviewing each other's pull requests</li>
+          <li>Deciding what to cut when they run late</li>
+        </ul>
+      </div>
+    </div>
+    <div class="warnbox" style="margin-top:14px">
+      <strong>Technical decisions never cross back.</strong> If a squad picks a worse retrieval strategy than the
+      mentor would have, that is a coaching problem, not an override. The one exception is safety.
+    </div>
+  </section>
+
+  <section style="margin-top:44px">
+    <h2>Six phases, four hard gates</h2>
+    {phases.map((p) => (
+      <div class="card" style="margin-top:14px">
+        <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap">
+          <h3 style="margin:0">{p.n} <span class="muted" style="font-weight:500;font-size:14px">· {p.when}</span></h3>
+          <span class="pill d">{p.who}</span>
+        </div>
+        <p style="font-size:14px;margin:9px 0 0">{p.what}</p>
+        <div class="note" style="margin-top:10px"><strong>Gate:</strong> {p.gate}</div>
+      </div>
+    ))}
+  </section>
+
+  <section style="margin-top:44px">
+    <h2>Five leadership roles, five students</h2>
+    <p class="muted" style="max-width:84ch">Three sprints would leave two students without a lead slot, so discovery and handover are first-class lead roles. <strong>Every student leads exactly once</strong>, and the mentor assigns — never self-selection, because left alone the most confident student takes the first slot and the quietest takes nothing.</p>
+    <div class="tw"><table>
+      <thead><tr><th style="width:22%">Lead role</th><th style="width:16%">When</th><th>What leading means</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Discovery Lead</strong></td><td>Week 1</td><td>Runs the kickoff, owns the ambiguity log, presents the design doc at the gate</td></tr>
+        <tr><td><strong>Sprint 1 Tech Lead</strong></td><td>Weeks 2–3</td><td>Owns the sprint commitment, breaks technical ties, presents the demo</td></tr>
+        <tr><td><strong>Sprint 2 Tech Lead</strong></td><td>Weeks 4–5</td><td>Owns the quality push, handles the injected scope change and the escalation</td></tr>
+        <tr><td><strong>Deploy &amp; Incident Lead</strong></td><td>Week 6, Mon–Tue</td><td>Owns deployment and the cost cap, is incident commander when something breaks</td></tr>
+        <tr><td><strong>Handover Lead</strong></td><td>Week 6, Wed–Fri</td><td>Runs the field test, delivers the partner training session, owns the runbook</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note" style="margin-top:14px">
+      <strong>Only about 56% of the 90 hours is building.</strong> The rest is ceremonies (12 h), discovery and
+      documentation (10 h), reviewing other people's code (8 h), and the field test, handover and postmortem
+      (10 h). Squads that plan as if it is all coding miss the quality gate every time.
+    </div>
+  </section>
+
+  <section style="margin-top:44px">
+    <h2>Two scripted disruptions</h2>
+    <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:12px">
+      <div class="card" style="border-left:4px solid var(--warn)">
+        <span class="pill o">Week 4 · scope change</span>
+        <p style="font-size:14px;margin:10px 0 0">The partner adds a language and a new delivery channel, mid-sprint. What is assessed is not whether the squad delivers it — it is whether they separate the two asks, quantify the trade, and escalate instead of silently absorbing it.</p>
+        <p class="muted" style="font-size:13px;margin:8px 0 0"><strong>The failure mode is saying “sure”.</strong></p>
+      </div>
+      <div class="card" style="border-left:4px solid #b91c1c">
+        <span class="pill r" style="background:#fee2e2;color:#991b1b">Week 6 · production incident</span>
+        <p style="font-size:14px;margin:10px 0 0">Unannounced, the day before the field test. Graded on the order, not the fix: detect → communicate → mitigate → diagnose → fix → postmortem.</p>
+        <p class="muted" style="font-size:13px;margin:8px 0 0"><strong>Most squads jump straight to diagnose.</strong> Service before root cause.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top:44px">
+    <h2>What the student leaves with</h2>
+    <p class="muted">Everything here is verifiable by a stranger.</p>
+    <div class="tw"><table>
+      <thead><tr><th style="width:36%">Artifact</th><th>What an employer learns from it</th></tr></thead>
+      <tbody>{evidence.map(([a, b]) => (
+        <tr><td><strong>{a}</strong></td><td>{b}</td></tr>
+      ))}</tbody>
+    </table></div>
+    <div class="warnbox" style="margin-top:14px">
+      <strong>What is deliberately not graded:</strong> whether the project succeeded. A squad can hit a genuinely
+      hard corpus and ship less than planned, and individuals are still assessed on how they worked. Grading
+      students on partner outcomes teaches them to hide bad news.
+    </div>
+  </section>
+
+  <section style="margin-top:44px">
+    <div class="card" style="background:var(--ink);color:#fff">
+      <h2 style="color:#fff">The full operating manual</h2>
+      <p style="max-width:74ch;margin-bottom:14px">
+        Twenty-three sections: the one-page brief template, RACI, the weekly sprint loop, the complete technology
+        stack traced back to the units that taught it, a curriculum coverage map that says honestly which units a
+        project does <em>not</em> exercise, work distribution and the rotation, gate-failure routing, the
+        evaluation rubric, time and cost model, contingency and kill criteria — written to be cloned for any project.
+      </p>
+      <a class="btn btn-white" style="background:#fff;color:var(--ink)" href="/docs/ojt-reference-flow-v1.1.html">Open the reference flow →</a>
+    </div>
+  </section>
+</Base>

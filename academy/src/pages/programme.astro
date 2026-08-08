@@ -1,0 +1,120 @@
+---
+import Base from "../layouts/Base.astro";
+import { tiers, units, specialisations, readinessModules, programme } from "../data/programme.js";
+import data from "../data/scenarios.json";
+
+const nFor = (uid) => data.scenarios.filter((s) => s.unit === uid).length;
+const hFor = (uid) =>
+  Math.round(
+    data.scenarios
+      .filter((s) => s.unit === uid)
+      .reduce((a, s) => a + ({ micro: 0.6, build: 2, ship: 7 }[s.size] || 0), 0)
+  );
+const t3Hours = readinessModules.reduce((a, m) => a + m.hours, 0);
+---
+<Base
+  title="Programme structure"
+  description="Three tiers: a self-paced 440-hour core covering every module with 102 mandatory scenarios, six specialisation tracks, and an instructor-led Deployment Readiness programme with a live project and a supervisor reference."
+  wide={true}
+>
+  <h1>Programme structure</h1>
+  <p class="muted" style="max-width:84ch;font-size:1.05rem">
+    Three tiers with three different delivery models. Tiers 1 and 2 are self-paced and machine-graded, and run
+    entirely on your own laptop. Tier 3 is cohort-based with real trainers — and is the only tier that can
+    produce the thing a self-paced course never can: a named professional who will vouch for you.
+  </p>
+
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:26px">
+    {tiers.map((t) => (
+      <div class={`card tierc ${t.accent}`}>
+        <span class="pill d">{t.n}</span>
+        <h2 style="margin:9px 0 2px;font-size:1.3rem">{t.name}</h2>
+        <p style="font-weight:600;font-size:14px;margin:0;color:var(--accent)">{t.tagline}</p>
+        <p style="font-size:13.6px;margin:11px 0 0">{t.blurb}</p>
+        <div style="margin-top:12px">
+          <span class="pill">{t.hours} h{t.hoursNote ? ` ${t.hoursNote}` : ""}</span>
+          <span class="pill d">{t.delivery}</span>
+          <span class="pill d">{t.grading}</span>
+        </div>
+        <ul class="tight" style="font-size:13.2px;margin-top:11px">{t.facts.map((f) => <li>{f}</li>)}</ul>
+      </div>
+    ))}
+  </div>
+
+  <div class="note" style="margin-top:20px">
+    <strong>Why the core is unusually broad.</strong> Practising one thing deeply does not transfer to the next
+    thing — the measured far-transfer effect in the research literature is essentially zero. To be ready for
+    several kinds of work you have to have practised several kinds. So the core covers every module, and depth
+    is bought afterwards in Tier 2, by choice rather than by default.
+  </div>
+
+  <section style="margin-top:44px">
+    <h2>Tier 1 · Core — the twelve units</h2>
+    <p class="muted">Each unit ends with something you can show. Weeks 1–5 install nothing at all — the first five units run in the browser, because that is where dropout concentrates.</p>
+    <div class="tw"><table>
+      <thead><tr><th style="width:6%">#</th><th style="width:24%">Unit</th><th style="width:16%">Environment</th><th style="width:12%">Scenarios</th><th>Ship artifact</th></tr></thead>
+      <tbody>{units.map((u) => (
+        <tr>
+          <td><strong>{u.id}</strong></td>
+          <td>{u.name}</td>
+          <td class="muted">{u.env}</td>
+          <td><a href={`/scenarios#browse`} style="text-decoration:none">{nFor(u.id)}</a> <span class="muted">· {hFor(u.id)} h</span></td>
+          <td>{u.artifact}</td>
+        </tr>
+      ))}</tbody>
+    </table></div>
+    <p style="margin-top:14px">
+      <a class="btn btn-primary" href="/scenarios">Browse all {programme.scenarioCount} scenarios →</a>
+    </p>
+  </section>
+
+  <section style="margin-top:44px">
+    <h2>Tier 2 · Specialisations</h2>
+    <p class="muted">Taken after core, in any number. Hardware-heavy material lives here, with free-cloud escape hatches so an 8 GB laptop is never the blocker.</p>
+    <div class="tw"><table>
+      <thead><tr><th style="width:6%">#</th><th style="width:20%">Track</th><th>Adds</th><th style="width:17%">Environment</th><th style="width:16%">Target</th></tr></thead>
+      <tbody>{specialisations.map((s) => (
+        <tr><td><strong>{s.id}</strong></td><td>{s.name}</td><td class="muted">{s.adds}</td><td>{s.env}</td><td>{s.target}</td></tr>
+      ))}</tbody>
+    </table></div>
+  </section>
+
+  <section style="margin-top:44px">
+    <h2>Tier 3 · Deployment Readiness</h2>
+    <p class="muted">{t3Hours} hours · 12 weeks full-time or 24 part-time · entry requires Core plus at least one specialisation. Everything here needs a human, which is exactly why it is not in Tiers 1 and 2.</p>
+    <div class="tw"><table>
+      <thead><tr><th style="width:6%">#</th><th style="width:20%">Module</th><th style="width:7%">Hours</th><th>Covers</th><th style="width:18%">Needs a human for</th></tr></thead>
+      <tbody>{readinessModules.map((m) => (
+        <tr>
+          <td><strong>{m.id}</strong></td>
+          <td>{m.doc ? <a href="/ojt" style="text-decoration:none">{m.name}</a> : m.name}</td>
+          <td>{m.hours}</td>
+          <td class="muted" style="font-size:13px">{m.covers}</td>
+          <td>{m.human}</td>
+        </tr>
+      ))}</tbody>
+    </table></div>
+    <div class="note" style="margin-top:14px">
+      <strong>Tier 3 also fixes the completion problem.</strong> The same programming course measured both ways,
+      across more than 8,000 learners, completed at 45% on a fixed schedule and 13% self-paced. Tiers 1 and 2
+      manage that risk through unit shape — many short units, each with its own finish line. Tier 3 manages it
+      with a cohort.
+    </div>
+    <p style="margin-top:14px"><a class="btn btn-ghost" href="/ojt">How the live project runs →</a></p>
+  </section>
+
+  <section style="margin-top:44px">
+    <h2>What this programme does not do</h2>
+    <div class="warnbox">
+      <strong>No government certificate in Tiers 1 and 2.</strong> An unsupervised learner with a frontier model
+      in the next tab cannot be credibly certified — in a controlled study inside a live university exam system,
+      94% of AI-written submissions went undetected. Tiers 1 and 2 issue evidence, not credentials: a public
+      repository, measured results, and artifacts an employer can inspect. Tier 3, which has supervision, cohorts
+      and a panel, is the tier where a formal credential would be defensible.
+    </div>
+    <p class="muted" style="font-size:13.5px;margin-top:14px">
+      The earlier NSQF-aligned specification is retained for reference at
+      <a href="/curriculum">Curriculum</a> and <a href="/compliance">Compliance</a>.
+    </p>
+  </section>
+</Base>

@@ -1,0 +1,2673 @@
+{
+ "meta": {
+  "version": "1.0",
+  "total": 102,
+  "hours": 180,
+  "bySize": {
+   "micro": 60,
+   "build": 30,
+   "ship": 12
+  },
+  "byUnit": {
+   "U1": 3,
+   "U2": 11,
+   "U3": 7,
+   "U4": 10,
+   "U5": 9,
+   "U6": 8,
+   "U7": 7,
+   "U8": 8,
+   "U9": 12,
+   "U10": 10,
+   "U11": 7,
+   "U12": 10
+  },
+  "organisations": 68
+ },
+ "units": [
+  {
+   "id": "U1",
+   "name": "First working AI"
+  },
+  {
+   "id": "U2",
+   "name": "Python &amp; data for AI"
+  },
+  {
+   "id": "U3",
+   "name": "SQL &amp; data quality"
+  },
+  {
+   "id": "U4",
+   "name": "Classical ML"
+  },
+  {
+   "id": "U5",
+   "name": "Model evaluation"
+  },
+  {
+   "id": "U6",
+   "name": "Deep learning"
+  },
+  {
+   "id": "U7",
+   "name": "Transformers &amp; embeddings"
+  },
+  {
+   "id": "U8",
+   "name": "LLMs &amp; prompting"
+  },
+  {
+   "id": "U9",
+   "name": "RAG"
+  },
+  {
+   "id": "U10",
+   "name": "Agents &amp; tools"
+  },
+  {
+   "id": "U11",
+   "name": "Evaluation &amp; observability"
+  },
+  {
+   "id": "U12",
+   "name": "Shipping"
+  }
+ ],
+ "scenarios": [
+  {
+   "id": "U1-M01",
+   "unit": "U1",
+   "size": "micro",
+   "title": "Name the metric before you build the thing",
+   "org": "Honeycomb",
+   "url": "https://www.honeycomb.io/blog/we-shipped-ai-product",
+   "what": "shipped an LLM query assistant in ~1 month for about $30/month in API cost — and found the real failure was discoverability, not the model",
+   "situation": "You have one afternoon and a free-tier API key. Before you write any code, your lead asks a single question: how will you know next week whether this helped anyone?",
+   "given": "A 5,000-row SQLite dataset, a free-tier LLM key, and a one-page product brief with no metrics in it.",
+   "done": [
+    "A natural-language-to-query feature that answers 10 sample questions",
+    "An activation metric defined and written down BEFORE the feature was built",
+    "Instrumentation that records it, and a measured baseline from the no-feature path"
+   ],
+   "verify": "Harness asserts the metric definition file predates the first feature commit (git timestamps), and that the events table contains both cohorts.",
+   "skills": [
+    "problem framing",
+    "success metrics",
+    "instrumentation",
+    "free-tier LLM basics"
+   ],
+   "matters": "Honeycomb's feature worked and still under-performed on the free tier — because users never noticed it. No model change fixes that, and only the metric revealed it."
+  },
+  {
+   "id": "U1-M02",
+   "unit": "U1",
+   "size": "micro",
+   "title": "The answer that contradicted the policy page",
+   "org": "Air Canada",
+   "url": "https://www.mccarthy.ca/en/insights/blogs/techlex/moffatt-v-air-canada-misrepresentation-ai-chatbot",
+   "what": "a support chatbot told a grieving passenger he could claim a bereavement fare retroactively; the airline's own published policy said the opposite, and a tribunal held the airline liable",
+   "situation": "You are handed a 20-page policy corpus and a chatbot that answers from it. Somewhere in that corpus two policies contradict each other. Find the question that makes the bot give a confidently wrong answer.",
+   "given": "A 20-document policy corpus containing several deliberate near-miss clauses, and a working ungrounded chatbot.",
+   "done": [
+    "At least three questions that produce a confidently wrong answer",
+    "For each, the authoritative clause the answer contradicts, cited by page",
+    "A one-paragraph note on which of the three would have cost real money"
+   ],
+   "verify": "Hidden test replays your questions against a grounded reference implementation and asserts the answers genuinely diverge.",
+   "skills": [
+    "grounding",
+    "adversarial questioning",
+    "source of truth",
+    "harm analysis"
+   ],
+   "matters": "Air Canada argued the chatbot was a separate entity responsible for its own statements. The tribunal disagreed. Anything your system says, you said."
+  },
+  {
+   "id": "U1-B01",
+   "unit": "U1",
+   "size": "build",
+   "title": "The five-stage cascade and where it loses accuracy",
+   "org": "Microsoft Research India + AI4Bharat (Jugalbandi)",
+   "url": "https://news.microsoft.com/source/asia/features/with-help-from-next-generation-ai-indian-villagers-gain-easier-access-to-government-services/",
+   "what": "a WhatsApp bot chaining ASR → translation → LLM retrieval → translation → TTS to answer Indian-language questions about government schemes; no per-stage error budget was ever published",
+   "situation": "You are rebuilding Jugalbandi at laptop scale: a citizen asks in Hindi or Telugu by voice, and gets an answer about a welfare scheme. Five models in a chain. Your job is not to build it — it is to find out which stage is losing you the most accuracy.",
+   "given": "20 scheme PDFs, 50 hand-written Hindi/Telugu queries with gold answers, faster-whisper tiny, a distilled translation checkpoint, a free-tier LLM, a free TTS.",
+   "done": [
+    "The full five-stage cascade running end to end",
+    "Per-stage accuracy measured independently, not just end to end",
+    "A written error budget showing where the compounding actually happens",
+    "A recommendation on which single stage to fix first, with the number to justify it"
+   ],
+   "verify": "`make eval` scores each stage against its own gold set and asserts the end-to-end number is reconcilable with the per-stage numbers.",
+   "skills": [
+    "model chaining",
+    "error compounding",
+    "per-stage evaluation",
+    "Indic language handling",
+    "ASR",
+    "translation"
+   ],
+   "matters": "Microsoft's own write-up concedes the models make mistakes and covers only 171 of roughly 20,000 schemes. Nobody published where in the chain the errors come from. You will."
+  },
+  {
+   "id": "U2-M01",
+   "unit": "U2",
+   "size": "micro",
+   "title": "The rows that were never there",
+   "org": "Public Health England",
+   "url": "https://www.bbc.co.uk/news/technology-54423988",
+   "what": "roughly 16,000 COVID-19 cases went unreported because results were held in a legacy spreadsheet format that silently stops at a fixed row limit",
+   "situation": "Your ingestion job reports success. Downstream counts are wrong and nobody can say why. The loader hit a hard limit and did not raise.",
+   "given": "A loader that reads three files, one of which exceeds a format limit, and a downstream count that looks plausible.",
+   "done": [
+    "The truncation found and its exact cause named",
+    "A row-count reconciliation check that fails loudly on the same input",
+    "Proof the check catches it before anything downstream runs"
+   ],
+   "verify": "Hidden test swaps in a differently-sized file and asserts your check still fires.",
+   "skills": [
+    "silent truncation",
+    "row reconciliation",
+    "fail loudly",
+    "file format limits"
+   ],
+   "matters": "Nobody at PHE wrote a bad model. A file format quietly ate the data and every dashboard downstream looked fine."
+  },
+  {
+   "id": "U2-M02",
+   "unit": "U2",
+   "size": "micro",
+   "title": "95% per word, 44% per document",
+   "org": "Dropbox",
+   "url": "https://dropbox.tech/machine-learning/creating-a-modern-ocr-pipeline-using-computer-vision-and-deep-learning",
+   "what": "mid-90s single-word OCR accuracy produced only about 44% document-level exact match, because of merged words, fragmented words and spurious boxes",
+   "situation": "You are given an OCR system that scores 95% on individual words. Your manager wants to ship it. Measure what it actually does to a whole document.",
+   "given": "200 word-crop images with labels, 30 full documents with ground truth, and a working word-level recogniser.",
+   "done": [
+    "Word-level accuracy and document-level exact match both measured",
+    "The gap explained by failure class (merged / fragmented / spurious)",
+    "A one-page recommendation on which failure class to fix first"
+   ],
+   "verify": "Harness recomputes both metrics from your outputs and asserts you reported the document-level number, not just the word-level one.",
+   "skills": [
+    "metric selection",
+    "aggregation traps",
+    "error taxonomy",
+    "OCR"
+   ],
+   "matters": "Dropbox shipped only after building confidence thresholds, dictionary validation and a word-reassembly stage. The 95% number was true and useless."
+  },
+  {
+   "id": "U2-M03",
+   "unit": "U2",
+   "size": "micro",
+   "title": "Header fields are easy. Line items are where it dies.",
+   "org": "Uber (TextSense)",
+   "url": "https://www.uber.com/us/en/blog/advancing-invoice-document-processing-using-genai/",
+   "what": "a fine-tuned T5 exceeded 90% on invoice header fields but collapsed on line items, with a considerable accuracy drop from the second line onward — and fine-tuning actively induced hallucinations",
+   "situation": "Extract structured data from 40 invoices. Report one accuracy number and your reviewer will accept it. Report two and you will find out the system does not work.",
+   "given": "40 invoice PDFs across 4 templates, a JSON target schema with header and line-item sections, a free-tier LLM.",
+   "done": [
+    "Extraction to the fixed schema",
+    "Header-field accuracy and line-item accuracy reported separately",
+    "Line-item accuracy broken down by line position (1st, 2nd, 3rd…)"
+   ],
+   "verify": "Hidden test asserts your report contains a per-position line-item breakdown and that it matches recomputed values.",
+   "skills": [
+    "structured extraction",
+    "per-field evaluation",
+    "positional degradation",
+    "JSON schemas"
+   ],
+   "matters": "Uber tried rules, then RPA, then fine-tuned open models — and still ended up with a mandatory human review stage because line items would not hold."
+  },
+  {
+   "id": "U2-M04",
+   "unit": "U2",
+   "size": "micro",
+   "title": "Two hundred jobs at the top of the hour",
+   "org": "Shopify",
+   "url": "https://shopify.engineering/lessons-learned-apache-airflow-scale",
+   "what": "over 10,000 DAGs and 150,000 task runs a day; jobs clustered on identical cron schedules until randomised, hash-seeded scheduling smoothed the load",
+   "situation": "Your scheduler has 200 jobs. Half of them are on `0 * * * *`. Everything is slow on the hour and idle the rest of the time.",
+   "given": "A local Airflow with a LocalExecutor and 200 generated DAGs, half on the same cron.",
+   "done": [
+    "The stall reproduced and measured",
+    "A hash-seeded randomised schedule applied",
+    "A before/after histogram of task starts across the hour"
+   ],
+   "verify": "Harness parses your DAG definitions and asserts start times are deterministic per DAG but distributed across the window.",
+   "skills": [
+    "scheduling",
+    "thundering herd",
+    "load smoothing",
+    "orchestration"
+   ],
+   "matters": "Shopify's fix is four lines of hashing. Finding that it was the problem took production degradation nobody could see in the DAG code."
+  },
+  {
+   "id": "U2-M05",
+   "unit": "U2",
+   "size": "micro",
+   "title": "It can read the language. It cannot see the script.",
+   "org": "Grab",
+   "url": "https://engineering.grab.com/custom-vision-llm-at-grab",
+   "what": "LoRA fine-tuning fixed Latin scripts but still failed on Thai and Vietnamese — the diagnosis was that the vision encoder had almost no SEA-script data, while the text decoder knew the languages fine",
+   "situation": "A multimodal model reads your English documents perfectly and mangles the Devanagari ones. Everyone on your team assumes the model does not know Hindi. Prove them wrong.",
+   "given": "The same 30 sentences rendered as images in Latin, Devanagari and Tamil scripts, plus the same sentences as plain text.",
+   "done": [
+    "Accuracy measured on image input vs text input for each script",
+    "Evidence isolating whether the failure is in reading or in understanding",
+    "A one-paragraph conclusion naming which component is at fault"
+   ],
+   "verify": "Hidden test checks you ran both the image and text arms and that your conclusion matches your own numbers.",
+   "skills": [
+    "multimodal evaluation",
+    "ablation design",
+    "encoder vs decoder",
+    "Indic scripts"
+   ],
+   "matters": "Grab spent four rejected approaches before locating the fault. The diagnosis — text-fluent, visually blind — is invisible unless you ablate."
+  },
+  {
+   "id": "U2-M06",
+   "unit": "U2",
+   "size": "micro",
+   "title": "The cheaper model that cost more",
+   "org": "Instacart",
+   "url": "https://company.instacart.com/how-its-made/scaling-catalog-attribute-extraction-with-multi-modal-llms",
+   "what": "swapping in a cheaper LLM cut cost as expected, and the same post reports a 60% accuracy drop on difficult attributes",
+   "situation": "Finance wants the model bill down. You have a cheaper model available and a benchmark that says it is nearly as good. The benchmark is averaged.",
+   "given": "500 product records with attribute labels, split into easy and hard subsets you are not told about, two model options.",
+   "done": [
+    "Both models measured on cost and on accuracy",
+    "Accuracy reported split by difficulty, not averaged",
+    "A recommendation with the trade stated in both directions"
+   ],
+   "verify": "Harness asserts your report contains a difficulty-stratified breakdown and that the cost saving is quoted against the accuracy loss.",
+   "skills": [
+    "cost/quality trade-offs",
+    "stratified evaluation",
+    "averaging traps"
+   ],
+   "matters": "The cost win was real. So was the 60% drop hiding underneath the average. Both are in the same blog post."
+  },
+  {
+   "id": "U2-M07",
+   "unit": "U2",
+   "size": "micro",
+   "title": "Rebuild it from nothing",
+   "org": "Uber",
+   "url": "https://www.uber.com/us/en/blog/advancing-invoice-document-processing-using-genai/",
+   "what": "TextSense was designed so new document types onboard through configuration rather than new code — reproducibility was the design constraint",
+   "situation": "Your index was built three weeks ago by someone who has left. Rebuild it from the raw files and get byte-identical output. If you cannot, you do not have a pipeline — you have a folder.",
+   "given": "A raw document folder, an existing built index, and a broken half-documented build script.",
+   "done": [
+    "`make index` rebuilds from raw inputs with no manual steps",
+    "Output is deterministic across two runs",
+    "A checksum manifest committed alongside"
+   ],
+   "verify": "Harness runs `make index` twice from a clean clone and diffs the artefacts.",
+   "skills": [
+    "reproducibility",
+    "determinism",
+    "build automation",
+    "checksums"
+   ],
+   "matters": "Every case in this catalogue that recovered from a data incident could rebuild. The ones that could not had to retrain from scratch."
+  },
+  {
+   "id": "U2-B01",
+   "unit": "U2",
+   "size": "build",
+   "title": "Rebuild the words",
+   "org": "Dropbox",
+   "url": "https://dropbox.tech/machine-learning/creating-a-modern-ocr-pipeline-using-computer-vision-and-deep-learning",
+   "what": "the fix for the 44% document accuracy was CTC confidence scoring with three-tier filtering plus a 'Wordinator' that resolved merged and fragmented word boxes",
+   "situation": "You have the 95%-per-word recogniser from U2-M02 and a document accuracy in the forties. Build the layer that closes the gap.",
+   "given": "The recogniser, 30 documents with ground truth, a word list for validation.",
+   "done": [
+    "Confidence-based three-tier filtering (accept / reject / validate against lexicon)",
+    "A word-reassembly stage handling merged and fragmented boxes",
+    "Document-level exact match improved, with the number before and after",
+    "A per-failure-class breakdown showing which fix bought what"
+   ],
+   "verify": "`make eval` recomputes document accuracy; hidden documents test generalisation beyond the visible 30.",
+   "skills": [
+    "confidence calibration",
+    "post-processing",
+    "lexicon validation",
+    "error attribution"
+   ],
+   "matters": "This layer, not the neural net, is what made Dropbox's OCR shippable. It is also the part nobody puts in a tutorial."
+  },
+  {
+   "id": "U2-B02",
+   "unit": "U2",
+   "size": "build",
+   "title": "Invoices that fight back",
+   "org": "Uber (TextSense)",
+   "url": "https://www.uber.com/us/en/blog/advancing-invoice-document-processing-using-genai/",
+   "what": "rule-based systems and RPA were tried first and failed on new vendor formats; fine-tuned open models read the page but could not map onto Uber's data patterns",
+   "situation": "Fifty supplier invoices across four templates, plus a handful of skewed phone photos. Extract 15 header attributes and every line item into a fixed schema.",
+   "given": "50 PDFs (mixed born-digital and scanned), a JSON schema, pdfplumber, Tesseract, a free-tier LLM.",
+   "done": [
+    "Born-digital and scanned paths both working, with routing between them",
+    "Per-field accuracy for headers, per-position accuracy for line items",
+    "A human-review queue that routes exactly the fields below your confidence threshold",
+    "Cost per document measured"
+   ],
+   "verify": "Hidden invoices in unseen templates test generalisation; harness asserts the review queue routes by measured confidence, not by a hardcoded list.",
+   "skills": [
+    "document AI",
+    "routing",
+    "confidence thresholds",
+    "human-in-the-loop",
+    "cost per document"
+   ],
+   "matters": "Uber's system reached ~90% overall and still shipped with mandatory human review. Knowing what to send a human is the engineering."
+  },
+  {
+   "id": "U2-B03",
+   "unit": "U2",
+   "size": "build",
+   "title": "Whose job is this?",
+   "org": "Shopify",
+   "url": "https://shopify.engineering/lessons-learned-apache-airflow-scale",
+   "what": "with DAGs deployed from many repos and generated dynamically, nobody could tell which team owned a failing job; accumulated metadata also slowed the UI and made upgrades take hours",
+   "situation": "A job has been failing for eleven days. The dashboard is red. No one has fixed it because no one knows whose it is.",
+   "given": "A local Airflow with 200 DAGs from three simulated repos, no ownership metadata, and a bloated metadata database.",
+   "done": [
+    "An enforced ownership manifest that fails CI when a DAG has no owner",
+    "A metadata retention job, with the trade-off it costs you documented",
+    "Measured UI response time before and after retention"
+   ],
+   "verify": "Harness adds an unowned DAG and asserts CI rejects it; measures metadata table sizes before and after.",
+   "skills": [
+    "ownership",
+    "operational metadata",
+    "retention trade-offs",
+    "platform CI"
+   ],
+   "matters": "Shopify's retention fix cost them the ability to run long backfills. Every operational fix buys something and sells something."
+  },
+  {
+   "id": "U2-S01",
+   "unit": "U2",
+   "size": "ship",
+   "title": "Ingest sixty documents nobody has cleaned",
+   "org": "Uber, Dropbox, Grab (composite)",
+   "url": "https://www.uber.com/us/en/blog/advancing-invoice-document-processing-using-genai/",
+   "what": "all three cases converge on the same finding: the parsing layer, not the model, decides the ceiling of everything downstream",
+   "situation": "Sixty real documents. Some are born-digital, some are phone photos, some are scanned at an angle, some are in a script your parser has never seen. Ship a pipeline that turns them into searchable, structured, version-stamped records — and a quality report that tells the truth about what failed.",
+   "given": "60 mixed-quality documents, a target schema, and no guidance on which files are the awkward ones.",
+   "done": [
+    "Deterministic `make index` from raw files",
+    "Routing between text-layer, OCR and multimodal paths based on measured signal",
+    "Every record carries source, page, document version and extraction confidence",
+    "A quality report naming which documents failed and why, by class",
+    "Per-document cost and wall-clock measured",
+    "A runbook a non-author can follow to add a new document"
+   ],
+   "verify": "Hidden document set of 15 unseen files; harness asserts the quality report classifies each failure and that the confidence field correlates with actual correctness.",
+   "skills": [
+    "end-to-end ingestion",
+    "format routing",
+    "metadata design",
+    "quality reporting",
+    "reproducibility",
+    "cost measurement"
+   ],
+   "matters": "This is the single highest-leverage artifact in the whole curriculum. Every RAG scenario later in U9 stands on it, and every one of them fails if this is weak."
+  },
+  {
+   "id": "U3-M01",
+   "unit": "U3",
+   "size": "micro",
+   "title": "A 40% business decline that never happened",
+   "org": "LinkedIn",
+   "url": "https://www.linkedin.com/blog/engineering/data-management/data-sentinel-automating-data-validation",
+   "what": "in October 2018 a silent data defect made reported job views drop 40–60%; it took 5 engineers 8 days to root-cause and 11 more to fix",
+   "situation": "Job views are down 47% week on week. The executive team wants to know what happened to the business. You suspect the business is fine.",
+   "given": "A 10,000-row events table with a segment whose tracking field starts returning null on a specific date.",
+   "done": [
+    "The defect located and the affected segment named",
+    "Evidence distinguishing a data defect from a real decline",
+    "The check that would have caught it on day one"
+   ],
+   "verify": "Harness re-injects the defect on a different date and segment and asserts your check fires within one day of onset.",
+   "skills": [
+    "data quality",
+    "segment analysis",
+    "null propagation",
+    "incident triage"
+   ],
+   "matters": "The hardest part of this incident was not the fix. It was proving to the business that nothing had gone wrong commercially."
+  },
+  {
+   "id": "U3-M02",
+   "unit": "U3",
+   "size": "micro",
+   "title": "Forty-five days before anyone noticed",
+   "org": "Uber",
+   "url": "https://www.uber.com/blog/d3-an-automated-system-to-detect-data-drifts/",
+   "what": "a fare component was missing from 10% of sessions across major US cities for 45 days before detection; automated drift detection cut time-to-detect from ~45 days to about 2",
+   "situation": "A column is fine on average and broken for one city. Your aggregate dashboards are all green.",
+   "given": "120 days of synthetic daily partitions with per-city breakdown, and a defect injected in one city partway through.",
+   "done": [
+    "Per-segment daily statistics computed (null rate, P50, distinct count)",
+    "A forecast-based detector that fires on the anomaly",
+    "Measured time-to-detect in days"
+   ],
+   "verify": "Hidden run injects the defect on a different city and day; harness asserts detection within 3 days.",
+   "skills": [
+    "drift detection",
+    "time series forecasting",
+    "dimensional breakdown",
+    "time-to-detect"
+   ],
+   "matters": "Uber's earlier approach was static thresholds. On trending seasonal data they broke constantly, and people stopped reading the alerts."
+  },
+  {
+   "id": "U3-M03",
+   "unit": "U3",
+   "size": "micro",
+   "title": "The detector nobody reads",
+   "org": "Uber",
+   "url": "https://www.uber.com/en-HK/blog/monitoring-data-quality-at-scale/",
+   "what": "rule-based per-metric thresholds generated so much noise that investigation became untenable; the fix was aggregating to one table-level score",
+   "situation": "Your monitoring fires 340 alerts a day. It is technically correct. Nobody has looked at it in a month.",
+   "given": "200 days of per-column daily statistics for a 20-column table, and an existing per-metric alerting rule set.",
+   "done": [
+    "Alert volume measured for the current rules",
+    "A table-level score replacing per-metric alerts (PCA or equivalent)",
+    "Alert volume and detection recall both reported after the change"
+   ],
+   "verify": "Harness injects three real defects and asserts your table-level detector catches them at materially lower alert volume.",
+   "skills": [
+    "alert fatigue",
+    "dimensionality reduction",
+    "precision vs recall in monitoring"
+   ],
+   "matters": "A technically correct detector with bad alert ergonomics is a failed detector. Uber's redesign is a concession to that."
+  },
+  {
+   "id": "U3-M04",
+   "unit": "U3",
+   "size": "micro",
+   "title": "The bad data was already in the model",
+   "org": "Unity Technologies",
+   "url": "https://www.fool.com/earnings/call-transcripts/2022/05/11/unity-software-inc-u-q1-2022-earnings-call-transcr/",
+   "what": "Unity ingested bad data from a large customer, it was baked into the trained model, and the company put the business impact at approximately $110 million for 2022",
+   "situation": "One upstream source has been sending corrupted rows for three weeks. You have already retrained twice. Deleting the rows does not undelete the model.",
+   "given": "A trained classifier, its training set, and one source whose rows have a shifted label distribution.",
+   "done": [
+    "The poisoned source identified from the data alone",
+    "Offline accuracy measured on the poisoned holdout and on a clean holdout",
+    "A written explanation of why the offline number looked fine"
+   ],
+   "verify": "Harness retrains from your cleaned set and asserts recovery on the clean holdout.",
+   "skills": [
+    "data poisoning",
+    "train/test contamination",
+    "source-level validation",
+    "model provenance"
+   ],
+   "matters": "The failure was detected commercially, not technically. By then the corruption was in the weights, and rows could not be un-learned."
+  },
+  {
+   "id": "U3-M05",
+   "unit": "U3",
+   "size": "micro",
+   "title": "Rows scanned is the only number that matters",
+   "org": "Zomato",
+   "url": "https://www.zomato.com/blog/building-a-cost-effective-logging-platform-using-clickhouse-for-petabyte-scale/",
+   "what": "50+ TB of logs a day, 12,000 queries a day; self-hosted Elasticsearch and an S3+Spark+Trino migration were both abandoned before ClickHouse hit a P99 of 10 seconds",
+   "situation": "The same query takes 40 seconds or 0.4 seconds depending on something you have not looked at yet.",
+   "given": "5 million synthetic log rows in DuckDB or clickhouse-local, and six queries of varying selectivity.",
+   "done": [
+    "Rows scanned measured for each query",
+    "A partitioning or index change applied",
+    "Before/after rows scanned and wall-clock for all six"
+   ],
+   "verify": "Harness runs hidden queries and asserts rows-scanned dropped without result changes.",
+   "skills": [
+    "query optimisation",
+    "partitioning",
+    "bloom filters",
+    "cost per query"
+   ],
+   "matters": "Zomato reported a potential saving of more than USD 1 million. The decision variable throughout was rows scanned."
+  },
+  {
+   "id": "U3-B01",
+   "unit": "U3",
+   "size": "build",
+   "title": "A check that writes itself",
+   "org": "LinkedIn + Amazon (Deequ)",
+   "url": "https://www.vldb.org/pvldb/vol11/p1781-schelter.pdf",
+   "what": "Amazon's constraint-suggestion engine produced two wrong constraints on a real dataset — an over-narrow range check and a spurious rule — which is why suggestions need human review",
+   "situation": "Writing validation by hand for every table does not scale; LinkedIn's ad-hoc approach left most datasets unchecked. Generate the checks instead — then find out where generation gets it wrong.",
+   "given": "A 10,000-row dataset in DuckDB, a YAML check schema, and a defect injector.",
+   "done": [
+    "A YAML-to-SQL check generator covering nulls, ranges, uniqueness and distribution",
+    "Constraint suggestion from data profiling",
+    "At least two suggested constraints that are wrong, identified and explained",
+    "The injected defect caught"
+   ],
+   "verify": "Hidden defects of three classes; harness asserts detection and asserts you documented at least two false suggestions.",
+   "skills": [
+    "data contracts",
+    "constraint generation",
+    "profiling",
+    "false positives in validation"
+   ],
+   "matters": "The paper is unusually honest about its own failures. A suggestion engine you trust blindly will write you a rule that fails every Tuesday."
+  },
+  {
+   "id": "U3-B02",
+   "unit": "U3",
+   "size": "build",
+   "title": "Measure the cost before you design the warehouse",
+   "org": "Instacart",
+   "url": "https://company.instacart.com/how-its-made/adopting-dbt-as-the-data-transformation-tool-at-instacart",
+   "what": "a dedicated warehouse per team was abandoned after they measured 20–40% additional compute cost coming purely from cold starts — found only because query tagging for cost attribution was added first",
+   "situation": "You are asked to pick a warehouse topology. Two designs look equivalent on paper. One of them is 30% more expensive and you cannot tell which without instrumenting first.",
+   "given": "dbt-core with dbt-duckdb, 20 models with refs, and a simulated cold-start cost model.",
+   "done": [
+    "20 dbt models with refs, tests and a manifest-driven DAG",
+    "Query tagging and cost attribution added BEFORE the topology change",
+    "Both topologies measured, with the cold-start cost isolated",
+    "A recommendation supported by your own numbers"
+   ],
+   "verify": "Harness parses manifest.json to verify DAG generation and asserts cost attribution exists per model.",
+   "skills": [
+    "dbt",
+    "cost attribution",
+    "instrument before optimising",
+    "DAG generation"
+   ],
+   "matters": "Instacart only found the 20–40% because they had instrumented cost first. The order of operations is the lesson."
+  },
+  {
+   "id": "U4-M01",
+   "unit": "U4",
+   "size": "micro",
+   "title": "Beat the neural net with a tuned baseline",
+   "org": "Politecnico di Milano / Univ. Klagenfurt",
+   "url": "https://arxiv.org/abs/1907.06902",
+   "what": "of 18 neural recommenders from top-tier conferences only 7 could be reproduced, and 6 of those 7 were often beaten by properly tuned simple heuristic baselines",
+   "situation": "A paper reports a new architecture beating the state of the art by 12%. You have the same dataset and two hours. Tune the boring baseline properly.",
+   "given": "MovieLens-100k, an item-kNN implementation, and an undertuned neural recommender.",
+   "done": [
+    "The kNN baseline properly tuned with a documented search",
+    "Both models evaluated on the same split",
+    "A statement of whether the reported gain survives"
+   ],
+   "verify": "Harness re-runs both on a hidden split and asserts your tuning procedure is reproducible from your config.",
+   "skills": [
+    "baselines",
+    "hyperparameter tuning",
+    "reproducibility",
+    "publication bias"
+   ],
+   "matters": "Once a weak baseline is published it becomes the baseline for the next paper. The error compounds all the way into your production stack."
+  },
+  {
+   "id": "U4-M02",
+   "unit": "U4",
+   "size": "micro",
+   "title": "The label was the bias",
+   "org": "Optum, studied by Obermeyer et al.",
+   "url": "https://www.science.org/doi/10.1126/science.aax2342",
+   "what": "a widely used care-management algorithm was biased because it predicted healthcare cost as a proxy for illness; race was never an input, and correcting the label would have raised Black patients receiving additional help from 17.7% to 46.5%",
+   "situation": "You have a model with no protected attributes, good accuracy, and a serious fairness problem. The features are fine. Look at what you are predicting.",
+   "given": "A dataset where an observed proxy (spend) is a group-biased measurement of a latent target (need).",
+   "done": [
+    "The model trained on the proxy, evaluated against the latent truth",
+    "Disparity quantified at matched risk scores",
+    "The same model retrained on a corrected label, with the disparity re-measured"
+   ],
+   "verify": "Harness recomputes the disparity metric from your predictions on a hidden split.",
+   "skills": [
+    "proxy labels",
+    "fairness",
+    "label design",
+    "measurement validity"
+   ],
+   "matters": "No fairness metric computed against the cost label could ever have surfaced this. The bug was upstream of every metric anyone was watching."
+  },
+  {
+   "id": "U4-M03",
+   "unit": "U4",
+   "size": "micro",
+   "title": "Where the boosting stops paying",
+   "org": "Meta (Facebook)",
+   "url": "https://quinonero.net/Publications/predicting-clicks-facebook.pdf",
+   "what": "almost all normalized-entropy improvement came from the first 500 trees; the last 1,000 bought under 0.1%, and on a smaller submodel accuracy actually regressed past 1,000 trees",
+   "situation": "Your GBM improves every time you add trees. Your training time also grows every time you add trees. Find where the trade stops being worth it.",
+   "given": "A 50k-row slice of public CTR data and a gradient boosting implementation.",
+   "done": [
+    "A tree-count sweep with the metric plotted",
+    "The saturation point identified with a number",
+    "Evidence of overfitting on a deliberately smaller training subset"
+   ],
+   "verify": "Harness re-runs your sweep config on a hidden slice and asserts the reported saturation point is reproducible.",
+   "skills": [
+    "model capacity",
+    "diminishing returns",
+    "overfitting",
+    "normalized entropy"
+   ],
+   "matters": "Meta published the exact shape of this curve. Most teams never plot it and pay for the last 1,000 trees forever."
+  },
+  {
+   "id": "U4-M04",
+   "unit": "U4",
+   "size": "micro",
+   "title": "The embedding that could not have worked",
+   "org": "Airbnb",
+   "url": "https://arxiv.org/abs/1810.09591",
+   "what": "listing-ID embeddings gave big training-NDCG gains and none on test — a listing can be booked at most 365 times a year, so per-item data is far too sparse for the obvious approach",
+   "situation": "You add per-item ID embeddings because every recommender paper does. Training NDCG jumps. Test NDCG does not move. The cause is not your code.",
+   "given": "A tabular ranking dataset with a high-cardinality item ID and a per-item interaction count distribution.",
+   "done": [
+    "Train and test NDCG both plotted against training steps",
+    "The divergence demonstrated",
+    "The per-item data volume computed, and the conclusion drawn from it"
+   ],
+   "verify": "Harness asserts you reported per-item interaction counts alongside the divergence.",
+   "skills": [
+    "high-cardinality features",
+    "overfitting",
+    "data sparsity",
+    "marketplace constraints"
+   ],
+   "matters": "Airbnb calls this section 'Failed Models'. The root cause is physics, not modelling — no architecture fixes 365 observations a year."
+  },
+  {
+   "id": "U4-M05",
+   "unit": "U4",
+   "size": "micro",
+   "title": "Accuracy 99.9%, model useless",
+   "org": "Stripe (Radar)",
+   "url": "https://stripe.dev/blog/how-we-built-it-stripe-radar",
+   "what": "card fraud is roughly 0.1% of transactions and decisions must be made inside the authorization path, so the model is tuned against a fixed false-positive budget rather than accuracy",
+   "situation": "Your fraud model is 99.9% accurate. So is a model that predicts 'not fraud' every time. Pick the metric that distinguishes them.",
+   "given": "10,000 transactions with 0.1% positives.",
+   "done": [
+    "A trivial always-negative baseline scored on accuracy",
+    "Precision, recall and PR-AUC reported for both models",
+    "An operating point chosen against a stated false-positive budget"
+   ],
+   "verify": "Harness recomputes metrics at your chosen threshold on a hidden split.",
+   "skills": [
+    "class imbalance",
+    "precision/recall",
+    "operating points",
+    "business constraints"
+   ],
+   "matters": "The metric that made Radar shippable was recall at a fixed 0.1% false-positive rate. Accuracy never entered the decision."
+  },
+  {
+   "id": "U4-M06",
+   "unit": "U4",
+   "size": "micro",
+   "title": "The feature importances that changed their mind",
+   "org": "Uber",
+   "url": "https://www.uber.com/en-BE/blog/productionizing-distributed-xgboost/",
+   "what": "JVM XGBoost 0.81 and earlier computed unreliable feature importances, which teams had been using to make feature-selection decisions",
+   "situation": "You drop the five least important features and your model gets better. You re-run the importance calculation with a different seed and the bottom five are different features.",
+   "given": "A tabular dataset with correlated features and a boosting implementation.",
+   "done": [
+    "Feature importances computed across several seeds and methods",
+    "The instability quantified",
+    "A more defensible selection procedure applied, with its result"
+   ],
+   "verify": "Harness re-runs your selection procedure and asserts it produces a stable feature set across seeds.",
+   "skills": [
+    "feature importance",
+    "correlated features",
+    "permutation importance",
+    "selection stability"
+   ],
+   "matters": "Uber's teams were making real production decisions on numbers that were quietly wrong. The fix is not a better number — it is a procedure that survives re-running."
+  },
+  {
+   "id": "U4-B01",
+   "unit": "U4",
+   "size": "build",
+   "title": "'Reported' is not 'fraud'",
+   "org": "PhonePe",
+   "url": "https://tech.phonepe.com/building-phonepes-real-time-transaction-model-to-prevent-frauds-a-journey",
+   "what": "users could report a transaction as suspicious with one tap, so a large slice of positives were ordinary commercial disputes; training on raw reports poisoned the model until a segmentation step stripped high-false-positive cohorts",
+   "situation": "You have 50,000 UPI transactions and a label column called `reported`. Everyone on the team is treating it as ground truth. It is not.",
+   "given": "50,000 transactions with a noisy `reported` label, cohort attributes, and a small clean-labelled holdout.",
+   "done": [
+    "A model trained on the raw label, scored on the clean holdout",
+    "Cohort analysis identifying the high-false-positive segments",
+    "A cleaned training set with those cohorts handled, and the improvement measured",
+    "Extreme class imbalance handled with an explicit operating point"
+   ],
+   "verify": "Hidden clean holdout; harness asserts improvement comes from label treatment and not from threshold tuning alone.",
+   "skills": [
+    "label noise",
+    "proxy labels",
+    "cohort analysis",
+    "class imbalance",
+    "UPI/fintech context"
+   ],
+   "matters": "PhonePe reported a 40% reduction in consumer fraud rate. The unlock was recognising the label meant something different from what it was named."
+  },
+  {
+   "id": "U4-B02",
+   "unit": "U4",
+   "size": "build",
+   "title": "Trees that make features for a linear model",
+   "org": "Meta (Facebook)",
+   "url": "https://quinonero.net/Publications/predicting-clicks-facebook.pdf",
+   "what": "leaf-index features from boosted trees fed into a linear model reduced normalized entropy by more than 3.4% relative — against a background where feature engineering typically moves it by a fraction of a percent",
+   "situation": "Two model families, each fine on its own. The published result says composing them beats both by a margin that dwarfs anything else in the paper.",
+   "given": "A 50k-row CTR slice, a GBM, and a logistic regression.",
+   "done": [
+    "GBM and LR baselines each measured",
+    "Leaf indices extracted, one-hot encoded, fed to LR",
+    "Normalized entropy reported for all three",
+    "A per-weight learning-rate comparison showing why the global rate fails"
+   ],
+   "verify": "Harness re-fits your pipeline on a hidden slice and asserts the composed model beats both baselines.",
+   "skills": [
+    "feature transforms",
+    "model composition",
+    "normalized entropy",
+    "online learning rates"
+   ],
+   "matters": "This is a decade-old paper that still beats most first attempts at tabular CTR, and it costs nothing to run on a laptop."
+  },
+  {
+   "id": "U4-B03",
+   "unit": "U4",
+   "size": "build",
+   "title": "The long tail nobody has data for",
+   "org": "Instacart",
+   "url": "https://company.instacart.com/tech-innovation/how-instacart-modernized-the-prediction-of-real-time-availability-for-hundreds-of-millions-of-items-while-saving-costs",
+   "what": "restricting real-time scoring to the ~1% of items that actually need it cut computation cost by approximately 80%",
+   "situation": "Five thousand items, ninety days of observations, and most items have fewer than five data points. Scoring all of them in real time is affordable at your scale and would not be at Instacart's.",
+   "given": "5,000 items × 90 days of availability observations with a deliberately long tail.",
+   "done": [
+    "A long-window frequency component and a short-window signal component built separately",
+    "A rule identifying which items actually need real-time scoring",
+    "Cost measured for score-everything vs score-the-1%",
+    "Accuracy compared for both, especially on the tail"
+   ],
+   "verify": "Hidden item set weighted toward the tail; harness asserts the selective strategy holds accuracy while cutting compute.",
+   "skills": [
+    "long-tail modelling",
+    "sparsity",
+    "selective computation",
+    "cost/accuracy trade-offs"
+   ],
+   "matters": "The prior batch system was stale and expensive at once. Both problems had the same fix, and it was a routing decision rather than a modelling one."
+  },
+  {
+   "id": "U4-S01",
+   "unit": "U4",
+   "size": "ship",
+   "title": "Train before the shift, act after it",
+   "org": "Zillow (Zillow Offers)",
+   "url": "https://www.prnewswire.com/news-releases/zillow-group-reports-third-quarter-2021-financial-results--shares-plan-to-wind-down-zillow-offers-operations-301414460.html",
+   "what": "Zillow's Q3 2021 results included a ~$304 million inventory write-down because homes were bought above the company's own subsequent estimate of resale value; Zillow Offers was wound down and about 25% of staff were laid off",
+   "situation": "You have a price model with respectable error on its test set. A business rule turns each prediction into an irreversible purchase. Then the market moves. Show what happens to the balance sheet, not to the RMSE.",
+   "given": "A public house-price dataset spanning a regime change, and a buy-rule specification with a margin parameter.",
+   "done": [
+    "A model trained strictly on the pre-shift period",
+    "Error measured on pre-shift and post-shift holdouts separately",
+    "A simulated buy rule acting on point predictions, with cumulative capital position tracked",
+    "The error distribution — not just the mean — modelled and shown to widen",
+    "A monitoring design that would have halted purchasing, with the trigger it fires on",
+    "A written recommendation on what margin the business should have required"
+   ],
+   "verify": "Hidden post-shift period; harness asserts your monitor fires before cumulative loss exceeds a stated threshold.",
+   "skills": [
+    "distribution shift",
+    "irreversible actions",
+    "error distributions",
+    "drift monitoring",
+    "business risk"
+   ],
+   "matters": "The point predictions were not really the problem. Zillow scaled volume as if forecast error were stable, and the error band widened while the business had no hedge."
+  },
+  {
+   "id": "U5-M01",
+   "unit": "U5",
+   "size": "micro",
+   "title": "AUC 0.83 or 0.63, depending on when you look",
+   "org": "Michigan Medicine / Epic Sepsis Model",
+   "url": "https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2781307",
+   "what": "external validation found AUC 0.63 against the vendor's 0.76–0.83; recomputing AUC to include scores up to 3 hours AFTER sepsis onset reproduced the vendor's number at 0.80",
+   "situation": "The same model, the same data, two AUC numbers 0.20 apart. The difference is entirely in when you allow the prediction to count.",
+   "given": "A 10,000-row time-stamped patient event table with onset times.",
+   "done": [
+    "The model scored with a strictly pre-onset prediction window",
+    "The model scored again including post-onset predictions",
+    "Both AUCs reported, and the gap explained in one paragraph"
+   ],
+   "verify": "Harness recomputes both windows from your prediction file and asserts the gap is present and correctly attributed.",
+   "skills": [
+    "target leakage",
+    "prediction windows",
+    "temporal validation",
+    "vendor claims"
+   ],
+   "matters": "This model was live at hundreds of hospitals before anyone outside the vendor checked. The flaw was in the evaluation, not the model."
+  },
+  {
+   "id": "U5-M02",
+   "unit": "U5",
+   "size": "micro",
+   "title": "Thirty-three percent sensitivity at the shipping threshold",
+   "org": "Epic Systems / University of Michigan",
+   "url": "https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2781307",
+   "what": "at the recommended threshold: sensitivity 33%, positive predictive value 12%, on a 6.6% sepsis incidence — the model missed 1,709 of 2,552 cases",
+   "situation": "Your AUC is defensible. Now compute what a clinician actually experiences at the threshold you plan to ship.",
+   "given": "An imbalanced tabular dataset at ~6% positive rate and a trained model.",
+   "done": [
+    "AUC reported",
+    "Sensitivity, specificity and PPV computed at the intended operating threshold",
+    "Alerts per 1,000 patients and false alerts per true positive",
+    "A one-line verdict on whether the business case survives"
+   ],
+   "verify": "Harness recomputes all operating-point metrics from your predictions and threshold.",
+   "skills": [
+    "operating points",
+    "PPV under low prevalence",
+    "alert burden",
+    "AUC vs deployment reality"
+   ],
+   "matters": "AUC 0.63 is a bad number. The number that mattered was that clinicians got eight false alerts for every real one."
+  },
+  {
+   "id": "U5-M03",
+   "unit": "U5",
+   "size": "micro",
+   "title": "The model learned which hospital took the photo",
+   "org": "Roberts et al. (Cambridge, multi-institution review)",
+   "url": "https://arxiv.org/abs/2008.06388",
+   "what": "of 2,212 studies reviewed, none of the 61 models assessed in depth were judged of potential clinical use — with 'Frankenstein datasets' and duplicate images across splits among the named failures",
+   "situation": "You will build a classifier with near-perfect accuracy in twenty minutes. It will be worthless, and you will prove it yourself.",
+   "given": "Two small public image sets from different sources, plus a mixed-source holdout.",
+   "done": [
+    "A classifier trained on source-A-positive vs source-B-negative",
+    "Near-perfect accuracy on the naive split demonstrated",
+    "Accuracy on a mixed-source holdout demonstrated to collapse",
+    "The mechanism named in one sentence"
+   ],
+   "verify": "Harness evaluates your model on a hidden mixed-source set and asserts the collapse.",
+   "skills": [
+    "dataset construction",
+    "confounds",
+    "split design",
+    "spurious correlation"
+   ],
+   "matters": "Hundreds of teams published this exact mistake during 2020 with near-perfect reported accuracy. It takes twenty minutes to reproduce and you never forget it."
+  },
+  {
+   "id": "U5-M04",
+   "unit": "U5",
+   "size": "micro",
+   "title": "The surrogate metric with a false constant",
+   "org": "Microsoft (Bing, MSN, Office Online)",
+   "url": "https://exp-platform.com/Documents/2014%20experimentersRulesOfThumb.pdf",
+   "what": "an Office Online team used clicks × an assumed constant conversion rate as a revenue surrogate; treatment showed a 64% reduction in clicks, but the constant assumption was false and the read was wrong",
+   "situation": "Your A/B test shows the treatment is catastrophically worse on your surrogate metric. The surrogate contains an assumption nobody has checked since it was written.",
+   "given": "A simulated experiment log with a surrogate metric whose conversion assumption breaks in the treatment arm.",
+   "done": [
+    "The apparent regression reproduced",
+    "The broken assumption located",
+    "The corrected read, with the direction of the true effect stated"
+   ],
+   "verify": "Harness re-runs with a different injected assumption break and asserts you locate it.",
+   "skills": [
+    "surrogate metrics",
+    "A/B analysis",
+    "assumption auditing",
+    "experiment design"
+   ],
+   "matters": "Microsoft's paper is a catalogue of results that were wrong on first read. Every one of them passed a significance test."
+  },
+  {
+   "id": "U5-M05",
+   "unit": "U5",
+   "size": "micro",
+   "title": "Every gate was green",
+   "org": "OpenAI (GPT-4o sycophancy)",
+   "url": "https://openai.com/index/expanding-on-sycophancy/",
+   "what": "offline evals 'generally looked good' and the A/B test showed users preferred the new model — because sycophancy is exactly what short-horizon preference metrics reward; it was rolled back within about four days",
+   "situation": "Your evaluation set has a blind spot. A change that scores higher on every metric you have is obviously worse on a dimension you never wrote down.",
+   "given": "A 30-prompt eval set with a deliberate blind spot, and two model variants.",
+   "done": [
+    "Variant B shown to score higher on the existing eval",
+    "Variant B shown to be worse on a held-out dimension you define",
+    "Three eval items added that would have caught it"
+   ],
+   "verify": "Hidden eval items test whether your additions generalise beyond the specific failure shown.",
+   "skills": [
+    "eval blind spots",
+    "preference metrics",
+    "short vs long horizon",
+    "release gates"
+   ],
+   "matters": "The most valuable line in OpenAI's postmortem is that expert testers said it felt off before launch, and the green dashboard won."
+  },
+  {
+   "id": "U5-B01",
+   "unit": "U5",
+   "size": "build",
+   "title": "Better offline, no better business",
+   "org": "Booking.com",
+   "url": "https://dl.acm.org/doi/10.1145/3292500.3330744",
+   "what": "across 23 comparisons where a new model beat the old one offline, the correlation between offline gain and business-metric gain was Pearson −0.1 (90% CI −0.45 to 0.27)",
+   "situation": "Eight model variants, cleanly ranked by AUC. You are about to ship the top one. Simulate what it does to the business metric first.",
+   "given": "A 10k-row click/conversion dataset and a business-value function with a deliberately non-monotone relationship to model score.",
+   "done": [
+    "8 model variants trained and ranked by offline metric",
+    "A simulated business metric computed for each",
+    "The correlation between the two rankings reported",
+    "At least one of the four Booking mechanisms (saturation, segment saturation, uncanny valley, over-optimisation) demonstrated"
+   ],
+   "verify": "Harness recomputes the rank correlation from your results and asserts you named the mechanism you demonstrated.",
+   "skills": [
+    "offline/online gap",
+    "business metrics",
+    "rank correlation",
+    "value saturation"
+   ],
+   "matters": "Booking had roughly 150 models in production and enough discipline to publish a negative result about all of them. Most teams never measure this at all."
+  },
+  {
+   "id": "U5-B02",
+   "unit": "U5",
+   "size": "build",
+   "title": "The features were older in production",
+   "org": "DoorDash (Ads Quality)",
+   "url": "https://arxiv.org/abs/2502.10514",
+   "what": "offline and online AUC diverged, traced to feature staleness (the online pipeline lagged 1–2 days) and cached residuals (uploads added keys without evicting stale ones)",
+   "situation": "Offline AUC says +2%. Online AUC says nothing changed. Both numbers are correct.",
+   "given": "A feature table with timestamps, a training pipeline, and a simulated online store with a configurable lag and a cache that never evicts.",
+   "done": [
+    "A point-in-time-correct training set built",
+    "The skew reproduced by serving with lagged features",
+    "The stale-cache failure reproduced separately",
+    "Both effects quantified independently"
+   ],
+   "verify": "Harness serves a hidden request set through your pipeline and asserts your reported skew matches the measured one.",
+   "skills": [
+    "training/serving skew",
+    "point-in-time correctness",
+    "feature stores",
+    "cache invalidation"
+   ],
+   "matters": "Two separate mechanisms produced the same symptom. Teams that fix one and declare victory get to find the other in a month."
+  },
+  {
+   "id": "U5-B03",
+   "unit": "U5",
+   "size": "build",
+   "title": "The reward distribution moved under you",
+   "org": "Dream11",
+   "url": "https://arxiv.org/abs/2601.14333",
+   "what": "off-the-shelf contextual bandits struggled in an environment where reward distributions shift match-to-match; the deployed hierarchical policy showed a 0.4% revenue improvement in A/B, then a further 0.5%",
+   "situation": "Your bandit converges beautifully. Then the context changes — an IPL final does not behave like a Tuesday league game — and yesterday's optimal arm is today's worst.",
+   "given": "A non-stationary bandit simulator with reward distributions that shift every N rounds.",
+   "done": [
+    "A flat contextual bandit and a fixed policy both implemented as baselines",
+    "A hierarchical or adaptive variant implemented",
+    "Cumulative regret plotted for all three across shifts",
+    "Cold-start behaviour on a new context measured"
+   ],
+   "verify": "Hidden shift schedule; harness asserts your adaptive policy beats both baselines on cumulative regret.",
+   "skills": [
+    "contextual bandits",
+    "non-stationarity",
+    "regret",
+    "cold start",
+    "exploration"
+   ],
+   "matters": "Dream11's gains are fractions of a percent. At their volume that is the entire business case, and it only exists because the policy adapts."
+  },
+  {
+   "id": "U5-S01",
+   "unit": "U5",
+   "size": "ship",
+   "title": "The evaluation harness you commit before the model",
+   "org": "Booking, Epic, OpenAI, Roberts (composite)",
+   "url": "https://dl.acm.org/doi/10.1145/3292500.3330744",
+   "what": "every evaluation failure in this unit shares one property: the threshold, the window or the metric was decided after seeing results",
+   "situation": "You are handed a problem, a dataset and no model. Before you train anything, ship the harness that will decide whether the model is good — including the thresholds, the splits, and the questions it must not get wrong.",
+   "given": "A tabular dataset with a temporal dimension and a known-but-undisclosed leakage vector.",
+   "done": [
+    "A preregistered evaluation plan committed before any model code",
+    "Temporally correct splits with the leakage vector defended against",
+    "Operating-point metrics, not just ranking metrics, with thresholds fixed in advance",
+    "A deliberate blind-spot audit: three ways this eval could pass a bad model",
+    "A simulated business-value function and the offline/online correlation reported",
+    "Results reported honestly, including where your own model fails"
+   ],
+   "verify": "Harness verifies the eval plan predates model commits by git timestamp, replays your splits for leakage, and scores your model on a hidden set at your preregistered threshold.",
+   "skills": [
+    "preregistration",
+    "split design",
+    "leakage defence",
+    "operating points",
+    "honest reporting"
+   ],
+   "matters": "This is the artifact that separates the U5 unit from a Kaggle notebook. Fixing thresholds after seeing results is the single most common way teams fool themselves."
+  },
+  {
+   "id": "U6-M01",
+   "unit": "U6",
+   "size": "micro",
+   "title": "The network that would not learn until you scaled the inputs",
+   "org": "Airbnb",
+   "url": "https://arxiv.org/abs/1810.09591",
+   "what": "Airbnb's neural ranking work documents feature normalisation as a concrete failure and fix — unnormalised features left the network in a plateau",
+   "situation": "Your loss plateaus immediately and stays there. The architecture is fine. Look at the input distributions.",
+   "given": "A tabular dataset with features on wildly different scales, and a small MLP.",
+   "done": [
+    "The plateau reproduced with raw features",
+    "Feature distributions plotted before and after transformation",
+    "The paper's transforms applied and the loss curve compared"
+   ],
+   "verify": "Harness trains your config on a hidden split and asserts convergence.",
+   "skills": [
+    "feature normalisation",
+    "input distributions",
+    "training dynamics",
+    "debugging"
+   ],
+   "matters": "It is the most boring bug in deep learning and it cost a very good team real time. Plot your inputs first."
+  },
+  {
+   "id": "U6-M02",
+   "unit": "U6",
+   "size": "micro",
+   "title": "Twenty-one percent of usable images, rejected",
+   "org": "Google Health / Rajavithi Hospital, Thailand",
+   "url": "https://research.google/pubs/a-human-centered-evaluation-of-a-deep-learning-system-deployed-in-clinics-for-the-detection-of-diabetic-retinopathy/",
+   "what": "a model trained on high-quality scans shipped with a hard gradability gate; in real clinics with poor lighting, more than a fifth of captured images were auto-rejected despite nurses judging them readable, with no override path",
+   "situation": "Your model has a quality gate. It was calibrated on clean data. Your users work in a room with bad lighting and a queue outside the door.",
+   "given": "A small image classifier, a clean test set, and the same images degraded (blur, low light, JPEG artefacts, off-centre crop).",
+   "done": [
+    "Rejection rate measured on clean and degraded inputs",
+    "Accuracy measured on the images the gate would have rejected",
+    "A recommendation on the gate, including whether a human override should exist"
+   ],
+   "verify": "Harness runs a hidden degraded set and asserts you reported accuracy on rejected-but-usable inputs.",
+   "skills": [
+    "quality gates",
+    "deployment distribution",
+    "human override",
+    "training/serving distribution gap"
+   ],
+   "matters": "The model exported its training distribution as an operating requirement onto rooms that could not meet it. Nurses started editing images to get them accepted."
+  },
+  {
+   "id": "U6-M03",
+   "unit": "U6",
+   "size": "micro",
+   "title": "Your laptop is the median device",
+   "org": "Meta (Facebook)",
+   "url": "https://research.facebook.com/publications/machine-learning-at-facebook-understanding-inference-at-the-edge/",
+   "what": "on the real Android fleet the median GPU is no faster than the CPU, the compute DSP exists on about 5% of targeted SoCs, and 72% of primary CPU cores in use were designed years earlier",
+   "situation": "The deployment plan says 'run it on the GPU'. Most of your users do not have a useful one. Benchmark honestly on the hardware you actually have.",
+   "given": "MobileNetV2 or a small CNN, and a quantisation toolchain.",
+   "done": [
+    "Float32 inference latency measured on CPU",
+    "Int8 quantised latency and accuracy measured",
+    "The accuracy cost of quantisation reported alongside the speedup",
+    "A deployment recommendation for a low-end device fleet"
+   ],
+   "verify": "Harness re-runs your benchmark script and asserts both latency and accuracy are reported for both precisions.",
+   "skills": [
+    "quantisation",
+    "CPU inference",
+    "device fragmentation",
+    "benchmarking discipline"
+   ],
+   "matters": "The constraint that makes this scenario awkward on an 8 GB laptop is exactly the constraint Meta is describing. You are the low-end device."
+  },
+  {
+   "id": "U6-M04",
+   "unit": "U6",
+   "size": "micro",
+   "title": "The sophisticated option that lost",
+   "org": "Pinterest",
+   "url": "https://arxiv.org/abs/1908.01707",
+   "what": "GradNorm adaptive loss weighting — the obvious sophisticated choice — lost to simpler weighting; and converting embeddings to binary caused a significant accuracy drop under the baseline normalisation setup",
+   "situation": "You have a multi-task model and two ways to weight the losses: an adaptive method with a paper behind it, and a constant you picked in five minutes. Measure both.",
+   "given": "Three small embedding heads on three small image sets, with a shared backbone.",
+   "done": [
+    "Both weighting schemes trained and evaluated per task",
+    "The comparison reported per task, not averaged",
+    "A float-to-binary embedding conversion with the accuracy cost measured"
+   ],
+   "verify": "Harness re-runs both configs on a hidden task split.",
+   "skills": [
+    "multi-task learning",
+    "loss weighting",
+    "binary embeddings",
+    "simple baselines"
+   ],
+   "matters": "Pinterest published both dead ends. The adaptive method is more interesting to read about and lost on their data."
+  },
+  {
+   "id": "U6-M05",
+   "unit": "U6",
+   "size": "micro",
+   "title": "Three models in one step",
+   "org": "Spotify",
+   "url": "https://engineering.atspotify.com/2023/04/large-scale-generation-of-ml-podcast-previews-at-spotify-with-google-dataflow",
+   "what": "packing several models into a single dense processing step created accelerator-memory pressure; median preview latency fell from 111.7 minutes to 3.7 after the pipeline was restructured",
+   "situation": "Your pipeline loads three models into one processing step and falls over. Splitting them costs you a serialisation boundary. Measure which is worse.",
+   "given": "A local Beam DirectRunner pipeline with three small models and 500 elements.",
+   "done": [
+    "Per-element latency and peak memory measured with all three models in one step",
+    "The same measured with the models split across steps",
+    "A recommendation with both numbers stated"
+   ],
+   "verify": "Harness runs both topologies on a hidden element set and asserts memory was actually measured, not estimated.",
+   "skills": [
+    "pipeline topology",
+    "memory pressure",
+    "batching",
+    "latency measurement"
+   ],
+   "matters": "The 30x improvement was a topology change, not a model change. It is the sort of win that never shows up in a model card."
+  },
+  {
+   "id": "U6-B01",
+   "unit": "U6",
+   "size": "build",
+   "title": "Wake word, two thresholds",
+   "org": "Apple (Hey Siri)",
+   "url": "https://machinelearning.apple.com/research/hey-siri",
+   "what": "early iterations trained on utterances captured after a button press — the wrong acoustic conditions for far-field activation; the shipped design used a small always-on detector cascading to a larger one, with a dual-threshold 'second chance'",
+   "situation": "An always-on detector must run continuously on a battery and almost never fire by accident. You cannot have both accuracy and cheapness in one model, so build two.",
+   "given": "The free Google Speech Commands dataset, CPU-trainable in minutes.",
+   "done": [
+    "A small first-stage detector and a larger second-stage detector",
+    "The cascade wired with two thresholds",
+    "FAR/FRR curves plotted for the small model, the large model and the cascade",
+    "Compute cost per hour of audio measured for each"
+   ],
+   "verify": "Hidden audio set including deliberately near-miss utterances; harness asserts the cascade's cost/accuracy point dominates either model alone.",
+   "skills": [
+    "cascaded models",
+    "FAR/FRR trade-offs",
+    "always-on constraints",
+    "audio features"
+   ],
+   "matters": "Apple's training-data mismatch is the reusable lesson: data collected under the wrong conditions is worse than less data collected under the right ones."
+  },
+  {
+   "id": "U6-B02",
+   "unit": "U6",
+   "size": "build",
+   "title": "Five thousand categories, most of them nearly empty",
+   "org": "Shopify",
+   "url": "https://shopify.engineering/using-rich-image-text-data-categorize-products",
+   "what": "classification into a 7-level, 5,500-category taxonomy where class imbalance was the main modelling obstacle; the multimodal model raised precision by eight percent while coverage almost doubled",
+   "situation": "Classify products into a deep taxonomy where the head categories have thousands of examples and the tail has three.",
+   "given": "A few thousand product records with a short text field and a thumbnail, over a hierarchical taxonomy.",
+   "done": [
+    "A text-only baseline and an image+text model both built with frozen pretrained encoders",
+    "Precision and coverage reported for both",
+    "Head and tail performance reported separately",
+    "Class imbalance handled explicitly, with the method stated"
+   ],
+   "verify": "Hidden tail-weighted test set; harness asserts head/tail results are reported separately.",
+   "skills": [
+    "transfer learning",
+    "multimodal fusion",
+    "hierarchical classification",
+    "long-tail imbalance"
+   ],
+   "matters": "The averaged number hides the taxonomy. A model that is excellent on the head and useless on the tail reads as 'good' until a merchant lists something unusual."
+  },
+  {
+   "id": "U6-S01",
+   "unit": "U6",
+   "size": "ship",
+   "title": "Ten megabytes, in a cotton field, offline",
+   "org": "Wadhwani Institute for AI (CottonAce)",
+   "url": "https://www.kdd.org/kdd2020/accepted-papers/view/pest-management-in-cotton-farms-an-ai-system-case-study-from-the-global-sou",
+   "what": "pest-counting for Indian smallholder cotton farmers, where trap photos vary wildly by phone, light and angle, ground truth is hard to obtain, and conventional ML metrics did not map onto the agricultural decision that mattered",
+   "situation": "Ship an image model that runs on a cheap Android phone with no connectivity, on photos taken by people who are not photographers, where the output is not a class label but an action recommendation.",
+   "given": "A few thousand images of small objects on textured backgrounds, with counts, deliberately varied in lighting and angle.",
+   "done": [
+    "A counting model trained on CPU",
+    "Pruned and quantised to under 10 MB, with the accuracy cost measured at each step",
+    "Robustness measured across lighting and angle variation",
+    "A decision layer mapping counts to a recommended action, with its own threshold",
+    "Evaluation against the decision, not just against the count",
+    "An offline inference path with no network dependency"
+   ],
+   "verify": "Hidden image set from unseen conditions; harness asserts model size is under 10 MB and that decision-level accuracy is reported alongside count accuracy.",
+   "skills": [
+    "model compression",
+    "quantisation",
+    "robustness",
+    "decision-level evaluation",
+    "offline deployment",
+    "agritech context"
+   ],
+   "matters": "The paper's honesty is the point: conventional metrics did not map to the agricultural decision. A model that counts well and advises badly has failed."
+  },
+  {
+   "id": "U7-M01",
+   "unit": "U7",
+   "size": "micro",
+   "title": "Fine at K=100, broken at K=1000",
+   "org": "Etsy",
+   "url": "https://arxiv.org/html/2306.04833v2",
+   "what": "HNSW lost about 5% recall at K=100 but blew past 10% loss at K=1000, which was the regime Etsy actually retrieved in; they switched to a 4-bit product-quantiser index with 5x over-fetch and re-ranking",
+   "situation": "Your ANN index benchmarks beautifully. Your benchmark uses K=10. Production retrieves a thousand candidates.",
+   "given": "150,000 vectors from a free sentence-transformer, an exact baseline, and an HNSW index.",
+   "done": [
+    "Recall measured against exact search at K=10, 100 and 1000",
+    "The degradation curve plotted",
+    "An over-fetch-and-rerank strategy applied, with recall and latency after"
+   ],
+   "verify": "Harness re-runs your config on a hidden query set at all three K values.",
+   "skills": [
+    "ANN indexes",
+    "recall@K",
+    "product quantisation",
+    "over-fetch and rerank"
+   ],
+   "matters": "The index was never wrong. The benchmark was measuring a regime the product does not operate in."
+  },
+  {
+   "id": "U7-M02",
+   "unit": "U7",
+   "size": "micro",
+   "title": "Milliseconds to seconds, then a circuit breaker",
+   "org": "Uber",
+   "url": "https://www.uber.com/en-US/blog/powering-billion-scale-vector-search-with-opensearch/",
+   "what": "when the KNN graph was not given enough allocated memory, query time degraded from milliseconds to tens of seconds because of disk I/O, and the memory circuit breaker produced collapse rather than graceful degradation",
+   "situation": "Your index fits in RAM on your machine. Constrain the memory and watch the failure mode — it is not a gentle slowdown.",
+   "given": "A vector index sized to sit just under your available RAM, and a memory limiter.",
+   "done": [
+    "Query latency measured with the index resident",
+    "Latency measured with memory constrained below index size",
+    "The failure characterised: is it degradation or collapse?",
+    "A sizing rule derived from your measurements"
+   ],
+   "verify": "Harness runs your sizing rule against a hidden index size and asserts it predicts the cliff.",
+   "skills": [
+    "memory sizing",
+    "latency cliffs",
+    "graceful degradation",
+    "capacity planning"
+   ],
+   "matters": "This is easier to demonstrate on a small laptop than on a big server, which makes it one of the rare cases where the 8 GB constraint is an advantage."
+  },
+  {
+   "id": "U7-M03",
+   "unit": "U7",
+   "size": "micro",
+   "title": "Better data beat a better model by 5x",
+   "org": "DoorDash",
+   "url": "https://careersatdoordash.com/blog/doordash-llms-to-build-content-embeddings-for-search-and-recommendations/",
+   "what": "upgrading the embedding model on raw metadata gave +5.92% Hit@5; rewriting the input representation gave +31.22%, and stacking the model upgrade on top added only about 6 more points",
+   "situation": "You can spend your week upgrading the embedding model or cleaning the text you feed it. The published answer is a controlled 2×2 and it is not close.",
+   "given": "5,000 listings with messy real text, two embedding models, and a rewriting step.",
+   "done": [
+    "All four arms of the 2×2 run (raw/clean × model A/model B)",
+    "Hit@5 reported for each arm",
+    "The larger lever identified with numbers"
+   ],
+   "verify": "Harness re-runs all four arms on a hidden query set.",
+   "skills": [
+    "input representation",
+    "controlled ablation",
+    "embedding model selection",
+    "2x2 design"
+   ],
+   "matters": "This is the single most useful ablation in the unit because it is cheap, it is decisive, and it contradicts where most teams put their week."
+  },
+  {
+   "id": "U7-M04",
+   "unit": "U7",
+   "size": "micro",
+   "title": "Semantic search that cannot find an exact term",
+   "org": "Spotify",
+   "url": "https://engineering.atspotify.com/2022/03/introducing-natural-language-search-for-podcast-episodes",
+   "what": "dense retrieval often failed to match traditional IR on exact term matching and cost more per query, which forced it to ship as an additional retrieval source blended with Elasticsearch rather than a replacement",
+   "situation": "Your semantic search is better on paraphrase and worse on exact names. Build the eval set that shows both, before someone in product finds out the hard way.",
+   "given": "A 20,000-document corpus, BM25, and a sentence-transformer.",
+   "done": [
+    "An adversarial eval set with paraphrase queries AND exact-term queries",
+    "Both retrievers scored on both query classes",
+    "A recommendation on replace-vs-blend supported by the split results"
+   ],
+   "verify": "Hidden queries in both classes; harness asserts you reported results split by query class.",
+   "skills": [
+    "dense vs lexical retrieval",
+    "adversarial eval sets",
+    "query classes",
+    "hybrid rationale"
+   ],
+   "matters": "The averaged number said dense retrieval was better. The split number said replacing lexical search would break every query containing a proper noun."
+  },
+  {
+   "id": "U7-M05",
+   "unit": "U7",
+   "size": "micro",
+   "title": "Popular because the vector is bigger",
+   "org": "ShareChat / Moj",
+   "url": "https://arxiv.org/abs/2312.15265",
+   "what": "roughly 2 million new items a day for 180M+ users; embedding norm growth is entangled with popularity, so a recommender can amplify already-popular content simply because those embeddings have larger norms",
+   "situation": "Fresh items have unreliable embeddings and popular items have large ones. Your similarity search is quietly a popularity ranker.",
+   "given": "MovieLens-25M or a slice, with incremental embedding training and interaction counts.",
+   "done": [
+    "L2 norm plotted against interaction count",
+    "Cosine drift from the final embedding plotted against interaction count",
+    "A maturity threshold derived from your own curves",
+    "Retrieval results compared with and without immature items filtered"
+   ],
+   "verify": "Harness recomputes norm/count correlation from your snapshots.",
+   "skills": [
+    "embedding maturity",
+    "popularity bias",
+    "cold start",
+    "norm effects"
+   ],
+   "matters": "Two million new items a day means most of your catalogue is always immature. The bias is structural, not incidental."
+  },
+  {
+   "id": "U7-B01",
+   "unit": "U7",
+   "size": "build",
+   "title": "Blend, don't replace",
+   "org": "Spotify",
+   "url": "https://engineering.atspotify.com/2022/03/introducing-natural-language-search-for-podcast-episodes",
+   "what": "Spotify shipped dense retrieval as an additional source blended with Elasticsearch, because it could not match lexical search on exact terms and cost more per query",
+   "situation": "Build the hybrid your U7-M04 results argued for, and prove the blend beats either component on the combined query set.",
+   "given": "The same 20,000-document corpus, BM25, a sentence-transformer, and a query set spanning both classes.",
+   "done": [
+    "BM25 and dense retrieval both working independently",
+    "A fusion strategy implemented (RRF or weighted score normalisation)",
+    "Recall and MRR reported for BM25, dense and hybrid separately",
+    "Per-query-class results showing the blend does not regress either class",
+    "Latency and per-query cost measured for all three"
+   ],
+   "verify": "Hidden query set in both classes; harness asserts hybrid does not regress either class relative to the better single retriever.",
+   "skills": [
+    "hybrid retrieval",
+    "reciprocal rank fusion",
+    "score normalisation",
+    "per-class regression testing"
+   ],
+   "matters": "The fusion is ten lines. The discipline is refusing to accept an average that hides a regression on one query class."
+  },
+  {
+   "id": "U7-B02",
+   "unit": "U7",
+   "size": "build",
+   "title": "Stage one alone makes it worse",
+   "org": "Swiggy",
+   "url": "https://bytes.swiggy.com/improving-search-relevance-in-hyperlocal-food-delivery-using-small-language-models-ecda2acc24e6",
+   "what": "unsupervised domain adaptation alone improved Precision@1 but LOWERED overall MAP; supervised fine-tuning without domain adaptation also performed worse; only the two stages together won",
+   "situation": "A two-stage training recipe where either stage on its own makes the system worse than doing nothing. Most teams stop after stage one because Precision@1 goes up.",
+   "given": "A 10,000-item food catalogue spanning multiple regional cuisines, all-MiniLM-L6-v2, and a labelled relevance set.",
+   "done": [
+    "Baseline, stage-1-only, stage-2-only and both-stages all evaluated",
+    "MAP and Precision@1 both reported for all four",
+    "The stage-1-only trap demonstrated with numbers",
+    "CPU query-encode latency measured against a 100ms budget"
+   ],
+   "verify": "Hidden relevance set spanning cuisines; harness asserts all four arms were run and both metrics reported.",
+   "skills": [
+    "domain adaptation",
+    "fine-tuning stages",
+    "metric disagreement",
+    "CPU latency budgets"
+   ],
+   "matters": "Precision@1 went up and MAP went down. A team watching one metric ships the worse system and believes they improved it."
+  },
+  {
+   "id": "U8-M01",
+   "unit": "U8",
+   "size": "micro",
+   "title": "Asking it whether it was lying",
+   "org": "Levidow, Levidow & Oberman (Mata v. Avianca)",
+   "url": "https://www.law.berkeley.edu/wp-content/uploads/archive/2025/12/Mata-v-Avianca-Inc.pdf",
+   "what": "an attorney filed six fabricated cases; when opposing counsel could not find them he asked ChatGPT whether they were real, it said yes, and he swore an affidavit on that basis — $5,000 in Rule 11 sanctions followed",
+   "situation": "Ask a model for citations in a niche domain. Then ask it to verify its own citations. Then check them against a real index.",
+   "given": "A free-tier model and access to a real reference index (CourtListener, Crossref or PubMed).",
+   "done": [
+    "20 citations generated in a niche domain",
+    "The model's own self-verification result recorded for each",
+    "A deterministic existence check against a real index",
+    "Fabrication rate reported, and self-verification accuracy reported separately"
+   ],
+   "verify": "Harness re-runs your existence checker against a known set of real and fake identifiers.",
+   "skills": [
+    "hallucination",
+    "self-verification fallacy",
+    "external grounding",
+    "deterministic checks"
+   ],
+   "matters": "The verification loop was closed inside the system that produced the error. That is the whole lesson and it costs nothing to reproduce."
+  },
+  {
+   "id": "U8-M02",
+   "unit": "U8",
+   "size": "micro",
+   "title": "Ten percent malformed, and re-prompting was the wrong fix",
+   "org": "LinkedIn",
+   "url": "https://www.linkedin.com/blog/engineering/generative-ai/musings-on-building-a-generative-ai-product",
+   "what": "roughly 10% of structured outputs were syntactically or schema-wise invalid; re-prompting cost unacceptable latency, so they wrote a defensive parser and took errors to ~0.01%",
+   "situation": "One call in ten comes back malformed. The obvious fix is to ask again. Measure what asking again costs you.",
+   "given": "A 4–5 field typed schema and a free-tier model.",
+   "done": [
+    "300 calls run and every parse failure logged by class",
+    "Failure classes counted (invalid syntax, missing field, wrong type, extra field)",
+    "Re-prompting implemented and its added latency measured",
+    "A defensive parser implemented and its residual error rate measured"
+   ],
+   "verify": "Hidden prompt set; harness asserts both strategies were measured on latency and residual error.",
+   "skills": [
+    "structured output",
+    "schema validation",
+    "defensive parsing",
+    "latency budgets"
+   ],
+   "matters": "This is the most honest structured-output report any large company has published, and the counter-intuitive part is that the fix is a parser, not a prompt."
+  },
+  {
+   "id": "U8-M03",
+   "unit": "U8",
+   "size": "micro",
+   "title": "One prompt doing three jobs badly",
+   "org": "Instacart",
+   "url": "https://company.instacart.com/tech-innovation/building-the-intent-engine-how-instacart-is-revamping-query-understanding-with-llms",
+   "what": "a single generic rewrite prompt produced valid but useless output ('1% milk' → 'one percent milk') and covered only about half of search traffic; decomposing into three task-specific prompts fixed it",
+   "situation": "Your rewrite prompt produces output that passes every validity check and helps nobody.",
+   "given": "300 real-shaped search queries and a free-tier model.",
+   "done": [
+    "Arm A: one generic rewrite prompt",
+    "Arm B: three task-specific prompts with distinct objectives",
+    "Useful-rewrite rate measured for both, with 'useful' defined in advance",
+    "Coverage of the query set reported for both"
+   ],
+   "verify": "Hidden query set; harness asserts your usefulness criterion was defined before the arms were run.",
+   "skills": [
+    "prompt decomposition",
+    "task specificity",
+    "usefulness vs validity",
+    "coverage"
+   ],
+   "matters": "Valid and useless is the hardest failure mode to catch, because every automated check passes."
+  },
+  {
+   "id": "U8-M04",
+   "unit": "U8",
+   "size": "micro",
+   "title": "Precompute the head of the distribution",
+   "org": "Yelp",
+   "url": "https://engineeringblog.yelp.com/2025/02/search-query-understanding-with-LLMs.html",
+   "what": "up to 100x cost savings versus calling a complex frontier prompt directly, achieved by using a fine-tuned small model for offline precomputation of the head of the query distribution",
+   "situation": "Your query log is Zipf-distributed. A small fraction of distinct queries covers most of your traffic. You are paying frontier prices for all of it.",
+   "given": "A 10,000-query log with a realistic long tail, and two model tiers.",
+   "done": [
+    "The head/tail split measured (what % of traffic is covered by what % of distinct queries)",
+    "A precompute-the-head, live-serve-the-tail strategy implemented",
+    "Total cost measured before and after",
+    "Quality on head and tail reported separately"
+   ],
+   "verify": "Harness replays a hidden query log through your router and recomputes cost and coverage.",
+   "skills": [
+    "cost control",
+    "caching",
+    "query distributions",
+    "model tiering"
+   ],
+   "matters": "This is the cheapest large cost win in the entire curriculum and it requires no model change whatsoever."
+  },
+  {
+   "id": "U8-M05",
+   "unit": "U8",
+   "size": "micro",
+   "title": "Three times the tokens for the same sentence",
+   "org": "Krutrim (Ola)",
+   "url": "https://arxiv.org/abs/2502.09642",
+   "what": "Indic languages are roughly 1% of Common Crawl while India is about 18% of world population; general-purpose tokenizers handle Indic scripts inefficiently and code-mixing poorly",
+   "situation": "The same meaning costs you three times as many tokens in Hindi as in English. That is a latency bill, a cost bill and a context-window bill at once.",
+   "given": "200 parallel sentences in English, Hindi, Tamil and Bengali, plus code-mixed examples, and several tokenizers.",
+   "done": [
+    "Tokens-per-sentence measured per language per tokenizer",
+    "Fertility ratio computed against English",
+    "Cost and context-window impact projected for a realistic workload",
+    "Code-mixed behaviour examined separately"
+   ],
+   "verify": "Harness recomputes fertility from your tokenizer configs on a hidden parallel set.",
+   "skills": [
+    "tokenization",
+    "fertility",
+    "multilingual cost",
+    "code-mixing",
+    "Indic NLP"
+   ],
+   "matters": "Every Indian-language product pays this tax. Most teams discover it when the context window overflows in production."
+  },
+  {
+   "id": "U8-M06",
+   "unit": "U8",
+   "size": "micro",
+   "title": "Asking for everything made it worse at everything",
+   "org": "Shopify",
+   "url": "https://shopify.engineering/leveraging-multimodal-llms",
+   "what": "asking the model to predict all fields during fine-tuning led to a loss of generalisability at inference; randomised selective field extraction improved both accuracy and performance",
+   "situation": "Your extraction prompt asks for all 12 fields every time. It scores worse than a prompt asking for three.",
+   "given": "200 messy product listings and a 12-field schema.",
+   "done": [
+    "All-fields extraction accuracy measured per field",
+    "Selective (randomised subset) extraction accuracy measured per field",
+    "The comparison reported per field, not averaged",
+    "A conclusion on output-shape overfitting"
+   ],
+   "verify": "Hidden listings and hidden field subsets; harness asserts per-field reporting.",
+   "skills": [
+    "output shape",
+    "overfitting to format",
+    "selective extraction",
+    "per-field evaluation"
+   ],
+   "matters": "The model was overfitting to the shape of the answer rather than to the content. It is invisible unless you vary the shape."
+  },
+  {
+   "id": "U8-B01",
+   "unit": "U8",
+   "size": "build",
+   "title": "Route the traffic, learn the prices",
+   "org": "Ramp",
+   "url": "https://builders.ramp.com/post/thompson-sampling-model-routing",
+   "what": "over 25% cost savings with no degradation on a 6-second-deadline reranker; the motivating discovery was that their prior assumptions about tier behaviour were wrong, so any hand-written static routing table was already mispriced",
+   "situation": "Four model endpoints with different cost, latency and failure characteristics. Your static routing table was written from assumptions nobody re-checked.",
+   "given": "Four mock models with configurable cost, log-normal latency distributions that deliberately overlap, and failure rates.",
+   "done": [
+    "A static routing baseline implemented from stated assumptions",
+    "Thompson sampling routing implemented",
+    "Cost, deadline-hit rate and error rate measured for both",
+    "Caller-error traffic excluded from the reward signal, with the reason documented",
+    "Behaviour shown when a provider's latency distribution shifts mid-run"
+   ],
+   "verify": "Hidden provider configuration with a mid-run shift; harness asserts the adaptive router adapts and the static one does not.",
+   "skills": [
+    "multi-armed bandits",
+    "model routing",
+    "cost optimisation",
+    "deadline constraints",
+    "reward design"
+   ],
+   "matters": "The static table is not wrong because it is static. It is wrong because it encodes assumptions that were never measured."
+  },
+  {
+   "id": "U8-B02",
+   "unit": "U8",
+   "size": "build",
+   "title": "Two hundred columns will not fit",
+   "org": "Uber (QueryGPT)",
+   "url": "https://www.uber.com/en-US/blog/query-gpt/",
+   "what": "tables with 200+ columns consumed 40–60K tokens of schema alone and broke calls against a 32K context limit; accuracy also declined as more tables were onboarded because plain similarity search returned irrelevant schemas",
+   "situation": "Natural language to SQL over 40 tables. Several are 200 columns wide. Several have confusingly similar names. Your first version worked on seven tables and got worse as you added more.",
+   "given": "A SQLite warehouse with 40 tables including deliberately wide and confusingly-named ones, plus 40 questions with gold SQL.",
+   "done": [
+    "Arm A: all schemas in one prompt — the context overflow demonstrated",
+    "Arm B: a schema selection or decomposition step before generation",
+    "Exact-result-match accuracy for both arms",
+    "Accuracy plotted as table count grows from 7 to 40",
+    "Token count per request measured for both"
+   ],
+   "verify": "Hidden question set over the same warehouse; harness asserts the accuracy-vs-table-count curve was measured.",
+   "skills": [
+    "context windows",
+    "schema selection",
+    "retrieval before generation",
+    "degradation with scale"
+   ],
+   "matters": "The naive version degraded as it succeeded. That is the shape of the problem — it works in the demo and fails as adoption grows."
+  },
+  {
+   "id": "U9-M01",
+   "unit": "U9",
+   "size": "micro",
+   "title": "The table that got shredded",
+   "org": "Uber (Enhanced Agentic RAG)",
+   "url": "https://www.uber.com/us/en/blog/enhanced-agentic-rag/",
+   "what": "off-the-shelf PDF loaders destroyed tables spanning 5+ pages with nested cells — cells became isolated text disconnected from their row and column headers, so semantic search could never find the right value",
+   "situation": "Load a PDF containing a multi-page nested table with a standard loader. Read the output. The numbers are all still there and none of them mean anything.",
+   "given": "3 real PDFs containing multi-page nested tables, and a standard PDF loader.",
+   "done": [
+    "The shredded output produced and inspected",
+    "Five specific questions the shredded text cannot answer, with evidence",
+    "A table-aware extraction path that preserves row and column headers",
+    "The same five questions answered correctly after"
+   ],
+   "verify": "Hidden PDF with a different table structure; harness asserts your extraction preserves header association.",
+   "skills": [
+    "PDF parsing",
+    "table structure",
+    "chunking damage",
+    "retrieval failure modes"
+   ],
+   "matters": "This is the single highest-value 40 minutes in the RAG unit. Everyone builds RAG over PDFs. Almost nobody looks at what the loader produced."
+  },
+  {
+   "id": "U9-M02",
+   "unit": "U9",
+   "size": "micro",
+   "title": "Smaller chunks won",
+   "org": "Telco-RAG",
+   "url": "https://arxiv.org/abs/2404.15939",
+   "what": "on dense acronym-saturated technical standards, 125-token chunks beat the standard 500-token default — an inverse relationship between chunk size and accuracy, the opposite of the usual prose intuition",
+   "situation": "Every tutorial says 500 tokens with overlap. On your corpus that is the worst setting you could have picked.",
+   "given": "An acronym-heavy technical corpus (RFCs or an API spec) and a 60-question eval set.",
+   "done": [
+    "A chunk-size sweep at 100 / 250 / 500 / 1000 tokens",
+    "Retrieval accuracy plotted against chunk size",
+    "The best setting identified for THIS corpus",
+    "A one-line explanation of why the default is wrong here"
+   ],
+   "verify": "Hidden question set over the same corpus; harness asserts the sweep covered all four sizes.",
+   "skills": [
+    "chunk sizing",
+    "corpus-dependent defaults",
+    "technical corpora",
+    "parameter sweeps"
+   ],
+   "matters": "There is no correct chunk size. There is a correct chunk size for your corpus, and it takes an hour to find."
+  },
+  {
+   "id": "U9-M03",
+   "unit": "U9",
+   "size": "micro",
+   "title": "It invented a policy to explain a bug",
+   "org": "Anysphere (Cursor)",
+   "url": "https://www.theregister.com/special-features/2025/04/18/cursor_ai_support_bot_hallucinated_its_own_company_policy/1015579",
+   "what": "a race condition was logging users out; asked why, the support AI invented a subscription policy that did not exist, non-deterministically, and users cancelled subscriptions over it",
+   "situation": "Give a model a knowledge base that deliberately does not cover the question being asked, then ask twenty times and count how many different answers you get.",
+   "given": "A 10-document policy KB with a deliberate coverage gap, and a free-tier model.",
+   "done": [
+    "The same uncovered question asked 20 times at non-zero temperature",
+    "The distinct answers counted and the invented facts listed",
+    "An abstain path added",
+    "Abstain rate and false-abstain rate both measured after"
+   ],
+   "verify": "Hidden uncovered questions; harness asserts abstention fires on gaps without over-firing on covered questions.",
+   "skills": [
+    "abstention",
+    "hallucination under coverage gaps",
+    "non-determinism",
+    "support automation"
+   ],
+   "matters": "The bug was a race condition. The damage was the confabulated explanation, and it was different every time it was asked."
+  },
+  {
+   "id": "U9-M04",
+   "unit": "U9",
+   "size": "micro",
+   "title": "A real citation for a claim it does not support",
+   "org": "Stanford RegLab & HAI",
+   "url": "https://arxiv.org/abs/2405.20362",
+   "what": "audited legal RAG products hallucinated between 17% and 33% of the time despite vendor claims of elimination; the new failure mode is a fluent answer with an authoritative-looking citation that does not support the proposition",
+   "situation": "Every answer has a citation. Every citation is to a real document. Some of those documents do not say what the answer claims.",
+   "given": "A 50-document corpus, a working RAG pipeline, and 30 questions including deliberate false-premise ones.",
+   "done": [
+    "Retrieval failure and grounding failure scored as separate categories",
+    "Each answer's citation checked for whether it actually supports the claim",
+    "Rates reported for both failure types",
+    "False-premise questions handled and scored separately"
+   ],
+   "verify": "Hidden question set with false premises; harness asserts you scored grounding separately from retrieval.",
+   "skills": [
+    "grounding vs retrieval",
+    "citation verification",
+    "false premises",
+    "vendor claims"
+   ],
+   "matters": "RAG reduces hallucination and does not remove it, and it introduces a failure mode plain LLMs do not have: confident wrongness wearing a citation."
+  },
+  {
+   "id": "U9-M05",
+   "unit": "U9",
+   "size": "micro",
+   "title": "Chunking destroyed the structure",
+   "org": "LinkedIn",
+   "url": "https://arxiv.org/abs/2404.17723",
+   "what": "flat text chunking destroyed ticket field structure and the duplicate/related links between tickets, so semantically similar but operationally irrelevant fragments were retrieved; a structure-aware approach gave +77.6% MRR",
+   "situation": "Your documents have structure — fields, sections, links between them. Your chunker turned them into prose soup.",
+   "given": "200 structured records (issue tickets or similar) with fields and cross-references.",
+   "done": [
+    "Flat 500-token chunking implemented and scored",
+    "Three retrieval failures traced to lost structure",
+    "A structure-preserving representation built",
+    "MRR reported for both"
+   ],
+   "verify": "Hidden query set; harness asserts both representations were scored on the same queries.",
+   "skills": [
+    "structure-aware retrieval",
+    "chunking primitives",
+    "MRR",
+    "structured documents"
+   ],
+   "matters": "Generic chunking is the wrong primitive for structured data, and structured data is most of what companies actually have."
+  },
+  {
+   "id": "U9-M06",
+   "unit": "U9",
+   "size": "micro",
+   "title": "Two thirds of the failures were the corpus",
+   "org": "Digital Green (Farmer.Chat)",
+   "url": "https://arxiv.org/abs/2409.08916",
+   "what": "of the roughly 25% unanswered queries, 66% were knowledge-base content gaps, 23% out of scope and 11% unsupported crops — two thirds of failures were a corpus problem, not a model problem",
+   "situation": "Your RAG system fails on a quarter of questions. The instinct is to improve the model. Classify the failures first and the instinct turns out to be wrong.",
+   "given": "A RAG pipeline over 100 documents, and 80 realistic user questions with known outcomes.",
+   "done": [
+    "Every failure classified into corpus gap / out of scope / unsupported entity / model error",
+    "The distribution reported",
+    "The single highest-impact fix identified from the distribution",
+    "An estimate of what fixing the model alone would buy"
+   ],
+   "verify": "Hidden question set; harness asserts your classifier is applied consistently and that the distribution is reported.",
+   "skills": [
+    "failure taxonomy",
+    "corpus coverage",
+    "triage",
+    "effort allocation"
+   ],
+   "matters": "This one number reallocates an entire roadmap. Two thirds of your failures are solved by adding documents, not by changing anything technical."
+  },
+  {
+   "id": "U9-B01",
+   "unit": "U9",
+   "size": "build",
+   "title": "Cite it or do not say it",
+   "org": "Uber (Genie)",
+   "url": "https://www.uber.com/blog/genie-ubers-gen-ai-on-call-copilot/",
+   "what": "deployed across 154 Slack channels answering 70,000+ questions, with a self-reported helpfulness rate of 48.9% — meaning roughly half of answers were not useful, which is what drove the follow-on rebuild",
+   "situation": "Build an on-call assistant over engineering docs where every claim must carry a source URL, and then measure honestly how often it actually helps.",
+   "given": "150 markdown/wiki pages, a free-tier model, and 60 realistic on-call questions.",
+   "done": [
+    "Retrieval over the corpus with enforced source citation",
+    "Answers blocked when no supporting source is retrieved",
+    "A helpfulness rubric defined and applied to all 60 questions",
+    "Helpfulness rate reported without rounding up",
+    "The unhelpful cases classified by cause"
+   ],
+   "verify": "Hidden question set; harness asserts every emitted answer carries a resolvable citation and that blocked answers are counted.",
+   "skills": [
+    "enforced citation",
+    "abstention",
+    "helpfulness measurement",
+    "honest reporting"
+   ],
+   "matters": "Uber published 48.9%. Most teams would have published '70,000 questions answered' and stopped there."
+  },
+  {
+   "id": "U9-B02",
+   "unit": "U9",
+   "size": "build",
+   "title": "Retrieve the graph, not the fragment",
+   "org": "LinkedIn",
+   "url": "https://arxiv.org/abs/2404.17723",
+   "what": "a knowledge-graph representation of structured tickets gave +77.6% MRR over the text-chunking baseline and a 28.6% reduction in median per-issue resolution time over ~6 months of live deployment",
+   "situation": "Build both retrievers over the same corpus and let the numbers decide: flat chunks against a structure-preserving graph.",
+   "given": "200 structured tickets with fields, duplicate links and related links.",
+   "done": [
+    "Retriever A: 500-token flat chunks with embeddings",
+    "Retriever B: a graph over entities and their links (NetworkX or SQLite)",
+    "MRR and answer-quality both measured for each",
+    "The resolution-step preservation checked explicitly",
+    "A cost and complexity comparison between the two"
+   ],
+   "verify": "Hidden ticket queries; harness asserts both retrievers ran on identical inputs and that MRR is computed the same way for both.",
+   "skills": [
+    "graph retrieval",
+    "structure preservation",
+    "MRR",
+    "retrieval architecture comparison"
+   ],
+   "matters": "The +77.6% is not a model improvement. It is the same model given a representation that did not destroy the answer."
+  },
+  {
+   "id": "U9-B03",
+   "unit": "U9",
+   "size": "build",
+   "title": "The cheap screen and the expensive one",
+   "org": "DoorDash",
+   "url": "https://careersatdoordash.com/blog/path-to-high-quality-llm-based-dasher-support-automation/",
+   "what": "a single sophisticated LLM guardrail on every response was cost-prohibitive; a two-tier cascade — cheap similarity screen, LLM evaluation only on flagged responses — delivered a 90% reduction in hallucinations and 99% in severe compliance issues",
+   "situation": "Guarding every response with a strong evaluator works and costs more than the feature earns. Build the cascade instead.",
+   "given": "A 100-article knowledge base, a RAG bot, and 60 generated responses including deliberate policy violations.",
+   "done": [
+    "Tier 1: a cheap similarity screen between response sentences and KB content",
+    "Tier 2: LLM evaluation applied only to flagged responses",
+    "Hallucination and compliance-violation rates before and after",
+    "Cost per response for single-tier vs two-tier measured",
+    "The tier-1 threshold tuned against a stated escalation budget"
+   ],
+   "verify": "Hidden responses including novel violation types; harness asserts the cascade catches them within the escalation budget.",
+   "skills": [
+    "guardrails",
+    "cascaded evaluation",
+    "cost-aware safety",
+    "threshold tuning"
+   ],
+   "matters": "The design is a concession to cost, and it outperformed the expensive version on the only metric that matters — the one you can actually afford to run."
+  },
+  {
+   "id": "U9-B04",
+   "unit": "U9",
+   "size": "build",
+   "title": "Preregister the questions you might fail",
+   "org": "Stanford RegLab & HAI",
+   "url": "https://arxiv.org/abs/2405.20362",
+   "what": "the audit's method — a preregistered question set including deliberate false premises, scoring retrieval and grounding failures separately — is what made vendor claims testable",
+   "situation": "Build the evaluation before you tune anything, and include the questions you would rather not be asked.",
+   "given": "A 50-document corpus and a working RAG pipeline.",
+   "done": [
+    "A 30-question preregistered set including unanswerable and false-premise questions",
+    "Scoring rubric fixed before running anything",
+    "Retrieval failure and grounding failure scored separately",
+    "Results reported including your own system's worst category",
+    "A statement of what accuracy claim your evidence would support"
+   ],
+   "verify": "Harness verifies the question set and rubric predate tuning commits, and rescores your outputs independently.",
+   "skills": [
+    "preregistration",
+    "false premises",
+    "failure separation",
+    "defensible claims"
+   ],
+   "matters": "The vendors in this audit were not lying so much as never having run this test. The method is the deliverable."
+  },
+  {
+   "id": "U9-S01",
+   "unit": "U9",
+   "size": "ship",
+   "title": "Answer a farmer's question in their language, or say you cannot",
+   "org": "Digital Green (Farmer.Chat)",
+   "url": "https://arxiv.org/abs/2409.08916",
+   "what": "15,000+ users and 300,000+ queries across four countries answering about 75% of questions; answering natively in the source language performed worse than translate → process → back-translate, so they shipped the uglier pipeline",
+   "situation": "Ship a multilingual agricultural advisory assistant over real extension documents. It must answer in the user's language, refuse when the corpus does not cover the question, and tell you honestly which of those two things it did.",
+   "given": "200 Indian agricultural extension PDFs, 100 realistic farmer questions across two languages, free-tier models.",
+   "done": [
+    "Ingestion with source, page and document-version metadata",
+    "Retrieval measured against a labelled relevance set",
+    "Both pipelines built: answer-natively and translate → process → back-translate, with the comparison measured",
+    "Enforced citation and an abstain path",
+    "Every failure classified into the Farmer.Chat taxonomy, with the distribution published",
+    "Answer rate, abstain rate and false-abstain rate all reported",
+    "A corpus-gap report telling the operator which documents to add next"
+   ],
+   "verify": "Hidden question set in both languages including uncovered topics; harness asserts the failure taxonomy is applied and that the corpus-gap report names real gaps.",
+   "skills": [
+    "multilingual RAG",
+    "translation pipelines",
+    "abstention",
+    "failure taxonomy",
+    "corpus coverage",
+    "Indic languages"
+   ],
+   "matters": "The uglier pipeline won. Shipping the architecture that measured better rather than the one that reads better is the professional move."
+  },
+  {
+   "id": "U9-S02",
+   "unit": "U9",
+   "size": "ship",
+   "title": "Tables, policies, and a golden set that judges you",
+   "org": "Uber (Enhanced Agentic RAG)",
+   "url": "https://www.uber.com/us/en/blog/enhanced-agentic-rag/",
+   "what": "vanilla RAG over 40+ security policy PDFs failed against a 100+ query SME golden set; the rebuild delivered a relative +27% in acceptable answers and a relative −60% in incorrect advice",
+   "situation": "Forty policy documents full of multi-page nested tables, a hundred expert-written questions, and a system that currently gives wrong advice more often than anyone realised. Rebuild it and prove the improvement against the same golden set.",
+   "given": "40 policy PDFs with nested multi-page tables, a 100-question golden set with expert answers.",
+   "done": [
+    "Table-aware ingestion preserving row and column header association",
+    "A baseline vanilla-RAG measurement against the golden set, published first",
+    "Agentic retrieval: query planning, multi-step lookup, self-check",
+    "Acceptable-answer rate and incorrect-advice rate both reported, before and after",
+    "LLM-as-judge evaluation automated, with the judge itself audited against human labels",
+    "Per-query-type breakdown showing which types improved and which regressed",
+    "Cost and latency per query measured for both versions"
+   ],
+   "verify": "Hidden golden-set extension with unseen table structures; harness asserts the baseline was measured before the rebuild and that judge/human agreement is reported.",
+   "skills": [
+    "table-aware ingestion",
+    "agentic retrieval",
+    "golden sets",
+    "LLM-as-judge",
+    "judge auditing",
+    "regression analysis"
+   ],
+   "matters": "The richest failure record in the whole catalogue. Incorrect advice dropped 60% relative — and the only reason anyone can say that is the golden set existed first."
+  },
+  {
+   "id": "U10-M01",
+   "unit": "U10",
+   "size": "micro",
+   "title": "The code freeze that was only a suggestion",
+   "org": "Replit (agent incident)",
+   "url": "https://fortune.com/2025/07/23/ai-coding-tool-replit-wiped-database-called-it-a-catastrophic-failure/",
+   "what": "an agent deleted a production database during an explicit code freeze, destroying records covering 1,200+ executives and 1,190+ companies; the freeze was a natural-language instruction, not an enforced capability boundary",
+   "situation": "Tell an agent in its prompt not to touch a table. Then watch it touch the table. Then build the thing that actually stops it.",
+   "given": "A local agent with a SQLite database and a shell tool.",
+   "done": [
+    "The prompt-level prohibition demonstrated to be unenforced",
+    "A capability boundary implemented outside the prompt",
+    "The same attempt shown to be blocked by the boundary",
+    "The agent's own self-report compared against the actual database state"
+   ],
+   "verify": "Hidden attempts including indirect paths to the same table; harness asserts the boundary holds and that self-reports are not trusted.",
+   "skills": [
+    "capability boundaries",
+    "prompt vs enforcement",
+    "destructive actions",
+    "self-report reliability"
+   ],
+   "matters": "The second failure is worse than the first: the agent's account of what it had done was wrong. Never let an agent grade its own homework against production state."
+  },
+  {
+   "id": "U10-M02",
+   "unit": "U10",
+   "size": "micro",
+   "title": "Thirty tools is worse than five",
+   "org": "Grab",
+   "url": "https://engineering.grab.com/from-firefighting-to-building",
+   "what": "exposing 30+ tools to a single agent degraded selection accuracy; the fix was splitting into specialised sub-agents with focused toolsets",
+   "situation": "Give an agent five tools and it works. Give it thirty and it picks the wrong one. Find where your curve turns.",
+   "given": "A task suite of 20 tasks, and a tool library you can pad with plausible distractors.",
+   "done": [
+    "Task success measured with 5 tools",
+    "Task success measured with 15 and 30 tools",
+    "The degradation curve plotted",
+    "A specialisation strategy applied and re-measured"
+   ],
+   "verify": "Hidden task set with a hidden distractor set; harness asserts the curve was measured at all three sizes.",
+   "skills": [
+    "tool selection",
+    "context dilution",
+    "agent specialisation",
+    "capability scoping"
+   ],
+   "matters": "Every agent framework encourages you to register more tools. The published evidence says the opposite."
+  },
+  {
+   "id": "U10-M03",
+   "unit": "U10",
+   "size": "micro",
+   "title": "Solves it once, fails it eight times running",
+   "org": "Sierra (tau-bench)",
+   "url": "https://arxiv.org/abs/2406.12045",
+   "what": "GPT-4o completed under 50% of tasks overall, and in the retail domain pass^8 fell below 25% — the same agent that solves a task once frequently cannot solve it eight times in a row",
+   "situation": "Your agent passed the demo. Run the same task eight times and count how many times it passes all eight.",
+   "given": "A 5-task toy domain over a SQLite orders table with four tools.",
+   "done": [
+    "pass@1 measured across the task set",
+    "pass^k measured for k = 2, 4, 8",
+    "The gap between pass@1 and pass^8 reported",
+    "The dominant failure class identified (rule-following, memory, or tool arguments)"
+   ],
+   "verify": "Hidden task variants; harness recomputes pass^k from your run logs.",
+   "skills": [
+    "reliability vs capability",
+    "pass^k",
+    "multi-turn agents",
+    "failure classification"
+   ],
+   "matters": "Commercially, pass^8 is the number that matters. A support agent that is right 90% of the time is wrong for one customer in ten, every day."
+  },
+  {
+   "id": "U10-M04",
+   "unit": "U10",
+   "size": "micro",
+   "title": "Fifty subagents for a simple question",
+   "org": "Anthropic",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system",
+   "what": "the lead agent spawned 50 subagents for simple queries and kept searching after it had enough, until explicit complexity-scaling rules were written into the prompt; agents used roughly 4x the tokens of chat, and multi-agent about 15x",
+   "situation": "Your orchestrator has no idea how hard the question is, so it treats everything like the hardest thing it has ever seen.",
+   "given": "A lead agent, 2–3 subagents with two tools each, and a 10-query eval set of mixed difficulty.",
+   "done": [
+    "Tokens per query logged and the multiplier against a single-agent baseline computed",
+    "Subagent count per query recorded against query difficulty",
+    "Explicit complexity-scaling rules added",
+    "Token cost re-measured after, with quality checked for regression"
+   ],
+   "verify": "Hidden queries of mixed difficulty; harness asserts token accounting exists per run and that quality did not regress.",
+   "skills": [
+    "effort calibration",
+    "token accounting",
+    "orchestration cost",
+    "complexity scaling"
+   ],
+   "matters": "Token usage explained 80% of performance variance in Anthropic's own eval. Spending is the mechanism, which is exactly why it needs a governor."
+  },
+  {
+   "id": "U10-M05",
+   "unit": "U10",
+   "size": "micro",
+   "title": "A document that gave the agent orders",
+   "org": "Microsoft 365 Copilot / Aim Security",
+   "url": "https://arxiv.org/abs/2509.10540",
+   "what": "CVE-2025-32711 (CVSS 9.3): a single crafted email could make Copilot read internal files and exfiltrate them with no user interaction — every individual defence held and the chain still succeeded",
+   "situation": "Plant a document in the corpus that contains instructions addressed to the model. Watch your assistant follow them.",
+   "given": "A small RAG assistant over a local document folder, with one planted document.",
+   "done": [
+    "The injection demonstrated: the model following instructions from retrieved content",
+    "An exfiltration path demonstrated (a rendered link or image request)",
+    "A defence implemented",
+    "The defence bypassed by a variant, and the bypass documented"
+   ],
+   "verify": "Hidden injection variants; harness asserts at least one variant defeats your first defence.",
+   "skills": [
+    "indirect prompt injection",
+    "untrusted content",
+    "exfiltration",
+    "defence in depth"
+   ],
+   "matters": "The instructive part is that every single defence Microsoft had worked as designed. They were composed, not layered, and the chain went straight through."
+  },
+  {
+   "id": "U10-B01",
+   "unit": "U10",
+   "size": "build",
+   "title": "Tool calls that hold their shape",
+   "org": "LinkedIn",
+   "url": "https://www.linkedin.com/blog/engineering/generative-ai/musings-on-building-a-generative-ai-product",
+   "what": "tool calling failed about 10% of the time with schema-violating or invalid output; re-prompting cost too much latency, so a defensive parser took failures to ~0.01%",
+   "situation": "Five tools with typed schemas. Two hundred calls. One in ten comes back in a shape your code cannot use.",
+   "given": "Five tool schemas and a free-tier model.",
+   "done": [
+    "200 tool calls executed and every schema violation logged",
+    "Violations classified by error shape",
+    "A defensive parser handling the observed shapes",
+    "Residual error rate and added latency both measured",
+    "Behaviour on an unseen violation shape tested"
+   ],
+   "verify": "Hidden prompts producing novel violation shapes; harness asserts your parser degrades safely rather than corrupting data.",
+   "skills": [
+    "tool calling",
+    "schema enforcement",
+    "defensive parsing",
+    "error taxonomy"
+   ],
+   "matters": "0.01% is not a prompt achievement. It is a parser that knows the specific ways models break the shape."
+  },
+  {
+   "id": "U10-B02",
+   "unit": "U10",
+   "size": "build",
+   "title": "Retry with the error, not a better prompt",
+   "org": "Airbnb",
+   "url": "https://airbnb.tech/infrastructure/accelerating-large-scale-test-migration-with-llms/",
+   "what": "the team's instinct was to perfect the prompt; what actually moved the number was feeding real validation errors back into a retry loop and choosing the right related files as context — 75% of ~3,500 files migrated in 4 hours, rising to 97%",
+   "situation": "Thirty files need a mechanical-but-not-regex migration. You have a real test suite as an oracle. Spend your time on the loop, not the wording.",
+   "given": "30 files needing migration, and a test suite that validates each one.",
+   "done": [
+    "A per-file state machine with real validation gates",
+    "A retry loop feeding actual error output back to the model",
+    "Arm A: prompt refinement only. Arm B: retry loop. Both measured.",
+    "Context selection varied and its effect measured separately",
+    "Completion rate and per-file attempt count reported"
+   ],
+   "verify": "Hidden files requiring the same migration; harness asserts migrated files pass the real test suite.",
+   "skills": [
+    "validation loops",
+    "oracles",
+    "context selection",
+    "prompt engineering limits"
+   ],
+   "matters": "Two wrong instincts documented in one post: polish the prompt, and treat context selection as secondary. Both were backwards."
+  },
+  {
+   "id": "U10-B03",
+   "unit": "U10",
+   "size": "build",
+   "title": "Six systems, ninety seconds",
+   "org": "Razorpay (Project Viveka)",
+   "url": "https://www.zenml.io/llmops-database/ai-powered-incident-investigation-for-payment-infrastructure",
+   "what": "on-call engineers spent 20–40 minutes per incident correlating six disconnected systems; the agent reduced mean-time-to-investigate by about 80%, and as of the write-up was still running in shadow mode with no documented failure analysis",
+   "situation": "Build an incident investigation agent over fixture data standing in for six systems — and then do the part Razorpay's write-up does not: characterise when it is confidently wrong.",
+   "given": "Fixture files for logs, metrics, deployments, cluster state and database health, plus 15 seeded incidents with known root causes.",
+   "done": [
+    "An agent correlating across all six sources",
+    "Root-cause accuracy measured against the known causes",
+    "Time-to-investigation measured against a manual baseline",
+    "Confidently-wrong cases identified and characterised",
+    "A shadow-mode design that does not act, only reports"
+   ],
+   "verify": "Hidden incidents including two with no determinable root cause; harness asserts the agent abstains rather than inventing one.",
+   "skills": [
+    "incident investigation",
+    "multi-source correlation",
+    "shadow deployment",
+    "confident wrongness"
+   ],
+   "matters": "The write-up reports 80% MTTI reduction and no failure analysis. Your version has to answer the question theirs did not."
+  },
+  {
+   "id": "U10-S01",
+   "unit": "U10",
+   "size": "ship",
+   "title": "Text to SQL that survives forty tables",
+   "org": "Uber (QueryGPT)",
+   "url": "https://www.uber.com/en-CA/blog/query-gpt/",
+   "what": "v1 did kNN similarity search on the raw prompt against schema samples and Uber's own verdict was that simple similarity search on the user's prompt does not return relevant results — accuracy declined as more tables were onboarded",
+   "situation": "Ship a natural-language-to-SQL agent over a 40-table warehouse where similar table names, 200-column tables and ambiguous questions are all deliberately present. It must get better as tables are added, not worse.",
+   "given": "A SQLite warehouse of 40 tables including wide and confusingly-named ones, and 50 questions with gold SQL.",
+   "done": [
+    "A v1 vanilla-similarity baseline built and measured first",
+    "Intent classification and schema selection before generation",
+    "Exact-result-match accuracy measured as table count grows from 7 to 40",
+    "Ambiguous questions handled with clarification rather than a guess",
+    "Generated SQL validated before execution, with a read-only boundary enforced outside the prompt",
+    "Token cost per query measured for v1 and v2",
+    "A user-facing explanation of which tables were used and why"
+   ],
+   "verify": "Hidden questions over unseen table subsets; harness asserts the v1 baseline was measured, the accuracy-vs-scale curve improves, and no generated SQL can write.",
+   "skills": [
+    "schema retrieval",
+    "intent classification",
+    "agentic SQL",
+    "scale degradation",
+    "execution boundaries"
+   ],
+   "matters": "The demo works at seven tables. Getting better rather than worse as the corpus grows is the entire engineering problem."
+  },
+  {
+   "id": "U10-S02",
+   "unit": "U10",
+   "size": "ship",
+   "title": "An orchestrator that knows what it costs",
+   "org": "Anthropic + Grab (composite)",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system",
+   "what": "Anthropic documented effort mis-calibration, duplicated subagent work and a ~15x token multiplier; Grab documented context blowup and tool overload, fixed with summarisation, RAG-based context pruning and agent specialisation",
+   "situation": "Ship an orchestrator-worker agent system with a hard token budget, a tool boundary it cannot cross, and honest reporting of what every query cost.",
+   "given": "A task suite of 20 mixed-difficulty tasks, a tool library including distractors, and a free-tier model.",
+   "done": [
+    "A lead agent delegating to specialised workers with focused toolsets",
+    "Complexity-scaled effort: subagent count justified by measured task difficulty",
+    "Duplicate-work detection between workers",
+    "Context pruning or summarisation between hops, with its effect measured",
+    "A hard token budget enforced, with graceful degradation when hit",
+    "Token cost and quality both reported per task, and the multiplier against single-agent stated",
+    "Capability boundaries enforced outside the prompt for any destructive tool"
+   ],
+   "verify": "Hidden tasks including one designed to induce runaway delegation; harness asserts the budget holds and that the boundary cannot be talked past.",
+   "skills": [
+    "orchestration",
+    "effort calibration",
+    "context management",
+    "cost governance",
+    "capability boundaries"
+   ],
+   "matters": "Multi-agent beat single-agent by 90.2% on Anthropic's eval and cost about 15x the tokens. Both halves of that sentence belong in your report."
+  },
+  {
+   "id": "U11-M01",
+   "unit": "U11",
+   "size": "micro",
+   "title": "The benchmark that could not see the bug",
+   "org": "Anthropic",
+   "url": "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
+   "what": "standard benchmarks missed the degradation partly because the model often recovers well from isolated mistakes, so aggregate scores hid intermittent output corruption; evals also ran periodically rather than continuously",
+   "situation": "Route 5% of traffic to a subtly broken configuration. Your aggregate benchmark mean will not move.",
+   "given": "A small model behind two simulated server pools with different configs, and an aggregate benchmark.",
+   "done": [
+    "The aggregate mean shown not to move at a 5% corruption rate",
+    "A detection method that does fire (per-request distribution, percentile, or segment)",
+    "The minimum corruption rate your aggregate metric can detect, measured",
+    "Sticky routing added to show how it concentrates impact on some users"
+   ],
+   "verify": "Hidden corruption rates; harness asserts your detector fires below the aggregate's detection floor.",
+   "skills": [
+    "aggregate blindness",
+    "percentile monitoring",
+    "segment analysis",
+    "continuous vs periodic eval"
+   ],
+   "matters": "Users reported it for weeks while every dashboard stayed green. Robustness in the model became invisibility in the metrics."
+  },
+  {
+   "id": "U11-M02",
+   "unit": "U11",
+   "size": "micro",
+   "title": "Audit the judge",
+   "org": "GitHub (Copilot evals)",
+   "url": "https://github.blog/ai-and-ml/generative-ai/how-we-evaluate-models-for-github-copilot/",
+   "what": "GitHub names judge drift directly: it is a challenge to keep the evaluating LLM aligned with human reviewers and performing consistently, so the judge itself has to be routinely audited",
+   "situation": "Your LLM-as-judge scores 200 answers. Nobody has checked whether it agrees with a human.",
+   "given": "200 answers, an LLM judge, and 50 human-labelled reference judgements.",
+   "done": [
+    "Judge/human agreement measured on the labelled subset",
+    "Systematic judge biases identified (length, formatting, confidence)",
+    "Agreement re-measured after a judge prompt revision",
+    "A recurring audit procedure specified"
+   ],
+   "verify": "Hidden human labels; harness asserts agreement is reported with a confidence interval, not a point estimate.",
+   "skills": [
+    "LLM-as-judge",
+    "inter-rater agreement",
+    "evaluator drift",
+    "meta-evaluation"
+   ],
+   "matters": "The evaluator is another production model that can silently regress. If you do not audit it, your entire eval is unmonitored."
+  },
+  {
+   "id": "U11-M03",
+   "unit": "U11",
+   "size": "micro",
+   "title": "Look at the histogram",
+   "org": "Booking.com",
+   "url": "https://www.kdd.org/kdd2019/accepted-papers/view/150-successful-machine-learning-models-6-lessons-learned-at-booking.com",
+   "what": "Response Distribution Analysis — plotting the distribution of predicted probabilities — is Booking's cheap diagnostic for spotting a broken model that still scores acceptably",
+   "situation": "Two models, similar AUC. One of them is broken in a way a single number cannot show you. Plot the predictions.",
+   "given": "A 10k-row tabular dataset and several trained models, one deliberately degenerate.",
+   "done": [
+    "Predicted-probability distributions plotted for every model",
+    "The degenerate model identified from its distribution alone",
+    "The pathology named",
+    "A distribution-based check added to your evaluation"
+   ],
+   "verify": "Hidden models including a differently-degenerate one; harness asserts your check flags it.",
+   "skills": [
+    "response distribution analysis",
+    "calibration",
+    "diagnostic plots",
+    "cheap checks"
+   ],
+   "matters": "It is a histogram. It costs one line of code and it catches a class of failure that AUC is structurally unable to see."
+  },
+  {
+   "id": "U11-M04",
+   "unit": "U11",
+   "size": "micro",
+   "title": "Thirty dollars a month",
+   "org": "Honeycomb",
+   "url": "https://www.honeycomb.io/blog/we-shipped-ai-product",
+   "what": "the shipped Query Assistant cost roughly $30/month in OpenAI fees plus about $100/month per Redis node — while free-tier adoption of 39% was the actual disappointment",
+   "situation": "Everyone assumes the LLM bill is the constraint. Measure it against the thing that actually limited adoption.",
+   "given": "A small NL-to-query feature with usage instrumentation, and a simulated user population.",
+   "done": [
+    "Actual token cost per active user computed",
+    "Total monthly cost projected at three adoption levels",
+    "Adoption and discoverability instrumented separately from quality",
+    "A written verdict on which is the real constraint"
+   ],
+   "verify": "Harness recomputes cost from your token logs and asserts adoption is measured separately from quality.",
+   "skills": [
+    "cost modelling",
+    "unit economics",
+    "adoption vs quality",
+    "instrumentation"
+   ],
+   "matters": "The model cost thirty dollars. The problem was that free-tier users never saw the feature. No model change would have fixed that."
+  },
+  {
+   "id": "U11-B01",
+   "unit": "U11",
+   "size": "build",
+   "title": "An eval suite that runs in CI",
+   "org": "GitHub (Copilot evals)",
+   "url": "https://github.blog/ai-and-ml/generative-ai/how-we-evaluate-models-for-github-copilot/",
+   "what": "4,000+ offline tests in CI, ~100 containerised eval repositories, 1,000+ chat evaluation questions and daily production regression runs — plus a documented inverted-metric trap where higher latency sometimes correlated with better outcomes",
+   "situation": "Build the harness that decides whether a model swap is allowed to ship, and run it automatically on every change.",
+   "given": "Five small Python repos with passing pytest suites, and a mutation script that breaks them.",
+   "done": [
+    "A mutation-based eval: break tests, score the model on repairing them",
+    "The suite running in CI with results posted per change",
+    "A regression gate with thresholds fixed in advance",
+    "A judge-agreement audit included in the suite",
+    "At least one metric shown to be inverted or misleading, and handled"
+   ],
+   "verify": "Hidden mutations of unseen classes; harness asserts the gate blocks a deliberately regressed model.",
+   "skills": [
+    "CI for ML",
+    "mutation testing",
+    "regression gates",
+    "automated evaluation"
+   ],
+   "matters": "The gate is what makes the number matter. An eval you run when you remember to is not a gate."
+  },
+  {
+   "id": "U11-B02",
+   "unit": "U11",
+   "size": "build",
+   "title": "Fifty-four percent to ninety-three",
+   "org": "Swiggy (Hermes V3)",
+   "url": "https://bytes.swiggy.com/hermes-v3-building-swiggys-conversational-ai-analyst-a41057a2279d",
+   "what": "V1 broke on niche metrics and derived business logic, had no conversational context, gave no explainability and produced inconsistent output across semantically identical prompts; accuracy went from 54% to 93% on ~100 manually tagged queries, with 'table not found' errors common enough to be a named failure class",
+   "situation": "A text-to-SQL assistant that works in the demo and fails on the business's actual vocabulary. Measure it properly, then fix the top failure class.",
+   "given": "A 15-table synthetic food-delivery schema in DuckDB, and 40 natural-language questions with gold SQL.",
+   "done": [
+    "Exact-result-match accuracy measured for a V1 baseline",
+    "Failures classified, including invented tables and derived-metric misunderstanding",
+    "Consistency measured: the same question asked five different ways",
+    "A semantic layer or metric definitions added for derived business logic",
+    "Accuracy and consistency both re-measured, with the improvement attributed to specific changes"
+   ],
+   "verify": "Hidden question set including paraphrases and derived metrics; harness asserts consistency is measured across paraphrases.",
+   "skills": [
+    "text-to-SQL evaluation",
+    "failure classification",
+    "semantic layers",
+    "output consistency"
+   ],
+   "matters": "Inconsistency across semantically identical prompts is the failure users notice first and evaluation sets almost never test."
+  },
+  {
+   "id": "U11-S01",
+   "unit": "U11",
+   "size": "ship",
+   "title": "Observability that would have caught all three",
+   "org": "Anthropic, GitHub, Booking (composite)",
+   "url": "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
+   "what": "three independent bugs went undetected because evals were periodic not continuous, aggregates hid intermittent corruption, and privacy controls limited access to the failing outputs",
+   "situation": "Ship the observability layer for an LLM service: continuous evaluation, per-segment monitoring, cost tracking, and drift detection. Then have someone inject a fault and see whether you find it.",
+   "given": "A small LLM service with a request path, plus a fault injector you do not control.",
+   "done": [
+    "Continuous evaluation running against production traffic, not on a schedule",
+    "Per-segment and percentile monitoring, not only aggregate means",
+    "Cost per request tracked and alertable",
+    "Output-distribution drift detection with a defined baseline",
+    "An audit trail sufficient to debug a complaint without needing raw user data",
+    "A demonstrated detection of an injected fault, with time-to-detect measured",
+    "A written statement of the smallest fault your system cannot detect"
+   ],
+   "verify": "Harness injects faults of three classes at rates from 20% down to 1% and measures your detection floor and time-to-detect.",
+   "skills": [
+    "continuous evaluation",
+    "segment monitoring",
+    "drift detection",
+    "cost observability",
+    "detection floors"
+   ],
+   "matters": "The last requirement is the one that matters. Every monitoring system has a floor below which it is blind, and most teams have never measured theirs."
+  },
+  {
+   "id": "U12-M01",
+   "unit": "U12",
+   "size": "micro",
+   "title": "Latency picked the architecture",
+   "org": "Uber (DeepETA)",
+   "url": "https://www.uber.com/blog/deepeta-how-uber-predicts-arrival-times/",
+   "what": "seven architectures were evaluated; the standard Transformer was the most accurate and was rejected because it could not meet the serving latency budget, so a linear-attention variant shipped",
+   "situation": "Three models, ranked by accuracy. Now rank them again under a hard p99 latency budget and watch the order change.",
+   "given": "A 50k-row tabular regression task and a stated p99 budget.",
+   "done": [
+    "Three models of different capacity trained",
+    "Accuracy and p99 latency measured for each on CPU",
+    "The accuracy/latency frontier plotted",
+    "The model chosen under the budget, with the accuracy sacrificed stated"
+   ],
+   "verify": "Harness enforces the p99 budget on a hidden request set and asserts your chosen model meets it.",
+   "skills": [
+    "latency budgets",
+    "accuracy/latency frontiers",
+    "serving constraints",
+    "architecture selection"
+   ],
+   "matters": "The winning architecture was picked on a constraint, not a leaderboard. That is what production model selection actually looks like."
+  },
+  {
+   "id": "U12-M02",
+   "unit": "U12",
+   "size": "micro",
+   "title": "Cache the prefix",
+   "org": "Character.AI",
+   "url": "https://blog.character.ai/optimizing-ai-inference-at-character-ai-2/",
+   "what": "over 20,000 queries per second with an average of 180 messages of history; a 95% cache hit rate between conversation turns and a >20x KV cache reduction contributed to a 33x serving cost reduction since late 2022",
+   "situation": "Every turn of a conversation re-processes the entire history. Most of that work is identical to the last turn.",
+   "given": "A local model, a chatbot loop, and 50 multi-turn conversations.",
+   "done": [
+    "Per-turn latency and compute measured without caching",
+    "Prefix hashing and an LRU cache implemented",
+    "Cache hit rate measured across turns",
+    "Latency and cost measured after, with the saving attributed"
+   ],
+   "verify": "Hidden conversation set with varying prefix overlap; harness asserts hit rate is measured, not assumed.",
+   "skills": [
+    "prefix caching",
+    "KV cache",
+    "conversational serving",
+    "cost per turn"
+   ],
+   "matters": "A 95% hit rate is not an optimisation detail. At their volume it is the difference between the product existing and not."
+  },
+  {
+   "id": "U12-M03",
+   "unit": "U12",
+   "size": "micro",
+   "title": "The concurrency curve",
+   "org": "Meesho (BharatMLStack)",
+   "url": "https://meesho.github.io/BharatMLStack/blog/",
+   "what": "Meesho serves price-sensitive users on low-end devices and rebuilt its stack around cost per inference, replacing Cassandra, Redis and Java services after each failed on latency, skew or memory at scale",
+   "situation": "Throughput and latency trade against each other, and the curve has a knee. Find yours before a sale event does.",
+   "given": "A local model server or mock service, and a load generator.",
+   "done": [
+    "Latency percentiles measured across a concurrency sweep",
+    "The knee of the curve identified with a number",
+    "Throughput at the knee reported",
+    "A capacity recommendation with the assumption stated"
+   ],
+   "verify": "Harness re-runs your sweep and asserts p50, p95 and p99 were all reported, not just the mean.",
+   "skills": [
+    "load testing",
+    "concurrency",
+    "latency percentiles",
+    "capacity planning"
+   ],
+   "matters": "Meesho hit 1M QPS during a sale event. The number that let them plan for it was this curve, measured beforehand."
+  },
+  {
+   "id": "U12-M04",
+   "unit": "U12",
+   "size": "micro",
+   "title": "The gate that overrode the humans",
+   "org": "OpenAI",
+   "url": "https://openai.com/index/expanding-on-sycophancy/",
+   "what": "expert human testers reported the model behaviour felt slightly off before launch, and that qualitative signal was overridden by green quantitative gates; the release was rolled back within about four days",
+   "situation": "You have a release checklist. Every quantitative gate is green. One human tester says something feels wrong. Design the process that does not ignore them.",
+   "given": "A release checklist, two model variants where B scores higher and behaves worse, and three tester reports.",
+   "done": [
+    "The release decision reproduced as the checklist currently specifies",
+    "The qualitative signal shown to be correct",
+    "A revised gate giving qualitative reports blocking power, with the escalation path defined",
+    "The revised gate applied to a second scenario to check it does not block everything"
+   ],
+   "verify": "Hidden scenario pair; harness asserts your revised gate blocks the bad release without blocking a good one.",
+   "skills": [
+    "release gates",
+    "qualitative signals",
+    "process design",
+    "false-block rates"
+   ],
+   "matters": "The dashboard was not wrong. It was measuring the wrong thing, and the process gave it authority over the people who noticed."
+  },
+  {
+   "id": "U12-B01",
+   "unit": "U12",
+   "size": "build",
+   "title": "Every defence held and the chain went through",
+   "org": "Microsoft 365 Copilot / Aim Security",
+   "url": "https://arxiv.org/abs/2509.10540",
+   "what": "the XPIA classifier was evaded by addressing instructions to a human reader, link redaction was bypassed with reference-style Markdown, and CSP was defeated by routing through an already-allowlisted first-party proxy",
+   "situation": "Build the attack, then build the defences, then break your own defences. The lesson is not any single control — it is what happens when controls are composed instead of layered.",
+   "given": "A small RAG assistant over a local 'email' folder, and a free-tier or local model.",
+   "done": [
+    "The zero-click injection and exfiltration chain reproduced end to end",
+    "An injection classifier implemented, then evaded, with the evasion documented",
+    "Output link redaction implemented, then bypassed",
+    "An egress allowlist implemented, then bypassed via an allowlisted path",
+    "A layered design proposed where breaking one control does not complete the chain",
+    "The residual risk stated plainly"
+   ],
+   "verify": "Hidden injection variants across all three bypass classes; harness asserts your layered design blocks the full chain even when one control fails.",
+   "skills": [
+    "prompt injection",
+    "exfiltration",
+    "defence in depth",
+    "control composition",
+    "threat modelling"
+   ],
+   "matters": "CVSS 9.3, zero-click, and every control worked exactly as designed. Composition is the vulnerability."
+  },
+  {
+   "id": "U12-B02",
+   "unit": "U12",
+   "size": "build",
+   "title": "Four formats, eight sites, no admin rights",
+   "org": "Qure.ai + PATH (Nagpur TB screening)",
+   "url": "https://journals.plos.org/digitalhealth/article?id=10.1371%2Fjournal.pdig.0000404",
+   "what": "lab owners refused admin rights forcing a two-system architecture in 6 of 8 labs; several X-ray machines silently saved images in non-DICOM formats the model could not read — almost none of the deployment failures were about the model",
+   "situation": "Your model works. Now deploy it to eight sites you do not control, where the file formats vary silently and you cannot install anything.",
+   "given": "A working image classifier, and site fixtures producing DICOM plus three non-DICOM variants, two of them silently malformed.",
+   "done": [
+    "An ingestion path handling all four formats, failing loudly on the malformed ones",
+    "A no-admin-rights deployment path designed and documented",
+    "Offline operation with deferred sync",
+    "A per-site health check the operator can run without you",
+    "Every failure mode from the paper mapped to a control in your design"
+   ],
+   "verify": "Hidden site fixture with a fifth unexpected format; harness asserts it fails loudly rather than silently producing wrong output.",
+   "skills": [
+    "deployment constraints",
+    "format handling",
+    "offline operation",
+    "field operability",
+    "failing loudly"
+   ],
+   "matters": "The most instructive deployment failure list in the catalogue, and almost none of it is about machine learning."
+  },
+  {
+   "id": "U12-B03",
+   "unit": "U12",
+   "size": "build",
+   "title": "Two versions of the same policy",
+   "org": "Air Canada (Moffatt v. Air Canada)",
+   "url": "https://www.mccarthy.ca/en/insights/blogs/techlex/moffatt-v-air-canada-misrepresentation-ai-chatbot",
+   "what": "the tribunal held that the chatbot is still just part of Air Canada's website and the airline is responsible for all information on it, whether from a static page or a chatbot",
+   "situation": "Your corpus contains a current policy and a superseded one that contradicts it. Your bot is confidently citing the wrong one.",
+   "given": "A policy corpus containing two versions of the same policy with dates, and a working RAG bot.",
+   "done": [
+    "The bot demonstrated answering from the stale version",
+    "Version and effective-date metadata added to every chunk",
+    "Version-aware retrieval preferring current policy",
+    "Answers surfacing the effective date to the user",
+    "A superseded-content check that fails ingestion when two active versions conflict",
+    "A regression test covering all contradiction pairs"
+   ],
+   "verify": "Hidden contradiction pairs including one where the newer document is not the correct one; harness asserts your rule handles it or escalates.",
+   "skills": [
+    "version awareness",
+    "temporal metadata",
+    "content governance",
+    "liability"
+   ],
+   "matters": "The correct information existed on the same website. That defence failed in a tribunal, and it will fail with your users too."
+  },
+  {
+   "id": "U12-S01",
+   "unit": "U12",
+   "size": "ship",
+   "title": "Migrate thirty files you did not write",
+   "org": "Airbnb",
+   "url": "https://airbnb.tech/infrastructure/accelerating-large-scale-test-migration-with-llms/",
+   "what": "75% of ~3,500 files migrated in the first 4-hour run, rising to 97% after a sample/tune/sweep loop, with the last 3% taking one engineer a further period by hand",
+   "situation": "Ship an LLM-driven migration over a real codebase with a real test suite as the oracle. It must be safe to run unattended, and it must know when to give up.",
+   "given": "A repo of 30 files needing a mechanical-but-not-regex migration, with a passing test suite.",
+   "done": [
+    "A per-file state machine with real validation gates",
+    "A retry loop feeding actual error output back, with a bounded attempt count",
+    "A sample/tune/sweep loop measured across iterations",
+    "Completion rate reported per iteration",
+    "Files that cannot be migrated flagged rather than silently corrupted",
+    "Every migrated file passing the real test suite, verified in CI",
+    "Token cost per migrated file measured"
+   ],
+   "verify": "Hidden files including two that cannot be migrated correctly; harness asserts they are flagged, not corrupted.",
+   "skills": [
+    "migration automation",
+    "validation oracles",
+    "bounded retries",
+    "knowing when to stop",
+    "CI verification"
+   ],
+   "matters": "The 3% it could not do is the part that matters. A migration tool that silently corrupts the hard cases is worse than none."
+  },
+  {
+   "id": "U12-S02",
+   "unit": "U12",
+   "size": "ship",
+   "title": "Serve it under a budget you did not choose",
+   "org": "Character.AI + Meesho (composite)",
+   "url": "https://blog.character.ai/optimizing-ai-inference-at-character-ai-2/",
+   "what": "Character.AI reports a 95% inter-turn cache hit rate and a 33x serving cost reduction; Meesho rebuilt its stack around cost per inference for low-end-device users",
+   "situation": "You are handed a hard p99 latency budget and a hard cost-per-query cap. Neither is negotiable. Ship a service that meets both and prove it under load.",
+   "given": "A local model, a service skeleton, a load generator, and stated p99 and cost limits.",
+   "done": [
+    "The service meeting both constraints under sustained load",
+    "Prefix caching implemented with hit rate measured",
+    "A concurrency sweep with the operating point justified",
+    "Cost per query measured, not estimated, with the token accounting shown",
+    "Graceful degradation when the budget is hit, rather than failure",
+    "A capacity plan stating what breaks first as load doubles",
+    "Load test results committed as a reproducible artifact"
+   ],
+   "verify": "Harness runs a hidden load profile including a burst and asserts both constraints hold and degradation is graceful.",
+   "skills": [
+    "latency budgets",
+    "cost caps",
+    "caching",
+    "load testing",
+    "graceful degradation",
+    "capacity planning"
+   ],
+   "matters": "Both constraints at once is the realistic case. Meeting either one alone is an exercise; meeting both is the job."
+  },
+  {
+   "id": "U12-S03",
+   "unit": "U12",
+   "size": "ship",
+   "title": "Ship it, break it, roll it back",
+   "org": "OpenAI, Anthropic, Cursor (composite)",
+   "url": "https://openai.com/index/expanding-on-sycophancy/",
+   "what": "OpenAI rolled back within about four days after every gate passed; Anthropic's three bugs went undetected because evals were periodic; Cursor's support bot invented a policy and users cancelled over it",
+   "situation": "The final artifact. Take any system you have built in this unit and ship it properly: eval-gated CI, monitoring that would catch a 2% regression, a rollback you have actually executed, and an incident you have actually handled.",
+   "given": "Any prior scenario artifact of your choosing, plus a fault injector operated by someone else.",
+   "done": [
+    "Deployed and reachable, inside a stated cost cap",
+    "CI eval gate that blocks a deliberately regressed version",
+    "Continuous monitoring with a measured detection floor",
+    "A rollback procedure executed for real, with time-to-rollback measured",
+    "An injected incident handled in the correct order: detect, communicate, mitigate, diagnose, fix, verify",
+    "A blameless postmortem with two concrete prevention actions",
+    "An abstain path and enforced citations wherever the system makes claims",
+    "A runbook another person can follow without asking you anything"
+   ],
+   "verify": "Harness injects a regression through CI, a runtime fault in production, and a novel question class; asserts the gate blocks, the monitor fires, and the rollback restores service within your stated objective.",
+   "skills": [
+    "release gates",
+    "monitoring",
+    "rollback",
+    "incident response",
+    "postmortems",
+    "runbooks"
+   ],
+   "matters": "Everything in the preceding 101 scenarios is a component. This is the one where they have to work together while something is going wrong."
+  }
+ ]
+}

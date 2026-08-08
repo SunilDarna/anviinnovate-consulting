@@ -1,0 +1,173 @@
+---
+import Base from "../../layouts/Base.astro";
+import { caseEntries, gaps, caseMeta } from "../../data/caseSlugs.js";
+import { units, unitName } from "../../data/programme.js";
+
+const orgs = new Set(caseEntries.map((e) => e.c.org)).size;
+const byType = {};
+const byRepro = { yes: 0, partial: 0, no: 0 };
+for (const { c } of caseEntries) {
+  byType[c.sourceType] = (byType[c.sourceType] || 0) + 1;
+  byRepro[c.reproducible]++;
+}
+const TYPE = {
+  "engineering-blog": "Engineering blog",
+  "peer-reviewed-paper": "Peer-reviewed paper",
+  "arxiv-paper": "arXiv paper",
+  postmortem: "Postmortem",
+  "conference-talk": "Conference talk",
+  "news-report": "News report",
+  other: "Other primary source",
+};
+const unitsWith = units.filter((u) => caseEntries.some((e) => e.c.unit === u.id));
+const nFor = (uid) => caseEntries.filter((e) => e.c.unit === uid).length;
+---
+<Base
+  title="Production AI case studies"
+  description="109 verified production AI/ML/GenAI case studies from 68 organisations — the evidence base behind the Academy's 102 practice scenarios. Problem, architecture, stack, measured outcome, and what actually went wrong."
+  wide={true}
+>
+  <h1>Production case studies</h1>
+  <p class="muted" style="max-width:84ch;font-size:1.05rem">
+    The evidence base behind the <a href="/scenarios">102 practice scenarios</a>. Every entry was retrieved from
+    a primary source and put through adversarial verification: the URL was re-fetched, quoted metrics were
+    checked against what the source actually says, and the source type was re-classified where it had been
+    overstated.
+  </p>
+
+  <div class="grid" style="grid-template-columns:repeat(4,1fr);margin-top:22px">
+    <div class="card stat"><b>{caseMeta.harvested}</b><span>candidate cases harvested</span></div>
+    <div class="card stat"><b style="color:var(--ok)">{caseMeta.verified}</b><span>confirmed exactly as claimed</span></div>
+    <div class="card stat"><b style="color:var(--warn)">{caseMeta.corrected}</b><span>claims rewritten under verification</span></div>
+    <div class="card stat"><b>{orgs}</b><span>organisations, {caseEntries.length} usable cases</span></div>
+  </div>
+
+  <section style="margin-top:30px">
+    <h2>What verification caught</h2>
+    <div class="warnbox">
+      Thirty-eight of {caseMeta.harvested} cases had a claim rewritten. The recurring problems: a cost saving
+      quoted without the accuracy drop stated in the next clause of the same post; forward-looking statements
+      (“put us on track to reach 100%”) presented as achieved results; two-decimal figures eyeballed off an
+      unlabelled relative bar chart; headline numbers taken from a company press release rather than the cited
+      article; and two different experiments conflated into one result. Three sources were reclassified as
+      vendor marketing and excluded.
+    </div>
+    <div class="note">
+      Every entry below carries the corrected wording, not the original. Where a source publishes no numbers,
+      the outcome says so rather than estimating. <strong>No scenario rests on an uncorrected claim.</strong>
+    </div>
+  </section>
+
+  <section style="margin-top:32px">
+    <h2>Where the evidence comes from</h2>
+    <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:12px">
+      <div class="card">
+        <h3 style="font-size:1rem">Source type</h3>
+        <div class="tw" style="box-shadow:none;border:none;margin-top:6px"><table style="min-width:0">
+          <tbody>{Object.entries(byType).sort((a, b) => b[1] - a[1]).map(([k, v]) => (
+            <tr><td>{TYPE[k] || k}</td><td style="text-align:right"><strong>{v}</strong></td></tr>
+          ))}</tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <h3 style="font-size:1rem">Reproducible on an 8 GB laptop</h3>
+        <p class="muted" style="font-size:12.8px;margin:2px 0 0">Judged on whether the <em>core lesson</em> survives shrinking — not the original system.</p>
+        <div class="tw" style="box-shadow:none;border:none;margin-top:6px"><table style="min-width:0">
+          <tbody>
+            <tr><td><span class="pill g">Yes</span></td><td style="text-align:right"><strong>{byRepro.yes}</strong></td><td class="muted">Reproduces directly at small scale</td></tr>
+            <tr><td><span class="pill o">Partial</span></td><td style="text-align:right"><strong>{byRepro.partial}</strong></td><td class="muted">Core lesson only</td></tr>
+            <tr><td><span class="pill d">No</span></td><td style="text-align:right"><strong>{byRepro.no}</strong></td><td class="muted">Reading, not a scenario</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top:38px">
+    <h2 id="browse">Browse all {caseEntries.length}</h2>
+    <div class="filters">
+      <span class="flabel">Unit</span>
+      <button class="fbtn" data-f="unit" data-v="" aria-pressed="true">All</button>
+      {unitsWith.map((u) => (
+        <button class="fbtn" data-f="unit" data-v={u.id} aria-pressed="false">{u.id} <span class="muted">({nFor(u.id)})</span></button>
+      ))}
+    </div>
+    <div class="filters" style="margin-bottom:16px">
+      <span class="flabel">Reproducible</span>
+      <button class="fbtn" data-f="repro" data-v="" aria-pressed="true">All</button>
+      <button class="fbtn" data-f="repro" data-v="yes" aria-pressed="false">Yes <span class="muted">({byRepro.yes})</span></button>
+      <button class="fbtn" data-f="repro" data-v="partial" aria-pressed="false">Partial <span class="muted">({byRepro.partial})</span></button>
+    </div>
+    <p class="muted" style="font-size:13.5px" id="count">Showing all {caseEntries.length} case studies.</p>
+
+    <div class="grid" style="grid-template-columns:repeat(2,1fr);margin-top:12px" id="list">
+      {caseEntries.map(({ slug, c }) => (
+        <a class="card sc" href={`/case-studies/${slug}`} data-unit={c.unit} data-repro={c.reproducible}>
+          <div style="display:flex;justify-content:space-between;gap:9px;align-items:baseline;flex-wrap:wrap">
+            <h3 style="margin:0;font-size:1.02rem">{c.org}</h3>
+            <span class="pill d">{c.unit}</span>
+          </div>
+          <p class="muted" style="font-size:12.4px;margin:6px 0 0">{TYPE[c.sourceType] || c.sourceType} · {unitName(c.unit)}</p>
+          <p style="font-size:13.2px;margin:8px 0 0">{c.problem.length > 175 ? c.problem.slice(0, 175) + "…" : c.problem}</p>
+          <div style="margin-top:9px">
+            <span class={`pill ${c.reproducible === "yes" ? "g" : c.reproducible === "partial" ? "o" : "d"}`}>repro: {c.reproducible}</span>
+            {c.verifyStatus === "corrected" && <span class="pill o">corrected</span>}
+            {c.verifyStatus === "confirmed" && <span class="pill g">verified</span>}
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section style="margin-top:40px">
+    <h2>Gaps — what could not be sourced</h2>
+    <p class="muted" style="max-width:84ch">Stated rather than papered over. Each was searched for and not found at acceptable quality.</p>
+    <div class="warnbox" style="margin-top:12px">
+      <strong>The systematic one.</strong> Indian consumer-tech engineering blogs are largely Medium-hosted and
+      refused automated retrieval. Swiggy, Razorpay and Meesho cases here are therefore cited via curated
+      secondary summaries that quote the original posts, and are marked medium quality accordingly. Flipkart,
+      Dream11, CRED and Indian edtech produced little or nothing retrievable. This is a limit of what is
+      publicly published, not of the search.
+    </div>
+    <details style="margin-top:14px">
+      <summary style="cursor:pointer;font-weight:600;font-size:14px">All {gaps.length} documented gaps</summary>
+      <ul class="tight" style="font-size:13.2px;margin-top:10px">{gaps.map((g) => <li>{g}</li>)}</ul>
+    </details>
+    <p style="margin-top:20px">
+      <a class="btn btn-ghost" href="/docs/ai-case-studies-v1.0.html">Full catalogue (printable) →</a>
+      <a class="btn btn-ghost" href="/scenarios" style="margin-left:8px">See the scenarios built from these →</a>
+    </p>
+  </section>
+
+  <script is:inline>
+    (function () {
+      var state = { unit: "", repro: "" };
+      var cards = Array.prototype.slice.call(document.querySelectorAll("#list .sc"));
+      var count = document.getElementById("count");
+      function apply() {
+        var n = 0;
+        cards.forEach(function (c) {
+          var ok =
+            (!state.unit || c.dataset.unit === state.unit) &&
+            (!state.repro || c.dataset.repro === state.repro);
+          c.hidden = !ok;
+          if (ok) n++;
+        });
+        count.textContent =
+          n === cards.length
+            ? "Showing all " + n + " case studies."
+            : "Showing " + n + " case stud" + (n === 1 ? "y" : "ies") + ".";
+      }
+      document.querySelectorAll(".fbtn").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var f = b.dataset.f;
+          state[f] = b.dataset.v;
+          document.querySelectorAll('.fbtn[data-f="' + f + '"]').forEach(function (o) {
+            o.setAttribute("aria-pressed", String(o === b));
+          });
+          apply();
+        });
+      });
+    })();
+  </script>
+</Base>

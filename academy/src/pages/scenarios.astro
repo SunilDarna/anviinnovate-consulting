@@ -1,41 +1,146 @@
 ---
 import Base from "../layouts/Base.astro";
-import { scenarioLevels, subjects } from "../data/curriculum.js";
-const withScenarios = subjects.filter((s) => s.scenario);
+import data from "../data/scenarios.json";
+import { sizeMeta, units } from "../data/programme.js";
+
+const scenarios = data.scenarios;
+const meta = data.meta;
+const orgCount = new Set(scenarios.map((s) => s.org)).size;
+const unitsWith = units.filter((u) => scenarios.some((s) => s.unit === u.id));
+const countFor = (uid, size) => scenarios.filter((s) => s.unit === uid && (!size || s.size === size)).length;
 ---
-<Base title="Real-world work scenarios" wide={true}>
-  <h1>Real-world work scenarios</h1>
-  <p class="muted" style="max-width:82ch">Scenarios escalate from single-task execution to ambiguous, multi-stakeholder ownership. Each is delivered as a timed workplace simulation with realistic artefacts — tickets, incomplete requirements, legacy code, production constraints and stakeholder pressure.</p>
+<Base
+  title="102 practice scenarios"
+  description="102 mandatory practice scenarios for the Anvi Innovate AI Academy core, every one derived from a verified production case study. 60 micro, 30 build, 12 ship — around 180 hours, all runnable on an 8 GB laptop."
+  wide={true}
+>
+  <h1>102 practice scenarios</h1>
+  <p class="muted" style="max-width:84ch;font-size:1.05rem">
+    Every scenario here is derived from a <strong>real production case study</strong> that was retrieved from a
+    primary source and adversarially fact-checked. Nothing is invented, and nothing is a tutorial exercise
+    wearing a company's name.
+  </p>
 
-  <section style="margin-top:26px">
-    <h2>Progression</h2>
-    <div class="tw" style="margin-top:12px"><table>
-      <thead><tr><th>Level</th><th>Stage</th><th>Scenario type</th><th>Deliberately imperfect</th><th>Competency proven</th></tr></thead>
-      <tbody>{scenarioLevels.map((l) => (
-        <tr>
-          <td><strong>{l.level}</strong> {l.name}</td><td>{l.stage}</td><td>{l.type}</td>
-          <td class="muted">{l.imperfect}</td><td>{l.proves}</td>
-        </tr>
-      ))}</tbody>
-    </table></div>
-  </section>
+  <div class="grid" style="grid-template-columns:repeat(4,1fr);margin-top:22px">
+    <div class="card stat"><b>{meta.total}</b><span>scenarios · {meta.bySize.micro} micro, {meta.bySize.build} build, {meta.bySize.ship} ship</span></div>
+    <div class="card stat"><b>~{meta.hours} h</b><span>mandatory practice across the core</span></div>
+    <div class="card stat"><b>{orgCount}</b><span>source organisations, all primary-sourced</span></div>
+    <div class="card stat"><b style="color:var(--ok)">₹0</b><span>8 GB laptop, CPU-only, free tier</span></div>
+  </div>
 
-  <section style="margin-top:30px">
-    <h2>Standing simulation environment</h2>
-    <div class="note">A permanent simulated organisation runs for the full programme duration: a ticket backlog, a code repository with review requirements, staging and production environments, a rotating on-call roster from Stage C, scheduled releases, injected incidents, and role-played stakeholders (product owner, client, security reviewer, data protection officer). Learners accumulate a verifiable delivery history rather than isolated exercises.</div>
-  </section>
-
-  <section style="margin-top:30px">
-    <h2>Scenario per subject</h2>
-    <p class="muted" style="font-size:14px">Each subject carries its own workplace scenario.</p>
-    {withScenarios.map((s) => (
-      <div class="card" style="margin-top:12px">
-        <div style="display:flex;gap:9px;align-items:baseline;flex-wrap:wrap">
-          <span class="pill">{s.code}</span>
-          <a href={`/curriculum/${s.code.toLowerCase()}`} style="font-weight:600;text-decoration:none">{s.name}</a>
-        </div>
-        <div class="scn" style="margin-top:10px">{s.scenario}</div>
+  <section style="margin-top:34px">
+    <h2>What makes it a scenario</h2>
+    <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:12px">
+      <div class="card">
+        <span class="pill d">Lab exercise</span>
+        <p style="font-size:14px;margin:10px 0 0">“Write a function that handles UTF-8 decoding errors in the PDF parser.”</p>
+        <p class="muted" style="font-size:13px;margin:8px 0 0">A frontier model one-shots this from the prompt text. It proves nothing.</p>
       </div>
-    ))}
+      <div class="card" style="border-color:var(--accent)">
+        <span class="pill">Scenario</span>
+        <p style="font-size:14px;margin:10px 0 0">“Ingestion reports 60 documents processed. Search returns results from 47. Ship a fix and a quality report that proves it.”</p>
+        <p class="muted" style="font-size:13px;margin:8px 0 0">The model can write parsing code all day. It cannot tell you which 13 documents broke, because it cannot see your data.</p>
+      </div>
+    </div>
+    <div class="note" style="margin-top:14px">
+      <strong>The defect lives in the data, not the prompt.</strong> That is the design rule, and it is also the
+      main defence against a student pasting the brief into an LLM — alongside per-student data seeds, hidden
+      acceptance tests, and questions that ask you to explain a number read from your own run.
+    </div>
   </section>
+
+  <section style="margin-top:34px">
+    <h2>The three sizes</h2>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:12px">
+      {Object.entries(sizeMeta).map(([k, v]) => (
+        <div class={`card sc ${k}`} style="cursor:default">
+          <span class={`pill ${k}`}>{v.label} · {v.dur}</span>
+          <p style="font-size:14px;margin:10px 0 0">{v.blurb}</p>
+          <p class="muted" style="font-size:13px;margin:8px 0 0">{meta.bySize[k]} scenarios</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section style="margin-top:38px">
+    <h2 id="browse">Browse all {meta.total}</h2>
+    <div class="filters">
+      <span class="flabel">Unit</span>
+      <button class="fbtn" data-f="unit" data-v="" aria-pressed="true">All</button>
+      {unitsWith.map((u) => (
+        <button class="fbtn" data-f="unit" data-v={u.id} aria-pressed="false">{u.id} <span class="muted">({countFor(u.id)})</span></button>
+      ))}
+    </div>
+    <div class="filters" style="margin-bottom:16px">
+      <span class="flabel">Size</span>
+      <button class="fbtn" data-f="size" data-v="" aria-pressed="true">All</button>
+      {Object.entries(sizeMeta).map(([k, v]) => (
+        <button class="fbtn" data-f="size" data-v={k} aria-pressed="false">{v.label} <span class="muted">({meta.bySize[k]})</span></button>
+      ))}
+    </div>
+    <p class="muted" style="font-size:13.5px" id="count">Showing all {meta.total} scenarios.</p>
+
+    <div class="grid" style="grid-template-columns:repeat(2,1fr);margin-top:12px" id="list">
+      {scenarios.map((s) => (
+        <a class={`sc ${s.size}`} href={`/scenarios/${s.id.toLowerCase()}`} data-unit={s.unit} data-size={s.size}>
+          <div style="display:flex;justify-content:space-between;gap:9px;align-items:baseline;flex-wrap:wrap">
+            <span class="sid">{s.id}</span>
+            <span class={`pill ${s.size}`}>{sizeMeta[s.size].label} · {sizeMeta[s.size].dur}</span>
+          </div>
+          <h3 style="margin:7px 0 0;font-size:1.04rem">{s.title}</h3>
+          <p class="muted" style="font-size:12.8px;margin:7px 0 0"><strong>Based on:</strong> {s.org}</p>
+          <p style="font-size:13.2px;margin:8px 0 0">{s.situation.length > 165 ? s.situation.slice(0, 165) + "…" : s.situation}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section style="margin-top:40px">
+    <div class="warnbox">
+      <strong>Honest limits.</strong> Every scenario shrinks to an 8 GB Windows laptop, CPU-only, free tier only.
+      Where the original system cannot shrink — training a vision LLM, a 4,867-developer RCT, 2.4M QPS — the
+      scenario targets the transferable lesson instead and says so on its page. The research also flagged 56
+      sourcing gaps, which are listed in full on the <a href="/case-studies">case studies</a> page rather than
+      papered over.
+    </div>
+    <p style="margin-top:18px">
+      <a class="btn btn-ghost" href="/docs/scenarios-v1.0.html">Full catalogue (printable) →</a>
+      <a class="btn btn-ghost" href="/case-studies" style="margin-left:8px">The evidence base →</a>
+    </p>
+  </section>
+
+  <script is:inline>
+    (function () {
+      var state = { unit: "", size: "" };
+      var cards = Array.prototype.slice.call(document.querySelectorAll("#list .sc"));
+      var count = document.getElementById("count");
+      function apply() {
+        var n = 0;
+        cards.forEach(function (c) {
+          var ok =
+            (!state.unit || c.dataset.unit === state.unit) &&
+            (!state.size || c.dataset.size === state.size);
+          c.hidden = !ok;
+          if (ok) n++;
+        });
+        var bits = [];
+        if (state.unit) bits.push(state.unit);
+        if (state.size) bits.push(state.size);
+        count.textContent =
+          n === cards.length
+            ? "Showing all " + n + " scenarios."
+            : "Showing " + n + " scenario" + (n === 1 ? "" : "s") + (bits.length ? " · " + bits.join(" · ") : "") + ".";
+      }
+      document.querySelectorAll(".fbtn").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var f = b.dataset.f;
+          state[f] = b.dataset.v;
+          document.querySelectorAll('.fbtn[data-f="' + f + '"]').forEach(function (o) {
+            o.setAttribute("aria-pressed", String(o === b));
+          });
+          apply();
+        });
+      });
+    })();
+  </script>
 </Base>

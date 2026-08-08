@@ -1,13 +1,13 @@
 ---
-import { meta } from "../data/curriculum.js";
-const { title, description = "The Anvi Innovate AI Academy curriculum — an NSQF-aligned, industry-validated programme taking learners from foundations to job-ready across six AI roles.", wide = false } = Astro.props;
+import { programme } from "../data/programme.js";
+const { title, description = "Anvi Innovate AI Academy — a self-paced path from zero to job-ready in AI, built on 102 mandatory practice scenarios drawn from real production case studies. Runs on an 8 GB laptop, free tier only.", wide = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, "https://ai.anviinnovate.com").href;
 const nav = [
+  { href: "/programme", label: "Programme" },
+  { href: "/scenarios", label: "Scenarios" },
+  { href: "/case-studies", label: "Case studies" },
   { href: "/curriculum", label: "Curriculum" },
   { href: "/tracks", label: "Role tracks" },
-  { href: "/scenarios", label: "Work scenarios" },
-  { href: "/assessment", label: "Assessment" },
-  { href: "/compliance", label: "Compliance" },
 ];
 const path = Astro.url.pathname;
 ---
@@ -72,23 +72,86 @@ const path = Astro.url.pathname;
     .note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:13px 15px;font-size:13.5px;color:#1e3a8a}
     .warnbox{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:13px 15px;font-size:13.5px;color:#713f12}
     ul.tight{margin:6px 0;padding-left:20px}ul.tight li{margin:3px 0}
+    /* --- scenario + case-study surfaces --- */
+    .pill.micro{background:#ecfeff;color:#155e75}.pill.build{background:#eff6ff;color:#1e40af}
+    .pill.ship{background:#f5f3ff;color:#5b21b6}
+    .sc{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--border);
+      border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);text-decoration:none;color:inherit;
+      display:block;transition:.15s}
+    .sc:hover{border-color:var(--accent);transform:translateY(-2px)}
+    .sc.micro{border-left-color:#0891b2}.sc.build{border-left-color:#2563EB}.sc.ship{border-left-color:#7c3aed}
+    .sid{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;font-weight:700;color:var(--muted)}
+    .prov{background:#fffbeb;border:1px solid #fde68a;border-radius:9px;padding:10px 13px;
+      font-size:12.8px;color:#713f12}
+    .prov b{color:#78350f}
+    .fail{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:13px 15px;font-size:13.4px;color:#7f1d1d}
+    .lbl{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
+      margin-top:14px;display:block}
+    .filters{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:14px 0 4px}
+    .fbtn{border:1px solid var(--border);background:#fff;color:var(--muted);font-size:13px;font-weight:600;
+      padding:6px 13px;border-radius:999px;cursor:pointer;font-family:inherit;transition:.12s}
+    .fbtn:hover{border-color:var(--accent);color:var(--ink)}
+    .fbtn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+    .flabel{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
+      margin-right:3px}
+    [hidden]{display:none!important}
+    .stat b{display:block;font-size:1.7rem;color:var(--ink);line-height:1.15}
+    .stat span{font-size:13px;color:var(--muted)}
+    .pager{display:flex;justify-content:space-between;gap:14px;margin-top:34px;flex-wrap:wrap}
+    .pager a{flex:1;min-width:220px;text-decoration:none;color:inherit;border:1px solid var(--border);
+      background:#fff;border-radius:var(--radius);padding:13px 16px;transition:.15s}
+    .pager a:hover{border-color:var(--accent)}
+    .tierc{border-top:4px solid var(--accent)}
+    .tierc.core{border-top-color:#0891b2}.tierc.spec{border-top-color:#2563EB}.tierc.ready{border-top-color:#7c3aed}
     footer.site{border-top:1px solid var(--border);background:#fff}
     footer.site .inner{max-width:1100px;margin:0 auto;padding:30px 22px;display:grid;gap:20px;grid-template-columns:2fr 1fr 1fr;color:var(--muted);font-size:13.5px}
     @media(max-width:760px){footer.site .inner{grid-template-columns:1fr}}
     footer.site h4{font-size:13px;margin:0 0 8px}
     footer.site a{color:var(--muted);text-decoration:none;display:block;padding:3px 0}
-    @media(max-width:860px){header.nav nav a:not(.cta){display:none}}
+    /* Below 860px the inline links are replaced by a disclosure menu — previously
+       they just disappeared, leaving mobile with no navigation at all. */
+    .menu{display:none;position:relative}
+    .menu>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;
+      padding:8px 13px;border:1px solid var(--border);border-radius:10px;background:#fff;
+      font-size:14px;font-weight:600;color:var(--ink)}
+    .menu>summary::-webkit-details-marker{display:none}
+    .menu[open]>summary{border-color:var(--accent);color:var(--accent)}
+    .menu .sheet{position:absolute;right:0;top:calc(100% + 8px);min-width:210px;background:#fff;
+      border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 32px rgba(15,23,42,.14);
+      padding:7px;z-index:60}
+    .menu .sheet a{display:block;padding:9px 12px;border-radius:8px;text-decoration:none;
+      color:var(--ink);font-size:14.5px;font-weight:500}
+    .menu .sheet a:hover{background:#f1f5f9}
+    .menu .sheet a[aria-current]{color:var(--accent);background:#eff6ff;font-weight:600}
+    @media(max-width:860px){
+      header.nav nav a:not(.cta){display:none}
+      header.nav .cta{display:none}
+      .menu{display:block}
+    }
   </style>
 </head>
 <body>
   <header class="nav">
     <a class="brand" href="/">
       <img src="/favicon.svg" width="26" height="26" alt="" />
-      <span>Anvi Innovate<small>AI Academy · curriculum v{meta.version}</small></span>
+      <span>Anvi Innovate<small>AI Academy · programme v{programme.version}</small></span>
     </a>
     <nav>
       {nav.map((n) => <a href={n.href} aria-current={path.startsWith(n.href) ? "page" : undefined}>{n.label}</a>)}
       <a class="btn btn-ghost cta" href="https://anviinnovate.com">Main site →</a>
+      <details class="menu">
+        <summary aria-label="Open menu">
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M2 4h12M2 8h12M2 12h12" />
+          </svg>
+          Menu
+        </summary>
+        <div class="sheet">
+          {nav.map((n) => <a href={n.href} aria-current={path.startsWith(n.href) ? "page" : undefined}>{n.label}</a>)}
+          <a href="/ojt" aria-current={path.startsWith("/ojt") ? "page" : undefined}>Live project &amp; OJT</a>
+          <a href="https://anviinnovate.com">Main site →</a>
+        </div>
+      </details>
     </nav>
   </header>
 
@@ -98,16 +161,17 @@ const path = Astro.url.pathname;
     <div class="inner">
       <div>
         <h4>Anvi Innovate AI Academy</h4>
-        Curriculum version {meta.version} · {meta.totalHours} hours · aligned to QP {meta.qp.code} (NSQF Level {meta.qp.nsqfLevel}).<br />
+        Programme v{programme.version} · {programme.scenarioCount} mandatory scenarios drawn from {programme.caseStudyCount} verified
+        production case studies across {programme.organisations} organisations.<br />
         Hyderabad, Telangana, India · <a style="display:inline" href="mailto:hello@anviinnovate.com">hello@anviinnovate.com</a>
       </div>
       <div>
         <h4>Programme</h4>
-        <a href="/curriculum">Curriculum</a><a href="/tracks">Role tracks</a><a href="/scenarios">Work scenarios</a>
+        <a href="/programme">Three tiers</a><a href="/scenarios">102 scenarios</a><a href="/case-studies">Case studies</a><a href="/ojt">Live project &amp; OJT</a>
       </div>
       <div>
-        <h4>Standards</h4>
-        <a href="/assessment">Assessment</a><a href="/compliance">Compliance &amp; NSQF</a><a href="https://anviinnovate.com">Anvi Innovate</a>
+        <h4>Reference</h4>
+        <a href="/curriculum">Curriculum (NSQF)</a><a href="/tracks">Role tracks</a><a href="/assessment">Assessment</a><a href="/compliance">Compliance</a><a href="https://anviinnovate.com">Anvi Innovate</a>
       </div>
     </div>
   </footer>

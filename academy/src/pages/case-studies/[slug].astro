@@ -1,0 +1,132 @@
+---
+import Base from "../../layouts/Base.astro";
+import { caseEntries } from "../../data/caseSlugs.js";
+import scenarioData from "../../data/scenarios.json";
+import { unitName, sizeMeta } from "../../data/programme.js";
+
+export function getStaticPaths() {
+  return caseEntries.map(({ slug, c }, i) => ({
+    params: { slug },
+    props: { c, prev: caseEntries[i - 1] || null, next: caseEntries[i + 1] || null },
+  }));
+}
+const { c, prev, next } = Astro.props;
+const TYPE = {
+  "engineering-blog": "Engineering blog",
+  "peer-reviewed-paper": "Peer-reviewed paper",
+  "arxiv-paper": "arXiv paper",
+  postmortem: "Postmortem",
+  "conference-talk": "Conference talk",
+  "news-report": "News report",
+  other: "Other primary source",
+};
+// Scenarios built from this case.
+const built = scenarioData.scenarios.filter((s) => s.url === c.sourceUrl);
+const rp = c.reproducible === "yes" ? "g" : c.reproducible === "partial" ? "o" : "d";
+---
+<Base
+  title={`${c.org} · ${c.unit} case study`}
+  description={`${c.problem.slice(0, 155)}`}
+  wide={true}
+>
+  <p style="margin:0 0 8px">
+    <a href="/case-studies" class="muted" style="text-decoration:none;font-size:13.5px">← All case studies</a>
+  </p>
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+    <span class="pill d">{TYPE[c.sourceType] || c.sourceType}</span>
+    <span class="pill d">{c.unit} · {unitName(c.unit)}</span>
+    <span class={`pill ${rp}`}>reproducible: {c.reproducible}</span>
+    {c.verifyStatus === "confirmed" && <span class="pill g">verified as claimed</span>}
+    {c.verifyStatus === "corrected" && <span class="pill o">claim corrected</span>}
+    {c.sourceQuality === "medium" && <span class="pill o">medium-quality source</span>}
+  </div>
+  <h1 style="margin-top:10px">{c.org}</h1>
+
+  <div class="grid" style="grid-template-columns:1.35fr 1fr;margin-top:22px">
+    <div>
+      <section>
+        <h2>The problem</h2>
+        <p style="font-size:1.02rem;max-width:82ch">{c.problem}</p>
+      </section>
+
+      <section style="margin-top:26px">
+        <h2>What they built</h2>
+        <p style="max-width:82ch">{c.built}</p>
+      </section>
+
+      <section style="margin-top:26px">
+        <h2>Measured outcome</h2>
+        <div class="scn">{c.outcome}</div>
+        {c.outcomeOriginal && (
+          <details style="margin-top:10px">
+            <summary style="cursor:pointer;font-size:13px;color:var(--muted)">What was originally harvested, before verification</summary>
+            <p class="muted" style="font-size:12.8px;margin-top:8px">{c.outcomeOriginal}</p>
+            {c.verifyIssue && <p class="muted" style="font-size:12.8px"><strong>Issue found:</strong> {c.verifyIssue}</p>}
+          </details>
+        )}
+      </section>
+
+      <section style="margin-top:26px">
+        <h2>What went wrong</h2>
+        <p class="muted" style="font-size:13.5px">The most valuable field. What they tried first, what regressed, what had to be rolled back.</p>
+        <div class="fail" style="margin-top:8px">{c.whatWentWrong}</div>
+      </section>
+
+      <section style="margin-top:26px">
+        <h2>Shrinking it to a laptop</h2>
+        <div class="scn">{c.reproNote}</div>
+      </section>
+    </div>
+
+    <div>
+      <div class="card">
+        <span class="lbl" style="margin-top:0">Tech stack</span>
+        <div>{c.stack.map((s) => <span class="chip">{s}</span>)}</div>
+
+        <span class="lbl">Primary source</span>
+        <p style="font-size:13px;margin:4px 0 0;word-break:break-word">
+          <a href={c.sourceUrl} target="_blank" rel="noopener">{c.sourceUrl}</a>
+        </p>
+
+        <span class="lbl">Source quality</span>
+        <p style="font-size:13.6px;margin:4px 0 0">{TYPE[c.sourceType] || c.sourceType} · rated {c.sourceQuality}</p>
+      </div>
+
+      {built.length > 0 && (
+        <div class="card" style="margin-top:16px;border-color:var(--accent)">
+          <span class="lbl" style="margin-top:0">Scenarios built from this</span>
+          <ul class="tight" style="font-size:13.4px;margin-top:6px">
+            {built.map((s) => (
+              <li>
+                <a href={`/scenarios/${s.id.toLowerCase()}`} style="text-decoration:none">{s.id} · {s.title}</a>
+                <span class="muted" style="font-size:12px"> — {sizeMeta[s.size].label}, {sizeMeta[s.size].dur}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </div>
+
+  <div class="pager">
+    {prev ? (
+      <a href={`/case-studies/${prev.slug}`}>
+        <span class="muted" style="font-size:12px">← Previous</span>
+        <div style="font-weight:600;font-size:14px;margin-top:3px">{prev.c.org}</div>
+        <div class="muted" style="font-size:12px">{prev.c.unit} · {unitName(prev.c.unit)}</div>
+      </a>
+    ) : <span></span>}
+    {next ? (
+      <a href={`/case-studies/${next.slug}`} style="text-align:right">
+        <span class="muted" style="font-size:12px">Next →</span>
+        <div style="font-weight:600;font-size:14px;margin-top:3px">{next.c.org}</div>
+        <div class="muted" style="font-size:12px">{next.c.unit} · {unitName(next.c.unit)}</div>
+      </a>
+    ) : <span></span>}
+  </div>
+
+  <p class="muted" style="font-size:12.5px;margin-top:30px;max-width:84ch">
+    Summarised for educational purposes from the linked primary source, retrieved and verified August 2026.
+    The Academy is not affiliated with or endorsed by {c.org}.
+  </p>
+</Base>
