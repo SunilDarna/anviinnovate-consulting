@@ -6,8 +6,8 @@ const nav = [
   { href: "/programme", label: "Programme" },
   { href: "/scenarios", label: "Scenarios" },
   { href: "/case-studies", label: "Case studies" },
+  { href: "/glossary", label: "Glossary" },
   { href: "/curriculum", label: "Curriculum" },
-  { href: "/tracks", label: "Role tracks" },
 ];
 const path = Astro.url.pathname;
 ---
@@ -148,6 +148,7 @@ const path = Astro.url.pathname;
         </summary>
         <div class="sheet">
           {nav.map((n) => <a href={n.href} aria-current={path.startsWith(n.href) ? "page" : undefined}>{n.label}</a>)}
+          <a href="/tracks" aria-current={path.startsWith("/tracks") ? "page" : undefined}>Role tracks</a>
           <a href="/ojt" aria-current={path.startsWith("/ojt") ? "page" : undefined}>Live project &amp; OJT</a>
           <a href="https://anviinnovate.com">Main site →</a>
         </div>
@@ -167,7 +168,7 @@ const path = Astro.url.pathname;
       </div>
       <div>
         <h4>Programme</h4>
-        <a href="/programme">Three tiers</a><a href="/scenarios">102 scenarios</a><a href="/case-studies">Case studies</a><a href="/ojt">Live project &amp; OJT</a>
+        <a href="/programme">Three tiers</a><a href="/scenarios">102 scenarios</a><a href="/case-studies">Case studies</a><a href="/glossary">Terminology atlas</a><a href="/ojt">Live project &amp; OJT</a>
       </div>
       <div>
         <h4>Reference</h4>

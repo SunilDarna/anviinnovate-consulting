@@ -1,0 +1,151 @@
+---
+import Base from "../layouts/Base.astro";
+import g from "../data/glossary.json";
+
+const meta = g.meta;
+const mods = g.modules;
+---
+<Base
+  title="AI/ML terminology atlas"
+  description={`${meta.terms} AI/ML terms across ${meta.modules} modules, each with a one-line definition — plus ${meta.tools} named tools and projects current as of 2026, with deprecation and rename notes.`}
+  wide={true}
+>
+  <style>
+    .gbar{position:sticky;top:57px;z-index:40;background:rgba(248,250,252,.95);
+      backdrop-filter:blur(9px);border-bottom:1px solid var(--border);padding:12px 0;margin:20px 0 0}
+    .gbar .in{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+    #q{flex:1;min-width:230px;padding:10px 14px;border:1px solid var(--border);border-radius:10px;
+      font-size:14.5px;font-family:inherit;background:#fff;color:var(--text)}
+    #q:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.13)}
+    .t{padding:7px 0;border-bottom:1px solid #eef2f7;font-size:14px;line-height:1.5}
+    .t:last-child{border-bottom:none}
+    .t b{color:var(--ink);font-weight:650}
+    .t .k{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+      padding:1px 6px;border-radius:4px;background:#f5f3ff;color:#7c3aed;margin-left:6px;vertical-align:1px}
+    .t .n{display:block;font-size:12.4px;color:var(--warn);margin-top:2px}
+    .grp{font-size:.92rem;margin:22px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+    .modnav{columns:3;column-gap:24px;font-size:13.4px;margin-top:10px}
+    @media(max-width:900px){.modnav{columns:2}} @media(max-width:620px){.modnav{columns:1}}
+    .modnav a{display:block;padding:3px 0;text-decoration:none}
+  </style>
+
+  <h1>AI/ML terminology atlas</h1>
+  <p class="muted" style="max-width:86ch;font-size:1.05rem">
+    Every term across the curriculum, from linear algebra to agent protocols, with a one-line definition of
+    what it is — plus {meta.tools} named third-party tools, products and open-source projects current as of
+    August 2026.
+  </p>
+
+  <div class="grid" style="grid-template-columns:repeat(4,1fr);margin-top:20px">
+    <div class="card stat"><b>{meta.terms}</b><span>unique terms across {meta.modules} modules</span></div>
+    <div class="card stat"><b>{meta.concepts}</b><span>concepts</span></div>
+    <div class="card stat"><b style="color:#7c3aed">{meta.tools}</b><span>named tools and projects</span></div>
+    <div class="card stat"><b style="color:var(--warn)">{meta.currencyNotes}</b><span>deprecated, renamed or discontinued</span></div>
+  </div>
+
+  <div class="warnbox" style="margin-top:16px">
+    <strong>Currency matters more than completeness in the tool sections.</strong>
+    {meta.currencyNotes} entries carry a note because the thing is deprecated, renamed, superseded or in
+    maintenance mode — each says what replaced it. A glossary that lists a dead project as current is worse
+    than one that omits it.
+  </div>
+  <div class="note">
+    <strong>{meta.unverified} items could not be verified</strong> and are listed at the end rather than
+    asserted. Where a tool's maintenance status was ambiguous, no status was claimed.
+  </div>
+
+  <section style="margin-top:30px">
+    <h2>Modules</h2>
+    <div class="modnav">
+      {mods.map((m) => <a href={`#${m.id}`}>{m.name} <span class="muted">({m.count})</span></a>)}
+      <a href="#unverified">Unverified <span class="muted">({meta.unverified})</span></a>
+    </div>
+  </section>
+
+  <div class="gbar"><div class="in">
+    <input id="q" type="search" placeholder="Search all terms and definitions…" autocomplete="off" />
+    <button class="fbtn" data-k="" aria-pressed="true">All</button>
+    <button class="fbtn" data-k="concept" aria-pressed="false">Concepts</button>
+    <button class="fbtn" data-k="tool" aria-pressed="false">Tools</button>
+    <button class="fbtn" data-k="note" aria-pressed="false">Currency notes</button>
+    <span class="muted" id="count" style="font-size:13px"></span>
+  </div></div>
+
+  {mods.map((m) => (
+    <section id={m.id} style="margin-top:36px">
+      <h2>{m.name}</h2>
+      <p class="muted" style="font-size:13.4px;margin:0">{m.count} terms</p>
+      {m.groups.map((gr) => (
+        <>
+          <h3 class="grp">{gr.name}</h3>
+          <div>
+            {gr.terms.map((r) => (
+              <div class="t" data-k={r.kind} data-n={r.note ? "1" : "0"}>
+                <b>{r.term}</b>{r.kind === "tool" && <span class="k">tool</span>} — {r.def}
+                {r.note && <span class="n">⚠ {r.note}</span>}
+              </div>
+            ))}
+          </div>
+        </>
+      ))}
+    </section>
+  ))}
+
+  <section id="unverified" style="margin-top:40px">
+    <h2>Unverified</h2>
+    <p class="muted">Flagged during research and deliberately not asserted.</p>
+    <div>{g.unverified.map((u) => (
+      <div class="t"><b>{u.module}</b> — {u.note}</div>
+    ))}</div>
+  </section>
+
+  <section style="margin-top:36px">
+    <p>
+      <a class="btn btn-ghost" href="/docs/glossary-v1.0.html">Printable version →</a>
+      <a class="btn btn-ghost" href="/docs/glossary-v1.0.md" style="margin-left:8px">Plain text (Markdown) →</a>
+    </p>
+    <p class="muted" style="font-size:13px;margin-top:12px">
+      Compiled August 2026. Tool availability and maintenance status change fast — the tool sections should be
+      re-validated before each cohort.
+    </p>
+  </section>
+
+  <script is:inline>
+    (function () {
+      var rows = [].slice.call(document.querySelectorAll(".t[data-k]"));
+      var idx = rows.map(function (r) { return r.textContent.toLowerCase(); });
+      var q = document.getElementById("q");
+      var count = document.getElementById("count");
+      var kind = "";
+      function apply() {
+        var s = q.value.trim().toLowerCase(), n = 0;
+        for (var i = 0; i < rows.length; i++) {
+          var r = rows[i];
+          var ok = (!s || idx[i].indexOf(s) > -1) &&
+            (!kind || (kind === "note" ? r.dataset.n === "1" : r.dataset.k === kind));
+          r.hidden = !ok; if (ok) n++;
+        }
+        document.querySelectorAll("section[id]").forEach(function (sec) {
+          if (sec.id === "unverified") return;
+          sec.hidden = !sec.querySelector(".t[data-k]:not([hidden])");
+        });
+        document.querySelectorAll(".grp").forEach(function (h) {
+          var d = h.nextElementSibling;
+          h.hidden = !(d && d.querySelector(".t:not([hidden])"));
+        });
+        count.textContent = (s || kind) ? n + " of " + rows.length + " shown" : rows.length + " terms";
+      }
+      q.addEventListener("input", apply);
+      document.querySelectorAll(".fbtn").forEach(function (b) {
+        b.addEventListener("click", function () {
+          kind = b.dataset.k;
+          document.querySelectorAll(".fbtn").forEach(function (o) {
+            o.setAttribute("aria-pressed", String(o === b));
+          });
+          apply();
+        });
+      });
+      apply();
+    })();
+  </script>
+</Base>
