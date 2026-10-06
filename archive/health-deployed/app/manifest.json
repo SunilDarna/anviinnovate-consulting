@@ -1,0 +1,9 @@
+{
+  "name": "Sana — 45-Year Blueprint Assistant",
+  "short_name": "Sana",
+  "start_url": "/app/",
+  "display": "standalone",
+  "background_color": "#faf8f5",
+  "theme_color": "#1f6f6b",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

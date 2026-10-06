@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sana — Your Healthspan Coach</title>
+<meta name="description" content="Sana — a healthspan coach for any age and any body. Personal numbers, real plan, honest guardrails.">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#1f6f6b">
+<link rel="stylesheet" href="/app.css">
+<script src="https://accounts.google.com/gsi/client" async></script>
+</head>
+<body>
+<header id="top">
+  <span class="app-name">Sana</span>
+  <a href="/plan/" class="brand" title="Open the full plan document">Healthspan Blueprint</a>
+  <span id="who"></span>
+</header>
+
+<nav id="tabs" role="tablist" aria-label="Sections">
+  <button data-tab="today" class="on" role="tab"><span class="ic">☀️</span><span class="lb">Today</span></button>
+  <button data-tab="ask" role="tab"><span class="ic">💬</span><span class="lb">Ask</span></button>
+  <button data-tab="plan" role="tab"><span class="ic">📖</span><span class="lb">Plan</span></button>
+  <button data-tab="progress" role="tab"><span class="ic">📈</span><span class="lb">Progress</span></button>
+  <button data-tab="settings" role="tab"><span class="ic">⚙️</span><span class="lb">Settings</span></button>
+</nav>
+
+<main id="view" aria-live="polite"></main>
+<div id="banner" class="banner" hidden></div>
+
+<template id="t-welcome">
+  <section class="welcome">
+    <div class="card hero">
+      <div class="hero-icon">S</div>
+      <h1>Sana</h1>
+      <p class="lede">A healthspan coach for <b>any age and any body</b>. Tell it your age, height, weight and history — it recomputes the whole Blueprint for you: your calories, your protein, your heart-rate zones, your precautions.</p>
+      <button id="signin" class="primary">Sign in with Google</button>
+      <p class="tiny" id="signin-note">Private to your Google account. Export or delete everything, any time, from Settings.</p>
+    </div>
+    <div class="card">
+      <h2>No sign-in needed to read the Blueprint</h2>
+      <p>The full reference document — training, recipes, schedules, evidence — is public and printable. Sana personalises it once you sign in.</p>
+      <a class="chip" href="/plan/">📖 Open the Healthspan Blueprint</a>
+    </div>
+    <div class="card">
+      <h2>What Sana does once you're in</h2>
+      <div class="feat">🧭 <b>Your numbers</b> — calories, protein, zones and portions computed for you, any age, any weight</div>
+      <div class="feat">☀️ <b>Today</b> — the day's session and meals with one-tap logging</div>
+      <div class="feat">💬 <b>Ask</b> — "what do I do now?" answered from the plan + your log · chats are saved, continue any of them</div>
+      <div class="feat">🎙️ <b>Voice</b> — hold the mic, speak, get a spoken answer back</div>
+      <div class="feat">📈 <b>Progress</b> — consistency and weight vs the plan's own bands</div>
+      <div class="feat">🛡️ <b>Guardrails</b> — stop-list symptoms always route to a doctor, never to a chatbot</div>
+    </div>
+  </section>
+</template>
+<script src="/app.js"></script>
+</body>
+</html>

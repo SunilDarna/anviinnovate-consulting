@@ -1,0 +1,135 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  anviinnovate-health-api — backend for the Sana health assistant on
+  health.anviinnovate.com. Separate stack from both `anviinnovate` (prod app) and
+  `anviinnovate-health` (static site) per the repo's separation principle.
+
+Parameters:
+  GoogleClientId:
+    Type: String
+    Default: "736690706364-54tc00o4sdod1d02vdalqc9slpa67ao5.apps.googleusercontent.com"
+  SoftCapUsd:
+    Type: String
+    Default: "10"
+
+Globals:
+  Function:
+    Runtime: nodejs24.x
+    Architectures: [arm64]
+    Timeout: 60
+    MemorySize: 1024
+
+Resources:
+  Table:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: HealthAssistant
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - { AttributeName: PK, AttributeType: S }
+        - { AttributeName: SK, AttributeType: S }
+      KeySchema:
+        - { AttributeName: PK, KeyType: HASH }
+        - { AttributeName: SK, KeyType: RANGE }
+      TimeToLiveSpecification: { AttributeName: ttl, Enabled: true }
+      PointInTimeRecoverySpecification: { PointInTimeRecoveryEnabled: true }
+
+  Guardrail:
+    Type: AWS::Bedrock::Guardrail
+    Properties:
+      Name: sana-health-guardrail
+      Description: Blocks diagnosis, prescription/dosing, and lab interpretation.
+      BlockedInputMessaging: >-
+        That question needs a doctor, not a coach — the plan reserves it for them (§15).
+        I can explain what the plan itself says, or help you prepare questions for your appointment.
+      BlockedOutputsMessaging: >-
+        I stopped that answer — it was heading into medical territory the plan reserves
+        for doctors (§15). Ask me what the plan says instead.
+      TopicPolicyConfig:
+        TopicsConfig:
+          - Name: diagnosis
+            Type: DENY
+            Definition: Diagnosing medical conditions or diseases from symptoms the user describes.
+            Examples: ["what disease do i have", "is this cancer", "do i have diabetes based on this"]
+          - Name: prescription
+            Type: DENY
+            Definition: Recommending, naming, or dosing medicines or supplements, or changing prescribed medication.
+            Examples: ["what dose of vitamin d should i take", "which tablet for bp", "can i stop my medication"]
+          - Name: lab-interpretation
+            Type: DENY
+            Definition: Interpreting laboratory reports or diagnostic test values beyond advising to consult a doctor.
+            Examples: ["my hba1c is 6.1 what does it mean", "read my blood report"]
+      ContentPolicyConfig:
+        FiltersConfig:
+          - { Type: SEXUAL, InputStrength: HIGH, OutputStrength: HIGH }
+          - { Type: VIOLENCE, InputStrength: HIGH, OutputStrength: HIGH }
+          - { Type: HATE, InputStrength: HIGH, OutputStrength: HIGH }
+          - { Type: INSULTS, InputStrength: MEDIUM, OutputStrength: MEDIUM }
+          - { Type: MISCONDUCT, InputStrength: MEDIUM, OutputStrength: MEDIUM }
+          - { Type: PROMPT_ATTACK, InputStrength: HIGH, OutputStrength: NONE }
+
+  Api:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: $default
+
+  ApiFn:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: health-assistant-api
+      CodeUri: src/
+      Handler: api/index.handler
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref Table
+          GOOGLE_CLIENT_ID: !Ref GoogleClientId
+          GOOGLE_SECRET_PARAM: /anviinnovate/google/client_secret
+          SESSION_KEY_PARAM: /anviinnovate-health/auth/session_jwt_secret
+          MODEL_LITE: us.amazon.nova-lite-v1:0
+          MODEL_PRO: us.amazon.nova-pro-v1:0
+          GUARDRAIL_ID: !GetAtt Guardrail.GuardrailId
+          GUARDRAIL_VERSION: DRAFT
+          SOFT_CAP_USD: !Ref SoftCapUsd
+      Events:
+        Any:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref Api
+            Path: /api/{proxy+}
+            Method: ANY
+      Policies:
+        - DynamoDBCrudPolicy: { TableName: !Ref Table }
+        - Statement:
+            - Effect: Allow
+              Action: ssm:GetParameter
+              Resource:
+                - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/anviinnovate/google/client_secret
+                - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/anviinnovate-health/auth/session_jwt_secret
+            - Effect: Allow
+              Action: [bedrock:InvokeModel, bedrock:InvokeModelWithResponseStream]
+              Resource:
+                - arn:aws:bedrock:*::foundation-model/amazon.nova-lite-v1:0
+                - arn:aws:bedrock:*::foundation-model/amazon.nova-pro-v1:0
+                - !Sub arn:aws:bedrock:${AWS::Region}:${AWS::AccountId}:inference-profile/us.amazon.nova-lite-v1:0
+                - !Sub arn:aws:bedrock:${AWS::Region}:${AWS::AccountId}:inference-profile/us.amazon.nova-pro-v1:0
+            - Effect: Allow
+              Action: bedrock:ApplyGuardrail
+              Resource: !GetAtt Guardrail.GuardrailArn
+            - Effect: Allow
+              Action: polly:SynthesizeSpeech
+              Resource: "*"
+            - Effect: Allow
+              Action: transcribe:StartStreamTranscription
+              Resource: "*"
+
+Outputs:
+  ApiId:
+    Value: !Ref Api
+  ApiEndpoint:
+    Description: execute-api endpoint — becomes the CloudFront /api/* origin
+    Value: !Sub "${Api}.execute-api.${AWS::Region}.amazonaws.com"
+  TableName:
+    Value: !Ref Table
+  GuardrailId:
+    Value: !GetAtt Guardrail.GuardrailId

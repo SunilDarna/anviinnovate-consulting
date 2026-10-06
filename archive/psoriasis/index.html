@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Psoriasis Care & Diet Hub</title>
+  <meta name="description" content="Age-appropriate safe treatments, anti-inflammatory diet plan, triggers guide, and recipes for managing psoriasis across all age groups.">
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-mode">
+  
+  <!-- Navigation Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo">
+        <i class="fa-solid fa-hand-holding-heart logo-icon"></i>
+        <span class="logo-text" data-translate="title">Psoriasis Care Hub</span>
+      </div>
+      
+      <div class="nav-controls">
+        <!-- Age Group Selector -->
+        <div class="lang-selector-wrapper age-selector-wrapper">
+          <i class="fa-solid fa-user-clock lang-icon"></i>
+          <select id="age-select" class="lang-select">
+            <option value="infant_toddler" data-translate="age_0_3">Infant / Toddler (Ages 0 - 3)</option>
+            <option value="child" data-translate="age_4_12">Child (Ages 4 - 12)</option>
+            <option value="teen" data-translate="age_13_19">Adolescent / Teen (Ages 13 - 19)</option>
+            <option value="adult" data-translate="age_20_64">Adult (Ages 20 - 64)</option>
+            <option value="senior" data-translate="age_65_plus">Senior / Elderly (Ages 65+)</option>
+          </select>
+        </div>
+
+        <!-- Language Selector -->
+        <div class="lang-selector-wrapper">
+          <i class="fa-solid fa-language lang-icon"></i>
+          <select id="lang-select" class="lang-select">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="te">తెలుగు (Telugu)</option>
+          </select>
+        </div>
+        
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-moon moon-icon"></i>
+          <i class="fa-solid fa-sun sun-icon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="hero-badge"><i class="fa-solid fa-shield-halved"></i> <span id="active-age-badge">Ages 0 - 3</span></span>
+        <h1 class="hero-title" data-translate="title">Psoriasis Care & Diet Hub</h1>
+        <p class="hero-subtitle" data-translate="subtitle">Science-Backed Treatments, Diet Plans, and Care Guidelines by Age Group</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    
+    <!-- Tab Navigation -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="overview">
+        <i class="fa-solid fa-house-chimney"></i>
+        <span data-translate="nav_home">Overview</span>
+      </button>
+      <button class="tab-btn" data-tab="skincare">
+        <i class="fa-solid fa-droplet"></i>
+        <span data-translate="nav_skincare">Skincare & Treatment</span>
+      </button>
+      <button class="tab-btn" data-tab="diet">
+        <i class="fa-solid fa-apple-whole"></i>
+        <span data-translate="nav_diet">Dietary Science</span>
+      </button>
+      <button class="tab-btn" data-tab="plan">
+        <i class="fa-solid fa-calendar-days"></i>
+        <span data-translate="nav_plan">Weekly Diet Plan</span>
+      </button>
+      <button class="tab-btn" data-tab="recipes">
+        <i class="fa-solid fa-utensils"></i>
+        <span data-translate="nav_recipes">Recipes & Cooking</span>
+      </button>
+      <button class="tab-btn" data-tab="research">
+        <i class="fa-solid fa-microscope"></i>
+        <span data-translate="nav_research">Global Research</span>
+      </button>
+    </nav>
+
+    <!-- Content Sections -->
+    <div class="tab-content-container">
+      
+      <!-- 1. OVERVIEW SECTION -->
+      <section id="overview" class="tab-pane active">
+        <div class="card-grid">
+          <div class="span-all welcome-card">
+            <h2 data-translate="overview_welcome">Welcome to the Psoriasis Care Hub</h2>
+            <p id="overview-welcome-text">Managing psoriasis in infants and toddlers...</p>
+          </div>
+          
+          <div class="info-card highlight-card">
+            <h3 data-translate="overview_goals_title">Key Management Pillars</h3>
+            <ul class="pillar-list" id="overview-pillars-list">
+              <!-- Populated dynamically by JS based on selected age group -->
+            </ul>
+          </div>
+          
+          <div class="visual-card-wrapper">
+            <div class="illustration-card" id="age-group-visual-card">
+              <i class="fa-solid fa-child-reaching child-illustration"></i>
+              <div class="illustration-tag" id="illustration-age-tag">Care for age 3</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. SKINCARE & TREATMENT SECTION -->
+      <section id="skincare" class="tab-pane">
+        <div class="section-header">
+          <h2 data-translate="skincare_title">Safe Skincare & Medical Treatments</h2>
+          <p id="skincare-intro-text">A toddler's skin is thin and highly sensitive...</p>
+        </div>
+        
+        <div class="card-grid">
+          <!-- Daily Routine -->
+          <div class="info-card">
+            <h3 data-translate="skincare_daily_routine">Daily Skincare Routine</h3>
+            <h4 id="skincare-routine-title" style="margin-bottom: 16px; color: var(--primary-dark);">Daily Routine</h4>
+            <ol class="step-list" id="skincare-routine-list">
+              <!-- Rendered dynamically -->
+            </ol>
+          </div>
+          
+          <!-- Medical treatments list -->
+          <div class="info-card">
+            <h3 data-translate="skincare_meds_title">Medical Treatments</h3>
+            <div id="medical-treatments-list">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+          
+          <!-- Warning Signs -->
+          <div class="span-all warning-banner">
+            <div class="warning-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="warning-content">
+              <h3 data-translate="warning_title">When to Contact a Dermatologist / Doctor</h3>
+              <ul>
+                <li data-translate="warning_1">If skin lesions look infected...</li>
+                <li data-translate="warning_2">If your child develops a fever...</li>
+                <li data-translate="warning_3">If your child shows signs of joint stiffness...</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. DIETARY SCIENCE SECTION -->
+      <section id="diet" class="tab-pane">
+        <div class="section-header">
+          <h2 data-translate="diet_title">Diet and Psoriasis (The Gut-Skin Axis)</h2>
+          <p id="diet-intro-text">Recent research shows a strong link between gut health and skin inflammation...</p>
+        </div>
+        
+        <div class="card-grid">
+          <!-- Trigger Foods -->
+          <div class="info-card trigger-card">
+            <h3 class="trigger-header"><i class="fa-solid fa-circle-xmark"></i> <span data-translate="checker_trigger">Potential Trigger</span></h3>
+            <p id="diet-triggers-intro" class="diet-intro-text">These foods can promote systemic inflammation...</p>
+            <div id="diet-triggers-list">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+          
+          <!-- Safe / Beneficial Foods -->
+          <div class="info-card beneficial-card">
+            <h3 class="beneficial-header"><i class="fa-solid fa-circle-check"></i> <span data-translate="checker_safe">Safe / Anti-Inflammatory</span></h3>
+            <p id="diet-beneficial-intro" class="diet-intro-text">Incorporate these foods to nourish the skin...</p>
+            <div id="diet-beneficial-list">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+          
+          <!-- Interactive Food Safety Checker -->
+          <div class="span-all checker-card">
+            <h3 data-translate="checker_title">Food Safety Checker</h3>
+            <p data-translate="checker_desc">Search for a food item...</p>
+            
+            <div class="checker-controls">
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="food-search" placeholder="Type a food...">
+              </div>
+              <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all" data-translate="checker_all">All</button>
+                <button class="filter-btn" data-filter="safe" data-translate="checker_safe">Safe / Anti-Inflammatory</button>
+                <button class="filter-btn" data-filter="trigger" data-translate="checker_trigger">Potential Trigger</button>
+              </div>
+            </div>
+            
+            <div id="checker-results" class="checker-results-grid">
+              <!-- Rendered dynamically by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. WEEKLY DIET PLAN SECTION -->
+      <section id="plan" class="tab-pane">
+        <div class="section-header">
+          <h2 data-translate="plan_title">Weekly Anti-Inflammatory Plan</h2>
+          <p data-translate="plan_intro">A balanced 7-day schedule with anti-inflammatory meals...</p>
+        </div>
+        
+        <!-- Day selectors for Mobile view -->
+        <div class="day-tabs">
+          <button class="day-tab-btn active" data-day="mon" data-translate="plan_mon">Monday</button>
+          <button class="day-tab-btn" data-day="tue" data-translate="plan_tue">Tuesday</button>
+          <button class="day-tab-btn" data-day="wed" data-translate="plan_wed">Wednesday</button>
+          <button class="day-tab-btn" data-day="thu" data-translate="plan_thu">Thursday</button>
+          <button class="day-tab-btn" data-day="fri" data-translate="plan_fri">Friday</button>
+          <button class="day-tab-btn" data-day="sat" data-translate="plan_sat">Saturday</button>
+          <button class="day-tab-btn" data-day="sun" data-translate="plan_sun">Sunday</button>
+        </div>
+        
+        <!-- Weekly Grid Table -->
+        <div class="weekly-planner-container">
+          <div class="weekly-grid" id="weekly-plan-grid">
+            <!-- Populated dynamically by JS for full layout -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. RECIPES SECTION -->
+      <section id="recipes" class="tab-pane">
+        <div class="section-header">
+          <h2 data-translate="nav_recipes">Recipes & Cooking</h2>
+          <p id="recipes-intro-text">Nutritious, anti-inflammatory recipes...</p>
+        </div>
+        
+        <div id="recipe-list" class="recipe-cards-container">
+          <!-- Rendered dynamically by JavaScript to support structured lists -->
+        </div>
+      </section>
+
+      <!-- 6. GLOBAL RESEARCH SECTION -->
+      <section id="research" class="tab-pane">
+        <div class="section-header">
+          <h2 data-translate="nav_research">Global Research</h2>
+          <p id="research-intro-text">Research is happening worldwide to find safer, more effective treatments...</p>
+        </div>
+        
+        <div class="card-grid" id="global-research-list">
+          <!-- Rendered dynamically -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p class="disclaimer-text" data-translate="disclaimer_text">
+        Disclaimer: This website is for informational purposes only. It does not constitute medical advice...
+      </p>
+      <p class="copyright-text" data-translate="copyright_text">&copy; 2026 Psoriasis Care Hub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="translations.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
