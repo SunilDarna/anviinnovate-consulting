@@ -10,6 +10,24 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# ─────────────────────────────────────────────────────────────────────────────
+# RETIRED 2026-10-06. ai.anviinnovate.com no longer serves content: every path
+# 301s to bxup.in via the AcademyRedirectFunction CloudFront Function, and the
+# origin bucket is intentionally empty. Publishing here would put content back
+# behind a redirect nobody can reach, and would undo the consolidation.
+#
+# The source of truth for the academy content is git (academy/, docs/ai-academy/).
+# The learning property is now bxup.in — deploy there instead.
+#
+# Override only if you are deliberately un-retiring this domain:
+#   ALLOW_ACADEMY_DEPLOY=1 ./scripts/deploy-academy.sh
+# ─────────────────────────────────────────────────────────────────────────────
+if [[ "${ALLOW_ACADEMY_DEPLOY:-0}" != "1" ]]; then
+  echo "refusing: ai.anviinnovate.com is retired and redirects to bxup.in." >&2
+  echo "          see infra/template.yaml :: AcademyRedirectFunction" >&2
+  exit 1
+fi
+
 REGION="us-east-1"
 STACK="anviinnovate"
 INVALIDATE=1
