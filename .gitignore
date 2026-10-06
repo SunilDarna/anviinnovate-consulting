@@ -17,3 +17,10 @@ academy/.astro/
 
 # macOS
 .DS_Store
+
+# macOS AppleDouble sidecars — created automatically when this repo
+# lives on a non-HFS volume (exFAT external drive) and must never be committed
+._*
+.AppleDouble/
+.Spotlight-V100
+.Trashes

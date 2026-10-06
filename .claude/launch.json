@@ -4,9 +4,29 @@
     {
       "name": "academy",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--", "--port", "4331"],
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--",
+        "--port",
+        "4331"
+      ],
       "port": 4331,
       "cwd": "academy"
+    },
+    {
+      "name": "bxup-app",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "/Users/sunildarna/Documents/anviinnovate.com-projects/aiupskill/AIUpskill.anviinnovate.com/app",
+        "--",
+        "--port",
+        "5173"
+      ],
+      "port": 5173
     }
   ]
 }
