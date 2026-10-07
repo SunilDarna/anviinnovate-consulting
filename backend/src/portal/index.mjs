@@ -10,7 +10,7 @@
  * commission, not a margin on billing.
  *
  * Single-table keys (table: AnviInnovate)
- *   USER#<sub>      PROFILE            role: client | partner | admin
+ *   <googleSub>     PROFILE            role: client | partner | admin
  *   REQ#<id>        META               a client requirement
  *   REQ#<id>        SUB#<subId>        an engineer submitted against it
  *   PARTNER#<sub>   ENG#<id>           an engineer the partner represents
@@ -18,7 +18,7 @@
  *   GSI1 "REQS"        / <createdAt>   admin: every requirement, newest first
  *   GSI1 "PLACEMENTS"  / <createdAt>   admin: revenue view
  *   GSI1 "OPENREQS"    / <createdAt>   partners: requirements open to the network
- *   GSI1 USER#<sub>    / <createdAt>   that user's own records
+ *   GSI1 UREQ#<sub>    / <createdAt>   that user's own requirements
  */
 import { ddb, TABLE } from "../lib/dynamo.mjs";
 import { PutCommand, QueryCommand, UpdateCommand, GetCommand } from "@aws-sdk/lib-dynamodb";
@@ -34,16 +34,27 @@ const now = () => new Date().toISOString();
 const STATUSES = ["submitted", "shortlisted", "interviewing", "offered", "placed", "rejected"];
 
 async function profileOf(sub) {
-  const r = await ddb.send(new GetCommand({ TableName: TABLE, Key: { PK: `USER#${sub}`, SK: "PROFILE" } }));
+  const r = await ddb.send(new GetCommand({ TableName: TABLE, Key: { PK: sub, SK: "PROFILE" } }));
   return r.Item || null;
 }
 
 async function ensureProfile(claims) {
   const existing = await profileOf(claims.sub);
-  if (existing) return existing;
+  if (existing) {
+    if (existing.role) return existing;
+    // Pre-portal profile: assign a role now rather than render nothing.
+    const role = ADMINS.includes((existing.email || claims.email || "").toLowerCase()) ? "admin" : "client";
+    await ddb.send(new UpdateCommand({
+      TableName: TABLE, Key: { PK: claims.sub, SK: "PROFILE" },
+      UpdateExpression: "SET #r = :r, updatedAt = :u",
+      ExpressionAttributeNames: { "#r": "role" },
+      ExpressionAttributeValues: { ":r": role, ":u": now() },
+    }));
+    return { ...existing, role };
+  }
   const email = (claims.email || "").toLowerCase();
   const item = {
-    PK: `USER#${claims.sub}`, SK: "PROFILE",
+    PK: claims.sub, SK: "PROFILE",
     userId: claims.sub, email, name: claims.name || "",
     role: ADMINS.includes(email) ? "admin" : "client",
     createdAt: now(),
@@ -72,7 +83,7 @@ const subsFor = async (reqId) => {
 };
 
 export const handler = async (event) => {
-  const token = getCookie(event, "sid");
+  const token = getCookie(event, "anvi_session");
   const claims = token && (await verifySession(token));
   if (!claims) return json(event, 401, { error: "not signed in" });
 
@@ -110,8 +121,8 @@ export const handler = async (event) => {
       await ddb.send(new PutCommand({ TableName: TABLE, Item: item }));
       // Mirror for the owner's own list, and for the partner network feed.
       await ddb.send(new PutCommand({ TableName: TABLE, Item: {
-        PK: `USER#${me.userId}`, SK: `REQ#${reqId}`, reqId, createdAt,
-        GSI1PK: `USER#${me.userId}`, GSI1SK: createdAt } }));
+        PK: me.userId, SK: `REQ#${reqId}`, reqId, createdAt,
+        GSI1PK: `UREQ#${me.userId}`, GSI1SK: createdAt } }));
       await ddb.send(new PutCommand({ TableName: TABLE, Item: {
         PK: `OPENREQ#${reqId}`, SK: "META", reqId, role: item.role, tier: item.tier,
         headcount: item.headcount, location: item.location, engagement: item.engagement,
@@ -125,7 +136,7 @@ export const handler = async (event) => {
         for (const r of reqs) r.submissionCount = (await subsFor(r.reqId)).length;
         return json(event, 200, { requirements: reqs });
       }
-      const refs = await byGsi(`USER#${me.userId}`);
+      const refs = await byGsi(`UREQ#${me.userId}`);
       const reqs = [];
       for (const ref of refs.filter((x) => x.reqId)) {
         const r = await ddb.send(new GetCommand({ TableName: TABLE, Key: { PK: `REQ#${ref.reqId}`, SK: "META" } }));
@@ -304,7 +315,7 @@ export const handler = async (event) => {
       if (!body.userId || !["client", "partner", "admin"].includes(body.role))
         return json(event, 400, { error: "userId and a valid role are required" });
       await ddb.send(new UpdateCommand({
-        TableName: TABLE, Key: { PK: `USER#${body.userId}`, SK: "PROFILE" },
+        TableName: TABLE, Key: { PK: body.userId, SK: "PROFILE" },
         UpdateExpression: "SET #r = :r, updatedAt = :u",
         ExpressionAttributeNames: { "#r": "role" },
         ExpressionAttributeValues: { ":r": body.role, ":u": now() },

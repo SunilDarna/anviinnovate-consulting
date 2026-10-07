@@ -1,5 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Anvi Innovate">
   <rect width="64" height="64" rx="14" fill="#0B1F3A"/>
-  <path d="M20 46 L32 18 L44 46" fill="none" stroke="#2563EB" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-  <line x1="25.5" y1="34" x2="38.5" y2="34" stroke="#22D3EE" stroke-width="5" stroke-linecap="round"/>
+  <g fill="none" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20.5 20 L13.5 32 L20.5 44" stroke="#FFFFFF"/>
+    <path d="M32 17 L24.5 47 M32 17 L39.5 47" stroke="#4EC3A7"/>
+    <path d="M27.4 38 L36.6 38" stroke="#4EC3A7"/>
+    <path d="M43.5 20 L50.5 32 L43.5 44" stroke="#FFFFFF"/>
+  </g>
 </svg>
