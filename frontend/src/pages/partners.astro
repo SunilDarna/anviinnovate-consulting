@@ -1,0 +1,47 @@
+---
+import Base from "../layouts/Base.astro";
+import { commercials } from "../data/site.js";
+---
+<Base title="Partner network — Anvi Innovate" description="Join the Anvi Innovate partner network: put your AI-capable engineers in front of clients hiring now.">
+  <span class="pill">For partners</span>
+  <h1>Put your engineers in front of the work</h1>
+  <p class="muted" style="font-size:1.1rem; max-width:82ch;">
+    We bring the requirements and run the process. You bring engineers who can do the work. Your people
+    stay on your payroll — we are not trying to take them off you.
+  </p>
+
+  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:26px;">
+    {[
+      ["You keep the employment","Your engineers remain your employees. We introduce and manage the client process."],
+      ["Revenue share on placement","You are paid out of the commission on every placement we close together."],
+      ["Real requirements, not a job board","You see open requirements with tier, headcount and engagement, and submit directly."],
+    ].map(([t,d]) => (
+      <div class="card"><h3 style="margin:.1em 0 .3em; font-size:1.05rem;">{t}</h3><p class="muted" style="margin:0; font-size:14px;">{d}</p></div>
+    ))}
+  </div>
+
+  <section style="margin-top:40px;">
+    <h2>How it works</h2>
+    <div class="grid" style="grid-template-columns:repeat(4,1fr); margin-top:12px;">
+      {[
+        ["1","Join","We verify your firm and switch your account to partner access."],
+        ["2","Add engineers","Name, experience, skills, assessment score and notice period."],
+        ["3","Submit","Against any open requirement, in one click from the portal."],
+        ["4","Get paid","Revenue share on placement, tracked in your portal."],
+      ].map(([n,t,d]) => (
+        <div class="card"><strong>{n}</strong><h3 style="margin:.4em 0 .2em; font-size:1rem;">{t}</h3><p class="muted" style="margin:0; font-size:14px;">{d}</p></div>
+      ))}
+    </div>
+  </section>
+
+  <section class="card" style="margin-top:36px;">
+    <h2 style="margin-top:0;">What we look for</h2>
+    <ul class="muted" style="padding-left:18px; margin-bottom:0; font-size:14.5px; line-height:1.9;">
+      {commercials.partnerCriteria.map((x) => <li>{x}</li>)}
+    </ul>
+    <p style="margin-top:18px;">
+      <a class="btn btn-primary" href="mailto:hello@anviinnovate.com?subject=Partner%20network%20enquiry">Apply to join</a>
+      <a class="btn btn-ghost" href="/login" style="margin-left:8px;">Partner sign in</a>
+    </p>
+  </section>
+</Base>

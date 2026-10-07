@@ -1,8 +1,8 @@
 ---
 import Base from "../layouts/Base.astro";
-import AccountDashboard from "../components/AccountDashboard.jsx";
+import Portal from "../components/Portal.jsx";
 ---
-<Base title="Your account — Anvi Innovate" description="Your Anvi Innovate account: company profile and your hiring demands.">
+<Base title="Your account — Anvi Innovate" description="Raise requirements, track submissions and manage placements." wide={true}>
   <h1>Your account</h1>
-  <AccountDashboard client:only="react" />
+  <Portal client:only="react" />
 </Base>

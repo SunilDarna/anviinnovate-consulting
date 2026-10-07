@@ -1,0 +1,57 @@
+---
+import Base from "../layouts/Base.astro";
+import { commercials } from "../data/site.js";
+---
+<Base title="Commercials — Anvi Innovate" description="How Anvi Innovate charges: commission on placement, what is included, and what is not.">
+  <span class="pill">Commercials</span>
+  <h1>How we charge</h1>
+  <p class="muted" style="font-size:1.1rem; max-width:82ch;">
+    We are paid when you hire, not before. There is no retainer, no subscription and no charge for
+    shortlists you do not use.
+  </p>
+
+  <section style="margin-top:28px;">
+    <h2>Commission on placement</h2>
+    <div class="tw" style="margin-top:12px;"><table>
+      <thead><tr><th>Band</th><th>Experience</th><th>Commission</th><th>Payable</th></tr></thead>
+      <tbody>{commercials.bands.map((b) => (
+        <tr><td><strong>{b.band}</strong></td><td>{b.years}</td><td>{b.pct}</td><td class="muted">{b.payable}</td></tr>
+      ))}</tbody>
+    </table></div>
+    <p class="muted" style="font-size:13.5px; margin-top:10px;">
+      Commission is a percentage of the engineer's annual CTC. GST at 18% applies on the commission.
+      Contract engagements are quoted per month against the same bands — ask and we will model it for your role.
+    </p>
+  </section>
+
+  <section style="margin-top:36px;">
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card">
+        <h3 style="margin-top:0;">What is included</h3>
+        <ul class="muted" style="padding-left:18px; margin-bottom:0; font-size:14px; line-height:1.9;">
+          {commercials.included.map((x) => <li>{x}</li>)}
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0;">What we do not do</h3>
+        <ul class="muted" style="padding-left:18px; margin-bottom:0; font-size:14px; line-height:1.9;">
+          {commercials.excluded.map((x) => <li>{x}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top:36px; max-width:84ch;">
+    <h2>How the engagement is structured</h2>
+    <p class="muted" style="font-size:14.5px;">
+      Engineers are employed by our partner network, not by us. We introduce, assess and manage the
+      process; the employment relationship sits with the partner or with you, depending on the model you
+      choose. That keeps the arrangement simple and means you are not paying a margin on someone else's payroll.
+    </p>
+    <p style="margin-top:20px;">
+      <a class="btn btn-primary" href="/clients">Raise a requirement</a>
+      <a class="btn btn-ghost" href="/commitments" style="margin-left:8px;">Our commitments</a>
+      <a class="btn btn-ghost" href="/vendor" style="margin-left:8px;">Vendor pack</a>
+    </p>
+  </section>
+</Base>

@@ -150,3 +150,35 @@ export const vendorDocs = [
   { doc: "DPDP-aligned privacy & data-handling policy",     ready: false },
 ];
 export const vendorReadyCount = vendorDocs.filter((d) => d.ready).length;
+
+// ── COMMERCIALS ──────────────────────────────────────────────────────────────
+// Commission model, not margin-on-billing. We do not employ the engineers, so
+// there is no payroll float and no bench cost — we are paid on placement.
+// Band percentages follow prevailing Indian recruitment practice; confirm your
+// own before quoting (typical market: 8.33-12.5% junior/mid, 15-20% senior).
+export const commercials = {
+  bands: [
+    { band: "Trained engineer",          years: "0-2 years",  pct: "8.33%", payable: "On joining" },
+    { band: "Forward Deployed Engineer", years: "2-6 years",  pct: "12.5%", payable: "On joining" },
+    { band: "Senior / lead",             years: "6+ years",   pct: "16.67%", payable: "On joining" },
+  ],
+  included: [
+    "Sourcing and shortlisting from the trained bench and partner network",
+    "Assessment score and work sample attached to every profile",
+    "Interview scheduling and coordination",
+    "Offer and joining follow-through",
+    "Replacement within the agreed window, at no further commission",
+  ],
+  excluded: [
+    "No retainer and no subscription — you pay on placement only",
+    "No charge for shortlists you do not progress",
+    "We do not run payroll for deployed engineers",
+    "We do not mark up anyone else's salary",
+  ],
+  partnerCriteria: [
+    "A registered firm with engineers on your own payroll",
+    "Engineers with demonstrable production AI work, not only certifications",
+    "Willingness to have candidates assessed before submission",
+    "Responsiveness — the requirement closes whether or not you reply",
+  ],
+};

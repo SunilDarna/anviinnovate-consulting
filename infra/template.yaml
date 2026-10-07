@@ -5,6 +5,10 @@ Description: >
   HTTP API + Lambdas, DynamoDB single table, and SES domain identity (DKIM/SPF/DMARC).
 
 Parameters:
+  AdminEmails:
+    Type: String
+    Default: darnasunil@gmail.com
+    Description: Comma-separated emails granted the admin role in the portal.
   GoogleClientId:
     Type: String
     Default: "736690706364-54tc00o4sdod1d02vdalqc9slpa67ao5.apps.googleusercontent.com"
@@ -177,6 +181,22 @@ Resources:
         - SSMParameterReadPolicy: { ParameterName: anviinnovate/auth/session_jwt_secret }
       Events:
         Post: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /profile, Method: POST } }
+
+  # Portal API — one function, internal routing. Covers requirements,
+  # engineers, submissions, placements/commission and the admin console.
+  PortalFn:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../backend/
+      Handler: src/portal/index.handler
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref Table
+          ADMIN_EMAILS: !Ref AdminEmails
+      Policies:
+        - DynamoDBCrudPolicy: { TableName: !Ref Table }
+      Events:
+        Any: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: "/portal/{proxy+}", Method: ANY } }
 
   ClientLeadUpdateFn:
     Type: AWS::Serverless::Function
