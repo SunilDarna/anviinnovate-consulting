@@ -3,15 +3,16 @@ import Base from "../layouts/Base.astro";
 
 const groups = [
   { h: "Hiring", items: [
-    ["How do I hire talent?", "Submit the hiring request with your role, resource count, location and timeline. We reply within one business day to match trained, ready talent."],
-    ["How quickly can talent be deployed?", "We keep pre-trained, screened talent ready, so deployment is typically a matter of days rather than months."],
-    ["What skills do you cover?", "Applied AI and GenAI — data annotation, RLHF, RAG, model fine-tuning, prompt engineering, and core ML."],
+    ["Do I interview before anyone starts?", "Always. We shortlist; you interview and decide. Nobody joins your team without your yes."],
+    ["How do I hire engineers?", "Submit the hiring request with your role, headcount, location and timeline. We reply within one business day and shortlist from the trained bench, with assessment scores and work samples attached."],
+    ["How quickly can someone start?", "We shortlist quickly because the bench is already trained and assessed. The start date is set by your own interview and clearance process, not by us — we will not quote a date we do not control."],
+    ["What do you place?", "Forward Deployed AI Engineers (2-6 years, AI-native) leading on AI/ML engineering, data and AI platform engineering, and AI evaluation and reliability. Assessed early-career engineers deploy in a pod under an FDE. Other tracks are built to order against a confirmed requirement."],
     ["What engagement models do you offer?", "Contract staffing, contract-to-hire (C2H), and hire-train-deploy for volume roles. We quote rates per engagement and share the commercial structure up front."],
-    ["Is there a replacement guarantee?", "Yes — we offer a replacement window for deployed resources. Terms are confirmed in your engagement agreement."],
-    ["How is your talent trained?", "Through our own Applied-AI training program — role-based tracks built from 200+ evidenced, real-world use cases, with hands-on labs — and screened for readiness before deployment."],
+    ["Is there a replacement guarantee?", "Yes. Our standard replacement terms are being finalised in our contract templates; ask and we will send the draft terms with the proposal rather than publish a commitment we have not yet signed. See /commitments."],
+    ["How are your engineers trained?", "On documented production failures rather than tutorials. The curriculum is built from 109 verified production case studies across 68 companies, each retrieved from a primary engineering source and fact-checked. Engineers complete 102 mandatory hands-on scenarios, and Forward Deployed Engineers complete a 33-hour assessed track ending in a scored exam."],
   ]},
   { h: "Working with us", items: [
-    ["Are you an employer or an intermediary?", "We operate a hire-train-deploy and staffing model. Statutory responsibilities are set out in each client and associate agreement."],
+    ["Are you an employer or an intermediary?", "We operate a hire-train-deploy and staffing model, and we employ the engineers we deploy. Statutory contributions for deployed engineers are ours. The split of responsibilities is set out in each client and associate agreement."],
     ["How do you handle client and project data?", "Data handling, confidentiality and access controls are covered in a mutual NDA offered before engagement. Email hello@anviinnovate.com for our data-handling summary."],
     ["How do I reach you?", "For any query or feedback, email hello@anviinnovate.com. We reply within one business day."],
   ]},
@@ -26,7 +27,7 @@ const faqLd = {
   }))),
 };
 ---
-<Base title="FAQ — Anvi Innovate" description="Answers for clients: how to hire on-demand AI/ML talent, deployment speed, engagement models, replacement guarantee, and data handling.">
+<Base title="FAQ — Anvi Innovate" description="Answers for clients: hiring Forward Deployed AI Engineers, how engineers are trained and assessed, engagement models, replacement terms and data handling.">
   <h1>Frequently asked questions</h1>
   {groups.map((g) => (
     <section style="margin-top:24px;">

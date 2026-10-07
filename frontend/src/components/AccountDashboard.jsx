@@ -33,7 +33,7 @@ export default function AccountDashboard() {
           <a className="btn btn-primary" href="/clients">New demand</a>
         </div>
         {data.leads.length === 0 ? (
-          <p className="muted" style={{ marginBottom: 0 }}>You haven't submitted any hiring demands yet. <a href="/clients">Request talent →</a></p>
+          <p className="muted" style={{ marginBottom: 0 }}>You haven't submitted any hiring demands yet. <a href="/clients">Request engineers →</a></p>
         ) : (
           <div style={{ display: "grid", gap: 12, marginTop: 14 }}>
             {data.leads.map((l) => <LeadRow key={l.leadId} lead={l} />)}

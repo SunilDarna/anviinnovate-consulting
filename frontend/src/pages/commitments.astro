@@ -1,0 +1,54 @@
+---
+import Base from "../layouts/Base.astro";
+import { commitments } from "../data/site.js";
+---
+<Base title="Our commitments — Anvi Innovate"
+  description="What Anvi Innovate commits to contractually: shortlist timing, replacement terms, a paid trial, and what we will not claim.">
+  <span class="pill">Commitments</span>
+  <h1>What we commit to</h1>
+  <p class="muted" style="font-size:1.1rem; max-width:80ch;">
+    Speed claims are easy to make and impossible to check. These are the terms we are willing to put in
+    a contract instead.
+  </p>
+
+  {commitments.published ? (
+    <div class="grid" style="grid-template-columns:repeat(2,1fr); margin-top:22px;">
+      {[
+        [`${commitments.shortlistHours} hours`, "to shortlist", "Profiles with assessment scores and work samples, from the trained bench, after a confirmed brief."],
+        [`${commitments.replacementDays} working days`, "to replace, at no charge", `If an engineer is not performing in the first ${commitments.guaranteeWeeks} weeks, we replace them and you are not billed for the overlap.`],
+        [`${commitments.trialDays} days`, "paid trial, scoped in advance", "One engineer, a defined deliverable agreed up front, priced at or below our cost."],
+        ["Your interview", "always", "Nobody joins your team without you meeting them and saying yes."],
+      ].map(([n,l,d]) => (
+        <div class="card">
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:1.6rem; font-weight:700; color:var(--ink);">{n}</div>
+          <p style="margin:.2em 0 .5em; font-weight:600; font-size:14px;">{l}</p>
+          <p class="muted" style="margin:0; font-size:14px;">{d}</p>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div class="card" style="margin-top:22px; border-left:4px solid var(--accent);">
+      <h2 style="margin-top:0; font-size:1.15rem;">Being finalised in our contract templates</h2>
+      <p class="muted" style="font-size:14.5px;">
+        We would rather publish nothing than publish a commitment we have not yet put into a signed
+        agreement. Our standard terms — shortlist timing, a free-replacement window and a paid scoped
+        trial — are being finalised with counsel now.
+      </p>
+      <p class="muted" style="font-size:14.5px;">
+        If you are evaluating us before then, ask for them directly and we will send the draft terms
+        with the proposal. One thing is already firm: <strong>you interview every engineer before they
+        start, and nobody joins your team without your yes.</strong>
+      </p>
+      <p style="margin-top:14px;"><a class="btn btn-primary" href="/clients">Request engineers</a></p>
+    </div>
+  )}
+
+  <section style="margin-top:44px; max-width:84ch;">
+    <h2>What we will not claim</h2>
+    <ul class="muted" style="font-size:14.5px; line-height:1.9;">
+      <li><strong>We will not tell you an engineer is senior when they are not.</strong> Every profile states the band and the assessment score.</li>
+      <li><strong>We will not quote a deployment time we cannot hold.</strong> Your interview and clearance process sets the real date, not us.</li>
+      <li><strong>We will not publish a metric we cannot evidence.</strong> If a number is on this site, we will show you how it was measured.</li>
+    </ul>
+  </section>
+</Base>

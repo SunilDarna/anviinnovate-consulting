@@ -1,0 +1,51 @@
+---
+import Base from "../layouts/Base.astro";
+import { vendorDocs, vendorReadyCount } from "../data/site.js";
+---
+<Base title="Vendor & compliance — Anvi Innovate"
+  description="Procurement and compliance documentation for empanelling Anvi Innovate as a staffing vendor.">
+  <span class="pill">For procurement</span>
+  <h1>Vendor &amp; compliance pack</h1>
+  <p class="muted" style="font-size:1.1rem; max-width:82ch;">
+    If you are empanelling us, this is the documentation we provide. Ask and we will send the current
+    set as a single pack — we would rather you have it before the first call than halfway through
+    onboarding.
+  </p>
+
+  <section style="margin-top:26px;">
+    <h2>Documentation we supply</h2>
+    <div class="card" style="margin-top:12px;">
+      {vendorDocs.map((d) => (
+        <div style="display:flex; gap:12px; align-items:baseline; padding:8px 0; border-bottom:1px solid var(--border); font-size:14.5px;">
+          <span style="color:var(--muted); min-width:14px;">{d.ready ? "✓" : "·"}</span>
+          <span>{d.doc}</span>
+        </div>
+      ))}
+    </div>
+    {vendorReadyCount === 0 && (
+      <p class="muted" style="font-size:13.5px; margin-top:10px;">
+        Registrations are in progress. Email <a href="mailto:hello@anviinnovate.com">hello@anviinnovate.com</a>
+        for the current status of any specific document and we will tell you plainly what we do and do not yet hold.
+      </p>
+    )}
+  </section>
+
+  <section style="margin-top:40px; max-width:84ch;">
+    <h2>How we engage</h2>
+    <p class="muted" style="font-size:14.5px;">
+      We contract under a master services agreement with a per-role statement of work. Rates are quoted
+      per engineer per month against a named band, with the assessment score attached to every profile.
+      Statutory contributions for deployed engineers are ours, not yours.
+    </p>
+    <h2 style="margin-top:28px;">Data handling</h2>
+    <p class="muted" style="font-size:14.5px;">
+      Candidate and client data is handled under our privacy policy, aligned to the Digital Personal Data
+      Protection Act. We do not share client requirements outside the engagement, and candidate data is
+      retained only as long as the engagement requires.
+    </p>
+    <p style="margin-top:22px;">
+      <a class="btn btn-primary" href="/clients">Request engineers</a>
+      <a class="btn btn-ghost" href="mailto:hello@anviinnovate.com" style="margin-left:8px;">Request the pack</a>
+    </p>
+  </section>
+</Base>

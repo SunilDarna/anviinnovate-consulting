@@ -1,17 +1,53 @@
 ---
 import Base from "../layouts/Base.astro";
+import { buyerContext, tiers, proof } from "../data/site.js";
 ---
-<Base title="About — Anvi Innovate" description="Anvi Innovate is an AI/ML talent company: we train and deploy fresh AI, ML and GenAI talent to teams building real AI products.">
+<Base title="About — Anvi Innovate"
+  description="Anvi Innovate supplies Forward Deployed AI Engineers and assessed early-career engineers to teams building production AI across India.">
   <span class="pill">About</span>
-  <h1>The skilled human layer behind AI</h1>
-  <div style="max-width:760px;">
+  <h1>Production AI needs engineers who have seen it break</h1>
+  <div style="max-width:780px;">
     <p class="muted" style="font-size:1.1rem;">
-      Anvi Innovate is a resource-centric AI/ML talent company. We train people in modern AI and Generative AI, screen them for aptitude, and deploy deployment-ready talent to teams building real AI products.
+      Anvi Innovate supplies the engineers who take AI systems from a working demo to something a
+      business can actually depend on. We train them on documented production failures, assess them
+      against that, and place them inside client teams.
     </p>
+
     <h2>The model</h2>
-    <p class="muted">You tell us your demand; we supply trained, ready AI/ML resources — contract staffing, contract-to-hire, or hire-train-deploy. Our talent is trained in modern AI, ML and GenAI and screened for readiness before deployment.</p>
-    <h2>The market gap</h2>
-    <p class="muted">The global AI training dataset market is projected to reach <strong>USD 8.60 billion by 2030</strong> at a <strong>21.9% CAGR</strong> (Grand View Research). The bottleneck isn't compute — it's skilled, reliable people. That's what we build and deploy.</p>
-    <p class="muted">Our talent is trained through our own Applied-AI program, built from 200+ evidenced, real-world use cases.</p>
+    <p class="muted">
+      Two tiers, named honestly. <strong>{tiers[0].name}</strong> are experienced, AI-native engineers who
+      own a system end to end — roughly half full-stack systems work, a third applied AI, and the rest
+      advising the client. <strong>{tiers[1].name}</strong> are graduates and career-switchers who have
+      completed the same curriculum and passed the same assessment, deployed in a pod under an FDE rather
+      than dropped into a team alone.
+    </p>
+    <p class="muted">
+      You interview every person before they start. We do not place anyone you have not met.
+    </p>
+
+    <h2>Why this, and why now</h2>
+    <p class="muted">
+      Global capability centres have become the dominant buyer of contract engineering talent in India —
+      <strong>{buyerContext.gccShare}</strong> of professional staffing headcount at the market leader
+      ({buyerContext.gccSrc}). Their constraint is not headcount. It is finding engineers who can be
+      trusted with a retrieval system, an agent or an evaluation harness in front of real users.
+      Most training stops at the tutorial. Ours starts at the incident report.
+    </p>
+
+    <h2>How the training is built</h2>
+    <p class="muted">
+      The curriculum is assembled from <strong>{proof.caseStudies} verified production case studies</strong>
+      across <strong>{proof.organisations} companies</strong> — engineering blogs, published postmortems,
+      applied research and regulatory findings. Every case was retrieved from a primary source and
+      fact-checked before it was taught, and each one names what the team tried first, what regressed and
+      what it cost. Engineers work <strong>{proof.scenarios} mandatory hands-on scenarios</strong> drawn
+      from those failures before they are put in front of a client.
+    </p>
+
+    <h2>Where we work</h2>
+    <p class="muted">
+      We work with teams across India — product companies, enterprises and the global capability centres
+      building their AI capacity here — and we support engagements outside India where the delivery model fits.
+    </p>
   </div>
 </Base>

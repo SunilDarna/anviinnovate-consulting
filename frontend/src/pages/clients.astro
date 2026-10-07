@@ -1,39 +1,57 @@
 ---
 import Base from "../layouts/Base.astro";
 import ClientForm from "../components/ClientForm.jsx";
+import { tiers, proof, fdeTrack } from "../data/site.js";
+const [fde, trained] = tiers;
 ---
-<Base title="Hire on-demand AI/ML talent — Anvi Innovate"
-  description="On-demand, trained AI/ML, GenAI and Applied AI talent — assessed fresh graduates ready for immediate deployment. Contract staffing, contract-to-hire and hire-train-deploy.">
-  <span class="pill">Talent on demand</span>
-  <h1>On-demand AI/ML talent, ready for immediate deployment</h1>
-  <p class="muted" style="font-size:1.15rem; max-width:740px;">
-    We have trained AI, ML, GenAI and Applied-AI fresh graduates available for immediate deployment. Tell us your requirement — skills, number of resources, and timeline — and we'll place ready talent on your team in days.
+<Base title="Hire Forward Deployed AI Engineers — Anvi Innovate"
+  description="Hire AI-native Forward Deployed Engineers who take AI systems to production inside your team, plus assessed early-career engineers for volume programmes.">
+  <span class="pill">Hire engineers</span>
+  <h1>Engineers who can be trusted with AI in production</h1>
+  <p class="muted" style="font-size:1.15rem; max-width:760px;">
+    Tell us the role, the headcount and the timeline. We shortlist from a trained bench with assessment
+    scores and work samples attached, so you can judge before you meet anyone — and you interview every
+    person before they start.
   </p>
 
   <div class="grid" style="grid-template-columns:1.2fr 1fr; align-items:start; margin-top:28px;">
     <ClientForm client:load />
     <div>
       <div class="card">
-        <h3 style="margin-top:0;">Why teams choose us</h3>
-        <ul class="muted" style="padding-left:18px; margin-bottom:0;">
-          <li><strong>Immediate deployment</strong> — pre-trained, screened talent, onboarded in days.</li>
-          <li><strong>Applied AI &amp; GenAI</strong> — RAG, RLHF, fine-tuning, annotation, prompt engineering.</li>
-          <li><strong>Fresh, motivated talent</strong> — freshers and career-switchers, screened for aptitude.</li>
-          <li><strong>Flexible engagement</strong> — contract staffing, contract-to-hire, hire-train-deploy.</li>
-        </ul>
+        <h3 style="margin-top:0;">What you can hire</h3>
+        <p style="margin:.4em 0 .2em; font-weight:600; font-size:14.5px;">{fde.name} <span class="muted" style="font-weight:400;">· {fde.band}</span></p>
+        <p class="muted" style="margin:0 0 .8em; font-size:14px;">{fde.desc}</p>
+        <p style="margin:.4em 0 .2em; font-weight:600; font-size:14.5px;">{trained.name} <span class="muted" style="font-weight:400;">· {trained.band}</span></p>
+        <p class="muted" style="margin:0; font-size:14px;">{trained.desc}</p>
       </div>
+
       <div class="card" style="margin-top:16px;">
         <h3 style="margin-top:0;">How it works</h3>
         <ol class="muted" style="padding-left:18px; margin-bottom:0;">
-          <li>Tell us your need — this form takes a minute.</li>
-          <li>We match ready, trained talent to your requirement.</li>
-          <li>Deploy and scale up or down on your terms.</li>
+          <li>Tell us the role — this form takes about a minute.</li>
+          <li>We shortlist, with assessment scores and work samples attached.</li>
+          <li>You interview and decide. Onboarding follows your clearance process.</li>
         </ol>
       </div>
+
       <div class="card" style="margin-top:16px;">
-        <h3 style="margin-top:0;">Trained on 200+ real use cases</h3>
-        <p class="muted" style="margin-bottom:8px;">Our talent is trained on role-based tracks built from 200+ evidenced, real-world use cases — task-level playbooks and hands-on labs across Software, Data, ML/AI, DevOps, Security and Cloud.</p>
-        <p class="muted" style="margin:0; font-size:13px;">RAG · fine-tuning · agents &amp; MCP · evals · vector search · responsible AI</p>
+        <h3 style="margin-top:0;">What the training is made of</h3>
+        <p class="muted" style="margin-bottom:8px; font-size:14px;">
+          Built from <strong>{proof.caseStudies} verified production case studies</strong> across
+          <strong>{proof.organisations} companies</strong> — real engineering accounts of what shipped,
+          what was measured and what broke. Engineers work <strong>{proof.scenarios} mandatory
+          hands-on scenarios</strong> before deployment, and FDEs complete
+          <strong>{fdeTrack.totalHours} assessed hours</strong> ending in a scored exam.
+        </p>
+        <p class="muted" style="margin:0; font-size:13px;">RAG &amp; hybrid retrieval · agents &amp; MCP · evals &amp; LLM-as-judge · fine-tuning · vector search · observability · responsible AI</p>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3 style="margin-top:0;">Before you commit</h3>
+        <p class="muted" style="margin:0; font-size:14px;">
+          See <a href="/commitments">what we commit to</a>, or ask for the
+          <a href="/vendor">vendor &amp; compliance pack</a> if you are empanelling us.
+        </p>
       </div>
     </div>
   </div>

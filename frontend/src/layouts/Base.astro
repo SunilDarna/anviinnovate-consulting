@@ -8,10 +8,10 @@ const {
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, "https://anviinnovate.com").href;
 const nav = [
-  { href: "/clients", label: "Hire talent" },
+  { href: "/clients", label: "Hire engineers" },
   { href: "/services/hire-train-deploy", label: "Services" },
+  { href: "/commitments", label: "Commitments" },
   { href: "/about", label: "About" },
-  { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
 ];
 ---
@@ -113,7 +113,7 @@ const nav = [
       <a class="logo" href="/"><img src="/favicon.svg" width="24" height="24" alt="" /> Anvi Innovate</a>
       <nav class="links">
         {nav.map((n) => <a class="link" href={n.href}>{n.label}</a>)}
-        <a class="btn btn-primary" href="/clients">Request talent</a>
+        <a class="btn btn-primary" href="/clients">Request engineers</a>
         <AuthStatus client:idle />
       </nav>
       <button id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
@@ -122,7 +122,7 @@ const nav = [
     </header>
     <nav id="mobileNav" aria-label="Mobile">
       {nav.map((n) => <a href={n.href}>{n.label}</a>)}
-      <a class="btn btn-primary" href="/clients">Request talent</a>
+      <a class="btn btn-primary" href="/clients">Request engineers</a>
     </nav>
     <main>
       <slot />
@@ -132,13 +132,13 @@ const nav = [
         <div>
           <h4>Anvi Innovate</h4>
           AI/ML talent — trained, assessed, deployed.<br/>
-          Hyderabad, Telangana, India<br/>
+          India<br/>
           <a href="mailto:hello@anviinnovate.com">hello@anviinnovate.com</a>
           <!-- TODO (needs real values): registered entity name, CIN, GST, registered office address -->
         </div>
         <div>
           <h4>Hire talent</h4>
-          <a href="/clients">Request talent</a><br/>
+          <a href="/clients">Request engineers</a><br/>
           <a href="/services/hire-train-deploy">Engagement models</a><br/>
           <a href="/faq">FAQ</a>
         </div>
